@@ -1,0 +1,22 @@
+====== WAVEFRAMEWORK ======
+
+This wave generation and absorption framework is initially developed by
+Niels G. Jacobsen from the Technical University of Denmark. The method
+and its validation has been published in
+
+@article { jacobsenFuhrmanFredsoe2011,
+    Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
+    title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
+    Journal = {{Int. J. for Numer. Meth. Fluids}},
+    Year = {2011},
+    Volume = {In print},
+    Pages = {},
+}
+
+Please make proper reference to this article, when the work is used.
+
+---------------------------
+Other contributions are kindly accepted received from:
+
+Bo Terp Paulsen, Technical University of Denmark
+Bjarne Jensen, Technical University of Denmark

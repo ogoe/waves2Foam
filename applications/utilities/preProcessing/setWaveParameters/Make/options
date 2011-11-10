@@ -1,0 +1,13 @@
+EXE_INC = \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I./../../../../src/lnInclude \
+    -I./../../../../src/lnInclude \
+    -I/usr/local/include \
+    -I/include
+
+EXE_LIBS = \
+    -lfiniteVolume \
+    -lgsl \
+    -lgslcblas \
+    -lwaves2Foam

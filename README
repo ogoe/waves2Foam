@@ -1,0 +1,31 @@
+===== INSTALLATION =====
+
+1. Make sure that Gnu Scientific Library is installed, e.g. using the Package Manager system
+   Examples (from http://lavandula.imim.es/adun-new/?page_id=186)
+
+   Ubuntu: sudo apt-get install libgsl0-dev
+   Fedora: sudo yum install gsl-devel
+   Suse:   sudo zypper install gsl-devel
+
+2. Type './Allwmake' in the command line
+
+===== DOCUMENTATION =====
+
+The following paper describes the implementation of boundary conditions, the relaxation zones 
+and the framework for relaxationShapes:
+
+@article { jacobsenFuhrmanFredsoe2011,
+    Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
+    title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
+    Journal = {{Int. J. for Numer. Meth. Fluids}},
+    Year = {2011},
+    Volume = {In print},
+    Pages = {},
+}
+
+Please make prober referencing to it, when using the toolbox. This part of the README will be
+updated as soon as DOI or full referencing is available.
+
+Furthermore, users are referred to:
+
+http://openfoamwiki.net/index.php/Contrib/waves2Foam

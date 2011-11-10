@@ -1,0 +1,7 @@
+#!/bin/bash
+
+version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/' | grep "[0-9]" | tr -d '\n'`
+export WM_PROJECT_VERSION_NUMBER=$version
+
+wmake libso
+

@@ -1,0 +1,118 @@
+/* METHODS FOR CUTTING OF CONVEX FACES AND CELLS */
+convex=convexPolyhedral
+$(convex)/convexPolyhedral.C
+$(convex)/localFace.C
+$(convex)/localCell.C
+$(convex)/localCellNeg.C
+
+/* ABSTRACT BASE CLASS FOR IMPLEMENTATION OF WAVE THEORIES */
+waveTheories=waveTheories
+waveTheory=waveTheory
+
+$(waveTheories)/$(waveTheory)/waveTheory.C
+$(waveTheories)/$(waveTheory)/newWaveTheory.C
+
+/* WAVE THEORIES */
+
+/* Current type */
+current=current
+$(waveTheories)/$(current)/potentialCurrent/potentialCurrent.C
+
+/* Solitary type */
+solitary=solitary
+$(waveTheories)/$(solitary)/solitaryFirst/solitaryFirst.C
+
+/* Regular wave theories */
+regular=regular
+
+/* Stokes Theory */
+$(waveTheories)/$(regular)/stokesFirst/stokesFirst.C
+$(waveTheories)/$(regular)/stokesFirstStanding/stokesFirstStanding.C
+$(waveTheories)/$(regular)/stokesSecond/stokesSecond.C
+$(waveTheories)/$(regular)/stokesFifth/stokesFifth.C
+
+/* Cnoidal Theory */
+$(waveTheories)/$(regular)/cnoidalFirst/cnoidalFirst.C
+
+/* Streamfunction Theory */
+$(waveTheories)/$(regular)/streamFunction/streamFunction.C
+
+/* Irregular wave theories */
+irregular=irregular
+$(waveTheories)/$(irregular)/bichromaticFirst/bichromaticFirst.C
+
+/* Mixed type wave theories */
+mixedType=mixedType
+$(waveTheories)/$(mixedType)/combinedWaves/combinedWaves.C
+
+/* SET WAVE PROPERTIES */
+waveProp=setWaveProperties
+$(waveProp)/setWaveProperties.C
+
+/* Current type */
+$(waveProp)/$(current)/potentialCurrentProperties/potentialCurrentProperties.C
+
+/* Solitary type */
+$(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
+
+/* Stokes theories */
+$(waveProp)/$(regular)/stokesFirstProperties/stokesFirstProperties.C
+$(waveProp)/$(regular)/stokesFirstStandingProperties/stokesFirstStandingProperties.C
+$(waveProp)/$(regular)/stokesSecondProperties/stokesSecondProperties.C
+$(waveProp)/$(regular)/stokesFifthProperties/stokesFifthProperties.C
+
+/* Cnoidal Theory */
+$(waveProp)/$(regular)/cnoidalFirstProperties/cnoidalFirstProperties.C
+
+/* Streamfunction Theory */
+$(waveProp)/$(regular)/streamFunctionProperties/streamFunctionProperties.C
+
+/* Irregular wave theories */
+$(waveProp)/$(irregular)/bichromaticFirstProperties/bichromaticFirstProperties.C
+
+/* Mixed type wave theories */
+$(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
+
+/* WAVE BOUNDARY CONDITIONS */ 
+fvPatchFields=fvPatchFields
+$(fvPatchFields)/waveAlpha/waveAlphaFvPatchScalarField.C
+$(fvPatchFields)/wavePressure/wavePressureFvPatchScalarField.C
+$(fvPatchFields)/waveVelocity/waveVelocityFvPatchVectorField.C
+
+/* INITIALIZATION */
+setWaveField/setWaveField.C
+
+/* RELAXATION METHOD */
+relaxMethod=relaxationZone
+
+/* Relaxation Shapes */
+relaxShape=relaxationShape
+
+$(relaxMethod)/$(relaxShape)/relaxationShape.C
+$(relaxMethod)/$(relaxShape)/newRelaxationShape.C
+
+$(relaxMethod)/$(relaxShape)/rectangular/relaxationShapeRectangular.C
+$(relaxMethod)/$(relaxShape)/cylindrical/relaxationShapeCylindrical.C
+
+/* Relaxation Schemes */
+relaxScheme=relaxationScheme
+
+$(relaxMethod)/$(relaxScheme)/relaxationScheme.C
+$(relaxMethod)/$(relaxScheme)/newRelaxationScheme.C
+
+$(relaxMethod)/$(relaxScheme)/empty/relaxationSchemeEmpty.C
+$(relaxMethod)/$(relaxScheme)/spatial/relaxationSchemeSpatial.C
+
+/* Numerical Beaches */
+numericalBeach=numericalBeach
+
+$(relaxMethod)/$(numericalBeach)/numericalBeach.C
+$(relaxMethod)/$(numericalBeach)/newNumericalBeach.C
+
+$(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
+
+/* Relaxation Zone */
+$(relaxMethod)/relaxationZone.C
+
+/* OUTPUT */
+LIB = $(FOAM_LIBBIN)/libwaves2Foam

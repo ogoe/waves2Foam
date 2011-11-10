@@ -1,0 +1,3 @@
+setWaveParameters.C
+
+EXE = $(FOAM_APPBIN)/setWaveParameters

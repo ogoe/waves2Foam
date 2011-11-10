@@ -1,0 +1,3 @@
+setWaveField.C
+
+EXE = $(FOAM_APPBIN)/setWaveField

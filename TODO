@@ -1,0 +1,3 @@
+- Get the projection of the pressure gradient correct
+
+- Not all wave theories have had dpdx implemented

@@ -1,0 +1,98 @@
+/*---------------------------------------------------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.4                                   |
+|   \\  /    A nd           | Web:      http://www.openfoam.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+
+FoamFile
+{
+    version         2.0;
+    format          ascii;
+
+    root            "";
+    case            "";
+    instance        "";
+    local           "";
+
+    class           dictionary;
+    object          environmentalProperties;
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+gravity         gravity [0 1 -2 0 0 0 0] (0 0 -9.81);
+
+seaLevel	0.0;
+
+relaxationNames      (rectangular0 rectangular1 rectangular2 rectangular3 cylindrical);
+
+rectangular0Coeffs
+{
+    relaxationZone
+    {
+        relaxationShape Rectangular;
+
+        relaxType   INLET;
+        startX      (0 0 0);
+        endX        (10 10 0);
+        orientation (1 0 0);
+    }
+}
+
+rectangular1Coeffs
+{
+    relaxationZone
+    {
+        relaxationShape Rectangular;
+
+        relaxType   OUTLET;
+        startX      (90 0 0);
+        endX        (100 10 0);
+        orientation (1 0 0);
+    }
+}
+
+rectangular2Coeffs
+{
+    relaxationZone
+    {
+        relaxationShape Rectangular;
+
+        relaxType   OUTLET;
+        startX      (0 90 0);
+        endX        (10 100 0);
+        orientation (0 1 0);
+    }
+}
+
+rectangular3Coeffs
+{
+    relaxationZone
+    {
+        relaxationShape Rectangular;
+
+        relaxType   INLET;
+        startX      (90 90 0);
+        endX        (100 100 0);
+        orientation (0 1 0);
+    }
+}
+
+cylindricalCoeffs
+{
+    relaxationZone
+    {
+        relaxationShape Cylindrical;
+    
+        centre   (50 50 0);
+        rInner   15;
+        rOuter   25;
+    }
+}
+
+
+
+
+// ************************************************************************* //

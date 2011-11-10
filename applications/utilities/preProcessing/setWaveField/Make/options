@@ -1,0 +1,8 @@
+EXE_INC = \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -I./../../../../src/lnInclude   
+
+EXE_LIBS = \
+    -lfiniteVolume \
+    -lwaves2Foam
