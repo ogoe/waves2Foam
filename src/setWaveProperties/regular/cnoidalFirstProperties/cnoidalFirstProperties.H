@@ -59,9 +59,11 @@ class cnoidalFirstProperties
 {
 private:
 
-//	scalar period_;
-//	scalar omega_;
-//	scalar depth_;
+	scalar T_;
+	scalar d_;
+	scalar H_;
+
+	double solve( );
 
 public:
 
@@ -81,6 +83,17 @@ public:
 
 };
 
+struct cnoidalFirstParams
+{
+	double depth_;
+	double height_;
+	double period_;
+	double g_;
+};
+
+double lowerMBound_f ( double m, void * params);
+
+double cnoidalFirst_f ( double m, void * params);
 
 
 
