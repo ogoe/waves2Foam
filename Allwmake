@@ -32,15 +32,10 @@ fi
 
 apps="applications"
 
-version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/' | grep "[0-9]" | tr -d '\n'`
+version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/' | grep "[0-9]" | head -2 | tr -d '\n'`
 export WM_PROJECT_VERSION_NUMBER=$version
 
-if [ "$version" = 15 ]
-then 
-    ( cd $apps/solvers/solvers15 && wmake all )
-else
-    ( cd $apps/solvers/solvers   && wmake all )
-fi
+( cd $apps/solvers/solvers$version && wmake all )
 
 # Compilation of utilities
 

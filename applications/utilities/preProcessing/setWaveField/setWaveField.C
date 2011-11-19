@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
     (
         IOobject
         (
-            "pd",
+            word( waveProperties.lookup("pName") ),
             runTime.timeName(),
             mesh,
             IOobject::MUST_READ,

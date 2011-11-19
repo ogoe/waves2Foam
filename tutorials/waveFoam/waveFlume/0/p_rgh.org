@@ -1,9 +1,9 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.7.1                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
-|    \\/     M anipulation  |                                                 |
+|  \\    /   O peration     | Version:  1.5-dev                               |
+|   \\  /    A nd           | Revision: 1740                                  |
+|    \\/     M anipulation  | Web:      http://www.OpenFOAM.org               |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
@@ -11,7 +11,7 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      pd.org;
+    object      p_rgh;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -21,19 +21,7 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inlet0
-    {
-        type            zeroGradient;
-    }
-    inlet1
-    {
-        type            zeroGradient;
-    }
-    inlet2
-    {
-        type            zeroGradient;
-    }
-    outlet
+    inlet
     {
         type            zeroGradient;
     }
@@ -41,18 +29,24 @@ boundaryField
     {
         type            zeroGradient;
     }
-    atmos
+    outlet
+    {
+        type            zeroGradient;
+    }
+    atmosphere
     {
         type            totalPressure;
+        U               U;
+        phi             phi;
         rho             none;
         psi             none;
         gamma           1;
         p0              uniform 0;
         value           uniform 0;
     }
-    internalWall
+    frontBack
     {
-        type            zeroGradient;
+        type            empty;
     }
 }
 

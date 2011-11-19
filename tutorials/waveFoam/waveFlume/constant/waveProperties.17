@@ -16,25 +16,40 @@ FoamFile
 
 timeShift       0.0;
 
-seaLevel	0.01;
+seaLevel	0.00;
 
 // A list of the relaxation zones in the simulation. The parameters are given
 // in <name>Coeffs below.
-relaxationNames (inlet0 inlet1 inlet2 outlet);
+relaxationNames (inlet outlet);
 
 initializationName outlet;
 
-pName pd;
+pName p_rgh;
 
-inlet0Coeffs
+inletCoeffs
 {
+    // Wave type to be used at boundary "inlet" and in relaxation zone "inlet"
     waveType    stokesFirst;  
-    depth       5.000000;
-    phi         0.000000;
-    period      7.0;
-    direction  (1.0 0.0 0.0);
-    height      0.2;
+    
+    // Ramp time of 2 s
+    Tsoft       2;
 
+    // Water depth at the boundary and in the relaxation zone
+    depth       0.400000;
+
+    // Cyclic wave frequency
+    omega       3.141593;
+
+    // Phase shift in the wave
+    phi         0.000000;
+
+    // Wave number vector, k. 
+    waveNumber  (1.70048 0.0 0.0);
+
+    // Wave height
+    height      0.1;
+    
+    // Specifications on the relaxation zone shape and relaxation scheme
     relaxationZone
     {
         relaxationScheme Spatial;
@@ -42,53 +57,9 @@ inlet0Coeffs
         beachType        Empty;
     
         relaxType   INLET;
-        startX      (-50 0.0 0);
-        endX        (0 0.0  150);
+        startX      (0 0.0 -1);
+        endX        (5 0.0  1);
         orientation      (1.0 0.0 0.0);
-    }
-};
-
-inlet1Coeffs
-{
-    waveType    stokesFirst;  
-    depth       5.000000;
-    phi         0.000000;
-    period      7.0;
-    direction  (1.0 1.0 0.0);
-    height      0.2;
-
-    relaxationZone
-    {
-        relaxationScheme Spatial;
-        relaxationShape  Rectangular;
-        beachType        Empty;
-    
-        relaxType   INLET;
-        startX      (0 0.0 -50);
-        endX        (150 0.0  0);
-        orientation      (0.0 0.0 1.0);
-    }
-};
-
-inlet2Coeffs
-{
-    waveType    stokesFirst;  
-    depth       5.000000;
-    phi         0.000000;
-    period      7.0;
-    direction  (2.0 -1.0 0.0);
-    height      0.2;
-
-    relaxationZone
-    {
-        relaxationScheme Spatial;
-        relaxationShape  Rectangular;
-        beachType        Empty;
-    
-        relaxType   INLET;
-        startX      (0 0.0 200);
-        endX        (150 0.0  150);
-        orientation      (0.0 0.0 -1.0);
     }
 };
 
@@ -105,8 +76,8 @@ outletCoeffs
         beachType        Empty;    
 
         relaxType   OUTLET;
-        startX      (150 0.0    0);
-        endX        (200 0.0  150);
+        startX      (13 0.0 -1);
+        endX        (18 0.0  1);
         orientation      (1.0 0.0 0.0);
     }
 };

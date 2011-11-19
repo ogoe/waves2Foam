@@ -24,7 +24,7 @@ relaxationNames (inlet0 inlet1 inlet2 outlet);
 
 initializationName outlet;
 
-pName pd;
+pName p_rgh;
 
 inlet0Coeffs
 {

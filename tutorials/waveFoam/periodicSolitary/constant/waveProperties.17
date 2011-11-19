@@ -22,7 +22,7 @@ relaxationNames ();
 
 initializationName cyclic1;
 
-pName pd;
+pName p_rgh;
 
 cyclic1Coeffs
 {

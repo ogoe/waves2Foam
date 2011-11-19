@@ -10,46 +10,55 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      controlDict;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application interFoam;
+ddtSchemes
+{
+    default Euler;
+}
 
-startFrom       startTime;
+gradSchemes
+{
+//    default	cellLimited fourth 1;
+    default         Gauss linear;
+    grad(U)         Gauss linear;
+    grad(alpha1)     Gauss linear;
+}
 
-startTime       0;
+divSchemes
+{
+//    default	    Gauss linear;
+    div(rho*phi,U)  Gauss limitedLinearV 1;
+//    div(phi,gamma)  Gauss vanLeer;
+//    div(rho*phi,U)  Gauss MUSCL;
+    div(phi,alpha)  Gauss MUSCL;
+    div(phirb,alpha) Gauss interfaceCompression;
+//    div(rhoPhi,U)   Gauss limitedLinearV 1;
+}
 
-stopAt          endTime;
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
 
-endTime         100;
+interpolationSchemes
+{
+    default         linear;
+}
 
-deltaT          0.001;
+snGradSchemes
+{
+    default         corrected;
+}
 
-writeControl    adjustableRunTime;
-
-writeInterval   0.5;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression uncompressed;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable yes;
-
-adjustTimeStep  yes;
-
-maxCo           0.25;
-
-maxAlphaCo      0.25;
-
-maxDeltaT       1;
+fluxRequired
+{
+    default         no;
+    p_rgh;
+    pcorr;
+    gamma;
+}
 
 // ************************************************************************* //

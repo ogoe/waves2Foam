@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
-| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.7.1                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.com                      |
+| \\      /  F ield         | OpenFOAM Extend Project: Open Source CFD        |
+|  \\    /   O peration     | Version:  1.6-ext                               |
+|   \\  /    A nd           | Web:      www.extend-project.de                 |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,8 +10,7 @@ FoamFile
     version     2.0;
     format      ascii;
     class       volScalarField;
-    location    "0";
-    object      pd.org;
+    object      p_rgh.org;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -21,40 +20,32 @@ internalField   uniform 0;
 
 boundaryField
 {
-    inlet0
+    cyclic1
     {
-        type            zeroGradient;
+        type            cyclic;
     }
-    inlet1
-    {
-        type            zeroGradient;
-    }
-    inlet2
-    {
-        type            zeroGradient;
-    }
-    outlet
-    {
-        type            zeroGradient;
-    }
+
     bottom
     {
-        type            zeroGradient;
+        type            slip;
     }
-    atmos
+
+    atmosphere
     {
         type            totalPressure;
-        rho             none;
+        p0              uniform 0;
+        U               U;
+        phi             phi;
+        rho             rho;
         psi             none;
         gamma           1;
-        p0              uniform 0;
         value           uniform 0;
     }
-    internalWall
+
+    defaultFaces
     {
-        type            zeroGradient;
+        type            empty;
     }
 }
-
 
 // ************************************************************************* //

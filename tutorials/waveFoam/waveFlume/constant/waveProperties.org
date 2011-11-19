@@ -24,6 +24,8 @@ relaxationNames (inlet outlet);
 
 initializationName outlet;
 
+pName pd;
+
 inletCoeffs
 {
     // Wave type to be used at boundary "inlet" and in relaxation zone "inlet"

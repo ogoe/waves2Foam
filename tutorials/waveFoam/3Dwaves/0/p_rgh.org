@@ -11,11 +11,11 @@ FoamFile
     format      ascii;
     class       volScalarField;
     location    "0";
-    object      alpha1.org;
+    object      p_rgh.org;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-dimensions      [0 0 0 0 0 0 0];
+dimensions      [1 -1 -2 0 0 0 0];
 
 internalField   uniform 0;
 
@@ -23,27 +23,15 @@ boundaryField
 {
     inlet0
     {
-        type            waveAlpha;
-        refValue        uniform 0;
-        refGrad         uniform 0;
-        valueFraction   uniform 1;
-        value           uniform 0;
+        type            zeroGradient;
     }
     inlet1
     {
-        type            waveAlpha;
-        refValue        uniform 0;
-        refGrad         uniform 0;
-        valueFraction   uniform 1;
-        value           uniform 0;
+        type            zeroGradient;
     }
     inlet2
     {
-        type            waveAlpha;
-        refValue        uniform 0;
-        refGrad         uniform 0;
-        valueFraction   uniform 1;
-        value           uniform 0;
+        type            zeroGradient;
     }
     outlet
     {
@@ -51,12 +39,18 @@ boundaryField
     }
     bottom
     {
-        type            zeroGradient;
+        type            buoyantPressure;
+        gradient        uniform 0;
+        rho             rho;
+        value           uniform 0;
     }
     atmos
     {
-        type            inletOutlet;
-        inletValue      uniform 0;
+        type            totalPressure;
+        rho             none;
+        psi             none;
+        gamma           1;
+        p0              uniform 0;
         value           uniform 0;
     }
     internalWall
