@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+rm -rf 0/alpha1.gz 0/gamma.gz 0/U.gz 0/pd.gz 0/p_rgh.gz
+
+# Set for either 1.5 or 1.6+
+version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/' | grep "[0-9]" | head -2 | tr -d '\n'`
+
+cp constant/waveProperties.org constant/waveProperties
+
+if [ "$version" = "15" ]
+then
+    cp system/fvSolution.15 system/fvSolution
+    cp system/fvSchemes.15 system/fvSchemes
+    cp 0/gamma.org 0/gamma
+    cp 0/U.org 0/U
+    cp 0/pd.org 0/pd
+elif [ "$version" = "16" ]
+then
+    cp system/fvSolution.16 system/fvSolution
+    cp system/fvSchemes.16 system/fvSchemes
+    cp 0/alpha1.org 0/alpha1
+    cp 0/U.org 0/U
+    cp 0/pd.org 0/pd
+else
+    cp system/fvSolution.17 system/fvSolution
+    cp system/fvSchemes.17 system/fvSchemes
+    cp 0/alpha1.org 0/alpha1
+    cp 0/U.org 0/U
+    cp 0/p_rgh.org 0/p_rgh
+    cp constant/waveProperties.17 constant/waveProperties
+fi
+
+# Set application name
+application="waveFoam"
+
+runApplication blockMesh
+runApplication setWaveField
+runApplication $application
+
