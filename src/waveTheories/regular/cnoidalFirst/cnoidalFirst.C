@@ -62,7 +62,7 @@ cnoidalFirst::cnoidalFirst
 {   
     scalar Eelliptic = gsl_sf_ellint_Ecomp( Foam::sqrt(m_), GSL_PREC_DOUBLE);
 
-    period_    = 2.0 * mathematicalConstant::pi / omega_;
+    period_    = 2.0 * PI_ / omega_;
 
     Kelliptic_ = gsl_sf_ellint_Kcomp( Foam::sqrt(m_), GSL_PREC_DOUBLE);
     etaMin_    = ((1.0 - Eelliptic / Kelliptic_) / m_ - 1.0) * H_;
@@ -84,7 +84,7 @@ scalar cnoidalFirst::factor(const scalar & time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
-        factor = Foam::sin(2 * mathematicalConstant::pi / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
 
     return factor;
 }

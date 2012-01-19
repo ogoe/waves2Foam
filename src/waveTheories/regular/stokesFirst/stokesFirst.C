@@ -51,7 +51,7 @@ stokesFirst::stokesFirst
     H_(readScalar(coeffDict_.lookup("height"))),
     h_(readScalar(coeffDict_.lookup("depth"))),
     omega_(readScalar(coeffDict_.lookup("omega"))),
-    period_(2 * mathematicalConstant::pi / omega_),
+    period_(2 * PI_ / omega_),
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
@@ -72,7 +72,7 @@ scalar stokesFirst::factor(const scalar & time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
-        factor = Foam::sin(2 * mathematicalConstant::pi / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
         
     return factor;
 }
@@ -118,12 +118,12 @@ vector stokesFirst::U
 {
     scalar Z(returnZ(x));
     
-    scalar Uhorz = mathematicalConstant::pi * H_ / period_ *
+    scalar Uhorz = PI_ * H_ / period_ *
                    Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
                    Foam::cos(omega_ * time - (k_ & x) + phi_);
     Uhorz *= factor(time);
     
-    scalar Uvert = - mathematicalConstant::pi * H_ / period_ *
+    scalar Uvert = - PI_ * H_ / period_ *
                    Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
                    Foam::sin(omega_ * time - (k_ & x) + phi_);
     Uvert *= factor(time);

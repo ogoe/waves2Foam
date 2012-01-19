@@ -68,7 +68,9 @@ waveTheory::waveTheory
 #endif
     direction_( g_ / mag(g_) ),
 
-    coeffDict_(subDict(subDictName + "Coeffs"))
+    coeffDict_(subDict(subDictName + "Coeffs")),
+
+    PI_( 4.0 * Foam::atan(1.0) )
 {
     {
         IOdictionary transProp
@@ -85,7 +87,6 @@ waveTheory::waveTheory
         dictionary sD(transProp.subDict("phase1"));
         rhoWater_ = (dimensionedScalar(sD.lookup("rho"))).value();
     }
-
 }
 
 

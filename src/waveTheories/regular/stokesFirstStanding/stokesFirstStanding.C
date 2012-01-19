@@ -51,7 +51,7 @@ stokesFirstStanding::stokesFirstStanding
     H_(readScalar(coeffDict_.lookup("height"))),
     h_(readScalar(coeffDict_.lookup("depth"))),
     omega_(readScalar(coeffDict_.lookup("omega"))),
-    period_(2 * mathematicalConstant::pi / omega_),
+    period_(2 * PI_ / omega_),
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
@@ -116,19 +116,19 @@ vector stokesFirstStanding::U
 {
     scalar Z(returnZ(x));
     
-    scalar Uhorz = mathematicalConstant::pi * H_ / period_ *
+    scalar Uhorz = PI_ * H_ / period_ *
                    Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
                    Foam::cos(omega_ * time - (k_ & x) + phi_)
-                 - mathematicalConstant::pi * H_ / period_ *
+                 - PI_ * H_ / period_ *
                    Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
                    Foam::cos(omega_ * time + (k_ & x) + phi_);
                    
     Uhorz *= factor(time);
     
-    scalar Uvert = - mathematicalConstant::pi * H_ / period_ *
+    scalar Uvert = - PI_ * H_ / period_ *
                    Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
                    Foam::sin(omega_ * time - (k_ & x) + phi_)
-                 - mathematicalConstant::pi * H_ / period_ *
+                 - PI_ * H_ / period_ *
                    Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
                    Foam::sin(omega_ * time + (k_ & x) + phi_);
                    

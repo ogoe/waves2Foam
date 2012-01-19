@@ -56,7 +56,7 @@ stokesSecondProperties::stokesSecondProperties
 
 	period_ = readScalar( dict.lookup("period") );
 	depth_  = readScalar( dict.lookup("depth") );
-	omega_  = 2.0 * mathematicalConstant::pi / period_ ;
+	omega_  = 2.0 * PI_ / period_ ;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //

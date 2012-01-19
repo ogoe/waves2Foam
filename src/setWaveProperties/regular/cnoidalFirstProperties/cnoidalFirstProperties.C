@@ -187,7 +187,7 @@ void cnoidalFirstProperties::set()
 
 		double L = Foam::sqrt( 16.0 * m * Foam::pow(K, 2.0) * Foam::pow(d_, 3.0) / (3.0 * H_));
 		double c = Foam::sqrt( G_ * d_ * (1 + A * H_ / d_));
-		double omega = 2 * mathematicalConstant::pi / T_;
+		double omega = 2 * PI_ / T_;
 
 		if ( write )
 		{

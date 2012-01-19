@@ -58,7 +58,7 @@ Author
 
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
-#include "mathematicalConstants.H"
+//#include "mathematicalConstants.H"
 
 #if OFVERSION != 15
 #    include "uniformDimensionedFields.H"
@@ -87,6 +87,8 @@ protected:
 		dictionary & dict_;
 		vector g_;
 		scalar G_;
+
+		scalar PI_;
 
     // Protected member functions
 

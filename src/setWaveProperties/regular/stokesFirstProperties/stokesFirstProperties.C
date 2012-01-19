@@ -44,6 +44,21 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFirstProperties, setWaveProp
 
 stokesFirstProperties::stokesFirstProperties
 (
+		const fvMesh & mesh,
+		dictionary & dict
+)
+:
+	setWaveProperties(mesh, dict, false)
+{
+	Info << "\nConstructing: " << this->type() << "(Dummy)"<< endl;
+
+	period_ = 0.0;
+	depth_  = 0.0;
+	omega_  = 0.0;
+}
+
+stokesFirstProperties::stokesFirstProperties
+(
 	const fvMesh & mesh,
 	dictionary & dict,
 	bool write
@@ -55,7 +70,7 @@ stokesFirstProperties::stokesFirstProperties
 
 	period_ = readScalar( dict.lookup("period") );
 	depth_  = readScalar( dict.lookup("depth") );
-	omega_  = 2.0 * mathematicalConstant::pi / period_ ;
+	omega_  = 2.0 * PI_ / period_ ;
 }
 
 stokesFirstProperties::stokesFirstProperties
@@ -72,8 +87,10 @@ stokesFirstProperties::stokesFirstProperties
 
 	period_ = readScalar( dict.lookup("period"+string) );
 	depth_  = readScalar( dict.lookup("depth") );
-	omega_  = 2.0 * mathematicalConstant::pi / period_;
+	omega_  = 2.0 * PI_ / period_;
 }
+
+
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
@@ -96,8 +113,8 @@ scalar stokesFirstProperties::linearWaveNumber() const
 {
 	scalar lower(0.0);
 
-    scalar upper = Foam::max( 4.0 * mathematicalConstant::pi / ( period_ * Foam::sqrt( Foam::mag(G_) * depth_)),
-						      2.0 * mathematicalConstant::pi / ( Foam::pow( period_, 2.0) ) );
+    scalar upper = Foam::max( 4.0 * PI_ / ( period_ * Foam::sqrt( Foam::mag(G_) * depth_)),
+						      2.0 * PI_ / ( Foam::pow( period_, 2.0) ) );
 
     scalar middle(0.5 * (lower + upper) );
 
@@ -128,6 +145,22 @@ scalar stokesFirstProperties::linearWaveNumber() const
 
 	return middle;
 }
+
+// Note that the frequency is NOT the cyclic frequency
+scalar stokesFirstProperties::linearWaveNumber
+(
+	const scalar & depth,
+	const scalar & frequency
+)
+{
+	depth_ = depth;
+	omega_ = 2.0 * PI_ * frequency;
+	period_ = 1.0 / frequency;
+
+	return linearWaveNumber();
+}
+
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

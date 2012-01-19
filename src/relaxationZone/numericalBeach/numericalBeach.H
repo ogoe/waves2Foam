@@ -47,7 +47,7 @@ Author
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
 
-#include "mathematicalConstants.H"
+//#include "mathematicalConstants.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

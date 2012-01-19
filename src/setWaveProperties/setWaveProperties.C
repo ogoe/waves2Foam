@@ -59,7 +59,8 @@ setWaveProperties::setWaveProperties
 	g_( uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() )
 #endif
 {
-	G_ = Foam::mag(g_);
+	G_  = Foam::mag(g_);
+	PI_ = 4.0 * Foam::atan(1.0);
 }
 
 

@@ -74,6 +74,12 @@ public:
 		stokesFirstProperties
 		(
 			const fvMesh &,
+			dictionary &
+		);
+
+		stokesFirstProperties
+		(
+			const fvMesh &,
 			dictionary &,
 			bool
 		);
@@ -92,6 +98,8 @@ public:
 		void set();
 
 		scalar linearWaveNumber() const;
+
+		scalar linearWaveNumber(const scalar &, const scalar &);
 
 		const scalar & omega() const { return omega_; };
 };

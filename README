@@ -9,6 +9,8 @@
 
 2. Type './Allwmake' in the command line
 
+3. For versions later than 1.7, please refer to the wiki on how to modify interFoam -> waveFoam.
+
 ===== DOCUMENTATION =====
 
 The following paper describes the implementation of boundary conditions, the relaxation zones 

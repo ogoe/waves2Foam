@@ -39,7 +39,9 @@ $(waveTheories)/$(regular)/streamFunction/streamFunction.C
 
 /* Irregular wave theories */
 irregular=irregular
+//$(waveTheories)/$(irregular)/irregular/irregular.C
 $(waveTheories)/$(irregular)/bichromaticFirst/bichromaticFirst.C
+
 
 /* Mixed type wave theories */
 mixedType=mixedType
@@ -69,6 +71,14 @@ $(waveProp)/$(regular)/streamFunctionProperties/streamFunctionProperties.C
 
 /* Irregular wave theories */
 $(waveProp)/$(irregular)/bichromaticFirstProperties/bichromaticFirstProperties.C
+
+//dws=waveSpectra
+//$(waveProp)/$(irregular)/$(dws)/waveSpectra.C
+
+//spectra=spectra
+//$(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
+
+//$(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
 
 /* Mixed type wave theories */
 $(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C

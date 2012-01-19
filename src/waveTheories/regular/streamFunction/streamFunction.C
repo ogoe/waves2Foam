@@ -50,7 +50,7 @@ streamFunction::streamFunction
     waveTheory(subDictName, mesh_),
     h_(readScalar(coeffDict_.lookup("depth"))),
     omega_(readScalar(coeffDict_.lookup("omega"))),
-    period_(2 * mathematicalConstant::pi / omega_),
+    period_(2 * PI_ / omega_),
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
@@ -80,10 +80,10 @@ scalar streamFunction::factor(const scalar & time) const
     if ( time < Tstart_ )
         factor = 0.0;
     else if ( Tsoft_ > 0.0)
-        factor = Foam::sin(2 * mathematicalConstant::pi / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tstart_));
+        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tstart_));
         
     if ( time > Tend_)
-        factor = Foam::cos(2 * mathematicalConstant::pi / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tend_));
+        factor = Foam::cos(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tend_));
         
     return factor;
 }

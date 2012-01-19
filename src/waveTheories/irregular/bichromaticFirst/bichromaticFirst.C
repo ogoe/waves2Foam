@@ -53,8 +53,8 @@ bichromaticFirst::bichromaticFirst
     h_(readScalar(coeffDict_.lookup("depth"))),
     omega1_(readScalar(coeffDict_.lookup("omega1"))),
     omega2_(readScalar(coeffDict_.lookup("omega2"))),
-    period1_(2 * mathematicalConstant::pi / omega1_),
-    period2_(2 * mathematicalConstant::pi / omega2_),
+    period1_(2 * PI_ / omega1_),
+    period2_(2 * PI_ / omega2_),
     phi1_(readScalar(coeffDict_.lookup("phi1"))),
     phi2_(readScalar(coeffDict_.lookup("phi2"))),
     k1_(vector(coeffDict_.lookup("waveNumber1"))),
@@ -77,7 +77,7 @@ scalar bichromaticFirst::factor(const scalar & time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
-        factor = Foam::sin(2 * mathematicalConstant::pi / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
         
     return factor;
 }
@@ -127,22 +127,22 @@ vector bichromaticFirst::U
 {
     scalar Z(returnZ(x));
     
-    scalar Uhorz1 = mathematicalConstant::pi * H1_ / period1_ *
+    scalar Uhorz1 = PI_ * H1_ / period1_ *
                     Foam::cosh(K1_ * (Z + h_)) / Foam::sinh(K1_ * h_) * 
                     Foam::cos(omega1_ * time - (k1_ & x) + phi1_);
 
-    scalar Uhorz2 = mathematicalConstant::pi * H2_ / period2_ *
+    scalar Uhorz2 = PI_ * H2_ / period2_ *
                     Foam::cosh(K2_ * (Z + h_)) / Foam::sinh(K2_ * h_) * 
                     Foam::cos(omega2_ * time - (k2_ & x) + phi2_);
 
     Uhorz1 *= factor(time);
     Uhorz2 *= factor(time);
 
-    scalar Uvert1 = - mathematicalConstant::pi * H1_ / period1_ *
+    scalar Uvert1 = - PI_ * H1_ / period1_ *
                     Foam::sinh(K1_ * (Z + h_)) / Foam::sinh(K1_ * h_) * 
                     Foam::sin(omega1_ * time - (k1_ & x) + phi1_);
 
-    scalar Uvert2 = - mathematicalConstant::pi * H2_ / period2_ *
+    scalar Uvert2 = - PI_ * H2_ / period2_ *
                     Foam::sinh(K2_ * (Z + h_)) / Foam::sinh(K2_ * h_) * 
                     Foam::sin(omega2_ * time - (k2_ & x) + phi2_);                   
 

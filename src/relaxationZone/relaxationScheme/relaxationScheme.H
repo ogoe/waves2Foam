@@ -56,7 +56,7 @@ Author
 #include "IOdictionary.H"
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
-#include "mathematicalConstants.H"
+//#include "mathematicalConstants.H"
 
 #include "convexPolyhedral.H"
 #include "relaxationShape.H"

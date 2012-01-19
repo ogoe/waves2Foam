@@ -51,15 +51,15 @@ scalar stokesFifthProperties::eval(scalar & k)
     scalar D2 = - Foam::sqrt(1.0 / Foam::tanh(k * depth_)) / 2.0;
     scalar D4 =   Foam::sqrt(1.0 / Foam::tanh(k * depth_)) * (2.0 + 4.0 * S + Foam::pow(S,2.0) + 2.0 * Foam::pow(S,3.0)) / (8.0 * Foam::pow(1.0 - S,3.0));
 
-	return Foam::sqrt(k / G_) * Q_ - 2.0 * mathematicalConstant::pi / (period_ * Foam::sqrt(G_ * k)) + C0 + Foam::pow((k * height_ / 2.0),2.0) * (C2 + D2 / (k * depth_)) + Foam::pow(k * height_ / 2.0, 4.0) * (C4 + D4 / (k * depth_));
+	return Foam::sqrt(k / G_) * Q_ - 2.0 * PI_ / (period_ * Foam::sqrt(G_ * k)) + C0 + Foam::pow((k * height_ / 2.0),2.0) * (C2 + D2 / (k * depth_)) + Foam::pow(k * height_ / 2.0, 4.0) * (C4 + D4 / (k * depth_));
 }
 
 scalar stokesFifthProperties::waveNumber()
 {
 	scalar lower(1.0e-7);
 
-    scalar upper = Foam::max( 4.0 * mathematicalConstant::pi / ( period_ * Foam::sqrt( Foam::mag(G_) * depth_)),
-						      2.0 * mathematicalConstant::pi / ( Foam::pow( period_, 2.0) ) );
+    scalar upper = Foam::max( 4.0 * PI_ / ( period_ * Foam::sqrt( Foam::mag(G_) * depth_)),
+						      2.0 * PI_ / ( Foam::pow( period_, 2.0) ) );
 
     scalar middle(0.5 * (lower + upper) );
 
@@ -109,7 +109,7 @@ stokesFifthProperties::stokesFifthProperties
 	height_ = readScalar( dict.lookup("height") );
 	Q_      = readScalar( dict.lookup("stokesDrift") );
 
-	omega_  = 2.0 * mathematicalConstant::pi / period_ ;
+	omega_  = 2.0 * PI_ / period_ ;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
