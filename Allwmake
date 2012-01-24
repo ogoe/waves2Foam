@@ -15,9 +15,14 @@ then
 
         cd $dir
 
-        grep -v "\-llduSolvers" options > options.temp
-        mv options.temp options
-        
+        argInner=`grep -v "\-llduSolvers" options`
+
+        if [ -z "$argInner" ]
+        then 
+            grep -v "\-llduSolvers" options > options.temp
+            mv options.temp options
+        fi
+
         cd $OLDPWD
     done
 fi

@@ -103,6 +103,10 @@ int main(int argc, char *argv[])
     // Write waveProperties with the above computed changes
     waveProperties.regIOobject::write();
 
+    // Makes the necessary corrections to waveProperties due to the added '"' when writing scalarFields as done in e.g. irregularProperties.C
+    std::string cmd("sed -e 's/\"nonuniform/nonuniform/' -e 's/)\";/);/' constant/waveProperties > constant/waveProperties.irregular; mv constant/waveProperties.irregular constant/waveProperties");
+    std::system( cmd.c_str() );
+
     Info<< "\nEnd\n" << endl;
 
     return 0;
