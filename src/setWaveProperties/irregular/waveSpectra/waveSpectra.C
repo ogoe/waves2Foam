@@ -24,130 +24,96 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "waveTheory.H"
+#include "waveSpectra.H"
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace waveTheories
-{
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(waveTheory, 0);
-defineRunTimeSelectionTable(waveTheory, dictionary);
+defineTypeNameAndDebug(waveSpectra, 0);
+defineRunTimeSelectionTable(waveSpectra, waveSpectra);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-waveTheory::waveTheory
+waveSpectra::waveSpectra
 (
-	const word & subDictName,
-	const fvMesh & mesh_
+	const fvMesh & mesh,
+	dictionary & dict,
+	scalarField & amp,
+	scalarField & freq,
+	scalarField & phi,
+	vectorField & k
 )
 :
-    IOdictionary
-    (
-#if OFVERSION == 15
-        mesh_.db().lookupObject<IOobject>("waveProperties")
-#else
-        mesh_.thisDb().lookupObject<IOobject>("waveProperties")
-#endif
-    ),
-
-    seaLevel_(readScalar(lookup("seaLevel"))),
+	mesh_(mesh),
+	dict_(dict),
+	amp_(amp),
+	freq_(freq),
+	phi_(phi),
+	k_(k),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-#if OFVERSION == 15
-    g_( dimensionedVector( mesh_.db().lookupObject<IOdictionary>("environmentalProperties").lookup("g") ).value() ),
+#if OFVERSION==15
+    G_( Foam::mag(dimensionedVector( mesh.db().lookupObject<IOdictionary>("environmentalProperties").lookup("g") ).value()) ),
 #else
-	g_( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() ),
+	G_( Foam::mag(uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
 #endif
-    direction_( g_ / mag(g_) ),
 
-    coeffDict_(subDict(subDictName + "Coeffs")),
-
-    PI_( M_PI )
+	PI_( M_PI )
 {
-    {
-        IOdictionary transProp
-        (
-            IOobject
-            (
-                "transportProperties",
-                "constant",
-                mesh_,
-                IOobject::MUST_READ,
-                IOobject::NO_WRITE
-            )
-        );
-        dictionary sD(transProp.subDict("phase1"));
-        rhoWater_ = (dimensionedScalar(sD.lookup("rho"))).value();
-    }
 }
 
-
-waveTheory::~waveTheory()
+waveSpectra::~waveSpectra()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalarField waveTheory::eta
-(
-	const pointField & x,
-	const scalar & time
-)
+scalar waveSpectra::randomPhaselag()
 {
-    scalarField temp(x.size(),0.0);
-
-    forAll(x,ii)
-    {
-        temp[ii] = eta(x[ii],time);
-    }
-
-    return temp;
+	return ( 2.0 * PI_ * static_cast<scalar>(rand()) / static_cast<scalar>(RAND_MAX) );
 }
 
-scalarField waveTheory::ddxPd
+autoPtr<waveSpectra> waveSpectra::New
 (
-	const pointField & x,
-	const scalar & time,
-	const vectorField & unitVector
+	const fvMesh & mesh,
+	dictionary & dict,
+	scalarField & amp,
+	scalarField & freq,
+	scalarField & phi,
+	vectorField & k
 )
 {
-    scalarField temp(x.size(),0.0);
+    word spectrumName;
+    dict.lookup("spectrum") >> spectrumName;
 
-    forAll(x,ii)
+    waveSpectraConstructorTable::iterator cstrIter =
+    		waveSpectraConstructorTablePtr_->find(spectrumName);
+
+    if (cstrIter == waveSpectraConstructorTablePtr_->end())
     {
-        temp[ii] = ddxPd(x[ii],time, unitVector[ii]);
+        FatalErrorIn
+        (
+            "waveSpectra::New(const fvMesh &, dictionary &, bool)"
+        )   << "Unknown wave property type " << spectrumName << "Properties"
+            << endl << endl
+            << "Valid wave property types are :" << endl
+            << waveSpectraConstructorTablePtr_->toc()
+            << exit(FatalError);
     }
 
-    return temp;
-}
-
-vectorField waveTheory::U
-(
-	const pointField & x,
-	const scalar & time
-)
-{
-    vectorField temp(x.size(),vector::zero);
-
-    forAll(x,ii)
-    {
-        temp[ii] = U(x[ii],time);
-    }
-
-    return temp;
+    return autoPtr<waveSpectra>(cstrIter()(mesh, dict, amp, freq, phi, k));
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace waveTheories
 } // End namespace Foam
 
 // ************************************************************************* //

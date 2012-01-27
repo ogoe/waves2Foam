@@ -24,8 +24,8 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "setWaveProperties.H"
-
+#include "irregularProperties.H"
+#include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -34,68 +34,88 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(setWaveProperties, 0);
-defineRunTimeSelectionTable(setWaveProperties, setWaveProperties);
+defineTypeNameAndDebug(irregularProperties, 0);
+addToRunTimeSelectionTable(setWaveProperties, irregularProperties, setWaveProperties);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-setWaveProperties::setWaveProperties
+irregularProperties::irregularProperties
 (
 	const fvMesh & mesh,
 	dictionary & dict,
 	bool write
 )
 :
-	write_(write),
-	dict_(dict),
-
-// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-#if OFVERSION==15
-    g_( dimensionedVector( mesh.db().lookupObject<IOdictionary>("environmentalProperties").lookup("g") ).value() )
-#else
-	g_( uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() )
-#endif
+	setWaveProperties(mesh, dict, write),
+	mesh_(mesh)
 {
-	G_  = Foam::mag(g_);
-	PI_ = M_PI;
+	Info << "\nConstructing: " << this->type() << endl;
 }
-
-
-setWaveProperties::~setWaveProperties()
-{}
-
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-autoPtr<setWaveProperties> setWaveProperties::New
-(
-	const fvMesh & mesh,
-	dictionary & dict,
-	bool write
-)
+void irregularProperties::set()
 {
-    word waveTheoryTypeName;
-    dict.lookup("waveType") >> waveTheoryTypeName;
+	scalarField amp(0);
+	scalarField frequency(0);
+	scalarField phaselag(0);
+	vectorField waveNumber(0);
 
-    setWavePropertiesConstructorTable::iterator cstrIter =
-    		setWavePropertiesConstructorTablePtr_->find(waveTheoryTypeName+"Properties");
+	autoPtr<waveSpectra> spectra( waveSpectra::New(mesh_, dict_, amp, frequency, phaselag, waveNumber) );
 
-    if (cstrIter == setWavePropertiesConstructorTablePtr_->end())
-    {
-        FatalErrorIn
-        (
-            "setWaveProperties::New(const fvMesh &, dictionary &, bool)"
-        )   << "Unknown wave property type " << waveTheoryTypeName << "Properties"
-            << endl << endl
-            << "Valid wave property types are :" << endl
-            << setWavePropertiesConstructorTablePtr_->toc()
-            << exit(FatalError);
-    }
+	spectra->set();
 
-    return autoPtr<setWaveProperties>(cstrIter()(mesh, dict, write));
+	if ( write_ )
+	{
+		// Amplitude string
+		std::stringstream samp;
+
+		samp << "nonuniform List<scalar> " << amp.size() << "(";
+		forAll(amp, index)
+		{
+			samp << amp[index] << " ";
+		}
+		samp << ")";
+
+		// Frequency string
+		std::stringstream sfreq;
+
+		sfreq << "nonuniform List<scalar> " << frequency.size() << "(";
+		forAll(frequency, index)
+		{
+			sfreq << 2.0 * PI_ * frequency[index] << " ";
+		}
+		sfreq << ")";
+
+		// Phaselag string
+		std::stringstream sphi;
+
+		sphi << "nonuniform List<scalar> " << phaselag.size() << "(";
+		forAll(phaselag, index)
+		{
+			sphi << phaselag[index] << " ";
+		}
+		sphi << ")";
+
+		// waveNumber string
+		std::stringstream sk;
+
+		sk << "nonuniform List<vector> " << waveNumber.size() << "(";
+		forAll(waveNumber, index)
+		{
+			sk << "(" << waveNumber[index].x() << " " << waveNumber[index].y() << " " << waveNumber[index].z() << ") ";
+		}
+		sk << ")";
+
+		// Write strings to dictionary
+		dict_.add("amplitude" , samp.str() , true);
+		dict_.add("omega"     , sfreq.str(), true);
+		dict_.add("phi"       , sphi.str() , true);
+		dict_.add("waveNumber", sk.str()   , true);
+	}
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

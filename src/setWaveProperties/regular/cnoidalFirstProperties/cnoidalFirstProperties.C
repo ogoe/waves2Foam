@@ -189,7 +189,7 @@ void cnoidalFirstProperties::set()
 		double c = Foam::sqrt( G_ * d_ * (1 + A * H_ / d_));
 		double omega = 2 * PI_ / T_;
 
-		if ( write )
+		if ( write_ )
 		{
 			dict_.add( "omega", omega, true );
 			dict_.add( "length", L, true );
