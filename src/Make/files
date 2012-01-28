@@ -77,6 +77,7 @@ $(waveProp)/$(irregular)/$(dws)/waveSpectra.C
 
 spectra=spectra
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
+$(waveProp)/$(irregular)/$(dws)/$(spectra)/PiersonMoskowitz/PiersonMoskowitz.C
 
 $(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
 
