@@ -10,4 +10,5 @@ EXE_LIBS = \
     -lfiniteVolume \
     -lgsl \
     -lgslcblas \
+    -L$(FOAM_USER_LIBBIN) \
     -lwaves2Foam

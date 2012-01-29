@@ -126,4 +126,4 @@ $(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
 $(relaxMethod)/relaxationZone.C
 
 /* OUTPUT */
-LIB = $(FOAM_LIBBIN)/libwaves2Foam
+LIB = $(FOAM_USER_LIBBIN)/libwaves2Foam

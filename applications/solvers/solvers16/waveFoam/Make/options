@@ -15,4 +15,5 @@ EXE_LIBS = \
     -lincompressibleLESModels \
     -lfiniteVolume \
     -llduSolvers \
+    -L$(FOAM_USER_LIBBIN) \
     -lwaves2Foam

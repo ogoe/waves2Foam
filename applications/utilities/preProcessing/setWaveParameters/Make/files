@@ -1,3 +1,3 @@
 setWaveParameters.C
 
-EXE = $(FOAM_APPBIN)/setWaveParameters
+EXE = $(FOAM_USER_APPBIN)/setWaveParameters

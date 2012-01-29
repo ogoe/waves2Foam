@@ -11,4 +11,5 @@ EXE_LIBS = \
     -lincompressibleTransportModels \
     -lfiniteVolume \
     -llduSolvers \
+    -L$(FOAM_USER_LIBBIN) \
     -lwaves2Foam \
