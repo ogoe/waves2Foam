@@ -108,7 +108,7 @@ void relaxationSchemeSpatial::correct()
     	else
     	{
     		alphaTarget = 0.0;
-    		UTarget     = vector::zero;
+    		UTarget     = waveProps_->windVelocity( mesh_.time().value() );
     	}
 
     	U_[cellNo]     = (1 - weight_[celli]) * UTarget     + weight_[celli] * U_[cellNo];

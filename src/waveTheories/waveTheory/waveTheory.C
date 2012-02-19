@@ -70,7 +70,9 @@ waveTheory::waveTheory
 
     coeffDict_(subDict(subDictName + "Coeffs")),
 
-    PI_( M_PI )
+    PI_( M_PI ),
+
+	wind_( lookupOrDefault<vector>( "wind", vector::zero ) )
 {
     {
         IOdictionary transProp

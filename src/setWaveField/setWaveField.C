@@ -123,7 +123,8 @@ void setWaveField::correct()
 	{
 		localCell lc = dividePolyhedral( celli, point::zero, point::one);
 
-		vector UTarget(vector::zero);
+//		vector UTarget(vector::zero);
+		vector UTarget( waveProps_->windVelocity( U_.db().time().value() ));
 		scalar pTarget(0.0);
 		scalar alphaTarget( 0.0 );
 

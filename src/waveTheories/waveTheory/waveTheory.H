@@ -90,7 +90,10 @@ protected:
 	    const dictionary coeffDict_;
 
 	    scalar PI_;
-        
+
+    // Wind vector
+	    vector wind_;
+
     // Protected member functions
         
         virtual scalar factor(const scalar &) const = 0;
@@ -155,6 +158,8 @@ public:
 
 
     // Member Functions
+
+        const vector windVelocity( const scalar & time ) const { return factor( time ) * wind_; };
 
         // Access - single value
         virtual scalar eta

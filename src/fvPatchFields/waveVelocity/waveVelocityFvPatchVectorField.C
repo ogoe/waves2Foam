@@ -163,7 +163,8 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
     	if ( lf.isNegFace() )
     		this->refValue()[facei]  = waveProps_->U( lf.negCentre(), db().time().value() );
     	else
-    		this->refValue()[facei]  = vector::zero;
+    		this->refValue()[facei]  = waveProps_->windVelocity( db().time().value() );
+//    		this->refValue()[facei]  = vector::zero;
 
     	this->refGrad()[facei]       = vector::zero;
     	this->valueFraction()[facei] = 1.0;
