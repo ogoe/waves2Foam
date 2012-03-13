@@ -85,7 +85,8 @@ void relaxationSchemeSpatial::correct()
 
     	// Target variables
     	scalar alphaTarget( 0.0 );
-    	vector UTarget( vector::zero );
+//    	vector UTarget( vector::zero );
+    	vector UTarget( waveProps_->windVelocity( mesh_.time().value() ) );
 
     	// Only do cutting, if surface is close by
     	if ( Foam::mag( sdc ) <= 2 * cellHeight )
