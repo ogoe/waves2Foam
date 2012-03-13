@@ -10,8 +10,8 @@ end
 
 [eta, B, Q, c, k, R, uBar] = StreamFunctionCoefficientsPeriod(N,H,h,T,uEorS,EorS,nsteps,g);
 
-size(eta)
-size(B)
+% size(eta)
+% size(B)
 
 j=1:N;
 for i=0:N

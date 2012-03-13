@@ -11,7 +11,7 @@ H0 = H/nsteps;
 
 % Initial linear quess on the surface elevation
 % x0(1:N+1) = H0/2 * cos(k0 * (0:N) * pi / N)
-x0(1:N+1) = H0/2 * cos((0:N) * pi / N)
+x0(1:N+1) = H0/2 * cos((0:N) * pi / N);
 
 % Initial quess on B_j
 x0(N+2:2*N+1) = [pi* H0 / T,zeros(1,N-1)];
@@ -31,12 +31,12 @@ x0(2*N+5) = g/(2*k0)*tanh(k0*h);
 % Initial quess on uBar 
 x0(2*N+6) = 2 * pi / T / k0;
 
-[x0', solveStream(x0, N, h, H0, T, g, uEorS, EorS)']
+[x0', solveStream(x0, N, h, H0, T, g, uEorS, EorS)'];
 
 for i=1:nsteps
     x = fsolve(@(x) solveStream(x,N,h,H0 * i,T,g,uEorS,EorS),x0);
     x0 = x;
-    [x(1) x(2 * N + 4)]
+    [x(1) x(2 * N + 4)];
 end
 
 plot(x(1:N+1))
