@@ -90,6 +90,8 @@ protected:
         
         word relaxType_;
         
+        scalar PI_;
+
     // Protected member functions
         virtual void findComputationalCells() = 0;
         

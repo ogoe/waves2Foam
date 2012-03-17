@@ -64,7 +64,8 @@ relaxationShape::relaxationShape
     ),
 
     mesh_(mesh),
-    coeffDict_(subDict(subDictName + "Coeffs").subDict("relaxationZone"))
+    coeffDict_(subDict(subDictName + "Coeffs").subDict("relaxationZone")),
+    PI_( M_PI )
 {
 	// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
 #if OFVERSION == 15
