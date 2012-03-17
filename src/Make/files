@@ -104,6 +104,7 @@ $(relaxMethod)/$(relaxShape)/newRelaxationShape.C
 
 $(relaxMethod)/$(relaxShape)/rectangular/relaxationShapeRectangular.C
 $(relaxMethod)/$(relaxShape)/cylindrical/relaxationShapeCylindrical.C
+$(relaxMethod)/$(relaxShape)/semiCylindrical/relaxationShapeSemiCylindrical.C
 
 /* Relaxation Schemes */
 relaxScheme=relaxationScheme

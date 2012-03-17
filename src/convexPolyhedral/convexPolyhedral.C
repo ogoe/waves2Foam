@@ -128,6 +128,8 @@ void convexPolyhedral::faceCut
 	edgeList cuttedEdges(lc.cc().size());
 	label cutCount(0);
 
+	bool noiProblem( false );
+
 	// Loop over all external faces and find neg/pos cuts.
 	// Since they are created with the same orientation as the
 	// original cell, all cell normals points outward.
@@ -170,32 +172,45 @@ void convexPolyhedral::faceCut
 			lc.addPos( facei );
 		}
 		if ( lf.noi() > 2 )
-			Info << "OBS: noi is larger than 2. Possible error could occur: " << lf.noi() << endl;
+			noiProblem = true;
 	}
 
-	// Add special edges, where both end are on the plane
-	forAll( eL, edgei )
+	if ( noiProblem )
 	{
-		if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
-			cuttedEdges[cutCount++] = eL[edgei];
-	}
+		lc.initCut();
 
-	// Take care of the interface face
-	cuttedEdges.setSize(cutCount);
-
-	if ( cuttedEdges.size() >= 3 )
-	{
-		face f = combineEdgeList(cuttedEdges);
-
-		if ( Foam::sign( f.normal( lc.points()) & normalToPlane_ ) == 1 )
-		{
-			lc.addPos(f.reverseFace());
-			lc.addNeg(f);
-		}
+		if ( signedPointToSurfaceDistance(lc.centre() ) < 0.0 )
+			lc.fullNeg();
 		else
+			lc.fullPos();
+	}
+	else
+	{
+
+		// Add special edges, where both end are on the plane
+		forAll( eL, edgei )
 		{
-			lc.addPos(f);
-			lc.addNeg(f.reverseFace());
+			if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
+				cuttedEdges[cutCount++] = eL[edgei];
+		}
+
+		// Take care of the interface face
+		cuttedEdges.setSize(cutCount);
+
+		if ( cuttedEdges.size() >= 3 )
+		{
+			face f = combineEdgeList(cuttedEdges);
+
+			if ( Foam::sign( f.normal( lc.points()) & normalToPlane_ ) == 1 )
+			{
+				lc.addPos(f.reverseFace());
+				lc.addNeg(f);
+			}
+			else
+			{
+				lc.addPos(f);
+				lc.addNeg(f.reverseFace());
+			}
 		}
 	}
 }
@@ -214,6 +229,8 @@ void convexPolyhedral::faceCut
 
 	edgeList cuttedEdges(lc.cc().size());
 	label cutCount(0);
+
+	bool noiProblem( false );
 
 	// Loop over all external faces and find neg/pos cuts.
 	// Since they are created with the same orientation as the
@@ -253,29 +270,48 @@ void convexPolyhedral::faceCut
 		else
 		{
 		}
-	}
 
-	// Add special edges, where both ends are on the plane
-	forAll( eL, edgei )
-	{
-		if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
-			cuttedEdges[cutCount++] = eL[edgei];
-	}
-
-	// Take care of the interface face
-	cuttedEdges.setSize(cutCount);
-
-	if ( cuttedEdges.size() >= 3 )
-	{
-		face f = combineEdgeList(cuttedEdges);
-
-		if ( Foam::sign( f.normal( lc.points()) & normalToPlane_ ) == 1 )
+		if ( lf.noi() > 2 )
 		{
-			lc.addNeg(f);
+			noiProblem = true;
 		}
-		else
+
+	}
+
+	if ( noiProblem )
+	{
+		lc.initCut();
+
+		if ( signedPointToSurfaceDistance(lc.centre() ) < 0.0 )
 		{
-			lc.addNeg(f.reverseFace());
+			lc.fullNeg();
+		}
+		//else lc is a negative cell, hence further work is redundant
+	}
+	else
+	{
+		// Add special edges, where both ends are on the plane
+		forAll( eL, edgei )
+		{
+			if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
+				cuttedEdges[cutCount++] = eL[edgei];
+		}
+
+		// Take care of the interface face
+		cuttedEdges.setSize(cutCount);
+
+		if ( cuttedEdges.size() >= 3 )
+		{
+			face f = combineEdgeList(cuttedEdges);
+
+			if ( Foam::sign( f.normal( lc.points()) & normalToPlane_ ) == 1 )
+			{
+				lc.addNeg(f);
+			}
+			else
+			{
+				lc.addNeg(f.reverseFace());
+			}
 		}
 	}
 }
@@ -458,14 +494,14 @@ void convexPolyhedral::floatingPointToLabel
 )
 {
 	forAll( s, pointi )
-					{
+	{
 		l[pointi] = floatingPointToLabel( s[pointi] );
-					}
+	}
 }
 
 label convexPolyhedral::floatingPointToLabel
 (
-		const scalar & s
+	const scalar & s
 )
 {
 	return Foam::mag(s) < 5.0e-14 ? 0 : Foam::sign(s);
@@ -594,7 +630,6 @@ void convexPolyhedral::dividePolyhedral
 	labelList   pType( pp.size(), 0.0);
 
 	signedPointToSurfaceDistance(pp, sD);
-
 	floatingPointToLabel( sD, pType );
 
 	if ( Foam::sum( pType) == - Foam::sum( pType * pType ) )

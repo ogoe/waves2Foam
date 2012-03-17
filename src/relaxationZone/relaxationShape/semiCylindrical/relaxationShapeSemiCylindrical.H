@@ -23,10 +23,10 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::relaxationShapes::relaxationShapeCylindrical
+    Foam::relaxationShapes::relaxationShapeSemiCylindrical
 
 Description
-    An object used to define CYLINDRICAL relaxation zones. See e.g.
+    An object used to define SEMICYLINDRICAL relaxation zones. See e.g.
 
     @article { jacobsenFuhrmanFredsoe2011,
 		Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
@@ -38,15 +38,15 @@ Description
 	}
 
 SourceFiles
-    relaxationShapeCylindrical.C
+    relaxationShapeSemiCylindrical.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef relaxationShapeCylindrical_H
-#define relaxationShapeCylindrical_H
+#ifndef relaxationShapeSemiCylindrical_H
+#define relaxationShapeSemiCylindrical_H
 
 #include "relaxationShape.H"
 
@@ -58,10 +58,10 @@ namespace relaxationShapes
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class relaxationShapeCylindrical Declaration
+                           Class relaxationShapeSemiCylindrical Declaration
 \*---------------------------------------------------------------------------*/
 
-class relaxationShapeCylindrical
+class relaxationShapeSemiCylindrical
 :
     public relaxationShape
 {
@@ -71,12 +71,21 @@ protected:
     // Protected data
 
         vector      centre_;
+        vector      zeroAngleDirection_;
         scalar      rInner_;
         scalar      rOuter_;
+        scalar      angleStart_;
+        scalar      angleEnd_;
         
         scalar      width_;
+        vector      piHalfAngleDirection_;
     
     // Protected member functions
+        bool angleCheck
+        (
+        	const scalar &
+        ) const;
+
         bool insideZone
         (
         	const label &
@@ -89,12 +98,12 @@ protected:
 public:
 
     //- Runtime type information
-    TypeName("relaxationShapeCylindrical");
+    TypeName("relaxationShapeSemiCylindrical");
 
     // Constructors
 
         //- from components
-        relaxationShapeCylindrical
+        relaxationShapeSemiCylindrical
         (
             const word & ,
         	const fvMesh & mesh_
@@ -103,7 +112,7 @@ public:
 
     // Destructor
 
-        ~relaxationShapeCylindrical()
+        ~relaxationShapeSemiCylindrical()
         {}
 
 

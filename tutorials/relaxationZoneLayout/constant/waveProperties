@@ -26,7 +26,7 @@ gravity         gravity [0 1 -2 0 0 0 0] (0 0 -9.81);
 
 seaLevel	0.0;
 
-relaxationNames      (rectangular0 rectangular1 rectangular2 rectangular3 cylindrical);
+relaxationNames      (rectangular0 rectangular1 rectangular2 rectangular3 cylindrical semiCylindrical);
 
 rectangular0Coeffs
 {
@@ -86,12 +86,26 @@ cylindricalCoeffs
     {
         relaxationShape Cylindrical;
     
-        centre   (50 50 0);
+        centre   (70 70 0);
         rInner   15;
         rOuter   25;
     }
 }
 
+semiCylindricalCoeffs
+{
+    relaxationZone
+    {
+        relaxationShape SemiCylindrical;
+    
+        centre   (30 30 0);
+        rInner    5;
+        rOuter   25;
+        zeroAngleDirection (1 0 0);
+        angleStart 45;
+        angleEnd   220;
+    }
+}
 
 
 

@@ -106,8 +106,8 @@ void relaxationShapeCylindrical::computeSigmaCoordinate()
 
 bool relaxationShapeCylindrical::insideZone
 (
-    const label celli
-)
+    const label & celli
+) const
 {
     bool inside( false );
     

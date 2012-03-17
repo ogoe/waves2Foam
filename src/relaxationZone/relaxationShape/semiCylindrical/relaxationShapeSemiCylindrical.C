@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "relaxationShapeRectangular.H"
+#include "relaxationShapeSemiCylindrical.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -36,50 +36,58 @@ namespace relaxationShapes
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(relaxationShapeRectangular, 0);
-addToRunTimeSelectionTable(relaxationShape, relaxationShapeRectangular, dictionary);
+defineTypeNameAndDebug(relaxationShapeSemiCylindrical, 0);
+addToRunTimeSelectionTable(relaxationShape, relaxationShapeSemiCylindrical, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-relaxationShapeRectangular::relaxationShapeRectangular
+relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 (
     const word & subDictName,
 	const fvMesh & mesh_
 )
 :
-    relaxationShape(subDictName, mesh_)
+    relaxationShape(subDictName, mesh_),
+                    
+    centre_( vector(coeffDict_.lookup("centre")) ),
+    zeroAngleDirection_( vector(coeffDict_.lookup("zeroAngleDirection")) ),
+    rInner_( readScalar(coeffDict_.lookup("rInner")) ),
+    rOuter_( readScalar(coeffDict_.lookup("rOuter")) ),
+    angleStart_( readScalar(coeffDict_.lookup("angleStart")) ),
+    angleEnd_( readScalar(coeffDict_.lookup("angleEnd")) )
 {
-    orient_ = vector(coeffDict_.lookup("orientation"));
-    cornerNodes_.setSize(4);
-    
-    // Geometric properties needed to uniquely define relaxation-shape
-    orient_ /= Foam::mag(orient_);
-    
-    cornerNodes_[0] = vector(coeffDict_.lookup("startX"));
-    cornerNodes_[2] = vector(coeffDict_.lookup("endX"));
-    cornerNodes_[3] = cornerNodes_[0] + ( orient_ & ( cornerNodes_[2] - cornerNodes_[0]) ) * orient_;
-    cornerNodes_[1] = cornerNodes_[0] + (cornerNodes_[2] - cornerNodes_[3]);
-    
-    crossOrient_ = (cornerNodes_[1] - cornerNodes_[0]);
-    crossOrient_ /= Foam::mag(crossOrient_);
-    
-    width_ = Foam::mag(cornerNodes_[3] - cornerNodes_[0]);
-    
-    xAxis_ = Foam::cmptMultiply( orient_, orient_ );
-    yAxis_ = Foam::cmptMultiply( crossOrient_, crossOrient_ );
-    
-    coeffDict_.lookup("relaxType") >> relaxType_;
-    
+    width_   = Foam::mag(rOuter_ - rInner_);
+    centre_ -= ( centre_ & direction_ ) * direction_; 
+
+    if ( angleEnd_ > 180 )
+    {
+    	angleEnd_ -= 360;
+    }
+    if ( angleEnd_ < -180 )
+    {
+    	angleEnd_ += 360;
+    }
+    if (angleStart_ > 180 )
+    {
+    	angleStart_ -= 360;
+    }
+    if ( angleStart_ < -180 )
+    {
+    	angleStart_ += 360;
+    }
+
+    piHalfAngleDirection_ = ( zeroAngleDirection_ ^ direction_ );
+
     // Find computational cells inside the relaxation-shape
     findComputationalCells();
-    
+
     // Computate the sigma coordinate
     computeSigmaCoordinate();
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void relaxationShapeRectangular::findComputationalCells()
+void relaxationShapeSemiCylindrical::findComputationalCells()
 {
     const vectorField & cc = mesh_.C();
     
@@ -102,58 +110,51 @@ void relaxationShapeRectangular::findComputationalCells()
     cells_.setSize(count);
 }
 
-void relaxationShapeRectangular::computeSigmaCoordinate()
+void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
 {
     const vectorField & C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
-
-    Info << xAxis_ << " " << width_ << " "<< direction_ <<   endl;
 
     forAll( cells_, celli )
     {
         vector cc( C[cells_[celli]] );
         cc -= ( ( cc & direction_ ) * direction_ );
 
-        sigma_[celli]  = Foam::mag( ( ( xAxis_ & cc ) - (xAxis_ & cornerNodes_[0]) ) ) / ( Foam::mag(xAxis_) * width_ );
-
-        if ( relaxType_ == "INLET" )
-            sigma_[celli] = Foam::mag( sigma_[celli] - 1.0 );
+        sigma_[celli]  = ( Foam::mag( cc - centre_ ) - rInner_ ) / width_;
     }
 }
 
+bool relaxationShapeSemiCylindrical::angleCheck
+(
+	const scalar & angle
+) const
+{
+	if ( angleStart_ < angleEnd_ )
+	{
+		return ( angleStart_ <= angle && angle <= angleEnd_ );
+	}
+	else
+	{
+		return ( angleStart_ <= angle || angle <= angleEnd_ );
+	}
+}
 
-bool relaxationShapeRectangular::insideZone
+bool relaxationShapeSemiCylindrical::insideZone
 (
     const label & celli
 ) const
 {
     bool inside( false );
-    
-    label negative(0);
-    label positive(0);
 
-    scalar pX(mesh_.C()[celli] & xAxis_);
-    scalar pY(mesh_.C()[celli] & yAxis_);
+    vector cc( mesh_.C()[celli] );
+    cc -= ( direction_ & cc ) * direction_;
+    cc -= centre_;
 
-    scalarField nX(cornerNodes_ & xAxis_);
-    scalarField nY(cornerNodes_ & yAxis_);
+    scalar dist( Foam::mag( cc ) );
+    scalar angle( 180 / PI_ * Foam::atan2( cc & piHalfAngleDirection_, cc & zeroAngleDirection_ ) );
 
-    // Uses method 3 on http://local.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/
-    // to consider whether or not the point is inside the relaxation zone
-    forAll(nX, pointi)
-    {
-        scalar temp(0);
-        label pointj((pointi == nX.size()-1) ? 0 : pointi + 1);
-        temp = (pY - nY[pointi]) * (nX[pointj] - nX[pointi]) - (pX - nX[pointi]) * (nY[pointj] - nY[pointi]);
-        
-        if (temp > 0)
-            positive++;
-        if (temp < 0)
-            negative++;
-    }
-    
-    if ( positive == 0 || negative == 0 )
-        inside = true;
+    if ( dist >= rInner_ && dist <= rOuter_ && angleCheck( angle ) )
+    	inside = true;
     
     return inside;
 }

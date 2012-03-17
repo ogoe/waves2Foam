@@ -80,7 +80,11 @@ protected:
     
     
     // Protected member functions
-        bool insideZone( label );
+        bool insideZone
+        (
+        	const label &
+        ) const;
+
         void computeSigmaCoordinate();
         
         virtual void findComputationalCells();
