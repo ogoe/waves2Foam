@@ -50,14 +50,78 @@ irregular::irregular
     waveTheory(subDictName, mesh_),
     N_(readScalar(coeffDict_.lookup("N"))),
     h_(readScalar(coeffDict_.lookup("depth"))),
-    amp_( "amplitude", coeffDict_, N_),
-    omega_( "omega", coeffDict_, N_ ),
-    phi_( "phi", coeffDict_, N_ ),
-    k_( "waveNumber", coeffDict_, N_ ),
-    K_(mag(k_)),
+    amp_(N_),
+    omega_(N_),
+    phi_(N_),
+    k_(N_),
+    K_(N_),
 
     Tsoft_( readScalar(coeffDict_.lookup("Tsoft")))
 {
+	// Get the name of the sub-dictionary
+	string fileName = (coeffDict_.name()).name().replace("waveProperties::","");
+
+	// Read the fields from the folder constant/additionalWaveProperties
+	rs(mesh_, fileName, "Amplitude", amp_);
+
+	rs(mesh_, fileName, "Frequency", omega_);
+	omega_ *= (2.0 * PI_);
+
+	rs(mesh_, fileName, "Phaselag", phi_);
+
+	rv(mesh_, fileName, "WaveNumber", k_);
+
+	// Compute the length of k_
+	K_ = Foam::mag(k_);
+}
+
+
+void irregular::rs
+(
+	const fvMesh & mesh_,
+	const string & fileName,
+	const string & waveProp,
+	scalarField & returnField
+)
+{
+	IOField<scalar> field
+	(
+		IOobject
+		(
+			fileName+waveProp,
+			"constant",
+			"additionalWaveProperties",
+			mesh_,
+			IOobject::MUST_READ,
+			IOobject::NO_WRITE
+		)
+	);
+
+	returnField = field;
+}
+
+void irregular::rv
+(
+	const fvMesh & mesh_,
+	const string & fileName,
+	const string & waveProp,
+	vectorField & returnField
+)
+{
+	IOField<vector> field
+	(
+		IOobject
+		(
+			fileName+waveProp,
+			"constant",
+			"additionalWaveProperties",
+			mesh_,
+			IOobject::MUST_READ,
+			IOobject::NO_WRITE
+		)
+	);
+
+	returnField = field;
 }
 
 

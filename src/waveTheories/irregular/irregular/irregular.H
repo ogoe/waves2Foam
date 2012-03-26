@@ -90,6 +90,11 @@ protected:
     // Protected member functions
 
         scalar factor(const scalar &) const;
+
+        void rs( const fvMesh &, const string &, const string &, scalarField & );
+
+        void rv( const fvMesh &, const string &, const string &, vectorField & );
+
 public:
 
     //- Runtime type information

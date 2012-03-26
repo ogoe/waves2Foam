@@ -57,6 +57,54 @@ irregularProperties::irregularProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+void irregularProperties::ws
+(
+	const string & fileName,
+	const string & propName,
+	const scalarField & field
+) const
+{
+	IOField<scalar> output
+	(
+		IOobject
+		(
+			fileName+propName,
+			"constant",
+			"additionalWaveProperties",
+			mesh_,
+			IOobject::NO_READ,
+			IOobject::NO_WRITE
+		),
+		field
+	);
+	output.write();
+}
+
+void irregularProperties::wv
+(
+	const string & fileName,
+	const string & propName,
+	const vectorField & field
+) const
+{
+	IOField<vector> output
+	(
+		IOobject
+		(
+			fileName+propName,
+			"constant",
+			"additionalWaveProperties",
+			mesh_,
+			IOobject::NO_READ,
+			IOobject::NO_WRITE
+		),
+		field
+	);
+	output.write();
+}
+
+
+
 void irregularProperties::set()
 {
 	scalarField amp(0);
@@ -70,51 +118,77 @@ void irregularProperties::set()
 
 	if ( write_ )
 	{
-		// Amplitude string
-		std::stringstream samp;
+		mkDir("constant/additionalWaveProperties");
 
-		samp << "nonuniform List<scalar> " << amp.size() << "(";
-		forAll(amp, index)
-		{
-			samp << amp[index] << " ";
-		}
-		samp << ")";
+		string fileName = (dict_.name()).name().replace("waveProperties::","");
 
-		// Frequency string
-		std::stringstream sfreq;
+		ws(fileName, "Amplitude", amp);
 
-		sfreq << "nonuniform List<scalar> " << frequency.size() << "(";
-		forAll(frequency, index)
-		{
-			sfreq << 2.0 * PI_ * frequency[index] << " ";
-		}
-		sfreq << ")";
+		ws(fileName, "Frequency", frequency);
 
-		// Phaselag string
-		std::stringstream sphi;
+		ws(fileName, "Phaselag", phaselag);
 
-		sphi << "nonuniform List<scalar> " << phaselag.size() << "(";
-		forAll(phaselag, index)
-		{
-			sphi << phaselag[index] << " ";
-		}
-		sphi << ")";
+		wv(fileName, "WaveNumber", waveNumber);
 
-		// waveNumber string
-		std::stringstream sk;
-
-		sk << "nonuniform List<vector> " << waveNumber.size() << "(";
-		forAll(waveNumber, index)
-		{
-			sk << "(" << waveNumber[index].x() << " " << waveNumber[index].y() << " " << waveNumber[index].z() << ") ";
-		}
-		sk << ")";
-
-		// Write strings to dictionary
-		dict_.add("amplitude" , samp.str() , true);
-		dict_.add("omega"     , sfreq.str(), true);
-		dict_.add("phi"       , sphi.str() , true);
-		dict_.add("waveNumber", sk.str()   , true);
+//		IOField<scalar> amplitude
+//		(
+//			IOobject
+//			(
+//				fileName+"Amplitude",
+//				"constant",
+//				"additionalWaveProperties",
+//				mesh_,
+//				IOobject::NO_READ,
+//				IOobject::NO_WRITE
+//			),
+//			amp
+//		);
+//		amplitude.write();
+//
+//		IOField<scalar> freq
+//		(
+//			IOobject
+//			(
+//				fileName+"Frequency",
+//				"constant",
+//				"additionalWaveProperties",
+//				mesh_,
+//				IOobject::NO_READ,
+//				IOobject::NO_WRITE
+//			),
+//			frequency
+//		);
+//		freq.write();
+//
+//		IOField<scalar> pl
+//		(
+//			IOobject
+//			(
+//				fileName+"Phaselag",
+//				"constant",
+//				"additionalWaveProperties",
+//				mesh_,
+//				IOobject::NO_READ,
+//				IOobject::NO_WRITE
+//			),
+//			phaselag
+//		);
+//		pl.write();
+//
+//		IOField<vector> wn
+//		(
+//			IOobject
+//			(
+//				fileName+"WaveNumber",
+//				"constant",
+//				"additionalWaveProperties",
+//				mesh_,
+//				IOobject::NO_READ,
+//				IOobject::NO_WRITE
+//			),
+//			waveNumber
+//		);
+//		wn.write();
 	}
 }
 
