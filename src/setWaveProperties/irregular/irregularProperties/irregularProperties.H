@@ -62,6 +62,10 @@ class irregularProperties
 {
 private:
 
+		void ws(const string &, const string &, const scalarField & ) const;
+
+		void wv(const string &, const string &, const vectorField & ) const;
+
 protected:
 
 		const fvMesh & mesh_;
