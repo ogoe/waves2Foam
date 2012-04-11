@@ -15,9 +15,9 @@ then
 
         cd $dir
 
-        argInner=`grep -v "\-llduSolvers" options`
+        argInner=`grep "\-llduSolvers" options`
 
-        if [ -z "$argInner" ]
+        if [ -n "$argInner" ]
         then 
             grep -v "\-llduSolvers" options > options.temp
             mv options.temp options
