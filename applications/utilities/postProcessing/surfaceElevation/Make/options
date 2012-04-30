@@ -1,15 +1,17 @@
 EXE_INC = \
-    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/sampling/lnInclude \
     -I$(LIB_SRC)/lagrangian/basic/lnInclude \
-    -I/usr/local/include \
-    -I/usr/include
-    
-LIB_LIBS = \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -I./../../../../src/lnInclude
+
+EXE_LIBS = \
     -lfiniteVolume \
     -lmeshTools \
     -lsampling \
-    -lgsl \
-    -lgslcblas
+    -lsurfMesh \
+    -ltriSurface \
+    -llagrangian \
+    -L$(FOAM_USER_LIBBIN) \
+    -lwaves2Foam

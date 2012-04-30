@@ -126,5 +126,8 @@ $(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
 /* Relaxation Zone */
 $(relaxMethod)/relaxationZone.C
 
+/* POST PROCESSING */
+sampling/sampledSurfaceElevation/sampledSurfaceElevation.C
+
 /* OUTPUT */
 LIB = $(FOAM_USER_LIBBIN)/libwaves2Foam
