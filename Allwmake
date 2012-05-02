@@ -37,7 +37,12 @@ fi
 
 apps="applications"
 
-version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/' | grep "[0-9]" | head -2 | tr -d '\n'`
+if [ `uname` == "Darwin" ]
+then
+    version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
+else
+    version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
+fi
 export WM_PROJECT_VERSION_NUMBER=$version
 
 ( cd $apps/solvers/solvers$version && wmake all )
