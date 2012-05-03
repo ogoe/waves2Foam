@@ -128,6 +128,7 @@ $(relaxMethod)/relaxationZone.C
 
 /* POST PROCESSING */
 sampling/sampledSurfaceElevation/sampledSurfaceElevation.C
+sampling/sampledSurfaceElevationFunctionObject/sampledSurfaceElevationFunctionObject.C
 
 /* OUTPUT */
 LIB = $(FOAM_USER_LIBBIN)/libwaves2Foam
