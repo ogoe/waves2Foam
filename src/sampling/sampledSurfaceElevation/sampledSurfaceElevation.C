@@ -274,7 +274,7 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
         outputPath_ = outputPath_/mesh_.name();
     }
 
-    mkDir(outputPath_ + "/" + mesh_.time().timeName() );
+//    mkDir(outputPath_ + "/" + mesh_.time().timeName() );
 
     read(dict);
 }
@@ -329,6 +329,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 			// create file if not already there, notice: this shall be done on master node only
 			if (surfaceElevationFilePtr_.empty())
 			{
+				mkDir( outputPath_ + "/" + mesh_.time().timeName() );
 			    surfaceElevationFilePtr_.reset(new OFstream(outputPath_ + "/" + mesh_.time().timeName() + "/surfaceElevation.dat"));
 
 			    // write header

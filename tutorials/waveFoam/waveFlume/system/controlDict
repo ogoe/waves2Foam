@@ -52,4 +52,50 @@ maxAlphaCo      0.25;
 
 maxDeltaT       1;
 
+functions
+{
+    surfaceElevation
+    {
+        type            surfaceElevation;
+        functionObjectLibs ( "libwaves2Foam.so" );
+        outputControl   timeStep;
+        outputInterval  4;
+        setFormat raw;
+        interpolationScheme cellPointFace;
+        fields (alpha1);
+        sets
+        (
+            lineName0
+            {
+                type        face;
+                axis        y;
+
+                start       (0.1 -0.2 0.05);
+                end         (0.1  0.15 0.05);
+                nPoints     100;
+            }
+
+            lineName1
+            {
+                type        face;
+                axis        y;
+
+                start       (1.1 -0.2 0.05);
+                end         (1.1  0.15 0.05);
+                nPoints     100;
+            }
+
+            lineName2
+            {
+                type        face;
+                axis        y;
+
+                start       (2.1 -0.2 0.05);
+                end         (2.1  0.15 0.05);
+                nPoints     100;
+            }
+        );
+    }
+}
+
 // ************************************************************************* //
