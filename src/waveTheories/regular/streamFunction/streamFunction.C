@@ -95,7 +95,7 @@ scalar streamFunction::eta
 ) const
 {
     scalar eta(0);
-    scalar arg = (k_ & x) - omega_ * time;
+    scalar arg = (k_ & x) - omega_ * time + phi_;
 
     forAll(A_,ii)
     {
@@ -115,7 +115,7 @@ scalar streamFunction::ddxPd
 {
     // PAS PAA, DETTE FOELGER IKKE KONVENTIONEN MED ARBITRAER BOELGETALSVEKTOR!!!!!!!!!!!!!
     scalar Z(returnZ(x));
-    scalar arg = (k_ & x) - omega_ * time;
+    scalar arg = (k_ & x) - omega_ * time + phi_;
     
     scalar ddxPd(0);
     vector uu(U(x,time));
@@ -155,7 +155,7 @@ vector streamFunction::U
     scalar Z(returnZ(x));
     scalar Uhorz(omega_ / K_ - uBar_);
     scalar Uvert(0);
-    scalar arg = (k_ & x) - omega_ * time;
+    scalar arg = (k_ & x) - omega_ * time + phi_;
     scalar j(0);
 
     forAll(B_,ii)
