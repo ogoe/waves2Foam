@@ -168,6 +168,8 @@ class sampledSurfaceElevation
         //- Mesh search engine
         meshSearch searchEngine_;
 
+        scalar startTime_;
+
 
         // Read from dictonary
 

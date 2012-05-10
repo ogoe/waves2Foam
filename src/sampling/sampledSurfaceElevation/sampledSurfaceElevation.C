@@ -261,6 +261,8 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     writeFormat_(word::null),
     surfaceElevationFilePtr_( NULL )
 {
+	startTime_ = dict.lookupOrDefault<scalar>("samplingStartTime", 0.0);
+
     if (Pstream::parRun())
     {
         outputPath_ = mesh_.time().path()/".."/name_;
@@ -319,7 +321,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 	fieldGroup<scalar> & fields
 )
 {
-	if ( fields.size() )
+	if ( fields.size() && mesh_.time().value() >= startTime_ )
 	{
 		scalarField result(0);
 		sampleAndIntegrate( scalarFields_, result );
