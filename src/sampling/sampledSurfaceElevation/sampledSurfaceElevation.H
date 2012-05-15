@@ -169,6 +169,8 @@ class sampledSurfaceElevation
         meshSearch searchEngine_;
 
         scalar startTime_;
+        scalar nextSampleTime_;
+        scalar surfaceSampleDeltaT_;
 
 
         // Read from dictonary
@@ -239,6 +241,7 @@ class sampledSurfaceElevation
         sampledSurfaceElevation(const sampledSurfaceElevation&);
         void operator=(const sampledSurfaceElevation&);
 
+        bool performAction();
 
 public:
 

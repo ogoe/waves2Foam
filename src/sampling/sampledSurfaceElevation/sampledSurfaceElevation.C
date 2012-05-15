@@ -262,6 +262,8 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     surfaceElevationFilePtr_( NULL )
 {
 	startTime_ = dict.lookupOrDefault<scalar>("samplingStartTime", 0.0);
+	nextSampleTime_ = startTime_;
+	surfaceSampleDeltaT_ = dict.lookupOrDefault<scalar>("surfaceSampleDeltaT", -1);
 
     if (Pstream::parRun())
     {
@@ -316,12 +318,30 @@ void Foam::sampledSurfaceElevation::write()
     }
 }
 
+bool Foam::sampledSurfaceElevation::performAction()
+{
+	if ( surfaceSampleDeltaT_ <= 10 * SMALL )
+		return mesh_.time().value() >= startTime_;
+	else
+	{
+		if ( mesh_.time().value() < nextSampleTime_ )
+			return false;
+		else
+		{
+			while ( mesh_.time().value() > nextSampleTime_ )
+				nextSampleTime_ += surfaceSampleDeltaT_;
+
+			return true;
+		}
+	}
+}
+
 void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 (
 	fieldGroup<scalar> & fields
 )
 {
-	if ( fields.size() && mesh_.time().value() >= startTime_ )
+	if ( fields.size() && performAction() )
 	{
 		scalarField result(0);
 		sampleAndIntegrate( scalarFields_, result );
