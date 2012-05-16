@@ -1,5 +1,24 @@
 function [k,etaNew] = generateStreamFile(H,h,T,EorS,uEorS,N)
-% GENERATESTREAMFILE(H,h,T,EorS,uEorS)
+% GENERATESTREAMFILE(H,h,T,EorS,uEorS, N)
+% 
+% This function computes the stream function coefficients and output them
+% to a file, which can be pasted into waveProperties
+%
+% H:     Wave height [m]
+% h:     Water depth [m]
+% T:     Wave period [s]
+% EorS:  String. Either 'Stokes' or 'Eulerian' drift.
+% uEorS: Magnitude of the Stokes or Eulerian drifts. E.g. 'Stokes' and 0
+%        gives a zero Stokes drift, e.g. a closed wave flume.
+% N:     The number of stream function coefficients. N=1 yields Airy
+%        theory.
+%
+% Modified from a stream function script by Harry Bingham, Technical
+% University of Denmark.
+%
+% Niels G. Jacobsen, Technical University of Denmark
+%
+
 close all
 
 nsteps = 10;
