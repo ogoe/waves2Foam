@@ -3,8 +3,8 @@ function [eta, B, Q, c, k, R, uBar] = StreamFunctionCoefficientsPeriod(N,H,h,T,u
 % lecture notes from the course 'Linear and non-linear wave theory' given
 % at the Technical University of Denmark.
 
-% Initial quess on wave number
-k0 = abs(fzero(@(x) (2*pi/T)^2 - g*x*tanh(x*h),1));
+% Initial quess on wave number (2 * pi / 1.56 T^2 is the deep water wave number)
+k0 = abs(fzero(@(x) (2*pi/T)^2 - g*x*tanh(x*h), 2 * pi / (1.56 * T^2)));
 
 % Initial wave height
 H0 = H/nsteps;
