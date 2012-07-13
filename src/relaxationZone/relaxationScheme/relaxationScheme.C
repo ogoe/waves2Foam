@@ -67,9 +67,10 @@ relaxationScheme::relaxationScheme
     alpha_(alpha),
     coeffDict_(subDict(subDictName + "Coeffs").subDict("relaxationZone"))
 {
-    relaxShape_ = relaxationShapes::relaxationShape::New(subDictName, mesh_);
-    waveProps_  = waveTheories::waveTheory::New(subDictName, mesh_);
-    numBeach_   = numericalBeaches::numericalBeach::New(subDictName, mesh_ );
+    relaxShape_  = relaxationShapes::relaxationShape::New(subDictName, mesh_);
+    relaxWeight_ = relaxationWeights::relaxationWeight::New(subDictName, mesh_);
+    waveProps_   = waveTheories::waveTheory::New(subDictName, mesh_);
+    numBeach_    = numericalBeaches::numericalBeach::New(subDictName, mesh_ );
 }
 
 relaxationScheme::~relaxationScheme()

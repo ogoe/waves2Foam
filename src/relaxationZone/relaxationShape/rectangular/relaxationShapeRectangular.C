@@ -107,7 +107,7 @@ void relaxationShapeRectangular::computeSigmaCoordinate()
     const vectorField & C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
 
-    Info << xAxis_ << " " << width_ << " "<< direction_ <<   endl;
+//    Info << xAxis_ << " " << width_ << " "<< direction_ <<   endl;
 
     forAll( cells_, celli )
     {

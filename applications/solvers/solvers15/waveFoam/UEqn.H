@@ -6,6 +6,7 @@
       + fvm::div(rhoPhi, U)
       - fvm::laplacian(muf, U)
       - (fvc::grad(U) & fvc::grad(muf))
+      - fvm::Sp( rho * relaxing.numericalBeach(), U ) // Numerical beach
     //- fvc::div(muf*(fvc::interpolate(dev(fvc::grad(U))) & mesh.Sf()))
     );
 
