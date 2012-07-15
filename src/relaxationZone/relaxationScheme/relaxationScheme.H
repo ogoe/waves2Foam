@@ -60,6 +60,7 @@ Author
 
 #include "convexPolyhedral.H"
 #include "relaxationShape.H"
+#include "relaxationWeight.H"
 #include "numericalBeach.H"
 #include "waveTheory.H"
 #include "Switch.H"
@@ -93,6 +94,9 @@ protected:
         word relaxScheme_;
         
         autoPtr<relaxationShapes::relaxationShape> relaxShape_;
+
+        autoPtr<relaxationWeights::relaxationWeight> relaxWeight_;
+
         autoPtr<numericalBeaches::numericalBeach> numBeach_;
 
         autoPtr<waveTheories::waveTheory> waveProps_;
@@ -177,8 +181,8 @@ public:
         // Access
         virtual void correct() = 0;
 
-        inline const labelList   & cells() const { return relaxShape_->cells(); };
-        inline const scalarField & sigma() const { return relaxShape_->sigma(); };
+        inline const labelList   & cells() { return relaxShape_->cells(); };
+        inline const scalarField & sigma() { return relaxShape_->sigma(); };
 
         void numericalBeach( volScalarField & );
 };

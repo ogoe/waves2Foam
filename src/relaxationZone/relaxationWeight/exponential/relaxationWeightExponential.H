@@ -23,10 +23,11 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::relaxationShapes::relaxationShapeSemiCylindrical
+    Foam::relaxationWeights::relaxationWeightExponential
 
 Description
-    An object used to define SEMICYLINDRICAL relaxation zones. See e.g.
+    An object used to create a weighting function in the relaxation zone, which
+    has an exponential behaviour. Identical to the one described in:
 
     @article { jacobsenFuhrmanFredsoe2011,
 		Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
@@ -38,72 +39,58 @@ Description
 	}
 
 SourceFiles
-    relaxationShapeSemiCylindrical.C
+    relaxationWeightExponential.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef relaxationShapeSemiCylindrical_H
-#define relaxationShapeSemiCylindrical_H
+#ifndef relaxationWeightExponential_H
+#define relaxationWeightExponential_H
 
-#include "relaxationShape.H"
+#include "relaxationWeight.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace relaxationShapes
+namespace relaxationWeights
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class relaxationShapeSemiCylindrical Declaration
+                           Class relaxationShapeRectangular Declaration
 \*---------------------------------------------------------------------------*/
 
-class relaxationShapeSemiCylindrical
+class relaxationWeightExponential
 :
-    public relaxationShape
+    public relaxationWeight
 {
 
+private:
+
+    // Private data
+    	scalar exponent_;
+        
 protected:
 
-    // Protected data
+    // Protected Member functions
+    	virtual void computeWeights
+    	(
+    		const labelList &,
+    	    const scalarField &,
+    	    scalarField &
+    	);
 
-        vector      centre_;
-        vector      zeroAngleDirection_;
-        scalar      rInner_;
-        scalar      rOuter_;
-        scalar      angleStart_;
-        scalar      angleEnd_;
-        
-        scalar      width_;
-        vector      piHalfAngleDirection_;
-    
-    // Protected member functions
-        bool angleCheck
-        (
-        	const scalar &
-        ) const;
-
-        bool insideZone
-        (
-        	const label &
-        ) const;
-
-        virtual void computeSigmaCoordinate();
-        
-        virtual void findComputationalCells();
-        
 public:
 
     //- Runtime type information
-    TypeName("relaxationShapeSemiCylindrical");
+    TypeName("relaxationWeightExponential");
 
     // Constructors
 
         //- from components
-        relaxationShapeSemiCylindrical
+        relaxationWeightExponential
         (
             const word & ,
         	const fvMesh & mesh_
@@ -112,7 +99,7 @@ public:
 
     // Destructor
 
-        ~relaxationShapeSemiCylindrical()
+        ~relaxationWeightExponential()
         {}
 
 
@@ -123,7 +110,7 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace relaxationShapes
+} // End namespace relaxationWeights
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
