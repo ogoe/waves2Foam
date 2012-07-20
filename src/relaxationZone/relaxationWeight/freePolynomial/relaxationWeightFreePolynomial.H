@@ -23,87 +23,70 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::relaxationShapes::relaxationShapeSemiCylindrical
+    Foam::relaxationWeights::relaxationWeightFreePolynomial
 
 Description
-    An object used to define SEMICYLINDRICAL relaxation zones. See e.g.
+    An object used to create a weighting function in the relaxation zone, which
+    has a polynomial behaviour with a user defined exponent. See eq. 6.17 in
 
-    @article { jacobsenFuhrmanFredsoe2011,
-		Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-		title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
-		Journal = {{Int. J. for Numer. Meth. Fluids}},
-		Year = {2011},
-		Volume = {In print},
-		Pages = {},
-	}
+	A. P. Engsig-Karup
+	Unstructured Nodal DG-FEM Solution of High-Order Boussinesq-Type Equations
+	PhD Thesis
+	Technical University of Denmark
 
 SourceFiles
-    relaxationShapeSemiCylindrical.C
+    relaxationWeightFreePolynomial.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef relaxationShapeSemiCylindrical_H
-#define relaxationShapeSemiCylindrical_H
+#ifndef relaxationWeightFreePolynomial_H
+#define relaxationWeightFreePolynomial_H
 
-#include "relaxationShape.H"
+#include "relaxationWeight.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace relaxationShapes
+namespace relaxationWeights
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class relaxationShapeSemiCylindrical Declaration
+                           Class relaxationShapeRectangular Declaration
 \*---------------------------------------------------------------------------*/
 
-class relaxationShapeSemiCylindrical
+class relaxationWeightFreePolynomial
 :
-    public relaxationShape
+    public relaxationWeight
 {
+
+private:
+
+    // Private data
+    	scalar exponent_;
 
 protected:
 
-    // Protected data
+    // Protected Member functions
+    	virtual void computeWeights
+    	(
+    		const labelList &,
+    	    const scalarField &,
+    	    scalarField &
+    	);
 
-        vector      centre_;
-        vector      zeroAngleDirection_;
-        scalar      rInner_;
-        scalar      rOuter_;
-        scalar      angleStart_;
-        scalar      angleEnd_;
-        
-        scalar      width_;
-        vector      piHalfAngleDirection_;
-    
-    // Protected member functions
-        bool angleCheck
-        (
-        	const scalar &
-        ) const;
-
-        bool insideZone
-        (
-        	const label &
-        ) const;
-
-        virtual void computeSigmaCoordinate();
-        
-        virtual void findComputationalCells();
-        
 public:
 
     //- Runtime type information
-    TypeName("relaxationShapeSemiCylindrical");
+    TypeName("relaxationWeightFreePolynomial");
 
     // Constructors
 
         //- from components
-        relaxationShapeSemiCylindrical
+        relaxationWeightFreePolynomial
         (
             const word & ,
         	const fvMesh & mesh_
@@ -112,9 +95,8 @@ public:
 
     // Destructor
 
-        ~relaxationShapeSemiCylindrical()
+        ~relaxationWeightFreePolynomial()
         {}
-
 
     // Member Functions
 
@@ -123,7 +105,7 @@ public:
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace relaxationShapes
+} // End namespace relaxationWeights
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

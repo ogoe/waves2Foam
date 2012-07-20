@@ -52,7 +52,7 @@ boundaryField
     }
     bottom
     {
-        type            zeroGradient;
+        type            slip;
     }
     atmos
     {
@@ -61,7 +61,7 @@ boundaryField
     }
     internalWall
     {
-        type            zeroGradient;
+        type            slip;
     }
 }
 

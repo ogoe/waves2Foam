@@ -23,10 +23,10 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::relaxationShapes::relaxationShape
+    Foam::relaxationWeights::relaxationWeights
 
 Description
-    An abstract base class for generating different relaxation shapes through
+    An abstract base class for generating different relaxation Weights through
     a dictionary lookup.
 
     See e.g.
@@ -41,8 +41,7 @@ Description
 	}
 
 SourceFiles
-    relaxationShape.C
-    newRelaxationShape.C
+    relaxationWeight.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -50,8 +49,8 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef relaxationShape_H
-#define relaxationShape_H
+#ifndef relaxationWeight_H
+#define relaxationWeight_H
 
 #include "volFields.H"
 
@@ -59,20 +58,20 @@ Author
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
 
-//#include "mathematicalConstants.H"
+#include "relaxationWeightCourantCorrection.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
-namespace relaxationShapes
+namespace relaxationWeights
 {
 
 /*---------------------------------------------------------------------------*\
                       Class relaxationShape Declaration
 \*---------------------------------------------------------------------------*/
 
-class relaxationShape
+class relaxationWeight
 :
     public IOdictionary
 {
@@ -81,48 +80,42 @@ protected:
 
     // Protected data
         const fvMesh & mesh_;
-	    
+
 	    const dictionary coeffDict_;
-        vector direction_;
 
-        labelList cells_;
-        scalarField sigma_;
-        
-        word relaxType_;
-        
         scalar PI_;
-
-        label refreshIndexCells_, refreshIndexSigma_;
+        
+        relaxationWeightCourantCorrection rwcc_;
 
     // Protected member functions
-        virtual void computeSigmaCoordinate() = 0;
+        virtual void computeWeights
+        (
+        	const labelList &,
+        	const scalarField &,
+        	scalarField &
+        ) = 0;
 
-        virtual void findComputationalCells() = 0;
-        
 private:
 
     // Private Member Functions
-        void refreshCells();
-
-        void refreshSigma();
 
         //- Disallow default bitwise copy construct
-        relaxationShape(const relaxationShape&);
+        relaxationWeight(const relaxationWeight&);
 
         //- Disallow default bitwise assignment
-        void operator=(const relaxationShape&);
+        void operator=(const relaxationWeight&);
 
 public:
 
     //- Runtime type information
-    TypeName("relaxationShape");
+    TypeName("relaxationWeight");
 
     // Declare run-time constructor selection table
 
         declareRunTimeSelectionTable
         (
             autoPtr,
-            relaxationShape,
+            relaxationWeight,
             dictionary,
             (
             	const word & subDictName, const fvMesh & mesh_
@@ -133,7 +126,7 @@ public:
     // Constructors
 
         //- Construct from components
-        relaxationShape
+        relaxationWeight
         (
             const word & type,
             const fvMesh & mesh_
@@ -143,7 +136,7 @@ public:
     // Selectors
 
         //- Return a reference to the selected turbulence model
-        static autoPtr<relaxationShape> New
+        static autoPtr<relaxationWeight> New
         (
             const word & subDictName,
             const fvMesh & mesh_
@@ -151,20 +144,24 @@ public:
 
     // Destructor
 
-        virtual ~relaxationShape();
+        virtual ~relaxationWeight();
 
 
     // Member Functions
 
         // Access
-        inline const labelList   & cells() { refreshCells(); return cells_; };
-        inline const scalarField & sigma() { refreshSigma(); return sigma_; };
+        virtual void weights
+        (
+        	const labelList &,
+        	const scalarField &,
+        	scalarField &
+        );
 };
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-} // End namespace relaxationShapes
+} // End namespace relaxationWeights
 } // End namespace Foam
 
 // // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

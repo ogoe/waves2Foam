@@ -82,7 +82,7 @@ protected:
         	const label &
         ) const;
 
-        void computeSigmaCoordinate();
+        virtual void computeSigmaCoordinate();
         
         virtual void findComputationalCells();
         

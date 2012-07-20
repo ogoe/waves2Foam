@@ -106,6 +106,16 @@ $(relaxMethod)/$(relaxShape)/rectangular/relaxationShapeRectangular.C
 $(relaxMethod)/$(relaxShape)/cylindrical/relaxationShapeCylindrical.C
 $(relaxMethod)/$(relaxShape)/semiCylindrical/relaxationShapeSemiCylindrical.C
 
+/* Relaxation Weights */
+relaxWeight=relaxationWeight
+
+$(relaxMethod)/$(relaxWeight)/relaxationWeight.C
+$(relaxMethod)/$(relaxWeight)/relaxationWeightCourantCorrection.C
+
+$(relaxMethod)/$(relaxWeight)/exponential/relaxationWeightExponential.C
+$(relaxMethod)/$(relaxWeight)/freePolynomial/relaxationWeightFreePolynomial.C
+$(relaxMethod)/$(relaxWeight)/thirdOrderPolynomial/relaxationWeightThirdOrderPolynomial.C
+
 /* Relaxation Schemes */
 relaxScheme=relaxationScheme
 

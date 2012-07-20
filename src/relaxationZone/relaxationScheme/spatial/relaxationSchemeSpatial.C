@@ -66,8 +66,20 @@ relaxationSchemeSpatial::relaxationSchemeSpatial
 
 void relaxationSchemeSpatial::correct()
 {
+	// Obtain relaxation zone cells and local sigma coordinate
+	// The number of cells and the sigma coordinate can have changed
+	// for dynamic meshes
     const labelList   & cells = relaxShape_->cells();
+    const scalarField & sigma = relaxShape_->sigma();
 
+    // Compute the relaxation weights - only changes for moving/changing meshes
+    if ( weight_.size() != sigma.size() )
+    	weight_.setSize( sigma.size(), 0.0 );
+
+    relaxWeight_->weights(cells, sigma, weight_);
+
+
+    // Perform the correction
     const scalarField & V ( mesh_.V() );
     const vectorField & C ( mesh_.C() );
     const cellList    & cc( mesh_.cells() );
@@ -116,7 +128,7 @@ void relaxationSchemeSpatial::correct()
     	alpha_[cellNo] = (1 - weight_[celli]) * alphaTarget + weight_[celli] * alpha_[cellNo];
     }
 
-    // REMEMBER NO TO PUT correctBoundaryConditions() HERE BUT ONE LEVEL UP IN WAVERELAXATIONONECSTASY
+    // REMEMBER NOT TO PUT correctBoundaryConditions() HERE BUT ONE LEVEL UP
 }
 
 

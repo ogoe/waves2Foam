@@ -51,6 +51,7 @@ Additional information
 #include "fvMesh.H"
 #include "volFields.H"
 #include "relaxationShape.H"
+#include "relaxationWeight.H"
 
 #if OFVERSION != 15
 #    include "uniformDimensionedFields.H"
@@ -76,8 +77,6 @@ int main(int argc, char *argv[])
 
 #   include "readWaveProperties.H"
 
-
-
     Info<< "Creating field relaxationZoneLayout\n" << endl;
 
     volScalarField rzl
@@ -101,7 +100,7 @@ int main(int argc, char *argv[])
     (
         IOobject
         (
-            "relaxationZoneLayoutSigma",
+            "relaxationZoneSigmaValue",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
@@ -112,12 +111,28 @@ int main(int argc, char *argv[])
         "zeroGradient"
     );
 
+    volScalarField wrzl
+    (
+        IOobject
+        (
+            "relaxationZoneWeightOnComputed",
+            runTime.timeName(),
+            mesh,
+            IOobject::NO_READ,
+            IOobject::AUTO_WRITE
+        ),
+        mesh,
+        dimensionedScalar("null", dimless, 1.0),
+        "zeroGradient"
+    );
+
     // Read the relaxation names from waveProperties
     wordList relaxNames( waveProperties.lookup("relaxationNames") );
     
     // Create the relaxation shape function and add the data to the above generated fields
     forAll( relaxNames, relaxi )
     {
+    	// Get relaxation zone cells and coorsponding sigma coordinates
         autoPtr<relaxationShapes::relaxationShape> relaxShape = relaxationShapes::relaxationShape::New(relaxNames[relaxi], mesh);
 
         const labelList & cells( relaxShape->cells());
@@ -131,11 +146,24 @@ int main(int argc, char *argv[])
         }
 
         Info << relaxNames[relaxi] << " has " << cells.size() << " cells\n" << endl;
+
+        // Compute relaxation zone weights
+        autoPtr<relaxationWeights::relaxationWeight> relaxWeight = relaxationWeights::relaxationWeight::New(relaxNames[relaxi], mesh);
+
+        scalarField weights(sigma.size(), 1.0);
+
+        relaxWeight->weights(cells, sigma, weights);
+
+        forAll( weights, celli )
+        {
+            wrzl[cells[celli]] = weights[celli];
+        }
     }
     
     Info << "Write the fields to Time = " << runTime.timeName() << endl;
     rzl.write();
     srzl.write();
+    wrzl.write();
 
     Info << nl << "End" << endl;
 

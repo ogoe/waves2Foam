@@ -65,7 +65,11 @@ relaxationShape::relaxationShape
 
     mesh_(mesh),
     coeffDict_(subDict(subDictName + "Coeffs").subDict("relaxationZone")),
-    PI_( M_PI )
+    PI_( M_PI ),
+
+    refreshIndexCells_(-1),
+
+    refreshIndexSigma_(-1)
 {
 	// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
 #if OFVERSION == 15
@@ -82,6 +86,28 @@ relaxationShape::~relaxationShape()
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+void relaxationShape::refreshCells()
+{
+	if ( refreshIndexCells_ != mesh_.time().timeIndex() && mesh_.changing() )
+	{
+		findComputationalCells();
+	}
+
+	refreshIndexCells_ = mesh_.time().timeIndex();
+}
+
+void relaxationShape::refreshSigma()
+{
+	refreshCells();
+
+	if ( refreshIndexSigma_ != mesh_.time().timeIndex() )
+	{
+		computeSigmaCoordinate();
+	}
+
+	refreshIndexSigma_ = mesh_.time().timeIndex();
+}
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
