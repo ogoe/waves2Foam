@@ -49,7 +49,8 @@ potentialCurrent::potentialCurrent
 :
     waveTheory(subDictName, mesh_),
     U_(vector(coeffDict_.lookup("U"))),
-    Tsoft_(readScalar(coeffDict_.lookup("Tsoft")))
+    Tsoft_(readScalar(coeffDict_.lookup("Tsoft"))),
+    localSeaLevel_( coeffDict_.lookupOrDefault<scalar>("localSeaLevel", seaLevel_ ) )
 {}
 
 
@@ -75,7 +76,8 @@ scalar potentialCurrent::eta
 	const scalar & time
 ) const
 {
-    scalar eta = seaLevel_;
+//    scalar eta = seaLevel_;
+    scalar eta = localSeaLevel_;
     return eta;
 }
 
@@ -95,7 +97,7 @@ scalar potentialCurrent::p
 	const scalar & time
 ) const
 {
-	scalar result = rhoWater_ * Foam::mag(g_) * seaLevel_;
+	scalar result = rhoWater_ * Foam::mag(g_) * localSeaLevel_;
 
 	return result;
 }

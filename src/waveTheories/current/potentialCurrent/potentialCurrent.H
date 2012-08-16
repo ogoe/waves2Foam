@@ -75,6 +75,7 @@ protected:
     // Protected data
         vector U_;
         scalar Tsoft_;
+        scalar localSeaLevel_;
 
     // Protected member functions
 
