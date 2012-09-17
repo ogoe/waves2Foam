@@ -118,9 +118,11 @@ scalar stokesFirstProperties::linearWaveNumber() const
 
     scalar middle(0.5 * (lower + upper) );
 
-    scalar valLower( Foam::pow(omega_, 2.0) - Foam::mag(G_) * lower * Foam::tanh( lower * depth_) ),
-    	   valUpper( Foam::pow(omega_, 2.0) - Foam::mag(G_) * upper * Foam::tanh( upper * depth_) ),
-    	   valMiddle( Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( middle * depth_) );
+    scalar tanhMax(100);
+
+    scalar valLower( Foam::pow(omega_, 2.0) - Foam::mag(G_) * lower * Foam::tanh( Foam::min(lower * depth_, tanhMax) ) ),
+    	   valUpper( Foam::pow(omega_, 2.0) - Foam::mag(G_) * upper * Foam::tanh( Foam::min(upper * depth_, tanhMax) ) ),
+    	   valMiddle( Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( Foam::min(middle * depth_, tanhMax) ) );
 
     while ( true )
     {
@@ -137,9 +139,9 @@ scalar stokesFirstProperties::linearWaveNumber() const
 
     	middle = 0.5 * ( lower + upper );
 
-    	valMiddle = Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( middle * depth_);
+    	valMiddle = Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( Foam::min(middle * depth_, tanhMax) );
 
-    	if ( Foam::mag(valMiddle) < 1.0e-13 )
+    	if ( Foam::mag(valMiddle) < 1.0e-13 || Foam::mag(valLower - valUpper) / middle < 1.0e-13 )
     		break;
     }
 
