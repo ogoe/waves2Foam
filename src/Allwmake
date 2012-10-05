@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ `uname` == "Darwin" ]
+if [ `uname` = "Darwin" ]
 then
     version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
 else
