@@ -53,9 +53,7 @@ Additional information
 #include "relaxationShape.H"
 #include "relaxationWeight.H"
 
-#if OFVERSION != 15
-#    include "uniformDimensionedFields.H"
-#endif
+#include "uniformDimensionedFields.H"
 
 using namespace Foam;
 
@@ -69,11 +67,7 @@ int main(int argc, char *argv[])
 
 #   include "createMesh.H"
 
-#if OFVERSION == 15
-#    include "readEnvironmentalProperties.H"
-#else
 #   include "readGravitationalAcceleration.H"
-#endif
 
 #   include "readWaveProperties.H"
 

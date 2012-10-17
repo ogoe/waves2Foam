@@ -195,7 +195,7 @@ void Foam::sampledSurfaceElevation::combineSampledSets
 
         // The constructor for coordSet has changed as of version 2.0.
         // This is taken care of using these pre-processor statements.
-#if OFVERSION < 20
+#if OFVERSION < 200
         // Get reference point (note: only master has all points)
         point refPt;
 
@@ -251,7 +251,7 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     mesh_(refCast<const fvMesh>(obr)),
     loadFromFiles_(loadFromFiles),
     outputPath_(fileName::null),
-#if OFVERSION < 21
+#if OFVERSION < 210
     searchEngine_(mesh_, true),
 #else
     searchEngine_(mesh_),

@@ -60,11 +60,7 @@ waveSpectra::waveSpectra
 	k_(k),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-#if OFVERSION==15
-    G_( Foam::mag(dimensionedVector( mesh.db().lookupObject<IOdictionary>("environmentalProperties").lookup("g") ).value()) ),
-#else
 	G_( Foam::mag(uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
-#endif
 
 	PI_( M_PI )
 {

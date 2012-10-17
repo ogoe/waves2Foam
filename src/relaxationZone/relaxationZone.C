@@ -47,11 +47,7 @@ relaxationZone::relaxationZone
 	U_(U),
 	alpha_(alpha),
 
-#if OFVERSION == 15
-	relaxNames_((mesh_.db().lookupObject<IOdictionary>("waveProperties")).lookup("relaxationNames")),
-#else
 	relaxNames_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties")).lookup("relaxationNames")),
-#endif
    	
 	relaxSchemePtr_(relaxNames_.size())
 { 

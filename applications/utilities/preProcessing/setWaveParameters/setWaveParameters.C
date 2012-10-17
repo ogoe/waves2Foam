@@ -76,11 +76,7 @@ int main(int argc, char *argv[])
         )
     );
 
-#if OFVERSION == 15
-#    include "readEnvironmentalProperties.H"
-#else
 #   include "readGravitationalAcceleration.H"
-#endif
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

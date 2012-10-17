@@ -26,9 +26,7 @@ License
 
 #include "relaxationShape.H"
 
-#if OFVERSION != 15
-    #include "uniformDimensionedFields.H"
-#endif
+#include "uniformDimensionedFields.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -56,11 +54,7 @@ relaxationShape::relaxationShape
 :
     IOdictionary
     (
-#if OFVERSION == 15
-        mesh.db().lookupObject<IOobject>("waveProperties")
-#else
         mesh.thisDb().lookupObject<IOobject>("waveProperties")
-#endif
     ),
 
     mesh_(mesh),
@@ -72,11 +66,8 @@ relaxationShape::relaxationShape
     refreshIndexSigma_(-1)
 {
 	// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-#if OFVERSION == 15
-    vector g( dimensionedVector( mesh_.db().lookupObject<IOdictionary>("environmentalProperties").lookup("g") ).value() );
-#else
 	vector g( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() );
-#endif
+
     direction_ = g / mag(g);
 }
 

@@ -48,11 +48,7 @@ autoPtr<waveTheory> waveTheory::New
     // deleted before the waveTheory is created otherwise the dictionary
     // is entered in the database twice
     {
-#if OFVERSION == 15
-        const dictionary coeffDict_((mesh_.db().lookupObject<IOdictionary>("waveProperties")).subDict(subDictName + "Coeffs"));
-#else
         const dictionary coeffDict_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties")).subDict(subDictName + "Coeffs"));
-#endif
 
         coeffDict_.lookup("waveType") >> waveTheoryTypeName;
     }

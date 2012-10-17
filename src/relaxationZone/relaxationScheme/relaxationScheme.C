@@ -55,11 +55,7 @@ relaxationScheme::relaxationScheme
 :
     IOdictionary
     (
-#if OFVERSION == 15
-        mesh.db().lookupObject<IOobject>("waveProperties")
-#else
         mesh.thisDb().lookupObject<IOobject>("waveProperties")
-#endif
     ),
     convexPolyhedral(mesh, true),
     mesh_(mesh),
