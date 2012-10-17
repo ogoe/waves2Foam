@@ -50,21 +50,12 @@ autoPtr<relaxationScheme> relaxationScheme::New
     // deleted before the relaxationScheme is created otherwise the dictionary
     // is entered in the database twice
     {
-#if OFVERSION == 15
-        const dictionary coeffDict_
-        (
-        	(mesh.db().lookupObject<IOdictionary>("waveProperties"))
-        	 .subDict(subDictName + "Coeffs")
-        	 .subDict("relaxationZone")
-        );
-#else
         const dictionary coeffDict_
         (
         	(mesh.thisDb().lookupObject<IOdictionary>("waveProperties"))
         	.subDict(subDictName + "Coeffs")
         	.subDict("relaxationZone")
         );
-#endif
 
         coeffDict_.lookup("relaxationScheme") >> relaxationSchemeTypeName;
     }

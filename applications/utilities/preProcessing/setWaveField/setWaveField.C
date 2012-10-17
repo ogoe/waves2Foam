@@ -52,9 +52,7 @@ Additional information
 #include "volFields.H"
 #include "setWaveField.H"
 
-#if OFVERSION != 15
-#    include "uniformDimensionedFields.H"
-#endif
+#include "uniformDimensionedFields.H"
 
 using namespace Foam;
 
@@ -68,26 +66,6 @@ int main(int argc, char *argv[])
 #   include "createMesh.H"
 
 #   include "readWaveProperties.H"
-
-#if OFVERSION == 15
-
-#    include "readEnvironmentalProperties.H"
-
-    Info<< "Reading field gamma\n" << endl;
-    volScalarField alpha
-    (
-        IOobject
-        (
-            "gamma",
-            runTime.timeName(),
-            mesh,
-            IOobject::MUST_READ,
-            IOobject::AUTO_WRITE
-        ),
-        mesh
-    );
-
-#else
 
 #   include "readGravitationalAcceleration.H"
 
@@ -104,8 +82,6 @@ int main(int argc, char *argv[])
         ),
         mesh
     );
-
-#endif
 
     Info<< "Reading field U\n" << endl;
     volVectorField U

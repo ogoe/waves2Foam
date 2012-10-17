@@ -58,11 +58,8 @@ Author
 
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
-//#include "mathematicalConstants.H"
 
-#if OFVERSION != 15
-#    include "uniformDimensionedFields.H"
-#endif
+#include "uniformDimensionedFields.H"
 
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>

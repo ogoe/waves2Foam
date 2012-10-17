@@ -48,21 +48,12 @@ autoPtr<relaxationShape> relaxationShape::New
     // deleted before the relaxationShape is created otherwise the dictionary
     // is entered in the database twice
     {
-#if OFVERSION == 15
-        const dictionary coeffDict_
-        (
-        	(mesh_.db().lookupObject<IOdictionary>("waveProperties"))
-        	 .subDict(subDictName + "Coeffs")
-        	 .subDict("relaxationZone")
-        );
-#else
         const dictionary coeffDict_
         (
         	(mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
         	 .subDict(subDictName + "Coeffs")
         	 .subDict("relaxationZone")
         );
-#endif
 
         coeffDict_.lookup("relaxationShape") >> relaxationShapeTypeName;
 

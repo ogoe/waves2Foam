@@ -52,11 +52,7 @@ numericalBeach::numericalBeach
 :
     IOdictionary
     (
-#if OFVERSION == 15
-        mesh.db().lookupObject<IOobject>("waveProperties")
-#else
         mesh.thisDb().lookupObject<IOobject>("waveProperties")
-#endif
     ),
 
     mesh_(mesh),

@@ -26,9 +26,8 @@ License
 
 #include "relaxationWeight.H"
 
-#if OFVERSION != 15
-    #include "uniformDimensionedFields.H"
-#endif
+#include "uniformDimensionedFields.H"
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -56,11 +55,7 @@ relaxationWeight::relaxationWeight
 :
     IOdictionary
     (
-#if OFVERSION == 15
-        mesh.db().lookupObject<IOobject>("waveProperties")
-#else
         mesh.thisDb().lookupObject<IOobject>("waveProperties")
-#endif
     ),
 
     mesh_(mesh),
@@ -89,21 +84,12 @@ autoPtr<relaxationWeight> relaxationWeight::New
     // deleted before the relaxationWeight is created otherwise the dictionary
     // is entered in the database twice
     {
-#if OFVERSION == 15
-        const dictionary coeffDict_
-        (
-        	(mesh_.db().lookupObject<IOdictionary>("waveProperties"))
-        	 .subDict(subDictName + "Coeffs")
-        	 .subDict("relaxationZone")
-        );
-#else
         const dictionary coeffDict_
         (
         	(mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
         	 .subDict(subDictName + "Coeffs")
         	 .subDict("relaxationZone")
         );
-#endif
 
         relaxationWeightTypeName = coeffDict_.lookupOrDefault<word>("relaxationWeight","Exponential");
 

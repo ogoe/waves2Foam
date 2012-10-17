@@ -53,11 +53,7 @@ setWaveProperties::setWaveProperties
 	dict_(dict),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-#if OFVERSION==15
-    g_( dimensionedVector( mesh.db().lookupObject<IOdictionary>("environmentalProperties").lookup("g") ).value() )
-#else
 	g_( uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() )
-#endif
 {
 	G_  = Foam::mag(g_);
 	PI_ = M_PI;
