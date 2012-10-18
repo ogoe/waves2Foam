@@ -50,7 +50,6 @@ class JONSWAP
 {
 private:
 
-
 public:
 
 		//- Runtime type information
@@ -66,9 +65,9 @@ public:
 			vectorField &
 		);
 
-		void set();
+		void set(Ostream &);
 
-
+		wordList list();
 };
 
 

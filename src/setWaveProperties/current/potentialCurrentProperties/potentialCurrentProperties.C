@@ -56,9 +56,25 @@ potentialCurrentProperties::potentialCurrentProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void potentialCurrentProperties::set()
+void potentialCurrentProperties::set(Ostream & os)
 {
-	// Nothing to be done
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+	writeGiven( os, "U", 3);
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft", 2);
+
+	// This is where type specific data can be written
+	// Nothing to be done for potentialCurrent
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 

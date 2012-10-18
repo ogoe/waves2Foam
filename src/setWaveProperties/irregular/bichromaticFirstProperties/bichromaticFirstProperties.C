@@ -58,10 +58,33 @@ bichromaticFirstProperties::bichromaticFirstProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void bichromaticFirstProperties::set()
+void bichromaticFirstProperties::set(Ostream & os)
 {
 	scalar k1 = sfp1_.linearWaveNumber();
 	scalar k2 = sfp2_.linearWaveNumber();
+
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft");
+
+	writeGiven( os, "depth");
+
+	writeGiven( os, "period1" );
+	writeGiven( os, "period2" );
+
+	writeGiven( os, "direction1" );
+	writeGiven( os, "direction2" );
+
+	writeGiven( os, "height1" );
+	writeGiven( os, "height2" );
+
+	writeGiven( os, "phi1" );
+	writeGiven( os, "phi2" );
 
 	if ( write_ )
 	{
@@ -74,11 +97,11 @@ void bichromaticFirstProperties::set()
 		direction1 *= k1;
 		direction2 *= k2;
 
-		dict_.add( "waveNumber1", direction1, true );
-		dict_.add( "waveNumber2", direction2, true );
+		os << indent << "waveNumber1" << tab << direction1 << ";" << nl;
+		os << indent << "waveNumber2" << tab << direction2 << ";" << nl;
 
-		dict_.add( "omega1"     , sfp1_.omega(), true );
-		dict_.add( "omega2"     , sfp2_.omega(), true );
+		os << indent << "omega1" << tab << sfp1_.omega() << ";" << nl;
+		os << indent << "omega2" << tab << sfp2_.omega() << ";" << nl;
 	}
 }
 

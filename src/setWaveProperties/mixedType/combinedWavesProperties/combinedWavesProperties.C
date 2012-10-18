@@ -56,9 +56,21 @@ combinedWavesProperties::combinedWavesProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void combinedWavesProperties::set()
+void combinedWavesProperties::set( Ostream & os )
 {
-	// Nothing to be done
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	writeGiven( os, "combinedWaveNames");
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 

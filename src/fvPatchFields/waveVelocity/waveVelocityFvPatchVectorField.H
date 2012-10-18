@@ -30,13 +30,15 @@ Description
     To be used for wave boundary conditions. For more details see:
 
     @article { jacobsenFuhrmanFredsoe2011,
-		Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-		title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
-		Journal = {{Int. J. for Numer. Meth. Fluids}},
-		Year = {2011},
-		Volume = {In print},
-		Pages = {},
-	}
+        Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
+        title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
+        Journal = {{Int. J. for Numer. Meth. Fluids}},
+        Year = {2012},
+        Volume = {70},
+        Number = {9},
+        Pages = {1073-1088},
+        DOI = {{10.1002/fld.2726}},
+    }
     
     The boundary condition is derived from mixedFvPatchField and it is generic
     in the sense, that it loads the abstract class waveTheory.
