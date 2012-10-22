@@ -60,7 +60,20 @@ JONSWAP::JONSWAP
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void JONSWAP::set()
+wordList JONSWAP::list()
+{
+	wordList res(5);
+
+	res[0] = "Hs";
+	res[1] = "Tp";
+	res[2] = "gamma";
+	res[3] = "depth";
+	res[4] = "direction";
+
+	return res;
+}
+
+void JONSWAP::set(Ostream & os)
 {
 	// Get the input parameters
 	scalar Hs( readScalar(dict_.lookup("Hs")) );
@@ -119,10 +132,12 @@ void JONSWAP::set()
 
 	if ( dict_.lookupOrDefault<Switch>("writeSpectrum",false) )
 	{
-		dict_.add("spectrumValues", S, true);
-		dict_.add("fspectrum", f, true);
-	}
+		S.writeEntry("spectramValues", os);
+		os << nl;
 
+		f.writeEntry("fspectrum", os);
+		os << nl;
+	}
 }
 
 

@@ -57,13 +57,22 @@ streamFunctionProperties::streamFunctionProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void streamFunctionProperties::set()
+void streamFunctionProperties::set( Ostream & os)
 {
 	Info << "\n--------------------- NB! ---------------------" << endl;
 	Info << "The setWaveProperties for\n\n\t" << this->type() << "\n\nis not implemented" << endl;
 	Info << "--------------------- NB! ---------------------" << endl;
 
 	scalar k0 = sfp_.linearWaveNumber();
+
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft");
 
 	// This part should compute the properties for stream function wave theory
 
@@ -74,6 +83,12 @@ void streamFunctionProperties::set()
 
 		// This part should write the needed information to the waveProperties-file
 	}
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

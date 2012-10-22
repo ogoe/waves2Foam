@@ -66,9 +66,9 @@ public:
 			vectorField &
 		);
 
-		void set();
+		void set( Ostream & );
 
-
+		wordList list();
 };
 
 

@@ -28,18 +28,29 @@ Class
 Description
     Implementation of a solitary wave theory, based on the limit solution for
     infinite wave length in the KdV equation, which is also the one describing
-    the solution for regular cnoidal waves.
+    the solution for regular cnoidal waves. Implemented following the description by
+
+        Hydrodynamics of Coastal Regions
+        Ib A. Svendsen and Ivar G. Jonsson
+        1982
+        Den private ingenioerfond
+        Technical University of Denmark
+
+    The vertical velocity component is obtained by a vertical integration of
+    the continuity equation.
 
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
-		Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-		title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
-		Journal = {{Int. J. for Numer. Meth. Fluids}},
-		Year = {2011},
-		Volume = {In print},
-		Pages = {},
-	}
+        Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
+        title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
+        Journal = {{Int. J. for Numer. Meth. Fluids}},
+        Year = {2012},
+        Volume = {70},
+        Number = {9},
+        Pages = {1073-1088},
+        DOI = {{10.1002/fld.2726}},
+    }
 
 SourceFiles
     solitaryFirst.C
