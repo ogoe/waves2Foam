@@ -58,6 +58,8 @@ Author
 #include "volFields.H"
 #include "IOdictionary.H"
 
+#include "OFstream.H"
+
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
 

@@ -96,7 +96,9 @@ int main(int argc, char *argv[])
     OFstream os
     (
         wOut.objectPath(),
+#if OFVERSION < 170
         ios_base::out|ios_base::trunc,
+#endif
         IOstream::ASCII,
         IOstream::currentVersion,
         IOstream::UNCOMPRESSED
