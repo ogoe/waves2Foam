@@ -23,7 +23,7 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::relaxationWeights::relaxationWeights
+    Foam::relaxationWeights::relaxationWeight
 
 Description
     An abstract base class for generating different relaxation Weights through

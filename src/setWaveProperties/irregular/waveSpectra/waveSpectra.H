@@ -142,7 +142,6 @@ public:
         	vectorField &
         );
 
-
     // Selectors
 
         //- Return a reference to the selected turbulence model

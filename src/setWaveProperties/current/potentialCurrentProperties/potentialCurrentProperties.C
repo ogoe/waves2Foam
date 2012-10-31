@@ -63,9 +63,12 @@ void potentialCurrentProperties::set(Ostream & os)
 
 	// Write the already given parameters
 	writeGiven( os, "waveType" );
-	writeGiven( os, "U", 3);
-	if ( dict_.found( "Tsoft" ) )
-		writeGiven( os, "Tsoft", 2);
+	writeGiven( os, "U");
+	writeGiven( os, "Tsoft" );
+
+	if ( dict_.found( "localSeaLevel" ) )
+		writeGiven( os, "localSeaLevel");
+        
 
 	// This is where type specific data can be written
 	// Nothing to be done for potentialCurrent

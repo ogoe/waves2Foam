@@ -204,10 +204,10 @@ void cnoidalFirstProperties::set( Ostream & os)
 
 		if ( write_ )
 		{
-			os << indent << "omega" << tab << omega << ";" << nl;
-			os << indent << "length" << tab << L << ";" << nl;
-			os << indent << "celerity" << tab << c << ";" << nl;
-			os << indent << "m" << tab << m << ";" << nl;
+			writeDerived(os, "omega", omega);
+			writeDerived(os, "length", L);
+			writeDerived(os, "celerity", c);
+			writeDerived(os, "m", m);
 		}
 	}
 

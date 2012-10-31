@@ -117,10 +117,8 @@ void stokesFirstProperties::set( Ostream & os )
 		direction /= Foam::mag(direction);
 		direction *= k;
 
-//		dict_.add( "waveNumber", direction, true );
-//		dict_.add( "omega"     , omega_   , true );
-		os << indent << "waveNumber" << tab << direction << ";" << nl;
-		os << indent << "omega" << tab << tab << omega_ << ";" << nl;
+		writeDerived( os, "waveNumber", direction );
+		writeDerived( os, "omega", omega_);
 	}
 
 	// Write the relaxation zone

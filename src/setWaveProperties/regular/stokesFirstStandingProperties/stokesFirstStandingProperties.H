@@ -41,6 +41,7 @@ Description
     }
 
 SourceFiles
+	stokesFirstStandingProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -80,56 +81,10 @@ public:
 	// Method
 
 	void set(Ostream &);
-
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
+
+// ************************************************************************* //

@@ -89,22 +89,33 @@ protected:
 
 		scalar PI_;
 
+		label Nspaces_;
+
     // Protected member functions
 		void writeBeginning( Ostream & );
 
 		void writeGiven( Ostream & );
 
-		void writeGiven( Ostream & , word , label N = 1);
+		void writeGiven( Ostream & , word );
+
+		void writeDerived( Ostream &, word, scalar);
+
+		void writeDerived( Ostream &, word, vector);
+
+		void writeDerived( Ostream &, word, scalarField);
+
+		void writeDerived( Ostream &, word, vectorField);
 
 		void writeRelaxationZone( Ostream & );
 
 		void writeEnding( Ostream & );
 
-		void addITstream( Ostream &, const word &, const ITstream &, label N = 1 );
-
 private:
 
     // Private Member Functions
+		void lineFormatting( Ostream &, const word &);
+
+		void addITstream( Ostream &, const word &, const ITstream & );
 
         //- Disallow default bitwise copy construct
         setWaveProperties(const setWaveProperties&);
@@ -140,7 +151,6 @@ public:
         	bool
         );
 
-
     // Selectors
 
         //- Return a reference to the selected turbulence model
@@ -155,12 +165,10 @@ public:
 
         virtual ~setWaveProperties();
 
-
     // Member Functions
 
         virtual void set(Ostream &) = 0;
 };
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

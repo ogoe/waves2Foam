@@ -41,6 +41,7 @@ Description
     }
 
 SourceFiles
+	cnoidalFirstProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -83,7 +84,6 @@ public:
 		// Method
 
 		void set( Ostream &);
-
 };
 
 struct cnoidalFirstParams
@@ -98,52 +98,8 @@ double lowerMBound_f ( double m, void * params);
 
 double cnoidalFirst_f ( double m, void * params);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
+
+// ************************************************************************* //

@@ -109,7 +109,7 @@ int main(int argc, char *argv[])
     // using wOut.writeHeader( os ); hence manual entries
     os << "FoamFile" << nl;
     os << token::BEGIN_BLOCK << incrIndent << nl;
-    os << indent << "version" << tab << IOstream::currentVersion << ";" << nl;
+    os << indent << "version" << tab << IOstream::currentVersion << token::END_STATEMENT << nl;
     os << indent << "format" << tab << "ascii;" << nl;
     os << indent << "class" << tab << "dictionary;" << nl;
     os << indent << "object" << tab << "waveProperties;" << nl;
@@ -136,24 +136,29 @@ int main(int argc, char *argv[])
     	}
     	else
     	{
+    		label Nspaces = 20;
+
     		// Read the entry and write to the dummy output file
     	    ITstream read = waveProperties.lookup(toc[item]);
-    	    os << toc[item] << tab;
+    	    os << toc[item] << token::SPACE;
+
+    		for( int i=toc[item].size(); i<Nspaces-1; i++)
+    			os << token::SPACE;
     	    
     	    forAll(read, ri )
     	    {
     	        if ( ri < read.size() - 1)
-        	        os << read[ri] << " ";
+        	        os << read[ri] << token::SPACE;
         	    else
         	        os << read[ri];
         	}
     	        
-    	    os << ";\n" << endl;
+    	    os << token::END_STATEMENT << nl << endl;
     	}
     }
 
-    // TO BE REMOVE EVENTUALLY
-    waveProperties.regIOobject::write();
+//    // TO BE REMOVE EVENTUALLY
+//    waveProperties.regIOobject::write();
 
     // Write end divider
     wOut.writeEndDivider( os );

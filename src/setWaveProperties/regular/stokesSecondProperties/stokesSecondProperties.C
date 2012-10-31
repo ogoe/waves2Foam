@@ -86,8 +86,8 @@ void stokesSecondProperties::set(Ostream & os)
 		direction /= Foam::mag(direction);
 		direction *= k;
 
-		os << indent << "waveNumber" << tab << direction << ";" << nl;
-		os << indent << "omega" << tab << tab << sfp_.omega() << ";" << nl;
+		writeDerived(os, "waveNumber", direction);
+		writeDerived(os, "omega", sfp_.omega());
 	}
 
 	writeGiven( os, "debug");

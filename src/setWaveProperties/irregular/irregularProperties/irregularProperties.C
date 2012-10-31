@@ -93,13 +93,10 @@ void irregularProperties::set( Ostream & os )
 
 	if ( write_ )
 	{
-		amp.writeEntry("amplitude", os);
-		os << nl;
-		frequency.writeEntry("frequency", os);
-		os << nl;
-		phaselag.writeEntry("phaselag", os);
-		os << nl;
-		waveNumber.writeEntry("waveNumber", os);
+		writeDerived( os, "amplitude", amp);
+		writeDerived( os, "frequency", frequency);
+		writeDerived( os, "phaselag", phaselag);
+		writeDerived( os, "waveNumber", waveNumber);
 	}
 
 	// Write the relaxation zone

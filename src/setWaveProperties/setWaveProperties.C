@@ -26,7 +26,6 @@ License
 
 #include "setWaveProperties.H"
 
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -36,6 +35,31 @@ namespace Foam
 
 defineTypeNameAndDebug(setWaveProperties, 0);
 defineRunTimeSelectionTable(setWaveProperties, setWaveProperties);
+
+// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
+
+void setWaveProperties::lineFormatting( Ostream & os, const word & key)
+{
+	os << indent << key << token::SPACE;
+
+	for( int i=key.size(); i<Nspaces_-1; i++)
+		os << token::SPACE;
+}
+
+void setWaveProperties::addITstream( Ostream & os, const word & key, const ITstream & it )
+{
+	lineFormatting(os, key);
+
+	forAll( it, ii)
+	{
+		os << it[ii];
+
+		if ( ii < it.size() - 1)
+			os << token::SPACE;
+	}
+
+	os << token::END_STATEMENT << nl;
+}
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
@@ -64,11 +88,57 @@ void setWaveProperties::writeGiven( Ostream & os )
 	}
 }
 
-void setWaveProperties::writeGiven( Ostream & os, word name, label N)
+void setWaveProperties::writeGiven( Ostream & os, word name )
 {
 	ITstream it( dict_.lookup(name) );
 
-	addITstream( os, name, it, N);
+	addITstream( os, name, it );
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, scalar val)
+{
+	lineFormatting(os, name);
+
+	os << val << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, vector val)
+{
+	lineFormatting(os, name);
+
+	os << val << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, scalarField val)
+{
+	lineFormatting(os, name);
+
+	os << "nonuniform List<scalar>" << nl;
+
+	os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
+
+	forAll( val, vali)
+	{
+		os << indent << val[vali] << nl;
+	}
+
+	os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, vectorField val)
+{
+	lineFormatting(os, name);
+
+	os << "nonuniform List<vector>" << nl;
+
+	os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
+
+	forAll( val, vali)
+	{
+		os << indent << val[vali] << nl;
+	}
+
+	os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
 }
 
 void setWaveProperties::writeRelaxationZone( Ostream & os )
@@ -92,8 +162,6 @@ void setWaveProperties::writeRelaxationZone( Ostream & os )
 
 		os << decrIndent << indent << token::END_BLOCK << endl;
 	}
-
-
 }
 
 void setWaveProperties::writeEnding( Ostream & os )
@@ -101,23 +169,6 @@ void setWaveProperties::writeEnding( Ostream & os )
 	os  << decrIndent << token::END_BLOCK << nl << endl;
 }
 
-void setWaveProperties::addITstream( Ostream & os, const word & key, const ITstream & it, label N )
-{
-	os << indent << key;
-
-	for( int i=0; i<N; i++)
-		os << tab;
-
-	forAll( it, ii)
-	{
-		os << it[ii];
-
-		if ( ii < it.size() - 1)
-			os << " ";
-	}
-
-	os << ";" << nl;
-}
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 setWaveProperties::setWaveProperties
@@ -135,6 +186,8 @@ setWaveProperties::setWaveProperties
 {
 	G_  = Foam::mag(g_);
 	PI_ = M_PI;
+
+	Nspaces_ = 20;
 }
 
 

@@ -97,12 +97,18 @@ void bichromaticFirstProperties::set(Ostream & os)
 		direction1 *= k1;
 		direction2 *= k2;
 
-		os << indent << "waveNumber1" << tab << direction1 << ";" << nl;
-		os << indent << "waveNumber2" << tab << direction2 << ";" << nl;
+		writeDerived(os, "waveNumber1", direction1);
+		writeDerived(os, "waveNumber2", direction2);
 
-		os << indent << "omega1" << tab << sfp1_.omega() << ";" << nl;
-		os << indent << "omega2" << tab << sfp2_.omega() << ";" << nl;
+		writeDerived(os, "omega1", sfp1_.omega());
+		writeDerived(os, "omega2", sfp2_.omega());
 	}
+
+	// Write the relaxation zone
+    writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

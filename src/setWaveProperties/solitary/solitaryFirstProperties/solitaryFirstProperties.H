@@ -43,10 +43,10 @@ Description
     }
 
 SourceFiles
+	solitaryFirstProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
-
 
 \*---------------------------------------------------------------------------*/
 
@@ -81,53 +81,8 @@ public:
 		void set(Ostream &);
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #endif
+
+// ************************************************************************* //
