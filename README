@@ -20,9 +20,11 @@ and the framework for relaxationShapes:
     Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
     title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
     Journal = {{Int. J. for Numer. Meth. Fluids}},
-    Year = {2011},
-    Volume = {In print},
-    Pages = {},
+    Year = {2012},
+    Volume = {70},
+    Number = {9},
+    Pages = {1073-1088},
+    DOI = {{10.1002/fld.2726}},
 }
 
 Please make prober referencing to it, when using the toolbox. This part of the README will be

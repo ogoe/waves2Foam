@@ -56,12 +56,25 @@ solitaryFirstProperties::solitaryFirstProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void solitaryFirstProperties::set()
+void solitaryFirstProperties::set(Ostream & os)
 {
-	// Nothing to be done
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	writeGiven( os, "height");
+	writeGiven( os, "depth");
+	writeGiven( os, "direction" );
+	writeGiven( os, "x0" );
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
-
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

@@ -23,7 +23,7 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::relaxationWeights::relaxationWeights
+    Foam::relaxationWeights::relaxationWeightCourantCorrection
 
 Description
 	This class performs an additional weighting of the relaxation zone weights,

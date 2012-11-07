@@ -44,13 +44,13 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFirstProperties, setWaveProp
 
 stokesFirstProperties::stokesFirstProperties
 (
-		const fvMesh & mesh,
-		dictionary & dict
+	const fvMesh & mesh,
+	dictionary & dict
 )
 :
 	setWaveProperties(mesh, dict, false)
 {
-	Info << "\nConstructing: " << this->type() << "(Dummy)"<< endl;
+//	Info << "\nConstructing: " << this->type() << "(Dummy)"<< endl;
 
 	period_ = 0.0;
 	depth_  = 0.0;
@@ -90,13 +90,26 @@ stokesFirstProperties::stokesFirstProperties
 	omega_  = 2.0 * PI_ / period_;
 }
 
-
-
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesFirstProperties::set()
+void stokesFirstProperties::set( Ostream & os )
 {
 	scalar k = linearWaveNumber();
+
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft");
+
+	writeGiven( os, "depth");
+	writeGiven( os, "period" );
+	writeGiven( os, "direction" );
+	writeGiven( os, "phi");
+	writeGiven( os, "height");
 
 	if ( write_ )
 	{
@@ -104,9 +117,16 @@ void stokesFirstProperties::set()
 		direction /= Foam::mag(direction);
 		direction *= k;
 
-		dict_.add( "waveNumber", direction, true );
-		dict_.add( "omega"     , omega_   , true );
+		writeDerived( os, "waveNumber", direction );
+		writeDerived( os, "omega", omega_);
 	}
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
+
 }
 
 scalar stokesFirstProperties::linearWaveNumber() const

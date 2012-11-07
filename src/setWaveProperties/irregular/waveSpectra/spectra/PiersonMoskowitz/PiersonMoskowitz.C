@@ -60,7 +60,19 @@ PiersonMoskowitz::PiersonMoskowitz
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void PiersonMoskowitz::set()
+wordList PiersonMoskowitz::list()
+{
+	wordList res(4);
+
+	res[0] = "Hs";
+	res[1] = "Tp";
+	res[2] = "depth";
+	res[3] = "direction";
+
+	return res;
+}
+
+void PiersonMoskowitz::set( Ostream & os )
 {
 	// Get the input parameters
 	scalar Hs( readScalar(dict_.lookup("Hs")) );
@@ -109,10 +121,12 @@ void PiersonMoskowitz::set()
 
 	if ( dict_.lookupOrDefault<Switch>("writeSpectrum",false) )
 	{
-		dict_.add("spectrumValues", S, true);
-		dict_.add("fspectrum", f, true);
-	}
+		S.writeEntry("spectramValues", os);
+		os << nl;
 
+		f.writeEntry("fspectrum", os);
+		os << nl;
+	}
 }
 
 

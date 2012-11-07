@@ -170,9 +170,22 @@ cnoidalFirstProperties::cnoidalFirstProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void cnoidalFirstProperties::set()
+void cnoidalFirstProperties::set( Ostream & os)
 {
 	scalar m = solve();
+
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft");
+
+	writeGiven( os, "depth");
+	writeGiven( os, "period");
+	writeGiven( os, "height");
 
 	if ( m < 0.0 )
 	{
@@ -191,15 +204,20 @@ void cnoidalFirstProperties::set()
 
 		if ( write_ )
 		{
-			dict_.add( "omega", omega, true );
-			dict_.add( "length", L, true );
-			dict_.add( "celerity", c, true );
-			dict_.add( "m", m, true );
+			writeDerived(os, "omega", omega);
+			writeDerived(os, "length", L);
+			writeDerived(os, "celerity", c);
+			writeDerived(os, "m", m);
 		}
-
 	}
 
+	writeGiven( os, "direction" );
 
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

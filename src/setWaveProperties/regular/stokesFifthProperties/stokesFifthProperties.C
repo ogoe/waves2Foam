@@ -114,9 +114,27 @@ stokesFifthProperties::stokesFifthProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesFifthProperties::set()
+void stokesFifthProperties::set( Ostream & os)
 {
 	scalar k = waveNumber();
+
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	writeGiven( os, "height");
+	writeGiven( os, "period" );
+
+	writeGiven( os, "depth" );
+	writeGiven( os, "stokesDrift");
+	writeGiven( os, "direction" );
+
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft");
+
+	writeGiven( os, "phi");
 
 	if ( write_ )
 	{
@@ -124,9 +142,15 @@ void stokesFifthProperties::set()
 		direction /= Foam::mag(direction);
 		direction *= k;
 
-		dict_.add( "waveNumber", direction, true );
-		dict_.add( "omega"     , omega_   , true );
+		writeDerived(os, "waveNumber", direction);
+		writeDerived(os, "omega", omega_);
 	}
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -36,13 +36,15 @@ Description
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
-		Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-		title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
-		Journal = {{Int. J. for Numer. Meth. Fluids}},
-		Year = {2011},
-		Volume = {In print},
-		Pages = {},
-	}
+        Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
+        title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
+        Journal = {{Int. J. for Numer. Meth. Fluids}},
+        Year = {2012},
+        Volume = {70},
+        Number = {9},
+        Pages = {1073-1088},
+        DOI = {{10.1002/fld.2726}},
+    }
 
 SourceFiles
     irregular.C
@@ -91,10 +93,6 @@ protected:
 
         scalar factor(const scalar &) const;
 
-        void rs( const fvMesh &, const string &, const string &, scalarField & );
-
-        void rv( const fvMesh &, const string &, const string &, vectorField & );
-
 public:
 
     //- Runtime type information
@@ -138,7 +136,6 @@ public:
         	const scalar &
         ) const;
 };
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

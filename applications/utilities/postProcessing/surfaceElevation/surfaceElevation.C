@@ -87,6 +87,7 @@ Notes
 #include "argList.H"
 #include "timeSelector.H"
 #include "IOsampledSurfaceElevation.H"
+#include "sampledSurfaceElevation.H"
 #include "uniformDimensionedFields.H"
 
 using namespace Foam;

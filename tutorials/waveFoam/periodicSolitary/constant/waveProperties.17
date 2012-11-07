@@ -14,8 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-gravity         gravity [0 1 -2 0 0 0 0] (0 -9.81 0);
-
 seaLevel	5.000;
 
 relaxationNames ();

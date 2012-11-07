@@ -26,7 +26,6 @@ License
 
 #include "setWaveProperties.H"
 
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -37,8 +36,138 @@ namespace Foam
 defineTypeNameAndDebug(setWaveProperties, 0);
 defineRunTimeSelectionTable(setWaveProperties, setWaveProperties);
 
+// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
+
+void setWaveProperties::lineFormatting( Ostream & os, const word & key)
+{
+	os << indent << key << token::SPACE;
+
+	for( int i=key.size(); i<Nspaces_-1; i++)
+		os << token::SPACE;
+}
+
+void setWaveProperties::addITstream( Ostream & os, const word & key, const ITstream & it )
+{
+	lineFormatting(os, key);
+
+	forAll( it, ii)
+	{
+		os << it[ii];
+
+		if ( ii < it.size() - 1)
+			os << token::SPACE;
+	}
+
+	os << token::END_STATEMENT << nl;
+}
+
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+void setWaveProperties::writeBeginning( Ostream & os)
+{
+	wordList names( dict_.name().components('/') );
+
+	fileName ends( names[names.size() -1]);
+
+	word dictName( ends.components(':')[1] );
+
+	os << dictName << nl << token::BEGIN_BLOCK << incrIndent << nl;
+}
+
+void setWaveProperties::writeGiven( Ostream & os )
+{
+	wordList toc( dict_.toc() );
+
+	forAll( toc, item )
+	{
+		if ( !dict_.isDict( toc[item]) )
+		{
+			ITstream it( dict_.lookup( toc[item] ) );
+			addITstream( os, toc[item], it);
+		}
+	}
+}
+
+void setWaveProperties::writeGiven( Ostream & os, word name )
+{
+	ITstream it( dict_.lookup(name) );
+
+	addITstream( os, name, it );
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, scalar val)
+{
+	lineFormatting(os, name);
+
+	os << val << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, vector val)
+{
+	lineFormatting(os, name);
+
+	os << val << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, scalarField val)
+{
+	lineFormatting(os, name);
+
+	os << "nonuniform List<scalar>" << nl;
+
+	os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
+
+	forAll( val, vali)
+	{
+		os << indent << val[vali] << nl;
+	}
+
+	os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeDerived( Ostream & os, word name, vectorField val)
+{
+	lineFormatting(os, name);
+
+	os << "nonuniform List<vector>" << nl;
+
+	os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
+
+	forAll( val, vali)
+	{
+		os << indent << val[vali] << nl;
+	}
+
+	os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
+}
+
+void setWaveProperties::writeRelaxationZone( Ostream & os )
+{
+	word rl("relaxationZone");
+
+	if ( dict_.found( rl ) )
+	{
+		os << nl << indent << rl << nl << indent << token::BEGIN_BLOCK << incrIndent << nl;
+
+		dictionary sd( dict_.subDict(rl) );
+
+		wordList toc( sd.toc() );
+
+		forAll( toc, item )
+		{
+			ITstream it( sd.lookup(toc[item]) );
+
+			addITstream( os, toc[item], it );
+		}
+
+		os << decrIndent << indent << token::END_BLOCK << endl;
+	}
+}
+
+void setWaveProperties::writeEnding( Ostream & os )
+{
+	os  << decrIndent << token::END_BLOCK << nl << endl;
+}
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -57,6 +186,8 @@ setWaveProperties::setWaveProperties
 {
 	G_  = Foam::mag(g_);
 	PI_ = M_PI;
+
+	Nspaces_ = 20;
 }
 
 

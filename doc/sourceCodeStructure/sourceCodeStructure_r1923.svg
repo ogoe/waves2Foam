@@ -1,0 +1,1110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1052.3622"
+   height="744.09448"
+   id="svg2"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="sourceCodeStructure.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.0"
+   inkscape:export-filename="/home/ngj/Documents/publications/conferences/OF_Workshop5_2010/latex/sourceCodeStructure.png"
+   inkscape:export-xdpi="299"
+   inkscape:export-ydpi="299">
+  <defs
+     id="defs4">
+    <marker
+       inkscape:stockid="Arrow1Lend"
+       orient="auto"
+       refY="0"
+       refX="0"
+       id="Arrow1Lend"
+       style="overflow:visible">
+      <path
+         id="path3181"
+         d="M 0,0 L 5,-5 L -12.5,0 L 5,5 L 0,0 z"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1pt;marker-start:none"
+         transform="matrix(-0.8,0,0,-0.8,-10,0)" />
+    </marker>
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     gridtolerance="10000"
+     guidetolerance="10"
+     objecttolerance="10"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.2249404"
+     inkscape:cx="429.52534"
+     inkscape:cy="501.4271"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1910"
+     inkscape:window-height="1041"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g4938">
+      <rect
+         y="22.245968"
+         x="830.64984"
+         height="51.399868"
+         width="195.54652"
+         id="rect6193"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <g
+         id="g4931">
+        <text
+           xml:space="preserve"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           x="859.85889"
+           y="40.01733"
+           id="text6195"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6197"
+             x="859.85889"
+             y="40.01733"
+             style="fill:#ff0000">convexPolyhedral</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           x="838.33032"
+           y="56.179775"
+           id="text6199"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6201"
+             x="838.33032"
+             y="56.179775"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000">Computes relevant geometrical </tspan><tspan
+             sodipodi:role="line"
+             x="838.33032"
+             y="68.679771"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan6465">properties of intersected cells/faces</tspan></text>
+      </g>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 933.81992,194.80034 L 933.81992,74.134801"
+       id="path6387" />
+    <g
+       id="g4947">
+      <rect
+         y="22.245968"
+         x="467.35208"
+         height="51.399868"
+         width="195.54652"
+         id="rect6507"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6509"
+         y="40.01733"
+         x="490.81284"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="40.01733"
+           x="490.81284"
+           id="tspan6511"
+           sodipodi:role="line">mixedFvPatchField</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text6513"
+         y="56.179775"
+         x="475.03256"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           id="tspan6517"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="56.179775"
+           x="475.03256"
+           sodipodi:role="line">OpenFOAM class</tspan></text>
+    </g>
+    <g
+       id="g4954">
+      <rect
+         y="99.60421"
+         x="334.27719"
+         height="66.186836"
+         width="151.18932"
+         id="rect6529"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6531"
+         y="117.37606"
+         x="357.54764"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="117.37606"
+           x="357.54764"
+           id="tspan6533"
+           sodipodi:role="line">waveAlpha</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text6535"
+         y="133.53848"
+         x="341.95813"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           id="tspan6537"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="133.53848"
+           x="341.95813"
+           sodipodi:role="line">FvPatchScalarField for the </tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="146.03848"
+           x="341.95813"
+           sodipodi:role="line"
+           id="tspan6571"><tspan
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan6687">VOF-ratio.</tspan></tspan><tspan
+           id="tspan6689"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="162.11063"
+           x="341.95813"
+           sodipodi:role="line">Has: waveTheory</tspan></text>
+      <rect
+         y="99.60421"
+         x="492.9057"
+         height="66.178734"
+         width="151.18935"
+         id="rect6609"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6611"
+         y="117.37612"
+         x="513.27771"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="117.37612"
+           x="513.27771"
+           id="tspan6613"
+           sodipodi:role="line">wavePressure</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text6615"
+         y="133.53854"
+         x="500.58664"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           id="tspan6617"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="133.53854"
+           x="500.58664"
+           sodipodi:role="line">FvPatchScalarField for the </tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="146.03854"
+           x="500.58664"
+           sodipodi:role="line"
+           id="tspan6641">pressure gradient.</tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="162.11069"
+           x="500.58664"
+           sodipodi:role="line"
+           id="tspan6619">Has: waveTheory</tspan></text>
+      <rect
+         y="99.604149"
+         x="651.53418"
+         height="66.132355"
+         width="151.18948"
+         id="rect6623"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text6625"
+         y="117.37612"
+         x="674.54688"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="117.37612"
+           x="674.54688"
+           id="tspan6627"
+           sodipodi:role="line">waveVelocity</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text6629"
+         y="133.53854"
+         x="659.21521"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="133.53854"
+           x="659.21521"
+           sodipodi:role="line"
+           id="tspan6693"><tspan
+             style="fill:#000000"
+             id="tspan6699">FvPatchVectorField for the</tspan></tspan><tspan
+           id="tspan6868"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="146.03854"
+           x="659.21521"
+           sodipodi:role="line"><tspan
+             id="tspan6870"
+             style="fill:#000000">velocity field.</tspan></tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="162.11069"
+           x="659.21521"
+           sodipodi:role="line"
+           id="tspan6695">Has: waveTheory</tspan></text>
+    </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 400.76966,86.867061 L 921.69963,86.867061"
+       id="path6791" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 558.69663,86.559431 L 558.69663,74.281591"
+       id="path6793" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 400.60776,99.144901 L 400.60776,86.867061"
+       id="path6795" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 558.69663,99.144901 L 558.69663,86.867061"
+       id="path6797" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 716.7855,99.144901 L 716.7855,86.867061"
+       id="path6799" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 921.42751,86.649011 L 921.42751,74.371171"
+       id="path6853" />
+    <g
+       id="g5014"
+       transform="translate(0,-13.629013)">
+      <rect
+         y="210.80409"
+         x="-35.995716"
+         height="54.637897"
+         width="189.72708"
+         id="rect3446"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3448"
+         y="229.01024"
+         x="-15.811863"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="229.01024"
+           x="-15.811863"
+           id="tspan3450"
+           sodipodi:role="line">setWaveProperties</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3452"
+         y="245.17271"
+         x="58.623684"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="245.17271"
+           x="58.623684"
+           id="tspan3454"
+           sodipodi:role="line">Behaves as e.g. turbulence models</tspan><tspan
+           id="tspan3812"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="261.24484"
+           x="58.623684"
+           sodipodi:role="line">Abstract base class</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3458"
+         y="349.39294"
+         x="82.609512"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="349.39294"
+           x="82.609512"
+           id="tspan3460"
+           sodipodi:role="line">Irregular Waves</tspan></text>
+      <rect
+         y="331.55289"
+         x="64.028137"
+         height="27.955492"
+         width="147.76823"
+         id="rect3462"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path3464"
+         d="M -99.22105,278.04925 L 216.95669,278.04925"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3466"
+         d="M -99.22105,290.32709 L -99.22105,278.04925"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3470"
+         d="M 58.86782,277.74162 L 58.86782,265.46378"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3472"
+         d="M 58.86782,290.32709 L 58.86782,278.04925"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3474"
+         d="M 216.95669,290.32709 L 216.95669,278.04925"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3478"
+         y="349.39294"
+         x="-72.054558"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="349.39294"
+           x="-72.054558"
+           id="tspan3480"
+           sodipodi:role="line">Solitary Waves</tspan></text>
+      <rect
+         y="331.55289"
+         x="-94.060738"
+         height="27.955492"
+         width="147.76823"
+         id="rect3482"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3486"
+         y="309.4245"
+         x="-125.77525"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="309.4245"
+           x="-125.77525"
+           id="tspan3488"
+           sodipodi:role="line">Current</tspan></text>
+      <rect
+         y="290.35056"
+         x="-173.10516"
+         height="27.955492"
+         width="147.76823"
+         id="rect3490"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3496"
+         y="308.19058"
+         x="177.67738"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="308.19058"
+           x="177.67738"
+           id="tspan3498"
+           sodipodi:role="line">Mixed Type</tspan></text>
+      <rect
+         y="290.35052"
+         x="143.07257"
+         height="27.955492"
+         width="147.76823"
+         id="rect3500"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3504"
+         y="308.19061"
+         x="6.5729017"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="308.19061"
+           x="6.5729017"
+           id="tspan3506"
+           sodipodi:role="line">Regular Waves</tspan></text>
+      <rect
+         y="290.35056"
+         x="-15.016301"
+         height="27.955492"
+         width="147.76823"
+         id="rect3508"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path3510"
+         d="M -20.17662,290.32709 L -20.17662,278.04925"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3512"
+         d="M -20.17662,331.34297 L -20.17662,289.32581"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3514"
+         d="M 137.91225,290.32709 L 137.91225,278.04925"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3516"
+         d="M 137.91225,331.59757 L 137.91225,289.13632"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-size:20px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Nimbus Roman No9 L;-inkscape-font-specification:Nimbus Roman No9 L"
+       x="-167.27782"
+       y="-27.773121"
+       id="text3594"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         id="tspan3596"
+         x="-167.27782"
+         y="-27.773121"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L">libwaves2Foam.so</tspan></text>
+    <g
+       id="g5046"
+       transform="translate(0,-4.7637939e-2)">
+      <text
+         sodipodi:linespacing="125%"
+         id="text3155"
+         y="40.499748"
+         x="9.0748787"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="40.499748"
+           x="9.0748787"
+           id="tspan3157"
+           sodipodi:role="line">waveTheory</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3159"
+         y="56.662224"
+         x="58.623684"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="56.662224"
+           x="58.623684"
+           id="tspan3161"
+           sodipodi:role="line">Behaves as e.g. turbulence models</tspan><tspan
+           id="tspan3816"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="72.734367"
+           x="58.623684"
+           sodipodi:role="line">Abstract base class</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4482"
+         y="161.16821"
+         x="82.609512"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="161.16821"
+           x="82.609512"
+           id="tspan4484"
+           sodipodi:role="line">Irregular Waves</tspan></text>
+      <rect
+         y="143.32816"
+         x="64.028137"
+         height="27.955492"
+         width="147.76823"
+         id="rect4490"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path3163"
+         d="M -99.22105,89.82453 L 216.95669,89.82453"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path5080"
+         d="M -99.22105,102.10237 L -99.22105,89.82453"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3165"
+         d="M 58.86782,89.5169 L 58.86782,77.23906"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path5082"
+         d="M 58.86782,102.10237 L 58.86782,89.82453"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path5084"
+         d="M 216.95669,102.10237 L 216.95669,89.82453"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2534"
+         y="161.16821"
+         x="-72.054558"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="161.16821"
+           x="-72.054558"
+           id="tspan2536"
+           sodipodi:role="line">Solitary Waves</tspan></text>
+      <rect
+         y="143.32816"
+         x="-94.060738"
+         height="27.955492"
+         width="147.76823"
+         id="rect2542"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4492"
+         y="121.19977"
+         x="-125.77525"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="121.19977"
+           x="-125.77525"
+           id="tspan4494"
+           sodipodi:role="line">Current</tspan></text>
+      <rect
+         y="102.12582"
+         x="-173.10516"
+         height="27.955492"
+         width="147.76823"
+         id="rect2544"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text2538"
+         y="119.96587"
+         x="177.67738"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="119.96587"
+           x="177.67738"
+           id="tspan2540"
+           sodipodi:role="line">Mixed Type</tspan></text>
+      <rect
+         y="102.12582"
+         x="143.07257"
+         height="27.955492"
+         width="147.76823"
+         id="rect2546"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4472"
+         y="119.96588"
+         x="6.5729017"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="119.96588"
+           x="6.5729017"
+           id="tspan4474"
+           sodipodi:role="line">Regular Waves</tspan></text>
+      <rect
+         y="102.12582"
+         x="-15.016301"
+         height="27.955492"
+         width="147.76823"
+         id="rect2548"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <path
+         id="path2598"
+         d="M -20.17662,102.10237 L -20.17662,89.82453"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path2600"
+         d="M -20.17662,143.11825 L -20.17662,101.10109"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path2622"
+         d="M 137.91225,102.10237 L 137.91225,89.82453"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path2624"
+         d="M 137.91225,143.37285 L 137.91225,100.9116"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="22.293606"
+         x="-35.995716"
+         height="54.637897"
+         width="189.72708"
+         id="rect3814"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+    </g>
+    <g
+       id="g4919">
+      <text
+         sodipodi:linespacing="125%"
+         id="text4024"
+         y="263.47736"
+         x="845.10663"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           id="tspan4032"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="263.47736"
+           x="845.10663"
+           sodipodi:role="line">Has: waveTheory</tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="279.5495"
+           x="845.10663"
+           sodipodi:role="line"
+           id="tspan4041">Has: numericalBeach</tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="295.62164"
+           x="845.10663"
+           sodipodi:role="line"
+           id="tspan4043">Has: relaxationShape</tspan></text>
+      <rect
+         y="197.17508"
+         x="836.93341"
+         height="106.38864"
+         width="189.49222"
+         id="rect3900"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3902"
+         y="215.26379"
+         x="856.99988"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="215.26379"
+           x="856.99988"
+           id="tspan3904"
+           sodipodi:role="line">relaxationScheme</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text3906"
+         y="231.42627"
+         x="931.43542"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="231.42627"
+           x="931.43542"
+           id="tspan3908"
+           sodipodi:role="line">Behaves as e.g. turbulence models</tspan><tspan
+           id="tspan3910"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="247.49841"
+           x="931.43542"
+           sodipodi:role="line">Abstract base class</tspan></text>
+    </g>
+    <g
+       id="g4908">
+      <path
+         id="path3928"
+         d="M 931.67952,316.50663 L 931.67952,304.22879"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path3930"
+         d="M 931.67952,328.07744 L 931.67952,315.7996"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3944"
+         y="346.97141"
+         x="884.30646"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="346.97141"
+           x="884.30646"
+           id="tspan3946"
+           sodipodi:role="line">Derived class</tspan></text>
+      <rect
+         y="327.99637"
+         x="832.99841"
+         height="50.501335"
+         width="197.36224"
+         id="rect3948"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text3979"
+         y="359.15402"
+         x="841.32581"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="359.15402"
+           x="841.32581"
+           sodipodi:role="line"
+           id="tspan3987">E.g.: <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+   id="tspan3993">relaxationSchemeSpatial</tspan> and</tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+           y="374.90451"
+           x="841.32581"
+           sodipodi:role="line"
+           id="tspan3991">relaxationSchemeEmpty</tspan></text>
+    </g>
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4129"
+       style="fill:black;stroke:none;stroke-opacity:1;stroke-width:1px;stroke-linejoin:miter;stroke-linecap:butt;fill-opacity:1;font-family:Nimbus Roman No9 L;font-style:normal;font-weight:normal;font-size:20px;-inkscape-font-specification:Nimbus Roman No9 L;font-stretch:normal;font-variant:normal;text-anchor:start;text-align:start;writing-mode:lr;line-height:125%"><flowRegion
+         id="flowRegion4131"><rect
+           id="rect4133"
+           width="113.75589"
+           height="90.192169"
+           x="481.0249"
+           y="350.82413" /></flowRegion><flowPara
+         id="flowPara4135"></flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+       x="601.61859"
+       y="265.14551"
+       id="text4149"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan4155"
+         sodipodi:role="line"
+         x="601.61859"
+         y="265.14551"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" /></text>
+    <g
+       id="g4980"
+       transform="translate(0,-1.5612793)">
+      <rect
+         y="198.73636"
+         x="593.3385"
+         height="58.596256"
+         width="189.70593"
+         id="rect4157"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4159"
+         y="216.93193"
+         x="622.68756"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="216.93193"
+           x="622.68756"
+           id="tspan4161"
+           sodipodi:role="line">relaxationShape</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4163"
+         y="233.09441"
+         x="687.94739"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="233.09441"
+           x="687.94739"
+           id="tspan4165"
+           sodipodi:role="line">Behaves as e.g. turbulence models</tspan><tspan
+           id="tspan4167"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="249.16655"
+           x="687.94739"
+           sodipodi:role="line">Abstract base class</tspan></text>
+      <path
+         id="path4173"
+         d="M 688.19147,270.16867 L 688.19147,257.89083"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path4175"
+         d="M 688.19147,281.73948 L 688.19147,269.46164"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="281.67047"
+         x="580.71234"
+         height="50.477242"
+         width="214.95828"
+         id="rect4185"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4181"
+         y="300.63345"
+         x="640.81842"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="300.63345"
+           x="640.81842"
+           id="tspan4183"
+           sodipodi:role="line">Derived class</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4187"
+         y="312.81607"
+         x="588.84363"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="312.81607"
+           x="588.84363"
+           sodipodi:role="line"
+           id="tspan4189">E.g.: <tspan
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+   id="tspan4191">relaxationShapeRectangular</tspan> and</tspan><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+           y="328.56656"
+           x="588.84363"
+           sodipodi:role="line"
+           id="tspan4193">relaxationShapeCylindrical</tspan></text>
+    </g>
+    <g
+       id="g4195"
+       transform="translate(-488.06763,226.0753)" />
+    <text
+       xml:space="preserve"
+       style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+       x="356.14999"
+       y="267.30222"
+       id="text4350"
+       sodipodi:linespacing="125%"><tspan
+         id="tspan4352"
+         sodipodi:role="line"
+         x="356.14999"
+         y="267.30222"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" /></text>
+    <g
+       id="g4997"
+       transform="translate(0,-1.5612793)">
+      <rect
+         y="198.73636"
+         x="347.8699"
+         height="58.596256"
+         width="189.70593"
+         id="rect4354"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4356"
+         y="216.93193"
+         x="377.96506"
+         style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="fill:#ff0000"
+           y="216.93193"
+           x="377.96506"
+           id="tspan4358"
+           sodipodi:role="line">numericalBeach</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4360"
+         y="233.09441"
+         x="442.47879"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="233.09441"
+           x="442.47879"
+           id="tspan4362"
+           sodipodi:role="line">Behaves as e.g. turbulence models</tspan><tspan
+           id="tspan4364"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="249.16655"
+           x="442.47879"
+           sodipodi:role="line">Abstract base class</tspan></text>
+      <path
+         id="path4372"
+         d="M 442.72288,270.16867 L 442.72288,257.89083"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:url(#Arrow1Lend);stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         id="path4374"
+         d="M 442.72288,281.73948 L 442.72288,269.46164"
+         style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <rect
+         y="281.67047"
+         x="335.24374"
+         height="50.477242"
+         width="214.95828"
+         id="rect4382"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#000000;stroke-width:0.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" />
+      <text
+         sodipodi:linespacing="125%"
+         id="text4386"
+         y="300.63345"
+         x="395.34985"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           y="300.63345"
+           x="395.34985"
+           id="tspan4388"
+           sodipodi:role="line">Derived class</tspan></text>
+      <text
+         sodipodi:linespacing="125%"
+         id="text4390"
+         y="312.81607"
+         x="343.37503"
+         style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+         xml:space="preserve"><tspan
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+           y="312.81607"
+           x="343.37503"
+           sodipodi:role="line"
+           id="tspan4396"><tspan
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan4493">E.g.: <tspan
+   id="tspan4491"
+   style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L">numericalBeachEmpty</tspan></tspan></tspan></text>
+    </g>
+    <g
+       id="g5137"
+       transform="translate(73.472961,-76.738426)">
+      <rect
+         y="489.29651"
+         x="499.98062"
+         height="114.21428"
+         width="212.63718"
+         id="rect5078"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000ff;stroke-width:1.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+      <g
+         transform="translate(168.16448,290.53321)"
+         id="g5080">
+        <text
+           xml:space="preserve"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           x="379.4371"
+           y="216.84258"
+           id="text5082"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan5084"
+             x="379.4371"
+             y="216.84258"
+             style="fill:#ff0000">setWaveField</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           x="342.56992"
+           y="233.00505"
+           id="text5086"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             x="342.56992"
+             y="233.00505"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan5094">Interface for setting a given </tspan><tspan
+             id="tspan5107"
+             sodipodi:role="line"
+             x="342.56992"
+             y="245.50505"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000">wave field in the computational</tspan><tspan
+             id="tspan5109"
+             sodipodi:role="line"
+             x="342.56992"
+             y="258.00507"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000">domain.</tspan><tspan
+             id="tspan5113"
+             sodipodi:role="line"
+             x="342.56992"
+             y="274.07718"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000">Can be used as initial condition (see </tspan><tspan
+             id="tspan5117"
+             sodipodi:role="line"
+             x="342.56992"
+             y="290.14932"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000">utilities) and during run time.  </tspan><tspan
+             sodipodi:role="line"
+             x="342.56992"
+             y="306.22147"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan5096">Has: waveTheory</tspan></text>
+      </g>
+    </g>
+    <g
+       id="g5125"
+       transform="translate(0,-77.756309)">
+      <g
+         transform="translate(487.17297,291.59258)"
+         id="g4137">
+        <text
+           xml:space="preserve"
+           style="font-size:16px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           x="379.4371"
+           y="216.84258"
+           id="text6321"
+           sodipodi:linespacing="125%"><tspan
+             sodipodi:role="line"
+             id="tspan6323"
+             x="379.4371"
+             y="216.84258"
+             style="fill:#ff0000">relaxationZone</tspan></text>
+        <text
+           xml:space="preserve"
+           style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+           x="342.56992"
+           y="233.00505"
+           id="text6325"
+           sodipodi:linespacing="125%"><tspan
+             id="tspan6904"
+             sodipodi:role="line"
+             x="342.56992"
+             y="233.00505"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000">The general relaxation zone inter-</tspan><tspan
+             sodipodi:role="line"
+             x="342.56992"
+             y="249.07719"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan4119">face, which is implemented in the </tspan><tspan
+             sodipodi:role="line"
+             x="342.56992"
+             y="265.14932"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan4121">solvers. More general, as it holds:</tspan><tspan
+             sodipodi:role="line"
+             x="342.56992"
+             y="279.80606"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Nimbus Mono L;-inkscape-font-specification:Nimbus Mono L"
+             id="tspan4123">List&lt;autoPtr&lt;relaxationScheme&gt; &gt;</tspan><tspan
+             sodipodi:role="line"
+             x="342.56992"
+             y="293.72147"
+             style="font-size:10px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ff0000;font-family:Vemana2000;-inkscape-font-specification:Vemana2000"
+             id="tspan6525">Has relaxationScheme</tspan></text>
+      </g>
+      <rect
+         y="490.31439"
+         x="818.98914"
+         height="114.21428"
+         width="212.63718"
+         id="rect5123"
+         style="font-size:14px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#0000ff;stroke-width:1.5;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;font-family:Vemana2000;-inkscape-font-specification:Vemana2000" />
+    </g>
+  </g>
+</svg>

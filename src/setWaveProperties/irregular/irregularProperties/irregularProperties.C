@@ -57,56 +57,24 @@ irregularProperties::irregularProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void irregularProperties::ws
-(
-	const string & fileName,
-	const string & propName,
-	const scalarField & field
-) const
+void irregularProperties::set( Ostream & os )
 {
-	IOField<scalar> output
-	(
-		IOobject
-		(
-			fileName+propName,
-			"constant",
-			"additionalWaveProperties",
-			mesh_,
-			IOobject::NO_READ,
-			IOobject::NO_WRITE
-		),
-		field
-	);
-	output.write();
-}
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
 
-void irregularProperties::wv
-(
-	const string & fileName,
-	const string & propName,
-	const vectorField & field
-) const
-{
-	IOField<vector> output
-	(
-		IOobject
-		(
-			fileName+propName,
-			"constant",
-			"additionalWaveProperties",
-			mesh_,
-			IOobject::NO_READ,
-			IOobject::NO_WRITE
-		),
-		field
-	);
-	output.write();
-}
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
 
+	writeGiven( os, "spectrum");
 
+	writeGiven( os, "N" );
 
-void irregularProperties::set()
-{
+	writeGiven( os, "Tsoft");
+
+	if ( dict_.found("writeSpectrum" ) )
+		writeGiven( os, "writeSpectrum");
+
+	// Make a pointer to the spectral theory
 	scalarField amp(0);
 	scalarField frequency(0);
 	scalarField phaselag(0);
@@ -114,82 +82,28 @@ void irregularProperties::set()
 
 	autoPtr<waveSpectra> spectra( waveSpectra::New(mesh_, dict_, amp, frequency, phaselag, waveNumber) );
 
-	spectra->set();
+	// Write properties specific to chosen spectral theory
+	wordList specificInput( spectra->list() );
+
+	forAll( specificInput, speci )
+		writeGiven( os, specificInput[speci] );
+
+	// Computing the spectral quantities
+	spectra->set( os );
 
 	if ( write_ )
 	{
-		mkDir("constant/additionalWaveProperties");
-
-		string fileName = (dict_.name()).name().replace("waveProperties::","");
-
-		ws(fileName, "Amplitude", amp);
-
-		ws(fileName, "Frequency", frequency);
-
-		ws(fileName, "Phaselag", phaselag);
-
-		wv(fileName, "WaveNumber", waveNumber);
-
-//		IOField<scalar> amplitude
-//		(
-//			IOobject
-//			(
-//				fileName+"Amplitude",
-//				"constant",
-//				"additionalWaveProperties",
-//				mesh_,
-//				IOobject::NO_READ,
-//				IOobject::NO_WRITE
-//			),
-//			amp
-//		);
-//		amplitude.write();
-//
-//		IOField<scalar> freq
-//		(
-//			IOobject
-//			(
-//				fileName+"Frequency",
-//				"constant",
-//				"additionalWaveProperties",
-//				mesh_,
-//				IOobject::NO_READ,
-//				IOobject::NO_WRITE
-//			),
-//			frequency
-//		);
-//		freq.write();
-//
-//		IOField<scalar> pl
-//		(
-//			IOobject
-//			(
-//				fileName+"Phaselag",
-//				"constant",
-//				"additionalWaveProperties",
-//				mesh_,
-//				IOobject::NO_READ,
-//				IOobject::NO_WRITE
-//			),
-//			phaselag
-//		);
-//		pl.write();
-//
-//		IOField<vector> wn
-//		(
-//			IOobject
-//			(
-//				fileName+"WaveNumber",
-//				"constant",
-//				"additionalWaveProperties",
-//				mesh_,
-//				IOobject::NO_READ,
-//				IOobject::NO_WRITE
-//			),
-//			waveNumber
-//		);
-//		wn.write();
+		writeDerived( os, "amplitude", amp);
+		writeDerived( os, "frequency", frequency);
+		writeDerived( os, "phaselag", phaselag);
+		writeDerived( os, "waveNumber", waveNumber);
 	}
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -61,9 +61,24 @@ stokesSecondProperties::stokesSecondProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesSecondProperties::set()
+void stokesSecondProperties::set(Ostream & os)
 {
 	scalar k = sfp_.linearWaveNumber();
+
+	// Write the beginning of the sub-dictionary
+	writeBeginning( os );
+
+	// Write the already given parameters
+	writeGiven( os, "waveType" );
+
+	if ( dict_.found( "Tsoft" ) )
+		writeGiven( os, "Tsoft");
+
+	writeGiven( os, "depth" );
+	writeGiven( os, "period" );
+	writeGiven( os, "direction" );
+	writeGiven( os, "phi");
+	writeGiven( os, "height");
 
 	if ( write_ )
 	{
@@ -71,9 +86,17 @@ void stokesSecondProperties::set()
 		direction /= Foam::mag(direction);
 		direction *= k;
 
-		dict_.add( "waveNumber", direction, true );
-		dict_.add( "omega"     , omega_   , true );
+		writeDerived(os, "waveNumber", direction);
+		writeDerived(os, "omega", sfp_.omega());
 	}
+
+	writeGiven( os, "debug");
+
+	// Write the relaxation zone
+	writeRelaxationZone( os );
+
+	// Write the closing bracket
+	writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
