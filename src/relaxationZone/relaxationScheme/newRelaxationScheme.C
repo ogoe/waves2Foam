@@ -74,9 +74,9 @@ autoPtr<relaxationScheme> relaxationScheme::New
             "	vectorField & U,"
             "	scalarField & alpha"
             ")"
-        )   << "Unknown relaxation shape type relaxationScheme" << relaxationSchemeTypeName
+        )   << "Unknown relaxationScheme '" << relaxationSchemeTypeName << "'"
             << endl << endl
-            << "Valid relaxation shape types are :" << endl
+            << "Valid relaxation schemes are:" << endl
             << dictionaryConstructorTablePtr_->toc()
             << exit(FatalError);
     }

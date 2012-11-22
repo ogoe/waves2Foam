@@ -63,7 +63,7 @@ autoPtr<waveTheory> waveTheory::New
             "waveTheory::New(const word &, const fvMesh &)"
         )   << "Unknown wave theory type " << waveTheoryTypeName
             << endl << endl
-            << "Valid wave theorues types are :" << endl
+            << "Valid wave theories types are :" << endl
             << dictionaryConstructorTablePtr_->toc()
             << exit(FatalError);
     }

@@ -98,9 +98,9 @@ autoPtr<waveSpectra> waveSpectra::New
         FatalErrorIn
         (
             "waveSpectra::New(const fvMesh &, dictionary &, bool)"
-        )   << "Unknown wave property type " << spectrumName << "Properties"
+        )   << "Unknown wave spectrum '" << spectrumName << "'"
             << endl << endl
-            << "Valid wave property types are :" << endl
+            << "Valid wave spectra are:" << endl
             << waveSpectraConstructorTablePtr_->toc()
             << exit(FatalError);
     }
