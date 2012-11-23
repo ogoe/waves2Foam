@@ -59,7 +59,7 @@ public:
 
 		PiersonMoskowitz
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			scalarField &,
 			scalarField &,

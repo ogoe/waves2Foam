@@ -71,7 +71,7 @@ public:
 
 		solitaryFirstProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

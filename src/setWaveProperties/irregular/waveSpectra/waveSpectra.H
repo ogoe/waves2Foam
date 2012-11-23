@@ -79,7 +79,7 @@ class waveSpectra
 protected:
 
     // Protected data
-		const fvMesh & mesh_;
+		const Time & rT_;
 
 		dictionary & dict_;
 
@@ -119,14 +119,14 @@ public:
             waveSpectra,
             waveSpectra,
             (
-            	const fvMesh & mesh,
+            	const Time & rT,
             	dictionary & dict,
             	scalarField & amp,
             	scalarField & freq,
             	scalarField & phi,
             	vectorField & k
             ),
-            (mesh, dict, amp, freq, phi, k)
+            (rT, dict, amp, freq, phi, k)
         );
 
     // Constructors
@@ -134,7 +134,7 @@ public:
         //- Construct from components
         waveSpectra
         (
-        	const fvMesh &,
+        	const Time &,
         	dictionary &,
         	scalarField &,
         	scalarField &,
@@ -147,7 +147,7 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<waveSpectra> New
         (
-        	const fvMesh &,
+        	const Time &,
         	dictionary &,
         	scalarField &,
         	scalarField &,

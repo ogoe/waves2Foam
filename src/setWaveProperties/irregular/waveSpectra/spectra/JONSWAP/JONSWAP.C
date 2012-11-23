@@ -45,7 +45,7 @@ addToRunTimeSelectionTable(waveSpectra, JONSWAP, waveSpectra);
 
 JONSWAP::JONSWAP
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	scalarField & amp,
 	scalarField & freq,
@@ -53,7 +53,7 @@ JONSWAP::JONSWAP
 	vectorField & k
 )
 :
-	waveSpectra(mesh, dict, amp, freq, phi, k)
+	waveSpectra(rT, dict, amp, freq, phi, k)
 {
 	Info << "\nConstructing: " << this->type() << endl;
 }
@@ -119,7 +119,7 @@ void JONSWAP::set(Ostream & os)
 	// Compute spectrum
 	scalarField S = alpha * Foam::pow(Hs,2.0) * Foam::pow(fp,4.0) * Foam::pow(f,-5.0) * Foam::pow(gamma,beta) * Foam::exp( - 5.0 / 4.0 * Foam::pow( fp / f, 4.0 ) );
 
-	Foam::stokesFirstProperties stp( mesh_, dict_ );
+	Foam::stokesFirstProperties stp( rT_, dict_ );
 
 	// Compute return variables
 	for( int i = 1; i < N; i++)

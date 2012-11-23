@@ -138,9 +138,9 @@ public:
             setWaveProperties,
             setWaveProperties,
             (
-            	const fvMesh & mesh, dictionary & dict, bool write
+            	const Time & rT, dictionary & dict, bool write
             ),
-            (mesh, dict, write)
+            (rT, dict, write)
         );
 
     // Constructors
@@ -148,7 +148,7 @@ public:
         //- Construct from components
         setWaveProperties
         (
-        	const fvMesh &,
+        	const Time &,
         	dictionary &,
         	bool
         );
@@ -158,7 +158,7 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<setWaveProperties> New
         (
-        	const fvMesh &,
+        	const Time &,
         	dictionary &,
         	bool
         );

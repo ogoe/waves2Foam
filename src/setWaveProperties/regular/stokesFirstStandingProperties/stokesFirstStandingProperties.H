@@ -73,7 +73,7 @@ public:
 
 	stokesFirstStandingProperties
 	(
-		const fvMesh &,
+		const Time &,
 		dictionary &,
 		bool
 	);

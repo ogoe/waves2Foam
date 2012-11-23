@@ -76,7 +76,7 @@ public:
 
 		cnoidalFirstProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

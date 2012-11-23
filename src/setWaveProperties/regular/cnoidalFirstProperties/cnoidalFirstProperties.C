@@ -155,12 +155,12 @@ double cnoidalFirstProperties::solve()
 
 cnoidalFirstProperties::cnoidalFirstProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
 :
-	setWaveProperties(mesh, dict, write),
+	setWaveProperties(rT, dict, write),
 	T_( readScalar( dict.lookup("period"))),
 	d_( readScalar( dict.lookup("depth"))),
 	H_( readScalar( dict.lookup("height")))

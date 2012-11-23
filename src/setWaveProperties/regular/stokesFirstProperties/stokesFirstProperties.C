@@ -44,11 +44,11 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFirstProperties, setWaveProp
 
 stokesFirstProperties::stokesFirstProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict
 )
 :
-	setWaveProperties(mesh, dict, false)
+	setWaveProperties(rT, dict, false)
 {
 //	Info << "\nConstructing: " << this->type() << "(Dummy)"<< endl;
 
@@ -59,12 +59,12 @@ stokesFirstProperties::stokesFirstProperties
 
 stokesFirstProperties::stokesFirstProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
 :
-	setWaveProperties(mesh, dict, write)
+	setWaveProperties(rT, dict, write)
 {
 	Info << "\nConstructing: " << this->type() << endl;
 
@@ -75,13 +75,13 @@ stokesFirstProperties::stokesFirstProperties
 
 stokesFirstProperties::stokesFirstProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write,
 	word string
 )
 :
-	setWaveProperties(mesh, dict, write)
+	setWaveProperties(rT, dict, write)
 {
 	Info << "\nConstructing: " << this->type() << " (Used by another wave theory)";
 

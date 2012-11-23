@@ -72,7 +72,7 @@ public:
 
 		potentialCurrentProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

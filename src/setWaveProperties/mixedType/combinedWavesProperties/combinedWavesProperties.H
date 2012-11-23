@@ -72,7 +72,7 @@ public:
 
 		combinedWavesProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

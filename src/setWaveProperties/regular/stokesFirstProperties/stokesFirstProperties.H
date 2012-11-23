@@ -75,20 +75,20 @@ public:
 
 		stokesFirstProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &
 		);
 
 		stokesFirstProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);
 
 		stokesFirstProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool,
 			word

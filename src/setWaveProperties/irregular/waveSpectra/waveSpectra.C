@@ -44,7 +44,7 @@ defineRunTimeSelectionTable(waveSpectra, waveSpectra);
 
 waveSpectra::waveSpectra
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	scalarField & amp,
 	scalarField & freq,
@@ -52,7 +52,7 @@ waveSpectra::waveSpectra
 	vectorField & k
 )
 :
-	mesh_(mesh),
+	rT_(rT),
 	dict_(dict),
 	amp_(amp),
 	freq_(freq),
@@ -60,7 +60,7 @@ waveSpectra::waveSpectra
 	k_(k),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-	G_( Foam::mag(uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
+	G_( Foam::mag(uniformDimensionedVectorField( rT_.db().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
 
 	PI_( M_PI )
 {
@@ -79,7 +79,7 @@ scalar waveSpectra::randomPhaselag()
 
 autoPtr<waveSpectra> waveSpectra::New
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	scalarField & amp,
 	scalarField & freq,
@@ -105,7 +105,7 @@ autoPtr<waveSpectra> waveSpectra::New
             << exit(FatalError);
     }
 
-    return autoPtr<waveSpectra>(cstrIter()(mesh, dict, amp, freq, phi, k));
+    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

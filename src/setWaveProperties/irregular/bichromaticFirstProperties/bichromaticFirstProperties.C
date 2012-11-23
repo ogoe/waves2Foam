@@ -44,14 +44,14 @@ addToRunTimeSelectionTable(setWaveProperties, bichromaticFirstProperties, setWav
 
 bichromaticFirstProperties::bichromaticFirstProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
 :
-	setWaveProperties(mesh, dict, write),
-	sfp1_( mesh, dict, write, "1"),
-	sfp2_( mesh, dict, write, "2")
+	setWaveProperties(rT, dict, write),
+	sfp1_( rT, dict, write, "1"),
+	sfp2_( rT, dict, write, "2")
 {
 	Info << "\nConstructing: " << this->type() << endl;
 }

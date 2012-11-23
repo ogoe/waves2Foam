@@ -72,7 +72,7 @@ public:
 
 	streamFunctionProperties
 	(
-		const fvMesh &,
+		const Time &,
 		dictionary &,
 		bool
 	);
