@@ -95,7 +95,7 @@ scalarField waveTheory::eta
 (
 	const pointField & x,
 	const scalar & time
-)
+) const
 {
     scalarField temp(x.size(),0.0);
 
@@ -112,7 +112,7 @@ scalarField waveTheory::ddxPd
 	const pointField & x,
 	const scalar & time,
 	const vectorField & unitVector
-)
+) const
 {
     scalarField temp(x.size(),0.0);
 
@@ -128,7 +128,7 @@ vectorField waveTheory::U
 (
 	const pointField & x,
 	const scalar & time
-)
+) const
 {
     vectorField temp(x.size(),vector::zero);
 

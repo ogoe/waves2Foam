@@ -29,6 +29,7 @@ regular=regular
 $(waveTheories)/$(regular)/stokesFirst/stokesFirst.C
 $(waveTheories)/$(regular)/stokesFirstStanding/stokesFirstStanding.C
 $(waveTheories)/$(regular)/stokesSecond/stokesSecond.C
+$(waveTheories)/$(regular)/stokesSecondModulation/stokesSecondModulation.C
 $(waveTheories)/$(regular)/stokesFifth/stokesFifth.C
 
 /* Cnoidal Theory */
@@ -61,6 +62,7 @@ $(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
 $(waveProp)/$(regular)/stokesFirstProperties/stokesFirstProperties.C
 $(waveProp)/$(regular)/stokesFirstStandingProperties/stokesFirstStandingProperties.C
 $(waveProp)/$(regular)/stokesSecondProperties/stokesSecondProperties.C
+$(waveProp)/$(regular)/stokesSecondModulationProperties/stokesSecondModulationProperties.C
 $(waveProp)/$(regular)/stokesFifthProperties/stokesFifthProperties.C
 
 /* Cnoidal Theory */

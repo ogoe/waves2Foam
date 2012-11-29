@@ -207,7 +207,13 @@ void cnoidalFirstProperties::set( Ostream & os)
 			writeDerived(os, "omega", omega);
 			writeDerived(os, "length", L);
 			writeDerived(os, "celerity", c);
+
+			// Locally change the write precision for m to avoid it being written
+			// as 1 instead of 0.9999999999 which makes elliptic integrals to
+			// to infinity.
+			unsigned int pre = os.precision( 14 );
 			writeDerived(os, "m", m);
+			os.precision( pre );
 		}
 	}
 

@@ -191,20 +191,20 @@ public:
         (
         	const pointField &,
         	const scalar &
-        );
+        ) const;
 
         virtual scalarField ddxPd
         (
         	const pointField &,
         	const scalar &,
         	const vectorField &
-        );
+        ) const;
 
         virtual vectorField U
         (
         	const pointField &,
         	const scalar &
-        );
+        ) const;
 
         // Return the unit vertical direction in the direction of g
         const inline vector & returnDir() const { return direction_;}
