@@ -55,7 +55,7 @@ autoPtr<numericalBeach> numericalBeach::New
         	 .subDict("relaxationZone")
         );
 
-        coeffDict_.lookup("beachType") >> beachTypeName;
+        beachTypeName = coeffDict_.lookupOrDefault<word>("beachType","Empty");
     }
 
     dictionaryConstructorTable::iterator cstrIter =
