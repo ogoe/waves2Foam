@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "stokesSecondProperties.H"
+#include "bichromaticSecondProperties.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -34,15 +34,15 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(stokesSecondProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, stokesSecondProperties, setWaveProperties);
+defineTypeNameAndDebug(bichromaticSecondProperties, 0);
+addToRunTimeSelectionTable(setWaveProperties, bichromaticSecondProperties, setWaveProperties);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-stokesSecondProperties::stokesSecondProperties
+bichromaticSecondProperties::bichromaticSecondProperties
 (
 	const Time & rT,
 	dictionary & dict,
@@ -50,20 +50,18 @@ stokesSecondProperties::stokesSecondProperties
 )
 :
 	setWaveProperties(rT, dict, write),
-	sfp_( rT, dict, false, "")
+	sfp1_( rT, dict, write, "1"),
+	sfp2_( rT, dict, write, "2")
 {
 	Info << "\nConstructing: " << this->type() << endl;
-
-	period_ = readScalar( dict.lookup("period") );
-	depth_  = readScalar( dict.lookup("depth") );
-	omega_  = 2.0 * PI_ / period_ ;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesSecondProperties::set(Ostream & os)
+void bichromaticSecondProperties::set(Ostream & os)
 {
-	scalar k = sfp_.linearWaveNumber();
+	scalar k1 = sfp1_.linearWaveNumber();
+	scalar k2 = sfp2_.linearWaveNumber();
 
 	// Write the beginning of the sub-dictionary
 	writeBeginning( os );
@@ -74,54 +72,43 @@ void stokesSecondProperties::set(Ostream & os)
 	if ( dict_.found( "Tsoft" ) )
 		writeGiven( os, "Tsoft");
 
-	writeGiven( os, "depth" );
-	writeGiven( os, "period" );
-	writeGiven( os, "direction" );
-	writeGiven( os, "phi");
-	writeGiven( os, "height");
+	writeGiven( os, "depth");
+
+	writeGiven( os, "period1" );
+	writeGiven( os, "period2" );
+
+	writeGiven( os, "direction1" );
+	writeGiven( os, "direction2" );
+
+	writeGiven( os, "height1" );
+	writeGiven( os, "height2" );
+
+	writeGiven( os, "phi1" );
+	writeGiven( os, "phi2" );
 
 	if ( write_ )
 	{
-		vector direction( vector(dict_.lookup("direction")));
-		direction /= Foam::mag(direction);
-		direction *= k;
+		vector direction1( vector(dict_.lookup("direction1")));
+		vector direction2( vector(dict_.lookup("direction2")));
 
-		writeDerived(os, "waveNumber", direction);
-		writeDerived(os, "omega", sfp_.omega());
+		direction1 /= Foam::mag(direction1);
+		direction2 /= Foam::mag(direction2);
+
+		direction1 *= k1;
+		direction2 *= k2;
+
+		writeDerived(os, "waveNumber1", direction1);
+		writeDerived(os, "waveNumber2", direction2);
+
+		writeDerived(os, "omega1", sfp1_.omega());
+		writeDerived(os, "omega2", sfp2_.omega());
 	}
 
-	writeGiven( os, "debug");
-
 	// Write the relaxation zone
-	writeRelaxationZone( os );
+    writeRelaxationZone( os );
 
 	// Write the closing bracket
 	writeEnding( os );
-
-	scalar H = readScalar( dict_.lookup("height") );
-	scalar h = readScalar( dict_.lookup("depth")  );
-
-	scalar a1 = H / 2.0;
-	scalar a2 = 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h));
-
-	if ( Switch( dict_.lookup("debug") ) )
-	{
-		Info << nl << "The wave amplitudes are:\n" << tab << "  a1 = " << tab << a1
-		     << nl << tab << "  a2 = " << tab << a2
-		     << nl << tab << "4 a2 = " << tab << 4.0 * a2 << " (Validity criterion) " << endl;
-	}
-
-//    if ( H / 2.0 - 4.0 * 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h)) < 0)
-	if ( a1 < 4.0 * a2)
-    {
-		Info << a1 << tab << 4.0 * a2 << endl;
-
-        WarningIn
-        (
-            "void stokesSecondProperties::set(Ostream & os)"
-        ) << endl << "The validity of Stokes second order is violated." << endl
-          << endl;
-    }
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

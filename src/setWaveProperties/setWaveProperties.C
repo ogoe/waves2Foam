@@ -173,7 +173,7 @@ void setWaveProperties::writeEnding( Ostream & os )
 
 setWaveProperties::setWaveProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
@@ -182,7 +182,7 @@ setWaveProperties::setWaveProperties
 	dict_(dict),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-	g_( uniformDimensionedVectorField( mesh.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() )
+	g_( uniformDimensionedVectorField( rT.db().lookupObject<uniformDimensionedVectorField>("g")).value() )
 {
 	G_  = Foam::mag(g_);
 	PI_ = M_PI;
@@ -199,7 +199,7 @@ setWaveProperties::~setWaveProperties()
 
 autoPtr<setWaveProperties> setWaveProperties::New
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
@@ -214,7 +214,7 @@ autoPtr<setWaveProperties> setWaveProperties::New
     {
         FatalErrorIn
         (
-            "setWaveProperties::New(const fvMesh &, dictionary &, bool)"
+            "setWaveProperties::New(const fvMesh &, const Time &, dictionary &, bool)"
         )   << "Unknown wave property type " << waveTheoryTypeName << "Properties"
             << endl << endl
             << "Valid wave property types are :" << endl
@@ -222,7 +222,7 @@ autoPtr<setWaveProperties> setWaveProperties::New
             << exit(FatalError);
     }
 
-    return autoPtr<setWaveProperties>(cstrIter()(mesh, dict, write));
+    return autoPtr<setWaveProperties>(cstrIter()(rT, dict, write));
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

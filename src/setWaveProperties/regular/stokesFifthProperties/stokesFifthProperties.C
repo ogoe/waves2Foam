@@ -95,12 +95,12 @@ scalar stokesFifthProperties::waveNumber()
 
 stokesFifthProperties::stokesFifthProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
 :
-	setWaveProperties(mesh, dict, write)
+	setWaveProperties(rT, dict, write)
 {
 	Info << "\nConstructing: " << this->type() << endl;
 

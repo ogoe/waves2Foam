@@ -58,7 +58,7 @@ public:
 
 		JONSWAP
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			scalarField &,
 			scalarField &,

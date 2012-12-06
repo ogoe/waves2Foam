@@ -45,7 +45,7 @@ addToRunTimeSelectionTable(waveSpectra, PiersonMoskowitz, waveSpectra);
 
 PiersonMoskowitz::PiersonMoskowitz
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	scalarField & amp,
 	scalarField & freq,
@@ -53,7 +53,7 @@ PiersonMoskowitz::PiersonMoskowitz
 	vectorField & k
 )
 :
-	waveSpectra(mesh, dict, amp, freq, phi, k)
+	waveSpectra(rT, dict, amp, freq, phi, k)
 {
 	Info << "\nConstructing: " << this->type() << endl;
 }
@@ -108,7 +108,7 @@ void PiersonMoskowitz::set( Ostream & os )
 	// Compute spectrum
 	scalarField S = 5.0/16.0 * Foam::pow(Hs,2.0) * Foam::pow(fp,4.0) * Foam::pow(f,-5.0) * Foam::exp( - 5.0 / 4.0 * Foam::pow( fp / f, 4.0 ) );
 
-	Foam::stokesFirstProperties stp( mesh_, dict_ );
+	Foam::stokesFirstProperties stp( rT_, dict_ );
 
 	// Compute return variables
 	for( int i = 1; i < N; i++)

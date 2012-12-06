@@ -44,13 +44,13 @@ addToRunTimeSelectionTable(setWaveProperties, irregularProperties, setWaveProper
 
 irregularProperties::irregularProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
 :
-	setWaveProperties(mesh, dict, write),
-	mesh_(mesh)
+	setWaveProperties(rT, dict, write),
+	rT_(rT)
 {
 	Info << "\nConstructing: " << this->type() << endl;
 }
@@ -80,7 +80,7 @@ void irregularProperties::set( Ostream & os )
 	scalarField phaselag(0);
 	vectorField waveNumber(0);
 
-	autoPtr<waveSpectra> spectra( waveSpectra::New(mesh_, dict_, amp, frequency, phaselag, waveNumber) );
+	autoPtr<waveSpectra> spectra( waveSpectra::New(rT_, dict_, amp, frequency, phaselag, waveNumber) );
 
 	// Write properties specific to chosen spectral theory
 	wordList specificInput( spectra->list() );

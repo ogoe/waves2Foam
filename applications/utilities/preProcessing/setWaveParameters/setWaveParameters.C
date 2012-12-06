@@ -26,9 +26,17 @@ Application
     setWaveParameters
 
 Description
-    This function loops through all of the sub-dictionaries in waveProperties
+    This function loops through all of the sub-dictionaries in waveProperties.input
     dictionary in <root case>/constant. The needed wave parameters are computed
     based on a set of required input data.
+
+    Input parameters are given in the file:
+
+    	constant/waveProperties.input
+
+    and the derived wave parameters are written to the file
+
+     	constant/waveProperties
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -63,7 +71,19 @@ int main(int argc, char *argv[])
 #   include "setRootCase.H"
 
 #   include "createTime.H"
-#   include "createMesh.H"
+
+    Info << "\nReading g" << endl;
+    uniformDimensionedVectorField g
+    (
+        IOobject
+        (
+            "g",
+            runTime.constant(),
+            runTime,
+            IOobject::MUST_READ,
+            IOobject::NO_WRITE
+        )
+    );
 
     Info << "\nReading waveProperties\n" << endl;
 
@@ -71,23 +91,21 @@ int main(int argc, char *argv[])
     (
         IOobject
         (
-            "waveProperties",
+            "waveProperties.input",
             runTime.constant(),
-            mesh,
+            runTime,
             IOobject::MUST_READ,
             IOobject::NO_WRITE
         )
     );
 
-#   include "readGravitationalAcceleration.H"
-
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     IOobject wOut
     (
-            "wavePropertiesTEMP",
-            mesh.time().constant(),
-            mesh,
+            "waveProperties",
+            runTime.constant(),
+            runTime,
             IOobject::NO_READ,
             IOobject::NO_WRITE
     );
@@ -132,7 +150,7 @@ int main(int argc, char *argv[])
     	{
     		dictionary & sd = waveProperties.subDict(toc[item]);
 
-    		autoPtr<setWaveProperties> props( setWaveProperties::New(mesh, sd, true) );
+    		autoPtr<setWaveProperties> props( setWaveProperties::New(runTime, sd, true) );
 
     		props->set( os );
     	}
@@ -159,17 +177,8 @@ int main(int argc, char *argv[])
     	}
     }
 
-//    // TO BE REMOVE EVENTUALLY
-//    waveProperties.regIOobject::write();
-
     // Write end divider
     wOut.writeEndDivider( os );
-
-    // Move the dummy output file to the waveProperties file
-    fileName src( wOut.objectPath() );
-    fileName dst( wOut.path() + "/waveProperties" );
-
-    Foam::mv( src, dst );
 
     // End
     Info<< "\nEnd\n" << endl;

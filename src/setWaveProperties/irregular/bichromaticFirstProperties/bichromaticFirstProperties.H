@@ -74,7 +74,7 @@ public:
 
 		bichromaticFirstProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

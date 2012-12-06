@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "stokesSecondProperties.H"
+#include "stokesSecondModulationProperties.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -34,15 +34,15 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(stokesSecondProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, stokesSecondProperties, setWaveProperties);
+defineTypeNameAndDebug(stokesSecondModulationProperties, 0);
+addToRunTimeSelectionTable(setWaveProperties, stokesSecondModulationProperties, setWaveProperties);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
-stokesSecondProperties::stokesSecondProperties
+stokesSecondModulationProperties::stokesSecondModulationProperties
 (
 	const Time & rT,
 	dictionary & dict,
@@ -61,7 +61,7 @@ stokesSecondProperties::stokesSecondProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesSecondProperties::set(Ostream & os)
+void stokesSecondModulationProperties::set(Ostream & os)
 {
 	scalar k = sfp_.linearWaveNumber();
 
@@ -79,6 +79,8 @@ void stokesSecondProperties::set(Ostream & os)
 	writeGiven( os, "direction" );
 	writeGiven( os, "phi");
 	writeGiven( os, "height");
+	writeGiven( os, "epsilon");
+	writeGiven( os, "modN");
 
 	if ( write_ )
 	{
@@ -118,7 +120,7 @@ void stokesSecondProperties::set(Ostream & os)
 
         WarningIn
         (
-            "void stokesSecondProperties::set(Ostream & os)"
+            "void stokesSecondModulationProperties::set(Ostream & os)"
         ) << endl << "The validity of Stokes second order is violated." << endl
           << endl;
     }

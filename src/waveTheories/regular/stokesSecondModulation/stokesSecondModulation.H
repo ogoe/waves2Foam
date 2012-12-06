@@ -23,12 +23,18 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::setWaveProperties
+    Foam::waveTheories::stokesSecondModulation
 
 Description
-	An abstract base class for a pre-processing tool for setting the wave
-	properties in the dictionary waveProperties.
-
+    Implementation of a second order stokes theory for monochromatic surface
+    water waves. Implemented following the description by
+    
+        Hydrodynamics of Coastal Regions
+        Ib A. Svendsen and Ivar G. Jonsson
+        1982
+        Den private ingenioerfond
+        Technical University of Denmark
+    
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -43,7 +49,7 @@ Description
     }
 
 SourceFiles
-    setWaveProperties.C
+    stokesSecondModulation.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -51,132 +57,100 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef setWaveProperties_H
-#define setWaveProperties_H
+#ifndef stokesSecondModulation_H
+#define stokesSecondModulation_H
 
-#include "fvMesh.H"
-#include "volFields.H"
-#include "IOdictionary.H"
-
-#include "OFstream.H"
-
-#include "autoPtr.H"
-#include "runTimeSelectionTables.H"
-
-#include "uniformDimensionedFields.H"
-
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_roots.h>
-#include <gsl/gsl_multiroots.h>
+#include "waveTheory.H"
+#include "Switch.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
+namespace waveTheories
+{
+
 /*---------------------------------------------------------------------------*\
-                       Class setWaveProperties Declaration
+                           Class stokesSecondModulation Declaration
 \*---------------------------------------------------------------------------*/
 
-class setWaveProperties
+class stokesSecondModulation
+:
+    public waveTheory
 {
 
 protected:
 
     // Protected data
-		bool write_;
-		dictionary & dict_;
-		vector g_;
-		scalar G_;
-
-		scalar PI_;
-
-		label Nspaces_;
+        scalar H_;
+        scalar epsilon_;
+        scalar modN_;
+        scalar h_;
+        scalar omega_;
+        scalar period_;
+        scalar phi_;
+        vector k_;
+        scalar K_;
+        scalar Tsoft_;
+        
+        bool debug_;
 
     // Protected member functions
-		void writeBeginning( Ostream & );
 
-		void writeGiven( Ostream & );
+        scalar waveHeight(const point &, const scalar &) const;
 
-		void writeGiven( Ostream & , word );
-
-		void writeDerived( Ostream &, word, scalar);
-
-		void writeDerived( Ostream &, word, vector);
-
-		void writeDerived( Ostream &, word, scalarField);
-
-		void writeDerived( Ostream &, word, vectorField);
-
-		void writeRelaxationZone( Ostream & );
-
-		void writeEnding( Ostream & );
-
-private:
-
-    // Private Member Functions
-		void lineFormatting( Ostream &, const word &);
-
-		void addITstream( Ostream &, const word &, const ITstream & );
-
-        //- Disallow default bitwise copy construct
-        setWaveProperties(const setWaveProperties&);
-
-        //- Disallow default bitwise assignment
-        void operator=(const setWaveProperties&);
-
+        scalar factor(const scalar &) const;
 public:
 
     //- Runtime type information
-    TypeName("setWaveProperties");
-
-    // Declare run-time constructor selection table
-
-        declareRunTimeSelectionTable
-        (
-            autoPtr,
-            setWaveProperties,
-            setWaveProperties,
-            (
-            	const Time & rT, dictionary & dict, bool write
-            ),
-            (rT, dict, write)
-        );
+    TypeName("stokesSecondModulation");
 
     // Constructors
 
-        //- Construct from components
-        setWaveProperties
+        //- from components
+        stokesSecondModulation
         (
-        	const Time &,
-        	dictionary &,
-        	bool
+            const word &,
+        	const fvMesh & mesh_
         );
 
-    // Selectors
-
-        //- Return a reference to the selected turbulence model
-        static autoPtr<setWaveProperties> New
-        (
-        	const Time &,
-        	dictionary &,
-        	bool
-        );
 
     // Destructor
 
-        virtual ~setWaveProperties();
+        ~stokesSecondModulation()
+        {}
+
 
     // Member Functions
-
-        virtual void set(Ostream &) = 0;
+        void printCoeffs();
+        
+        scalar eta
+        (
+        	const point &,
+        	const scalar &
+        ) const;
+        
+        scalar ddxPd
+        (
+        	const point &,
+        	const scalar &,
+        	const vector &
+        ) const;
+        
+        vector U
+        (
+        	const point &,
+        	const scalar &
+        ) const;
 };
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+} // End namespace waveTheories
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

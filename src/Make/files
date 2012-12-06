@@ -29,6 +29,7 @@ regular=regular
 $(waveTheories)/$(regular)/stokesFirst/stokesFirst.C
 $(waveTheories)/$(regular)/stokesFirstStanding/stokesFirstStanding.C
 $(waveTheories)/$(regular)/stokesSecond/stokesSecond.C
+$(waveTheories)/$(regular)/stokesSecondModulation/stokesSecondModulation.C
 $(waveTheories)/$(regular)/stokesFifth/stokesFifth.C
 
 /* Cnoidal Theory */
@@ -41,6 +42,7 @@ $(waveTheories)/$(regular)/streamFunction/streamFunction.C
 irregular=irregular
 $(waveTheories)/$(irregular)/irregular/irregular.C
 $(waveTheories)/$(irregular)/bichromaticFirst/bichromaticFirst.C
+$(waveTheories)/$(irregular)/bichromaticSecond/bichromaticSecond.C
 
 
 /* Mixed type wave theories */
@@ -61,6 +63,7 @@ $(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
 $(waveProp)/$(regular)/stokesFirstProperties/stokesFirstProperties.C
 $(waveProp)/$(regular)/stokesFirstStandingProperties/stokesFirstStandingProperties.C
 $(waveProp)/$(regular)/stokesSecondProperties/stokesSecondProperties.C
+$(waveProp)/$(regular)/stokesSecondModulationProperties/stokesSecondModulationProperties.C
 $(waveProp)/$(regular)/stokesFifthProperties/stokesFifthProperties.C
 
 /* Cnoidal Theory */
@@ -71,6 +74,7 @@ $(waveProp)/$(regular)/streamFunctionProperties/streamFunctionProperties.C
 
 /* Irregular wave theories */
 $(waveProp)/$(irregular)/bichromaticFirstProperties/bichromaticFirstProperties.C
+$(waveProp)/$(irregular)/bichromaticSecondProperties/bichromaticSecondProperties.C
 
 dws=waveSpectra
 $(waveProp)/$(irregular)/$(dws)/waveSpectra.C

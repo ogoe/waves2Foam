@@ -82,7 +82,7 @@ public:
 
 		stokesFifthProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

@@ -44,13 +44,13 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFirstStandingProperties, set
 
 stokesFirstStandingProperties::stokesFirstStandingProperties
 (
-	const fvMesh & mesh,
+	const Time & rT,
 	dictionary & dict,
 	bool write
 )
 :
-	setWaveProperties(mesh, dict, write),
-	sfp_( mesh, dict, false, "")
+	setWaveProperties(rT, dict, write),
+	sfp_( rT, dict, false, "")
 {
 	Info << "\nConstructing: " << this->type() << endl;
 }

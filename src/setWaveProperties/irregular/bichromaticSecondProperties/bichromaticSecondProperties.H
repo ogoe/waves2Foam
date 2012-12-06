@@ -23,7 +23,7 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::cnoidalFirstProperties
+    Foam::bichromaticSecondProperties
 
 Description
 
@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	cnoidalFirstProperties.C
+	bichromaticSecondProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -49,32 +49,30 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef cnoidalFirstProperties_H
-#define cnoidalFirstProperties_H
+#ifndef bichromaticSecondProperties_H
+#define bichromaticSecondProperties_H
 
 #include "setWaveProperties.H"
+#include "stokesFirstProperties.H"
 
 namespace Foam
 {
 
-class cnoidalFirstProperties
+class bichromaticSecondProperties
 :
 	public setWaveProperties
 {
 private:
 
-	scalar T_;
-	scalar d_;
-	scalar H_;
-
-	double solve( );
+		stokesFirstProperties sfp1_;
+		stokesFirstProperties sfp2_;
 
 public:
 
-	//- Runtime type information
-		TypeName("cnoidalFirstProperties");
+		//- Runtime type information
+		TypeName("bichromaticSecondProperties");
 
-		cnoidalFirstProperties
+		bichromaticSecondProperties
 		(
 			const Time &,
 			dictionary &,
@@ -83,20 +81,8 @@ public:
 
 		// Method
 
-		void set( Ostream &);
+		void set(Ostream &);
 };
-
-struct cnoidalFirstParams
-{
-	double depth_;
-	double height_;
-	double period_;
-	double g_;
-};
-
-double lowerMBound_f ( double m, void * params);
-
-double cnoidalFirst_f ( double m, void * params);
 
 }
 

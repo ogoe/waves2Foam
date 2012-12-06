@@ -67,7 +67,7 @@ private:
 
 protected:
 
-		const fvMesh & mesh_;
+		const Time & rT_;
 
 public:
 
@@ -76,7 +76,7 @@ public:
 
 		irregularProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);

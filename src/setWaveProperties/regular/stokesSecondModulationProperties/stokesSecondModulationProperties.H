@@ -23,7 +23,7 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::cnoidalFirstProperties
+    Foam::stokesSecondModulationProperties
 
 Description
 
@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	cnoidalFirstProperties.C
+	stokesSecondModulationProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -49,32 +49,33 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef cnoidalFirstProperties_H
-#define cnoidalFirstProperties_H
+#ifndef stokesSecondModulationProperties_H
+#define stokesSecondModulationProperties_H
 
 #include "setWaveProperties.H"
+#include "stokesFirstProperties.H"
 
 namespace Foam
 {
 
-class cnoidalFirstProperties
+class stokesSecondModulationProperties
 :
 	public setWaveProperties
 {
 private:
 
-	scalar T_;
-	scalar d_;
-	scalar H_;
+	scalar period_;
+	scalar omega_;
+	scalar depth_;
 
-	double solve( );
+	stokesFirstProperties sfp_;
 
 public:
 
 	//- Runtime type information
-		TypeName("cnoidalFirstProperties");
+		TypeName("stokesSecondModulationProperties");
 
-		cnoidalFirstProperties
+		stokesSecondModulationProperties
 		(
 			const Time &,
 			dictionary &,
@@ -84,19 +85,8 @@ public:
 		// Method
 
 		void set( Ostream &);
+
 };
-
-struct cnoidalFirstParams
-{
-	double depth_;
-	double height_;
-	double period_;
-	double g_;
-};
-
-double lowerMBound_f ( double m, void * params);
-
-double cnoidalFirst_f ( double m, void * params);
 
 }
 

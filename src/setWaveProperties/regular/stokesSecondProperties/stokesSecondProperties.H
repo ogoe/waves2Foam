@@ -77,7 +77,7 @@ public:
 
 		stokesSecondProperties
 		(
-			const fvMesh &,
+			const Time &,
 			dictionary &,
 			bool
 		);
