@@ -1,38 +1,9 @@
 #!/bin/bash 
 
-# Remove option "-llduSolvers" from non-extended versions of OF
-
-#arg=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
-#
-#if [ -z "$arg" ] 
-#then
-#
-#    list=`find ./ -name "options" | grep -v $WM_OPTIONS`
-#    
-#    for i in $list
-#    do
-#        dir=`dirname $i`
-#
-#        cd $dir
-#
-#        argInner=`grep "\-llduSolvers" options`
-#
-#        if [ -n "$argInner" ]
-#        then 
-#            grep -v "\-llduSolvers" options > options.temp
-#            mv options.temp options
-#        fi
-#
-#        cd $OLDPWD
-#    done
-#fi
-
 # Compilation of wave boundary conditions / relaxation zone
-
 ( cd src; ./Allwmake )
 
 # Compilation of solvers
-
 apps="applications"
 
 # The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
@@ -87,4 +58,3 @@ else
 fi
 
 ( cd $apps/utilities && wmake all )
-
