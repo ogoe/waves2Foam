@@ -1,0 +1,20 @@
+==== Validation Case ====
+This is a validation case with comparison with the experimental data produced
+in the work
+
+    Beji, S. and Battjes, J.A. (1993)
+    Experimental Investigation of Wave-Propagation over a Bar
+    Coastal Engineering
+    Volume 19(1-2), 151-162
+
+In the directory "experimentalData" the time series of the free surface
+elevation is given. In the directory "matlab" a script for processing of the
+numerical data with a comparison of the time series is provided.
+
+==== History ====
+This tutorial was original derived by Jorge Gadelho.
+
+Subsequently modified into an easy executable tutorial by Niels G. Jacobsen,
+Techn. Uni of Denmark.
+
+April 15th, 2013.
