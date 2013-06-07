@@ -1,6 +1,7 @@
 EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -DEXTBRANCH=$(extBranch) \
     -I./../../../../src/lnInclude
 
 EXE_LIBS = \

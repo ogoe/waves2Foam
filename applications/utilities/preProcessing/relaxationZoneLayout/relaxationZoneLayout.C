@@ -128,7 +128,7 @@ int main(int argc, char *argv[])
     // Create the relaxation shape function and add the data to the above generated fields
     forAll( relaxNames, relaxi )
     {
-    	// Get relaxation zone cells and coorsponding sigma coordinates
+        // Get relaxation zone cells and coorsponding sigma coordinates
         autoPtr<relaxationShapes::relaxationShape> relaxShape = relaxationShapes::relaxationShape::New(relaxNames[relaxi], mesh);
 
         const labelList & cells( relaxShape->cells());

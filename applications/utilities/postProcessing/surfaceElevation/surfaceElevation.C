@@ -107,11 +107,17 @@ int main(int argc, char *argv[])
 #   include "readGravitationalAcceleration.H"
 #   include "readWaveProperties.H"
 
+#if OFVERSION<220
+    fileName dict("surfaceElevationDict");
+#else
+    fileName dict("system/surfaceElevationDict");
+#endif
+
     IOsampledSurfaceElevation sSets
     (
         sampledSurfaceElevation::typeName,
         mesh,
-        "surfaceElevationDict",
+        dict,
         IOobject::MUST_READ,
         true
     );

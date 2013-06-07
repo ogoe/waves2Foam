@@ -122,7 +122,7 @@ int main(int argc, char *argv[])
 
     pd.write();
 
-    Info << nl << "End" << endl;
+    Info << nl << "End" << nl << endl;
 
     return 0;
 }
