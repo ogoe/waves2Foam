@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 1991-2010 OpenCFD Ltd.
+    \\  /    A nd           | Copyright (C) 2011-2013 OpenFOAM Foundation
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -31,7 +31,7 @@ Description
     The momentum and other fluid properties are of the "mixture" and a single
     momentum equation is solved.
 
-    Turbulence modelling is generic, i.e.  laminar, RAS or LES may be selected.
+    Turbulence modelling is generic, i.e. laminar, RAS or LES may be selected.
 
     For a two-fluid approach see twoPhaseEulerFoam.
 
@@ -43,7 +43,8 @@ Description
 #include "interfaceProperties.H"
 #include "twoPhaseMixture.H"
 #include "turbulenceModel.H"
-#include "interpolationTable.H"
+#include "pimpleControl.H"
+#include "fvIOoptionList.H"
 #include "relaxationZone.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -53,7 +54,9 @@ int main(int argc, char *argv[])
     #include "setRootCase.H"
     #include "createTime.H"
     #include "createMesh.H"
-    #include "readPISOControls.H"
+
+    pimpleControl pimple(mesh);
+
     #include "initContinuityErrs.H"
     #include "readGravitationalAcceleration.H"
     #include "readWaveProperties.H"
@@ -63,13 +66,13 @@ int main(int argc, char *argv[])
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
 
+
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
     Info<< "\nStarting time loop\n" << endl;
 
     while (runTime.run())
     {
-        #include "readPISOControls.H"
         #include "readTimeControls.H"
         #include "CourantNo.H"
         #include "alphaCourantNo.H"
@@ -82,18 +85,27 @@ int main(int argc, char *argv[])
         twoPhaseProperties.correct();
 
         #include "alphaEqnSubCycle.H"
+        
+	    relaxing.correct();
 
-    relaxing.correct();
+        interface.correct();
 
-        #include "UEqn.H"
-
-        // --- PISO loop
-        for (int corr=0; corr<nCorr; corr++)
+        // --- Pressure-velocity PIMPLE corrector loop
+        while (pimple.loop())
         {
-            #include "pEqn.H"
-        }
+            #include "UEqn.H"
 
-        turbulence->correct();
+            // --- Pressure corrector loop
+            while (pimple.correct())
+            {
+                #include "pEqn.H"
+            }
+
+            if (pimple.turbCorr())
+            {
+                turbulence->correct();
+            }
+        }
 
         runTime.write();
 
