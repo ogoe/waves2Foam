@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, stokesFifth, dictionary);
 stokesFifth::stokesFifth
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -145,8 +145,8 @@ scalar stokesFifth::factor(const scalar & time) const
 
 scalar stokesFifth::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar arg((k_ & x) - omega_ * time);
@@ -165,9 +165,9 @@ scalar stokesFifth::eta
 
 scalar stokesFifth::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     
@@ -188,8 +188,8 @@ scalar stokesFifth::ddxPd
 
 vector stokesFifth::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar arg((k_ & x) - omega_ * time);

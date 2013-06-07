@@ -108,7 +108,7 @@ public:
         streamFunction
         (
             const word &,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 
@@ -119,25 +119,33 @@ public:
 
 
     // Member Functions
+        Switch conflictTSoftInitialise() const
+        {
+            if ( Tsoft_ > 0 )
+                return true;
+            else
+                return false;
+        };
+
         void printCoeffs();
         
         scalar eta
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
         
         scalar ddxPd
         (
-        	const point &,
-        	const scalar &,
-        	const vector &
+            const point &,
+            const scalar &,
+            const vector &
         ) const;
         
         vector U
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 };
 

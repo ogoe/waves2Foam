@@ -44,40 +44,40 @@ addToRunTimeSelectionTable(setWaveProperties, potentialCurrentProperties, setWav
 
 potentialCurrentProperties::potentialCurrentProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write)
+    setWaveProperties(rT, dict, write)
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void potentialCurrentProperties::set(Ostream & os)
 {
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
-	writeGiven( os, "U");
-	writeGiven( os, "Tsoft" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
+    writeGiven( os, "U");
+    writeGiven( os, "Tsoft" );
 
-	if ( dict_.found( "localSeaLevel" ) )
-		writeGiven( os, "localSeaLevel");
+    if ( dict_.found( "localSeaLevel" ) )
+        writeGiven( os, "localSeaLevel");
         
 
-	// This is where type specific data can be written
-	// Nothing to be done for potentialCurrent
+    // This is where type specific data can be written
+    // Nothing to be done for potentialCurrent
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 }
 
 

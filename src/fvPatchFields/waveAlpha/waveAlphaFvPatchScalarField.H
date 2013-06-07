@@ -77,23 +77,23 @@ class waveAlphaFvPatchScalarField
 private:
 
     //- Private member functions
-    	autoPtr<waveTheories::waveTheory> waveProps_;
+        autoPtr<waveTheories::waveTheory> waveProps_;
     
     // Private member functions
     
-	//- Returns a scalarField of the signed distance to an arbitrary surface
-		virtual void signedPointToSurfaceDistance
-		(
-			const pointField &,
-			scalarField      &
-		);
+    //- Returns a scalarField of the signed distance to an arbitrary surface
+        virtual void signedPointToSurfaceDistance
+        (
+            const pointField &,
+            scalarField      &
+        );
 
 
-	//- Returns a scalar of the signed distance to an arbitrary surface
-		virtual scalar signedPointToSurfaceDistance
-		(
-			const point &
-		) const;
+    //- Returns a scalar of the signed distance to an arbitrary surface
+        virtual scalar signedPointToSurfaceDistance
+        (
+            const point &
+        ) const;
 
 public:
 

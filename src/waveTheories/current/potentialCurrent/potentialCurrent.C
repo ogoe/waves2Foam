@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, potentialCurrent, dictionary);
 potentialCurrent::potentialCurrent
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -72,8 +72,8 @@ scalar potentialCurrent::factor(const scalar & time) const
 
 scalar potentialCurrent::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
 //    scalar eta = seaLevel_;
@@ -83,9 +83,9 @@ scalar potentialCurrent::eta
 
 scalar potentialCurrent::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     return 0.0;
@@ -93,19 +93,19 @@ scalar potentialCurrent::ddxPd
 
 scalar potentialCurrent::p
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
-	scalar result = rhoWater_ * Foam::mag(g_) * localSeaLevel_;
+    scalar result = rhoWater_ * Foam::mag(g_) * localSeaLevel_;
 
-	return result;
+    return result;
 }
 
 vector potentialCurrent::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     return (U_ * factor(time));

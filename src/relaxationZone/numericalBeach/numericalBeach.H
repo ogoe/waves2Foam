@@ -69,8 +69,8 @@ protected:
 
     // Protected data
         const fvMesh & mesh_;
-	    
-	    const dictionary coeffDict_;
+        
+        const dictionary coeffDict_;
         
         word beachType_;
         
@@ -97,7 +97,7 @@ public:
             numericalBeach,
             dictionary,
             (
-            	const word & subDictName, const fvMesh & mesh_
+                const word & subDictName, const fvMesh & mesh_
             ),
             (subDictName, mesh_)
         );
@@ -130,9 +130,9 @@ public:
 
         virtual void correct
         (
-        	const labelList &,
-        	const scalarField &,
-        	volScalarField &
+            const labelList &,
+            const scalarField &,
+            volScalarField &
         ) = 0;
 };
 

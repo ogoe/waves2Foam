@@ -38,8 +38,8 @@ namespace relaxationShapes
 
 autoPtr<relaxationShape> relaxationShape::New
 (
-	const word & subDictName,
-	const fvMesh & mesh_
+    const word & subDictName,
+    const fvMesh & mesh_
 )
 {
     word relaxationShapeTypeName;
@@ -50,9 +50,9 @@ autoPtr<relaxationShape> relaxationShape::New
     {
         const dictionary coeffDict_
         (
-        	(mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
-        	 .subDict(subDictName + "Coeffs")
-        	 .subDict("relaxationZone")
+            (mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
+             .subDict(subDictName + "Coeffs")
+             .subDict("relaxationZone")
         );
 
         coeffDict_.lookup("relaxationShape") >> relaxationShapeTypeName;

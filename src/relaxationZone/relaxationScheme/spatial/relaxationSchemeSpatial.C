@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(relaxationScheme, relaxationSchemeSpatial, dictionary
 relaxationSchemeSpatial::relaxationSchemeSpatial
 (
     const word & subDictName,
-	const fvMesh & mesh,
+    const fvMesh & mesh,
     vectorField & U,
     scalarField & alpha
 )
@@ -57,7 +57,7 @@ relaxationSchemeSpatial::relaxationSchemeSpatial
     weight_.setSize(sigma.size());
    
     forAll( weight_, celli )
-    {	
+    {    
         weight_[celli] = 1.0 - (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0) / (Foam::exp(1.0) - 1.0);
     }
 }
@@ -66,15 +66,15 @@ relaxationSchemeSpatial::relaxationSchemeSpatial
 
 void relaxationSchemeSpatial::correct()
 {
-	// Obtain relaxation zone cells and local sigma coordinate
-	// The number of cells and the sigma coordinate can have changed
-	// for dynamic meshes
+    // Obtain relaxation zone cells and local sigma coordinate
+    // The number of cells and the sigma coordinate can have changed
+    // for dynamic meshes
     const labelList   & cells = relaxShape_->cells();
     const scalarField & sigma = relaxShape_->sigma();
 
     // Compute the relaxation weights - only changes for moving/changing meshes
     if ( weight_.size() != sigma.size() )
-    	weight_.setSize( sigma.size(), 0.0 );
+        weight_.setSize( sigma.size(), 0.0 );
 
     relaxWeight_->weights(cells, sigma, weight_);
 
@@ -88,44 +88,44 @@ void relaxationSchemeSpatial::correct()
     
     forAll(cells, celli)
     {
-    	const label cellNo = cells[celli];
-    	const pointField & p = cc[cellNo].points(fL, pp);
+        const label cellNo = cells[celli];
+        const pointField & p = cc[cellNo].points(fL, pp);
 
-    	// Evaluate the cell height and the signedDistance to the surface from the cell centre
-    	scalar cellHeight( Foam::max( p & waveProps_->returnDir() ) - Foam::min( p & waveProps_->returnDir() ) );
-    	scalar sdc( signedPointToSurfaceDistance( C[cellNo] ) );
+        // Evaluate the cell height and the signedDistance to the surface from the cell centre
+        scalar cellHeight( Foam::max( p & waveProps_->returnDir() ) - Foam::min( p & waveProps_->returnDir() ) );
+        scalar sdc( signedPointToSurfaceDistance( C[cellNo] ) );
 
-    	// Target variables
-    	scalar alphaTarget( 0.0 );
-//    	vector UTarget( vector::zero );
-    	vector UTarget( waveProps_->windVelocity( mesh_.time().value() ) );
+        // Target variables
+        scalar alphaTarget( 0.0 );
+//        vector UTarget( vector::zero );
+        vector UTarget( waveProps_->windVelocity( mesh_.time().value() ) );
 
-    	// Only do cutting, if surface is close by
-    	if ( Foam::mag( sdc ) <= 2 * cellHeight )
-    	{
-    		localCellNeg lc(mesh_, cellNo);
+        // Only do cutting, if surface is close by
+        if ( Foam::mag( sdc ) <= 2 * cellHeight )
+        {
+            localCellNeg lc(mesh_, cellNo);
 
-    		dividePolyhedral( point::zero, vector::one, lc);
+            dividePolyhedral( point::zero, vector::one, lc);
 
-    		if ( lc.ccNeg().size() >= 4 )
-    		{
-    			UTarget     = waveProps_->U( lc.centreNeg(), mesh_.time().value() );
-    			alphaTarget = lc.magNeg() / V[cellNo];
-    		}
-    	}
-    	else if ( sdc < 0)
-    	{
-    		alphaTarget = 1.0;
-    		UTarget     = waveProps_->U( C[cellNo], mesh_.time().value() );
-    	}
-    	else
-    	{
-    		alphaTarget = 0.0;
-    		UTarget     = waveProps_->windVelocity( mesh_.time().value() );
-    	}
+            if ( lc.ccNeg().size() >= 4 )
+            {
+                UTarget     = waveProps_->U( lc.centreNeg(), mesh_.time().value() );
+                alphaTarget = lc.magNeg() / V[cellNo];
+            }
+        }
+        else if ( sdc < 0)
+        {
+            alphaTarget = 1.0;
+            UTarget     = waveProps_->U( C[cellNo], mesh_.time().value() );
+        }
+        else
+        {
+            alphaTarget = 0.0;
+            UTarget     = waveProps_->windVelocity( mesh_.time().value() );
+        }
 
-    	U_[cellNo]     = (1 - weight_[celli]) * UTarget     + weight_[celli] * U_[cellNo];
-    	alpha_[cellNo] = (1 - weight_[celli]) * alphaTarget + weight_[celli] * alpha_[cellNo];
+        U_[cellNo]     = (1 - weight_[celli]) * UTarget     + weight_[celli] * U_[cellNo];
+        alpha_[cellNo] = (1 - weight_[celli]) * alphaTarget + weight_[celli] * alpha_[cellNo];
     }
 
     // REMEMBER NOT TO PUT correctBoundaryConditions() HERE BUT ONE LEVEL UP

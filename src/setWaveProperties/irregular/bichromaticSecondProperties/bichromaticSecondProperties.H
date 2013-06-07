@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	bichromaticSecondProperties.C
+    bichromaticSecondProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -60,28 +60,28 @@ namespace Foam
 
 class bichromaticSecondProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-		stokesFirstProperties sfp1_;
-		stokesFirstProperties sfp2_;
+        stokesFirstProperties sfp1_;
+        stokesFirstProperties sfp2_;
 
 public:
 
-		//- Runtime type information
-		TypeName("bichromaticSecondProperties");
+        //- Runtime type information
+        TypeName("bichromaticSecondProperties");
 
-		bichromaticSecondProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        bichromaticSecondProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set(Ostream &);
+        void set(Ostream &);
 };
 
 }

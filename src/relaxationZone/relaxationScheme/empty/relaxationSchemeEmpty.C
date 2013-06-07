@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(relaxationScheme, relaxationSchemeEmpty, dictionary);
 relaxationSchemeEmpty::relaxationSchemeEmpty
 (
     const word & subDictName,
-	const fvMesh & mesh,
+    const fvMesh & mesh,
     vectorField & U,
     scalarField & alpha
 )

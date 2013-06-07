@@ -80,7 +80,7 @@ protected:
     // Protected member functions
         bool insideZone
         (
-        	const label &
+            const label &
         ) const;
 
         virtual void computeSigmaCoordinate();
@@ -98,7 +98,7 @@ public:
         relaxationShapeCylindrical
         (
             const word & ,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 

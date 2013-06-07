@@ -85,12 +85,12 @@ protected:
     // Protected member functions
         bool angleCheck
         (
-        	const scalar &
+            const scalar &
         ) const;
 
         bool insideZone
         (
-        	const label &
+            const label &
         ) const;
 
         virtual void computeSigmaCoordinate();
@@ -108,7 +108,7 @@ public:
         relaxationShapeSemiCylindrical
         (
             const word & ,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 

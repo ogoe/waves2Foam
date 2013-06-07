@@ -44,79 +44,79 @@ addToRunTimeSelectionTable(setWaveProperties, stokesSecondModulationProperties, 
 
 stokesSecondModulationProperties::stokesSecondModulationProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write),
-	sfp_( rT, dict, false, "")
+    setWaveProperties(rT, dict, write),
+    sfp_( rT, dict, false, "")
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 
-	period_ = readScalar( dict.lookup("period") );
-	depth_  = readScalar( dict.lookup("depth") );
-	omega_  = 2.0 * PI_ / period_ ;
+    period_ = readScalar( dict.lookup("period") );
+    depth_  = readScalar( dict.lookup("depth") );
+    omega_  = 2.0 * PI_ / period_ ;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void stokesSecondModulationProperties::set(Ostream & os)
 {
-	scalar k = sfp_.linearWaveNumber();
+    scalar k = sfp_.linearWaveNumber();
 
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
 
-	if ( dict_.found( "Tsoft" ) )
-		writeGiven( os, "Tsoft");
+    if ( dict_.found( "Tsoft" ) )
+        writeGiven( os, "Tsoft");
 
-	writeGiven( os, "depth" );
-	writeGiven( os, "period" );
-	writeGiven( os, "direction" );
-	writeGiven( os, "phi");
-	writeGiven( os, "height");
-	writeGiven( os, "epsilon");
-	writeGiven( os, "modN");
+    writeGiven( os, "depth" );
+    writeGiven( os, "period" );
+    writeGiven( os, "direction" );
+    writeGiven( os, "phi");
+    writeGiven( os, "height");
+    writeGiven( os, "epsilon");
+    writeGiven( os, "modN");
 
-	if ( write_ )
-	{
-		vector direction( vector(dict_.lookup("direction")));
-		direction /= Foam::mag(direction);
-		direction *= k;
+    if ( write_ )
+    {
+        vector direction( vector(dict_.lookup("direction")));
+        direction /= Foam::mag(direction);
+        direction *= k;
 
-		writeDerived(os, "waveNumber", direction);
-		writeDerived(os, "omega", sfp_.omega());
-	}
+        writeDerived(os, "waveNumber", direction);
+        writeDerived(os, "omega", sfp_.omega());
+    }
 
-	writeGiven( os, "debug");
+    writeGiven( os, "debug");
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 
-	scalar H = readScalar( dict_.lookup("height") );
-	scalar h = readScalar( dict_.lookup("depth")  );
+    scalar H = readScalar( dict_.lookup("height") );
+    scalar h = readScalar( dict_.lookup("depth")  );
 
-	scalar a1 = H / 2.0;
-	scalar a2 = 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h));
+    scalar a1 = H / 2.0;
+    scalar a2 = 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h));
 
-	if ( Switch( dict_.lookup("debug") ) )
-	{
-		Info << nl << "The wave amplitudes are:\n" << tab << "  a1 = " << tab << a1
-		     << nl << tab << "  a2 = " << tab << a2
-		     << nl << tab << "4 a2 = " << tab << 4.0 * a2 << " (Validity criterion) " << endl;
-	}
+    if ( Switch( dict_.lookup("debug") ) )
+    {
+        Info << nl << "The wave amplitudes are:\n" << tab << "  a1 = " << tab << a1
+             << nl << tab << "  a2 = " << tab << a2
+             << nl << tab << "4 a2 = " << tab << 4.0 * a2 << " (Validity criterion) " << endl;
+    }
 
 //    if ( H / 2.0 - 4.0 * 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h)) < 0)
-	if ( a1 < 4.0 * a2)
+    if ( a1 < 4.0 * a2)
     {
-		Info << a1 << tab << 4.0 * a2 << endl;
+        Info << a1 << tab << 4.0 * a2 << endl;
 
         WarningIn
         (

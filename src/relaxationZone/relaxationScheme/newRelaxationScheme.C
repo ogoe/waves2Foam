@@ -38,8 +38,8 @@ namespace relaxationSchemes
 
 autoPtr<relaxationScheme> relaxationScheme::New
 (
-	const word & subDictName,
-	const fvMesh & mesh,
+    const word & subDictName,
+    const fvMesh & mesh,
     vectorField & U,
     scalarField & alpha
 )
@@ -52,9 +52,9 @@ autoPtr<relaxationScheme> relaxationScheme::New
     {
         const dictionary coeffDict_
         (
-        	(mesh.thisDb().lookupObject<IOdictionary>("waveProperties"))
-        	.subDict(subDictName + "Coeffs")
-        	.subDict("relaxationZone")
+            (mesh.thisDb().lookupObject<IOdictionary>("waveProperties"))
+            .subDict(subDictName + "Coeffs")
+            .subDict("relaxationZone")
         );
 
         coeffDict_.lookup("relaxationScheme") >> relaxationSchemeTypeName;
@@ -69,10 +69,10 @@ autoPtr<relaxationScheme> relaxationScheme::New
         (
             "relaxationScheme::New"
             "("
-            "	const word &, "
-            "	const fvMesh &,"
-            "	vectorField & U,"
-            "	scalarField & alpha"
+            "    const word &, "
+            "    const fvMesh &,"
+            "    vectorField & U,"
+            "    scalarField & alpha"
             ")"
         )   << "Unknown relaxationScheme '" << relaxationSchemeTypeName << "'"
             << endl << endl

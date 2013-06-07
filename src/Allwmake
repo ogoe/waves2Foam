@@ -7,7 +7,32 @@ then
 else
     version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
 fi
+
 export WM_PROJECT_VERSION_NUMBER=$version
 
+# Is the compilation based on the OpenFoam-extend branch. Included to readify the source code
+# for a future release, where this option is needed
+extBranch=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
+
+if [ -z $extBranch ]
+then
+    extBranch=0
+else
+    extBranch=1
+fi
+
+export extBranch
+
+# Take care of the differences in the options, which arose between OF21 and OF22.
+rm -f $PWD/Make/options
+
+if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
+then
+    ln -s -f $PWD/Make/options.210 $PWD/Make/options
+else
+    ln -s -f $PWD/Make/options.220 $PWD/Make/options
+fi
+
+# Compile the library
 wmake libso
 

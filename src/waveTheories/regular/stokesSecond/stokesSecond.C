@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, stokesSecond, dictionary);
 stokesSecond::stokesSecond
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 //     const volVectorField& U,
 //     const surfaceScalarField& phi,
 //     transportModel& lamTransportModel
@@ -95,8 +95,8 @@ scalar stokesSecond::factor(const scalar & time) const
 
 scalar stokesSecond::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar arg(omega_ * time - (k_ & x) + phi_);
@@ -112,9 +112,9 @@ scalar stokesSecond::eta
 
 scalar stokesSecond::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     scalar Z(returnZ(x));
@@ -135,8 +135,8 @@ scalar stokesSecond::ddxPd
 
 vector stokesSecond::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar Z(returnZ(x));

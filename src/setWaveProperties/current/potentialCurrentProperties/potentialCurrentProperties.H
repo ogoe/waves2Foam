@@ -26,8 +26,8 @@ Class
     Foam::potentialCurrentProperties
 
 Description
-	This is a dummy file, where nothing happens, as the input parameters given
-	by the user is sufficient.
+    This is a dummy file, where nothing happens, as the input parameters given
+    by the user is sufficient.
 
     A description of the general wave framework is given in
 
@@ -43,7 +43,7 @@ Description
     }
 
 SourceFiles
-	potentialCurrentProperties.C
+    potentialCurrentProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -61,25 +61,25 @@ namespace Foam
 
 class potentialCurrentProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
 public:
 
-		//- Runtime type information
-		TypeName("potentialCurrentProperties");
+        //- Runtime type information
+        TypeName("potentialCurrentProperties");
 
-		potentialCurrentProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        potentialCurrentProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set(Ostream &);
+        void set(Ostream &);
 };
 
 }

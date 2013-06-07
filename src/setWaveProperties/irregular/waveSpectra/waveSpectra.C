@@ -44,25 +44,25 @@ defineRunTimeSelectionTable(waveSpectra, waveSpectra);
 
 waveSpectra::waveSpectra
 (
-	const Time & rT,
-	dictionary & dict,
-	scalarField & amp,
-	scalarField & freq,
-	scalarField & phi,
-	vectorField & k
+    const Time & rT,
+    dictionary & dict,
+    scalarField & amp,
+    scalarField & freq,
+    scalarField & phi,
+    vectorField & k
 )
 :
-	rT_(rT),
-	dict_(dict),
-	amp_(amp),
-	freq_(freq),
-	phi_(phi),
-	k_(k),
+    rT_(rT),
+    dict_(dict),
+    amp_(amp),
+    freq_(freq),
+    phi_(phi),
+    k_(k),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-	G_( Foam::mag(uniformDimensionedVectorField( rT_.db().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
+    G_( Foam::mag(uniformDimensionedVectorField( rT_.db().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
 
-	PI_( M_PI )
+    PI_( M_PI )
 {
 }
 
@@ -74,24 +74,24 @@ waveSpectra::~waveSpectra()
 
 scalar waveSpectra::randomPhaselag()
 {
-	return ( 2.0 * PI_ * static_cast<scalar>(rand()) / static_cast<scalar>(RAND_MAX) );
+    return ( 2.0 * PI_ * static_cast<scalar>(rand()) / static_cast<scalar>(RAND_MAX) );
 }
 
 autoPtr<waveSpectra> waveSpectra::New
 (
-	const Time & rT,
-	dictionary & dict,
-	scalarField & amp,
-	scalarField & freq,
-	scalarField & phi,
-	vectorField & k
+    const Time & rT,
+    dictionary & dict,
+    scalarField & amp,
+    scalarField & freq,
+    scalarField & phi,
+    vectorField & k
 )
 {
     word spectrumName;
     dict.lookup("spectrum") >> spectrumName;
 
     waveSpectraConstructorTable::iterator cstrIter =
-    		waveSpectraConstructorTablePtr_->find(spectrumName);
+            waveSpectraConstructorTablePtr_->find(spectrumName);
 
     if (cstrIter == waveSpectraConstructorTablePtr_->end())
     {

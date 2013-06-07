@@ -132,40 +132,40 @@ protected:
 
         void printCoeffs
         (
-        	const word,
-        	const scalar,
-        	const scalar
+            const word,
+            const scalar,
+            const scalar
         ) const;
 
         void setCoeffs();
 
         scalar betanm
         (
-        	const scalar &,
-        	const scalar &,
-        	const scalar &
+            const scalar &,
+            const scalar &,
+            const scalar &
         ) const;
 
         scalar Lambda2
         (
-        	const scalar &,
-        	const vector &,
-        	const scalar &,
-        	const scalar &,
-        	const vector &,
-        	const scalar &,
-        	const scalar &
+            const scalar &,
+            const vector &,
+            const scalar &,
+            const scalar &,
+            const vector &,
+            const scalar &,
+            const scalar &
         ) const;
 
         scalar Gamma2
         (
-        	const scalar &,
-        	const vector &,
-        	const scalar &,
-        	const scalar &,
-        	const vector &,
-        	const scalar &,
-        	const scalar &
+            const scalar &,
+            const vector &,
+            const scalar &,
+            const scalar &,
+            const vector &,
+            const scalar &,
+            const scalar &
         ) const;
 
         scalar factor(const scalar &) const;
@@ -185,7 +185,7 @@ public:
         bichromaticSecond
         (
             const word &,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 
@@ -196,25 +196,33 @@ public:
 
 
     // Member Functions
+        Switch conflictTSoftInitialise() const
+        {
+            if ( Tsoft_ > 0 )
+                return true;
+            else
+                return false;
+        };
+
         void printCoeffs();
         
         scalar eta
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
         
         scalar ddxPd
         (
-        	const point &,
-        	const scalar &,
-        	const vector &
+            const point &,
+            const scalar &,
+            const vector &
         ) const;
         
         vector U
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 };
 

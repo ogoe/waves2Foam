@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, streamFunction, dictionary);
 streamFunction::streamFunction
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -90,8 +90,8 @@ scalar streamFunction::factor(const scalar & time) const
 
 scalar streamFunction::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar eta(0);
@@ -108,9 +108,9 @@ scalar streamFunction::eta
 
 scalar streamFunction::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     // PAS PAA, DETTE FOELGER IKKE KONVENTIONEN MED ARBITRAER BOELGETALSVEKTOR!!!!!!!!!!!!!
@@ -148,8 +148,8 @@ scalar streamFunction::ddxPd
 
 vector streamFunction::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar Z(returnZ(x));

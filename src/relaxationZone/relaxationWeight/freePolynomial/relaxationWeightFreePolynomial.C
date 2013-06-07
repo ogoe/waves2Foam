@@ -44,24 +44,24 @@ addToRunTimeSelectionTable(relaxationWeight, relaxationWeightFreePolynomial, dic
 relaxationWeightFreePolynomial::relaxationWeightFreePolynomial
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     relaxationWeight(subDictName, mesh_),
 
     exponent_( readScalar( coeffDict_.lookup("exponent") ) )
 {
-	// Make sure to truncate the exponent to be an integer value!
-	exponent_ = static_cast<scalar>( static_cast<label>(exponent_) );
+    // Make sure to truncate the exponent to be an integer value!
+    exponent_ = static_cast<scalar>( static_cast<label>(exponent_) );
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void relaxationWeightFreePolynomial::computeWeights
 (
-	const labelList & cells,
-	const scalarField & sigma,
-	scalarField & weight
+    const labelList & cells,
+    const scalarField & sigma,
+    scalarField & weight
 )
 {
     forAll( weight, celli )

@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, stokesFirstStanding, dictionary);
 stokesFirstStanding::stokesFirstStanding
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -78,8 +78,8 @@ scalar stokesFirstStanding::factor(const scalar & time) const
 
 scalar stokesFirstStanding::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar eta = (H_ / 2.0 * Foam::cos(omega_ * time - (k_ & x) + phi_) + H_ / 2.0 * Foam::cos(omega_ * time + (k_ & x) + phi_)) * factor(time) + seaLevel_;
@@ -88,9 +88,9 @@ scalar stokesFirstStanding::eta
 
 scalar stokesFirstStanding::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     
@@ -110,8 +110,8 @@ scalar stokesFirstStanding::ddxPd
 
 vector stokesFirstStanding::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar Z(returnZ(x));

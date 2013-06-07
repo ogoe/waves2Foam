@@ -44,53 +44,53 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFirstStandingProperties, set
 
 stokesFirstStandingProperties::stokesFirstStandingProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write),
-	sfp_( rT, dict, false, "")
+    setWaveProperties(rT, dict, write),
+    sfp_( rT, dict, false, "")
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void stokesFirstStandingProperties::set( Ostream & os )
 {
-	scalar k = sfp_.linearWaveNumber();
+    scalar k = sfp_.linearWaveNumber();
 
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
 
-	if ( dict_.found( "Tsoft" ) )
-		writeGiven( os, "Tsoft");
+    if ( dict_.found( "Tsoft" ) )
+        writeGiven( os, "Tsoft");
 
-	writeGiven( os, "depth");
-	writeGiven( os, "period" );
-	writeGiven( os, "direction" );
-	writeGiven( os, "phi");
-	writeGiven( os, "height");
+    writeGiven( os, "depth");
+    writeGiven( os, "period" );
+    writeGiven( os, "direction" );
+    writeGiven( os, "phi");
+    writeGiven( os, "height");
 
-	if ( write_ )
-	{
-		vector direction( vector(dict_.lookup("direction")));
-		direction /= Foam::mag(direction);
-		direction *= k;
+    if ( write_ )
+    {
+        vector direction( vector(dict_.lookup("direction")));
+        direction /= Foam::mag(direction);
+        direction *= k;
 
-		writeDerived(os, "waveNumber", direction);
-		writeDerived(os, "omega", sfp_.omega());
-	}
+        writeDerived(os, "waveNumber", direction);
+        writeDerived(os, "omega", sfp_.omega());
+    }
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

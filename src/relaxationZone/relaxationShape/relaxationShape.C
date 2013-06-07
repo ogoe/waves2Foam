@@ -48,8 +48,8 @@ defineRunTimeSelectionTable(relaxationShape, dictionary);
 
 relaxationShape::relaxationShape
 (
-	const word & subDictName,
-	const fvMesh & mesh
+    const word & subDictName,
+    const fvMesh & mesh
 )
 :
     IOdictionary
@@ -65,8 +65,8 @@ relaxationShape::relaxationShape
 
     refreshIndexSigma_(-1)
 {
-	// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-	vector g( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() );
+    // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
+    vector g( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() );
 
     direction_ = g / mag(g);
 }
@@ -80,24 +80,24 @@ relaxationShape::~relaxationShape()
 
 void relaxationShape::refreshCells()
 {
-	if ( refreshIndexCells_ != mesh_.time().timeIndex() && mesh_.changing() )
-	{
-		findComputationalCells();
-	}
+    if ( refreshIndexCells_ != mesh_.time().timeIndex() && mesh_.changing() )
+    {
+        findComputationalCells();
+    }
 
-	refreshIndexCells_ = mesh_.time().timeIndex();
+    refreshIndexCells_ = mesh_.time().timeIndex();
 }
 
 void relaxationShape::refreshSigma()
 {
-	refreshCells();
+    refreshCells();
 
-	if ( refreshIndexSigma_ != mesh_.time().timeIndex() )
-	{
-		computeSigmaCoordinate();
-	}
+    if ( refreshIndexSigma_ != mesh_.time().timeIndex() )
+    {
+        computeSigmaCoordinate();
+    }
 
-	refreshIndexSigma_ = mesh_.time().timeIndex();
+    refreshIndexSigma_ = mesh_.time().timeIndex();
 }
 
 

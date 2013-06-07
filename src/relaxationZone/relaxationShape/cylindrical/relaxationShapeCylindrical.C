@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(relaxationShape, relaxationShapeCylindrical, dictiona
 relaxationShapeCylindrical::relaxationShapeCylindrical
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     relaxationShape(subDictName, mesh_),

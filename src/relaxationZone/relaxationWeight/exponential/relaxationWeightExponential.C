@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(relaxationWeight, relaxationWeightExponential, dictio
 relaxationWeightExponential::relaxationWeightExponential
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     relaxationWeight(subDictName, mesh_),
@@ -58,9 +58,9 @@ relaxationWeightExponential::relaxationWeightExponential
 
 void relaxationWeightExponential::computeWeights
 (
-	const labelList & cells,
-	const scalarField & sigma,
-	scalarField & weight
+    const labelList & cells,
+    const scalarField & sigma,
+    scalarField & weight
 )
 {
     forAll( weight, celli )

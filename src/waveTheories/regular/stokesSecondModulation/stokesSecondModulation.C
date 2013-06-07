@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, stokesSecondModulation, dictionary);
 stokesSecondModulation::stokesSecondModulation
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -84,11 +84,11 @@ void stokesSecondModulation::printCoeffs()
 
 scalar stokesSecondModulation::waveHeight
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
-	scalar arg( ( omega_ * time - (k_ & x) + phi_ ) / modN_ );
+    scalar arg( ( omega_ * time - (k_ & x) + phi_ ) / modN_ );
 
     return H_ * (1.0 + epsilon_ * sin( arg ) );
 }
@@ -104,15 +104,15 @@ scalar stokesSecondModulation::factor(const scalar & time) const
 
 scalar stokesSecondModulation::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar arg(omega_ * time - (k_ & x) + phi_);
     scalar modH = waveHeight( x, time );
     
     scalar eta = (
-    				 modH / 2.0 * Foam::cos(arg) // First order contribution.
+                     modH / 2.0 * Foam::cos(arg) // First order contribution.
                    + 1.0 / 16.0 * K_ * sqr(modH) * (3.0 / Foam::pow(Foam::tanh(K_ * h_),3.0) - 1.0 / Foam::tanh(K_ * h_)) * Foam::cos(2.0 * arg) // Second order contribution.
                  ) * factor(time)  // Hot-starting.
                  + seaLevel_;      // Adding sea level.
@@ -122,9 +122,9 @@ scalar stokesSecondModulation::eta
 
 scalar stokesSecondModulation::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     scalar Z(returnZ(x));
@@ -146,8 +146,8 @@ scalar stokesSecondModulation::ddxPd
 
 vector stokesSecondModulation::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar Z(returnZ(x));

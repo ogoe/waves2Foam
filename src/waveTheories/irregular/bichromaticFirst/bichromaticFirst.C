@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(waveTheory, bichromaticFirst, dictionary);
 bichromaticFirst::bichromaticFirst
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -84,8 +84,8 @@ scalar bichromaticFirst::factor(const scalar & time) const
 
 scalar bichromaticFirst::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar eta =  ( H1_ / 2.0 * Foam::cos(omega1_ * time - (k1_ & x) + phi1_) 
@@ -96,9 +96,9 @@ scalar bichromaticFirst::eta
 
 scalar bichromaticFirst::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     
@@ -121,8 +121,8 @@ scalar bichromaticFirst::ddxPd
 
 vector bichromaticFirst::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar Z(returnZ(x));

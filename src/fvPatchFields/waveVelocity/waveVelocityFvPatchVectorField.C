@@ -120,26 +120,26 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 
 void waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 (
-	const pointField & pp,
-	scalarField & sd
+    const pointField & pp,
+    scalarField & sd
 )
 {
-	forAll( pp, pointi )
-	{
-		sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
-	}
+    forAll( pp, pointi )
+    {
+        sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
+    }
 }
 
 scalar waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 (
-	const point & pp
+    const point & pp
 ) const
 {
-	scalar temp = waveProps_->eta(pp, db().time().value() );
-	temp += ( waveProps_->returnDir() & pp );
-	temp *= -1.0;
+    scalar temp = waveProps_->eta(pp, db().time().value() );
+    temp += ( waveProps_->returnDir() & pp );
+    temp *= -1.0;
 
-	return temp;
+    return temp;
 }
 
 // Update the coefficients associated with the patch field
@@ -158,16 +158,16 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
 
     forAll( magSf, facei )
     {
-    	localFace lf = this->divideFace(facei + start);
+        localFace lf = this->divideFace(facei + start);
 
-    	if ( lf.isNegFace() )
-    		this->refValue()[facei]  = waveProps_->U( lf.negCentre(), db().time().value() );
-    	else
-    		this->refValue()[facei]  = waveProps_->windVelocity( db().time().value() );
-//    		this->refValue()[facei]  = vector::zero;
+        if ( lf.isNegFace() )
+            this->refValue()[facei]  = waveProps_->U( lf.negCentre(), db().time().value() );
+        else
+            this->refValue()[facei]  = waveProps_->windVelocity( db().time().value() );
+//            this->refValue()[facei]  = vector::zero;
 
-    	this->refGrad()[facei]       = vector::zero;
-    	this->valueFraction()[facei] = 1.0;
+        this->refGrad()[facei]       = vector::zero;
+        this->valueFraction()[facei] = 1.0;
     }
 
     mixedFvPatchField<vector>::updateCoeffs();

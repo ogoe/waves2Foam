@@ -51,106 +51,106 @@ scalar stokesFifthProperties::eval(scalar & k)
     scalar D2 = - Foam::sqrt(1.0 / Foam::tanh(k * depth_)) / 2.0;
     scalar D4 =   Foam::sqrt(1.0 / Foam::tanh(k * depth_)) * (2.0 + 4.0 * S + Foam::pow(S,2.0) + 2.0 * Foam::pow(S,3.0)) / (8.0 * Foam::pow(1.0 - S,3.0));
 
-	return Foam::sqrt(k / G_) * Q_ - 2.0 * PI_ / (period_ * Foam::sqrt(G_ * k)) + C0 + Foam::pow((k * height_ / 2.0),2.0) * (C2 + D2 / (k * depth_)) + Foam::pow(k * height_ / 2.0, 4.0) * (C4 + D4 / (k * depth_));
+    return Foam::sqrt(k / G_) * Q_ - 2.0 * PI_ / (period_ * Foam::sqrt(G_ * k)) + C0 + Foam::pow((k * height_ / 2.0),2.0) * (C2 + D2 / (k * depth_)) + Foam::pow(k * height_ / 2.0, 4.0) * (C4 + D4 / (k * depth_));
 }
 
 scalar stokesFifthProperties::waveNumber()
 {
-	scalar lower(1.0e-7);
+    scalar lower(1.0e-7);
 
     scalar upper = Foam::max( 4.0 * PI_ / ( period_ * Foam::sqrt( Foam::mag(G_) * depth_)),
-						      2.0 * PI_ / ( Foam::pow( period_, 2.0) ) );
+                              2.0 * PI_ / ( Foam::pow( period_, 2.0) ) );
 
     scalar middle(0.5 * (lower + upper) );
 
     scalar valLower( eval( lower ) ),
-    	   valUpper( eval( upper ) ),
-    	   valMiddle( eval( middle ) );
+           valUpper( eval( upper ) ),
+           valMiddle( eval( middle ) );
 
     while ( true )
     {
-    	if ( Foam::sign( valLower ) == Foam::sign( valMiddle ) )
-    	{
-			lower    = middle;
-			valLower = valMiddle;
-    	}
-    	else
-    	{
-    		upper    = middle;
-    		valUpper = valMiddle;
-    	}
+        if ( Foam::sign( valLower ) == Foam::sign( valMiddle ) )
+        {
+            lower    = middle;
+            valLower = valMiddle;
+        }
+        else
+        {
+            upper    = middle;
+            valUpper = valMiddle;
+        }
 
-    	middle = 0.5 * ( lower + upper );
+        middle = 0.5 * ( lower + upper );
 
-    	valMiddle = eval(middle);
+        valMiddle = eval(middle);
 
-    	if ( Foam::mag(valMiddle) < 1.0e-13 )
-    		break;
+        if ( Foam::mag(valMiddle) < 1.0e-13 )
+            break;
     }
 
-	return middle;
+    return middle;
 }
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 stokesFifthProperties::stokesFifthProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write)
+    setWaveProperties(rT, dict, write)
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 
-	period_ = readScalar( dict.lookup("period") );
-	depth_  = readScalar( dict.lookup("depth") );
-	height_ = readScalar( dict.lookup("height") );
-	Q_      = readScalar( dict.lookup("stokesDrift") );
+    period_ = readScalar( dict.lookup("period") );
+    depth_  = readScalar( dict.lookup("depth") );
+    height_ = readScalar( dict.lookup("height") );
+    Q_      = readScalar( dict.lookup("stokesDrift") );
 
-	omega_  = 2.0 * PI_ / period_ ;
+    omega_  = 2.0 * PI_ / period_ ;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void stokesFifthProperties::set( Ostream & os)
 {
-	scalar k = waveNumber();
+    scalar k = waveNumber();
 
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
 
-	writeGiven( os, "height");
-	writeGiven( os, "period" );
+    writeGiven( os, "height");
+    writeGiven( os, "period" );
 
-	writeGiven( os, "depth" );
-	writeGiven( os, "stokesDrift");
-	writeGiven( os, "direction" );
+    writeGiven( os, "depth" );
+    writeGiven( os, "stokesDrift");
+    writeGiven( os, "direction" );
 
-	if ( dict_.found( "Tsoft" ) )
-		writeGiven( os, "Tsoft");
+    if ( dict_.found( "Tsoft" ) )
+        writeGiven( os, "Tsoft");
 
-	writeGiven( os, "phi");
+    writeGiven( os, "phi");
 
-	if ( write_ )
-	{
-		vector direction( vector(dict_.lookup("direction")));
-		direction /= Foam::mag(direction);
-		direction *= k;
+    if ( write_ )
+    {
+        vector direction( vector(dict_.lookup("direction")));
+        direction /= Foam::mag(direction);
+        direction *= k;
 
-		writeDerived(os, "waveNumber", direction);
-		writeDerived(os, "omega", omega_);
-	}
+        writeDerived(os, "waveNumber", direction);
+        writeDerived(os, "omega", omega_);
+    }
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

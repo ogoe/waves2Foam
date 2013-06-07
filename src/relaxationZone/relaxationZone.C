@@ -38,67 +38,67 @@ defineTypeNameAndDebug(relaxationZone, 0);
 
 relaxationZone::relaxationZone
 (
-	const fvMesh & mesh,
-	volVectorField & U,
-	volScalarField & alpha
+    const fvMesh & mesh,
+    volVectorField & U,
+    volScalarField & alpha
 )
 : 
-	mesh_(mesh),
-	U_(U),
-	alpha_(alpha),
+    mesh_(mesh),
+    U_(U),
+    alpha_(alpha),
 
-	relaxNames_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties")).lookup("relaxationNames")),
-   	
-	relaxSchemePtr_(relaxNames_.size())
+    relaxNames_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties")).lookup("relaxationNames")),
+       
+    relaxSchemePtr_(relaxNames_.size())
 { 
-	forAll (relaxNames_, relaxi)
-	{
-		relaxSchemePtr_[relaxi] = relaxationSchemes::relaxationScheme::New(relaxNames_[relaxi], mesh_, U_, alpha_);
-	}
+    forAll (relaxNames_, relaxi)
+    {
+        relaxSchemePtr_[relaxi] = relaxationSchemes::relaxationScheme::New(relaxNames_[relaxi], mesh_, U_, alpha_);
+    }
 }
 
 // * * * * * * * * * * * * * * * Member functions * * * * * * * * * * * * * * * * //
 
 void relaxationZone::correct()
-{	
-	forAll(relaxSchemePtr_, relaxi)
-	{
-		relaxSchemePtr_[relaxi]->correct();
-	}
+{    
+    forAll(relaxSchemePtr_, relaxi)
+    {
+        relaxSchemePtr_[relaxi]->correct();
+    }
 
-	alpha_.correctBoundaryConditions();
-	U_.correctBoundaryConditions();
+    alpha_.correctBoundaryConditions();
+    U_.correctBoundaryConditions();
 }
 
 tmp<volScalarField> relaxationZone::numericalBeach()
 {
-	// Return field
-	tmp<volScalarField> tartificialViscotity
-	(
-		new volScalarField
-		(
-			IOobject
-			(
-				"muArti",
-				mesh_.time().timeName(),
-				mesh_,
-				IOobject::NO_READ,
-				IOobject::NO_WRITE
-			),
-			mesh_,
-			dimensionedScalar("null", dimless / dimTime, 0.0),
-			"fixedValue"
-		)
-	);
+    // Return field
+    tmp<volScalarField> tartificialViscotity
+    (
+        new volScalarField
+        (
+            IOobject
+            (
+                "muArti",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::NO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("null", dimless / dimTime, 0.0),
+            "fixedValue"
+        )
+    );
 
-	volScalarField & artificialViscosity( tartificialViscotity() );
+    volScalarField & artificialViscosity( tartificialViscotity() );
 
-	forAll(relaxSchemePtr_, relaxi)
-	{
-		relaxSchemePtr_[relaxi]->numericalBeach( artificialViscosity );
-	}
+    forAll(relaxSchemePtr_, relaxi)
+    {
+        relaxSchemePtr_[relaxi]->numericalBeach( artificialViscosity );
+    }
 
-	return tartificialViscotity;
+    return tartificialViscotity;
 }
 
 } // end namespace Foam

@@ -28,7 +28,7 @@ Class
 Description
 
 SourceFiles
-	localCellNeg.C
+    localCellNeg.C
 
 Author
     Niels Gjoel Jacobsen, Technical University of Denmark
@@ -53,117 +53,117 @@ class localCellNeg
 {
 private:
 
-	// Private member data
-		cell cc_;
-		faceList fL_;
-		pointField pp_;
-		edgeList eL_;
-		labelListList faceEdges_;
-		labelListList edgeFaces_;
+    // Private member data
+        cell cc_;
+        faceList fL_;
+        pointField pp_;
+        edgeList eL_;
+        labelListList faceEdges_;
+        labelListList edgeFaces_;
 
-		cell ccNeg_;
-		label negCount_, nextFace_;
+        cell ccNeg_;
+        label negCount_, nextFace_;
 
-	// Private member functions
-		void localizeCell( const fvMesh &, const label &);
+    // Private member functions
+        void localizeCell( const fvMesh &, const label &);
 
-		void cellConnectivity();
+        void cellConnectivity();
 
 protected:
 
 public:
 
-	// Constructor
-		localCellNeg();
+    // Constructor
+        localCellNeg();
 
-		localCellNeg(const fvMesh &, const label &);
+        localCellNeg(const fvMesh &, const label &);
 
-		localCellNeg(const cell, const faceList, const pointField, bool checkCell = false);
+        localCellNeg(const cell, const faceList, const pointField, bool checkCell = false);
 
-		void initCell( const fvMesh &, const label &);
+        void initCell( const fvMesh &, const label &);
 
 
-	// Cut-control
-		void clearCut()
-		{
-			ccNeg_.setSize(0);
-			fL_.setSize(cc_.size());
-			pp_.setSize(cc_.labels(fL_).size());
-			negCount_ = 0;
-			nextFace_ = cc_.size();
-		};
+    // Cut-control
+        void clearCut()
+        {
+            ccNeg_.setSize(0);
+            fL_.setSize(cc_.size());
+            pp_.setSize(cc_.labels(fL_).size());
+            negCount_ = 0;
+            nextFace_ = cc_.size();
+        };
 
-		void initCut()
-		{
-			ccNeg_.setSize(cc_.size() + 2);
-			fL_.setSize( 3 * cc_.size() );
-			nextFace_ = cc_.size();
-			negCount_ = 0;
-		}
+        void initCut()
+        {
+            ccNeg_.setSize(cc_.size() + 2);
+            fL_.setSize( 3 * cc_.size() );
+            nextFace_ = cc_.size();
+            negCount_ = 0;
+        }
 
-		void doneCut()
-		{
-			ccNeg_.setSize( negCount_ );
-			fL_.setSize( nextFace_ );
-		}
+        void doneCut()
+        {
+            ccNeg_.setSize( negCount_ );
+            fL_.setSize( nextFace_ );
+        }
 
-		void addNeg( const face f )
-		{
-			ccNeg_[negCount_++] = nextFace_;
-			fL_[ nextFace_++] = f;
+        void addNeg( const face f )
+        {
+            ccNeg_[negCount_++] = nextFace_;
+            fL_[ nextFace_++] = f;
 
-			if ( nextFace_ == fL_.size() )
-				fL_.setSize( nextFace_ + cc_.size() );
-		}
+            if ( nextFace_ == fL_.size() )
+                fL_.setSize( nextFace_ + cc_.size() );
+        }
 
-		void addNeg( const label faceI )
-		{
-			ccNeg_[negCount_++] = faceI;
-		}
+        void addNeg( const label faceI )
+        {
+            ccNeg_[negCount_++] = faceI;
+        }
 
-		void fullNeg()
-		{
-			ccNeg_ = cc_;
-			negCount_ = cc_.size();
-		}
+        void fullNeg()
+        {
+            ccNeg_ = cc_;
+            negCount_ = cc_.size();
+        }
 
-		void emptyCell();
+        void emptyCell();
 
-		void localizeCell( const word type = "neg");
+        void localizeCell( const word type = "neg");
 
-	// Access functions
-		scalar mag()    const { return cc_.mag(pp_, fL_);    };
-		scalar magNeg() const { return ccNeg_.mag(pp_, fL_); };
+    // Access functions
+        scalar mag()    const { return cc_.mag(pp_, fL_);    };
+        scalar magNeg() const { return ccNeg_.mag(pp_, fL_); };
 
-		vector centre()    const { return cc_.centre(pp_, fL_);    };
-		vector centreNeg() const { return ccNeg_.centre(pp_, fL_); };
+        vector centre()    const { return cc_.centre(pp_, fL_);    };
+        vector centreNeg() const { return ccNeg_.centre(pp_, fL_); };
 
-		const pointField & points() const { return pp_; };
-		pointField &       points()       { return pp_; };
+        const pointField & points() const { return pp_; };
+        pointField &       points()       { return pp_; };
 
-		const edgeList      & edges()     const { return eL_;        };
-		const labelListList & faceEdges() const { return faceEdges_; };
-		const labelListList & edgeFaces() const { return edgeFaces_; };
+        const edgeList      & edges()     const { return eL_;        };
+        const labelListList & faceEdges() const { return faceEdges_; };
+        const labelListList & edgeFaces() const { return edgeFaces_; };
 
-		const cell & cc()    const { return cc_;    };
-		const cell & ccNeg() const { return ccNeg_; };
-		cell &       ccNeg()       { return ccNeg_; };
+        const cell & cc()    const { return cc_;    };
+        const cell & ccNeg() const { return ccNeg_; };
+        cell &       ccNeg()       { return ccNeg_; };
 
-		const faceList & faces() const { return fL_; };
-		faceList &       faces()       { return fL_; };
+        const faceList & faces() const { return fL_; };
+        faceList &       faces()       { return fL_; };
 
-//		const face & faces( const label faceI ) const { return fL_[faceI]; };
+//        const face & faces( const label faceI ) const { return fL_[faceI]; };
 //
-//		const face iface() const { return fL_[ccNeg_[ ccNeg_.size() - 1]]; };
+//        const face iface() const { return fL_[ccNeg_[ ccNeg_.size() - 1]]; };
 //
-//	// Access functions used for testing
+//    // Access functions used for testing
 //
-//		scalar fmag(const label faceI) const {return fL_[faceI].mag(pp_); };
-//		vector fcentre(const label faceI) const { return fL_[faceI].centre(pp_); };
-//		vector fnormal(const label faceI) const {return fL_[faceI].normal(pp_); };
+//        scalar fmag(const label faceI) const {return fL_[faceI].mag(pp_); };
+//        vector fcentre(const label faceI) const { return fL_[faceI].centre(pp_); };
+//        vector fnormal(const label faceI) const {return fL_[faceI].normal(pp_); };
 //
-//	// Write
-//		void write( const fvMesh & , const List<localCellNeg> & );
+//    // Write
+//        void write( const fvMesh & , const List<localCellNeg> & );
 };
 
 

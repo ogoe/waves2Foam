@@ -85,7 +85,7 @@ class solitaryFirst
 protected:
 
     // Protected data
-    	// Read from waveProperties
+        // Read from waveProperties
         scalar H_;
         scalar h_;
         vector propagationDirection_;
@@ -120,31 +120,36 @@ public:
 
 
     // Member Functions
+        Switch conflictTSoftInitialise() const
+        {
+            return false;
+        };
+
         void printCoeffs();
         
         scalar eta
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 
         scalar ddxPd
         (
-        	const point &,
-        	const scalar &,
-        	const vector &
+            const point &,
+            const scalar &,
+            const vector &
         ) const;
         
         vector U
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 
         scalar p
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 
 };

@@ -2,30 +2,30 @@
 
 # Remove option "-llduSolvers" from non-extended versions of OF
 
-arg=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
-
-if [ -z "$arg" ] 
-then
-
-    list=`find ./ -name "options" | grep -v $WM_OPTIONS`
-    
-    for i in $list
-    do
-        dir=`dirname $i`
-
-        cd $dir
-
-        argInner=`grep "\-llduSolvers" options`
-
-        if [ -n "$argInner" ]
-        then 
-            grep -v "\-llduSolvers" options > options.temp
-            mv options.temp options
-        fi
-
-        cd $OLDPWD
-    done
-fi
+#arg=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
+#
+#if [ -z "$arg" ] 
+#then
+#
+#    list=`find ./ -name "options" | grep -v $WM_OPTIONS`
+#    
+#    for i in $list
+#    do
+#        dir=`dirname $i`
+#
+#        cd $dir
+#
+#        argInner=`grep "\-llduSolvers" options`
+#
+#        if [ -n "$argInner" ]
+#        then 
+#            grep -v "\-llduSolvers" options > options.temp
+#            mv options.temp options
+#        fi
+#
+#        cd $OLDPWD
+#    done
+#fi
 
 # Compilation of wave boundary conditions / relaxation zone
 
@@ -44,8 +44,47 @@ else
 fi
 export WM_PROJECT_VERSION_NUMBER=$version
 
+# Is the compilation based on the OpenFoam-extend branch. Included to readify the source code
+# for a future release, where this option is needed
+extBranch=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
+
+if [ -z $extBranch ]
+then
+    extBranch=0
+else
+    extBranch=1
+fi
+
+export extBranch
+
+# Apply the correct Make folder
+if [ "$extBranch" -eq "1" ]
+then
+    rm -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
+    ln -s -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options.ext \
+             $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
+else
+    if [ -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options.reg ]
+    then
+        rm -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
+        ln -s -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options.reg \
+                 $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
+    fi
+fi
+
 ( cd $apps/solvers/solvers$version && wmake all )
 
 # Compilation of utilities
+rm -f $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options
+
+if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
+then
+    ln -s -f $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options.210 \
+             $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options
+else
+    ln -s -f $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options.220 \
+             $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options
+fi
+
 ( cd $apps/utilities && wmake all )
 

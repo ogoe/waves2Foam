@@ -23,12 +23,12 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-	Foam::PiersonMoskowitz
+    Foam::PiersonMoskowitz
 
 Description
 
 SourceFiles
-	PiersonMoskowitz.C
+    PiersonMoskowitz.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -47,29 +47,29 @@ namespace Foam
 
 class PiersonMoskowitz
 :
-	public waveSpectra
+    public waveSpectra
 {
 private:
 
 
 public:
 
-		//- Runtime type information
-		TypeName("PiersonMoskowitz");
+        //- Runtime type information
+        TypeName("PiersonMoskowitz");
 
-		PiersonMoskowitz
-		(
-			const Time &,
-			dictionary &,
-			scalarField &,
-			scalarField &,
-			scalarField &,
-			vectorField &
-		);
+        PiersonMoskowitz
+        (
+            const Time &,
+            dictionary &,
+            scalarField &,
+            scalarField &,
+            scalarField &,
+            vectorField &
+        );
 
-		void set( Ostream & );
+        void set( Ostream & );
 
-		wordList list();
+        wordList list();
 };
 
 }

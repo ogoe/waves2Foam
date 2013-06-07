@@ -1,0 +1,18 @@
+EXE_INC = \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -DEXTBRANCH=$(extBranch) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(LIB_SRC)/lagrangian/basic/lnInclude \
+    -I$(LIB_SRC)/fileFormats/lnInclude \
+    -I/usr/local/include \
+    -I/usr/include
+    
+LIB_LIBS = \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lsampling \
+    -lfileFormats \
+    -lgsl \
+    -lgslcblas

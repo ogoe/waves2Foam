@@ -119,26 +119,26 @@ wavePressureFvPatchScalarField::wavePressureFvPatchScalarField
 
 void wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 (
-	const pointField & pp,
-	scalarField & sd
+    const pointField & pp,
+    scalarField & sd
 )
 {
-	forAll( pp, pointi )
-	{
-		sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
-	}
+    forAll( pp, pointi )
+    {
+        sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
+    }
 }
 
 scalar wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 (
-	const point & pp
+    const point & pp
 ) const
 {
-	scalar temp = waveProps_->eta(pp, db().time().value() );
-	temp += ( waveProps_->returnDir() & pp );
-	temp *= -1.0;
+    scalar temp = waveProps_->eta(pp, db().time().value() );
+    temp += ( waveProps_->returnDir() & pp );
+    temp *= -1.0;
 
-	return temp;
+    return temp;
 }
 
 // Update the coefficients associated with the patch field
@@ -161,19 +161,19 @@ void wavePressureFvPatchScalarField::updateCoeffs()
 
     forAll( magSf, facei )
     {
-    	localFace lf = this->divideFace(facei + start);
+        localFace lf = this->divideFace(facei + start);
 
-    	if ( lf.isNegFace() )
-    	{
-    		centre = lf.negCentre();
-    		normal = Sf[facei] / magSf[facei];
-    		this->refGrad()[facei]   = waveProps_->ddxPd( centre, db().time().value(), normal);
-    	}
-    	else
-    		this->refGrad()[facei]   = 0.0;
+        if ( lf.isNegFace() )
+        {
+            centre = lf.negCentre();
+            normal = Sf[facei] / magSf[facei];
+            this->refGrad()[facei]   = waveProps_->ddxPd( centre, db().time().value(), normal);
+        }
+        else
+            this->refGrad()[facei]   = 0.0;
 
-    	this->refValue()[facei]      = 0.0;
-    	this->valueFraction()[facei] = 1.0;
+        this->refValue()[facei]      = 0.0;
+        this->valueFraction()[facei] = 1.0;
     }
 
     mixedFvPatchField<scalar>::updateCoeffs();
@@ -217,8 +217,8 @@ void wavePressureFvPatchScalarField::write(Ostream& os) const
 
 makePatchTypeField
 (
-	fvPatchScalarField,
-	wavePressureFvPatchScalarField
+    fvPatchScalarField,
+    wavePressureFvPatchScalarField
 );
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
