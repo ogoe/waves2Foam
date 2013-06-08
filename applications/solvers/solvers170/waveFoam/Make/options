@@ -6,7 +6,7 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=170 \
     -DEXTBRANCH=0 \
-    -I./../../../../src/lnInclude
+    -I$(WAVES_SRC)/lnInclude
 
 EXE_LIBS = \
     -linterfaceProperties \
@@ -15,5 +15,5 @@ EXE_LIBS = \
     -lincompressibleRASModels \
     -lincompressibleLESModels \
     -lfiniteVolume \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(WAVES_LIBBIN) \
     -lwaves2Foam

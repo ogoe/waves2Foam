@@ -145,4 +145,4 @@ sampling/sampledSurfaceElevation/sampledSurfaceElevation.C
 sampling/sampledSurfaceElevationFunctionObject/sampledSurfaceElevationFunctionObject.C
 
 /* OUTPUT */
-LIB = $(FOAM_USER_LIBBIN)/libwaves2Foam
+LIB = $(WAVES_LIBBIN)/libwaves2Foam

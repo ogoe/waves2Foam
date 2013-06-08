@@ -1,60 +1,91 @@
 #!/bin/bash 
 
-# Compilation of wave boundary conditions / relaxation zone
+if [ ! -f "./bin/bashrc" ]
+then
+    cp ./bin/bashrc.org ./bin/bashrc
+    chmod a+x ./bin/bashrc
+fi
+
+. ./bin/bashrc
+
+if [ ! -d "$WAVES_DIR" ]
+then
+    echo ""
+    echo "FATAL ERROR."
+    echo "    The directory path "$WAVES_DIR "does not exist."
+    echo "    Correct the path in bin/bashrc"
+    echo ""
+    echo "    Please note that once bin/bashrc is created, bin/bashrc.org is only an"
+    echo "    inactive file. The latter is also the only of the two files, which is"
+    echo "    updated through the SVN-repository."
+    echo ""
+    echo "EXITING"
+    echo ""
+    exit
+fi
+
+## LIBRARY
+echo "====================================="
+echo "    COMPILE LIBRARY"
+echo "====================================="
 ( cd src; ./Allwmake )
 
-# Compilation of solvers
-apps="applications"
+## SOLVERS
+# Find all solver names in $WAVES_SOL
+echo ""
+echo "====================================="
+echo "    COMPILE SOLVERS"
+echo "====================================="
+solvers=`ls -d $WAVES_SOL/*`
 
-# The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
-if [ `uname` == "Darwin" ]
-then
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
-else
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
-fi
-export WM_PROJECT_VERSION_NUMBER=$version
+# Loop over the solver names
+for s in $solvers
+do
+    solverName=`basename $s`
 
-# Is the compilation based on the OpenFoam-extend branch. Included to readify the source code
-# for a future release, where this option is needed
-extBranch=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
-
-if [ -z $extBranch ]
-then
-    extBranch=0
-else
-    extBranch=1
-fi
-
-export extBranch
-
-# Apply the correct Make folder
-if [ "$extBranch" -eq "1" ]
-then
-    rm -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
-    ln -s -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options.ext \
-             $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
-else
-    if [ -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options.reg ]
+    # Correct options file if extend branch or not
+    if [ "$EXTBRANCH" -eq "1" ]
     then
-        rm -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
-        ln -s -f $PWD/$apps/solvers/solvers$version/waveFoam/Make/options.reg \
-                 $PWD/$apps/solvers/solvers$version/waveFoam/Make/options
+        rm -f $WAVES_SOL/$solverName/Make/options
+        ln -s -f $WAVES_SOL/$solverName/Make/options.ext $WAVES_SOL/$apps/$solverName/Make/options
+    else
+        if [ -f $WAVES_SOL/$solverName/Make/options.reg ]
+        then
+            rm -f $WAVES_SOL/$solverName/Make/options
+            ln -s -f $WAVES_SOL/$solverName/Make/options.reg $WAVES_SOL/$apps/$solverName/Make/options
+        fi
     fi
-fi
 
-( cd $apps/solvers/solvers$version && wmake all )
+    # Compile the solver
+    ( cd $WAVES_SOL/$solverName; wmake )
+done
 
-# Compilation of utilities
-rm -f $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options
+## UTILITIES
+# Pre-processing utilities
+echo ""
+echo "====================================="
+echo "    COMPILE PRE-PROCESSING"
+echo "====================================="
+( cd $WAVES_PRE  && wmake all )
+
+# Post-processing utilities
+echo ""
+echo "====================================="
+echo "    COMPILE POST-PROCESSING"
+echo "====================================="
+rm -f $WAVES_POST/surfaceElevation/Make/options
 
 if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
 then
-    ln -s -f $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options.210 \
-             $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options
+    ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
 else
-    ln -s -f $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options.220 \
-             $PWD/applications/utilities/postProcessing/surfaceElevation/Make/options
+    ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
 fi
 
-( cd $apps/utilities && wmake all )
+( cd $WAVES_POST && wmake all )
+
+echo ""
+echo "====================================="
+echo "    COMPILATION DONE"
+echo "====================================="
+echo ""

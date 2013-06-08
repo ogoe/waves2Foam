@@ -1,38 +1,22 @@
 #!/bin/bash
 
-# The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
-if [ `uname` = "Darwin" ]
+if [ ! -f "./../bin/bashrc" ]
 then
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
-else
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+    cp ../bin/bashrc.org ../bin/bashrc
+    chmod a+x ./../bin/bashrc
 fi
 
-export WM_PROJECT_VERSION_NUMBER=$version
-
-# Is the compilation based on the OpenFoam-extend branch. Included to readify the source code
-# for a future release, where this option is needed
-extBranch=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
-
-if [ -z $extBranch ]
-then
-    extBranch=0
-else
-    extBranch=1
-fi
-
-export extBranch
+. ../bin/bashrc
 
 # Take care of the differences in the options, which arose between OF21 and OF22.
-rm -f $PWD/Make/options
+rm -f $WAVES_SRC/Make/options
 
 if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
 then
-    ln -s -f $PWD/Make/options.210 $PWD/Make/options
+    ln -s -f $WAVES_SRC/Make/options.210 $WAVES_SRC/Make/options
 else
-    ln -s -f $PWD/Make/options.220 $PWD/Make/options
+    ln -s -f $WAVES_SRC/Make/options.220 $WAVES_SRC/Make/options
 fi
 
 # Compile the library
 wmake libso
-

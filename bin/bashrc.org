@@ -1,0 +1,58 @@
+#!/bin/bash
+
+### SETTING A FLAG AND PROJECT PATH
+if [ -z "$WAVES_DIR" ]
+then
+    printVariables=1
+fi
+
+### USER DEFINED ENVIRONMENTAL VARIABLES
+export WAVES_DIR=$WM_PROJECT_USER_DIR/applications/utilities/waves2Foam
+export WAVES_APPBIN=$FOAM_USER_APPBIN
+export WAVES_LIBBIN=$FOAM_USER_LIBBIN
+
+export WAVES_GSL_INCLUDE=/usr/include
+export WAVES_GSL_LIB=/usr/lib64
+
+### OTHER STATIC ENVIRONMENTAL VARIABLES
+## Version number
+# The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
+if [ `uname` = "Darwin" ]
+then
+    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+else
+    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+fi
+
+export WM_PROJECT_VERSION_NUMBER=$version
+
+## Easy navigation
+export WAVES_SRC=$WAVES_DIR/src
+export WAVES_TUT=$WAVES_DIR/tutorials
+export WAVES_SOL=$WAVES_DIR/applications/solvers/solvers$WM_PROJECT_VERSION_NUMBER
+export WAVES_UTIL=$WAVES_DIR/applications/utilities
+export WAVES_PRE=$WAVES_UTIL/preProcessing
+export WAVES_POST=$WAVES_UTIL/postProcessing
+
+## Extend branch or not
+EXTBRANCH=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
+
+if [ -z $EXTBRANCH ]
+then
+    EXTBRANCH=0
+else
+    EXTBRANCH=1
+fi
+
+export EXTBRANCH
+
+### PRINT INFORMATION
+if [ "$printVariables" ]
+then
+    echo ""
+    echo "====================================="
+    echo "    ENVIRONMENTAL VARIABLES"
+    echo "====================================="
+    env | grep "WAVES\|EXTBRANCH\|WM_PROJECT_VERSION_NUMBER"
+    echo ""
+fi
