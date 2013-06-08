@@ -45,8 +45,8 @@ defineRunTimeSelectionTable(waveTheory, dictionary);
 
 waveTheory::waveTheory
 (
-	const word & subDictName,
-	const fvMesh & mesh_
+    const word & subDictName,
+    const fvMesh & mesh_
 )
 :
     IOdictionary
@@ -57,7 +57,7 @@ waveTheory::waveTheory
     seaLevel_(readScalar(lookup("seaLevel"))),
 
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-	g_( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() ),
+    g_( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() ),
 
     direction_( g_ / mag(g_) ),
 
@@ -65,7 +65,7 @@ waveTheory::waveTheory
 
     PI_( M_PI ),
 
-	wind_( lookupOrDefault<vector>( "wind", vector::zero ) )
+    wind_( lookupOrDefault<vector>( "wind", vector::zero ) )
 {
     {
         IOdictionary transProp
@@ -93,8 +93,8 @@ waveTheory::~waveTheory()
 
 scalarField waveTheory::eta
 (
-	const pointField & x,
-	const scalar & time
+    const pointField & x,
+    const scalar & time
 ) const
 {
     scalarField temp(x.size(),0.0);
@@ -109,9 +109,9 @@ scalarField waveTheory::eta
 
 scalarField waveTheory::ddxPd
 (
-	const pointField & x,
-	const scalar & time,
-	const vectorField & unitVector
+    const pointField & x,
+    const scalar & time,
+    const vectorField & unitVector
 ) const
 {
     scalarField temp(x.size(),0.0);
@@ -126,8 +126,8 @@ scalarField waveTheory::ddxPd
 
 vectorField waveTheory::U
 (
-	const pointField & x,
-	const scalar & time
+    const pointField & x,
+    const scalar & time
 ) const
 {
     vectorField temp(x.size(),vector::zero);

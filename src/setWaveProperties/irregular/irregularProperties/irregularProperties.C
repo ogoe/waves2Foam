@@ -44,66 +44,66 @@ addToRunTimeSelectionTable(setWaveProperties, irregularProperties, setWaveProper
 
 irregularProperties::irregularProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write),
-	rT_(rT)
+    setWaveProperties(rT, dict, write),
+    rT_(rT)
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void irregularProperties::set( Ostream & os )
 {
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
 
-	writeGiven( os, "spectrum");
+    writeGiven( os, "spectrum");
 
-	writeGiven( os, "N" );
+    writeGiven( os, "N" );
 
-	writeGiven( os, "Tsoft");
+    writeGiven( os, "Tsoft");
 
-	if ( dict_.found("writeSpectrum" ) )
-		writeGiven( os, "writeSpectrum");
+    if ( dict_.found("writeSpectrum" ) )
+        writeGiven( os, "writeSpectrum");
 
-	// Make a pointer to the spectral theory
-	scalarField amp(0);
-	scalarField frequency(0);
-	scalarField phaselag(0);
-	vectorField waveNumber(0);
+    // Make a pointer to the spectral theory
+    scalarField amp(0);
+    scalarField frequency(0);
+    scalarField phaselag(0);
+    vectorField waveNumber(0);
 
-	autoPtr<waveSpectra> spectra( waveSpectra::New(rT_, dict_, amp, frequency, phaselag, waveNumber) );
+    autoPtr<waveSpectra> spectra( waveSpectra::New(rT_, dict_, amp, frequency, phaselag, waveNumber) );
 
-	// Write properties specific to chosen spectral theory
-	wordList specificInput( spectra->list() );
+    // Write properties specific to chosen spectral theory
+    wordList specificInput( spectra->list() );
 
-	forAll( specificInput, speci )
-		writeGiven( os, specificInput[speci] );
+    forAll( specificInput, speci )
+        writeGiven( os, specificInput[speci] );
 
-	// Computing the spectral quantities
-	spectra->set( os );
+    // Computing the spectral quantities
+    spectra->set( os );
 
-	if ( write_ )
-	{
-		writeDerived( os, "amplitude", amp);
-		writeDerived( os, "frequency", frequency);
-		writeDerived( os, "phaselag", phaselag);
-		writeDerived( os, "waveNumber", waveNumber);
-	}
+    if ( write_ )
+    {
+        writeDerived( os, "amplitude", amp);
+        writeDerived( os, "frequency", frequency);
+        writeDerived( os, "phaselag", phaselag);
+        writeDerived( os, "waveNumber", waveNumber);
+    }
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

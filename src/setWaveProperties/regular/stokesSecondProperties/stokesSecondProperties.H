@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	stokesSecondProperties.C
+    stokesSecondProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -60,31 +60,31 @@ namespace Foam
 
 class stokesSecondProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-	scalar period_;
-	scalar omega_;
-	scalar depth_;
+    scalar period_;
+    scalar omega_;
+    scalar depth_;
 
-	stokesFirstProperties sfp_;
+    stokesFirstProperties sfp_;
 
 public:
 
-	//- Runtime type information
-		TypeName("stokesSecondProperties");
+    //- Runtime type information
+        TypeName("stokesSecondProperties");
 
-		stokesSecondProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        stokesSecondProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set( Ostream &);
+        void set( Ostream &);
 
 };
 

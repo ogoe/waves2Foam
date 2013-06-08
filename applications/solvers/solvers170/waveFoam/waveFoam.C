@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 
         #include "alphaEqnSubCycle.H"
 
-	relaxing.correct();
+    relaxing.correct();
 
         #include "UEqn.H"
 

@@ -261,9 +261,9 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     writeFormat_(word::null),
     surfaceElevationFilePtr_( NULL )
 {
-	startTime_ = dict.lookupOrDefault<scalar>("samplingStartTime", 0.0);
-	nextSampleTime_ = startTime_;
-	surfaceSampleDeltaT_ = dict.lookupOrDefault<scalar>("surfaceSampleDeltaT", -1);
+    startTime_ = dict.lookupOrDefault<scalar>("samplingStartTime", 0.0);
+    nextSampleTime_ = startTime_;
+    surfaceSampleDeltaT_ = dict.lookupOrDefault<scalar>("surfaceSampleDeltaT", -1);
 
     if (Pstream::parRun())
     {
@@ -314,90 +314,90 @@ void Foam::sampledSurfaceElevation::write()
 {
     if (size() && checkFieldTypes())
     {
-    	sampleIntegrateAndWrite( scalarFields_ );
+        sampleIntegrateAndWrite( scalarFields_ );
     }
 }
 
 bool Foam::sampledSurfaceElevation::performAction()
 {
-	if ( surfaceSampleDeltaT_ <= 10 * SMALL )
-		return mesh_.time().value() >= startTime_;
-	else
-	{
-		if ( mesh_.time().value() < nextSampleTime_ )
-			return false;
-		else
-		{
-			while ( mesh_.time().value() > nextSampleTime_ )
-				nextSampleTime_ += surfaceSampleDeltaT_;
+    if ( surfaceSampleDeltaT_ <= 10 * SMALL )
+        return mesh_.time().value() >= startTime_;
+    else
+    {
+        if ( mesh_.time().value() < nextSampleTime_ )
+            return false;
+        else
+        {
+            while ( mesh_.time().value() > nextSampleTime_ )
+                nextSampleTime_ += surfaceSampleDeltaT_;
 
-			return true;
-		}
-	}
+            return true;
+        }
+    }
 }
 
 void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 (
-	fieldGroup<scalar> & fields
+    fieldGroup<scalar> & fields
 )
 {
-	if ( fields.size() && performAction() )
-	{
-		scalarField result(0);
-		sampleAndIntegrate( scalarFields_, result );
+    if ( fields.size() && performAction() )
+    {
+        scalarField result(0);
+        sampleAndIntegrate( scalarFields_, result );
 
-		if ( Pstream::master() )
-		{
-			// create file if not already there, notice: this shall be done on master node only
-			if (surfaceElevationFilePtr_.empty())
-			{
-				mkDir( outputPath_ + "/" + mesh_.time().timeName() );
-			    surfaceElevationFilePtr_.reset(new OFstream(outputPath_ + "/" + mesh_.time().timeName() + "/surfaceElevation.dat"));
+        if ( Pstream::master() )
+        {
+            // create file if not already there, notice: this shall be done on master node only
+            if (surfaceElevationFilePtr_.empty())
+            {
+                mkDir( outputPath_ + "/" + mesh_.time().timeName() );
+                surfaceElevationFilePtr_.reset(new OFstream(outputPath_ + "/" + mesh_.time().timeName() + "/surfaceElevation.dat"));
 
-			    // write header
-			    if (surfaceElevationFilePtr_.valid())
-			    {
-			    	surfaceElevationFilePtr_() << "Time";
+                // write header
+                if (surfaceElevationFilePtr_.valid())
+                {
+                    surfaceElevationFilePtr_() << "Time";
 
-			    	forAll(masterSampledSets_, seti)
-			        {
-			        	surfaceElevationFilePtr_() << tab << masterSampledSets_[seti].name();
-			        }
-			        surfaceElevationFilePtr_() << endl;
+                    forAll(masterSampledSets_, seti)
+                    {
+                        surfaceElevationFilePtr_() << tab << masterSampledSets_[seti].name();
+                    }
+                    surfaceElevationFilePtr_() << endl;
 
-			        for ( int coordi = 0; coordi < 3; coordi++ )
-			        {
-			        	surfaceElevationFilePtr_() << -1 - coordi;
+                    for ( int coordi = 0; coordi < 3; coordi++ )
+                    {
+                        surfaceElevationFilePtr_() << -1 - coordi;
 
-			        	forAll(masterSampledSets_, seti)
-			        	{
-			        		surfaceElevationFilePtr_() << tab << masterSampledSets_[seti][0].component(coordi);
-			        	}
-			        	surfaceElevationFilePtr_() << endl;
-			        }
-			    }
-			    else
-			    {
-			        FatalErrorIn
-        			(
-       					"void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite(	fieldGroup<scalar> & fields )"
-        			)   << "Output file could not be opened in " << outputPath_ << "/" << mesh_.time().timeName() << endl << endl << exit(FatalError);
-			    }
-			}
+                        forAll(masterSampledSets_, seti)
+                        {
+                            surfaceElevationFilePtr_() << tab << masterSampledSets_[seti][0].component(coordi);
+                        }
+                        surfaceElevationFilePtr_() << endl;
+                    }
+                }
+                else
+                {
+                    FatalErrorIn
+                    (
+                           "void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite(    fieldGroup<scalar> & fields )"
+                    )   << "Output file could not be opened in " << outputPath_ << "/" << mesh_.time().timeName() << endl << endl << exit(FatalError);
+                }
+            }
 
-			if (surfaceElevationFilePtr_.valid())
-			{
-				surfaceElevationFilePtr_() << mesh_.time().value();
+            if (surfaceElevationFilePtr_.valid())
+            {
+                surfaceElevationFilePtr_() << mesh_.time().value();
 
-				forAll(result, seti)
-			    {
-			    	surfaceElevationFilePtr_() << tab << result[seti];
-			    }
+                forAll(result, seti)
+                {
+                    surfaceElevationFilePtr_() << tab << result[seti];
+                }
 
-				surfaceElevationFilePtr_() << endl;
-			}
-		}
-	}
+                surfaceElevationFilePtr_() << endl;
+            }
+        }
+    }
 }
 
 void Foam::sampledSurfaceElevation::sampleAndIntegrate
@@ -406,7 +406,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
     Field<scalar> & result
 )
 {
-	result.setSize(0);
+    result.setSize(0);
 
     if (fields.size())
     {
@@ -510,9 +510,9 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
 
         if (Pstream::master())
         {
-        	forAll( masterSampledSets_, seti )
-			{
-        		const coordSet & cs( masterSampledSets_[seti] );
+            forAll( masterSampledSets_, seti )
+            {
+                const coordSet & cs( masterSampledSets_[seti] );
 
                 List< const Field<scalar>*> valueSets(masterFields.size());
                 valueSets[0] = &masterFields[0][seti];
@@ -525,29 +525,29 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
 
                 if ( alpha.size() < 2 )
                 {
-                	result[seti] = -GREAT;
+                    result[seti] = -GREAT;
                 }
                 else if (    ( alpha[0] < tolerance && alpha[alpha.size()-1] < tolerance )
-                		  || ( alpha[0] > 1.0 - tolerance && alpha[alpha.size()-1] > 1.0 - tolerance ) )
+                          || ( alpha[0] > 1.0 - tolerance && alpha[alpha.size()-1] > 1.0 - tolerance ) )
                 {
-                	result[seti] = -GREAT;
+                    result[seti] = -GREAT;
                 }
                 else
                 {
-                	scalar value(0);
-                	scalar minScalarCoord( cs.scalarCoord(0) );
+                    scalar value(0);
+                    scalar minScalarCoord( cs.scalarCoord(0) );
 
-                	for ( int pointi=0; pointi < alpha.size() - 1; pointi++ )
-                	{
-                		value += (cs.scalarCoord(pointi+1) - cs.scalarCoord(pointi)) * ( alpha[pointi+1] + alpha[pointi] );
+                    for ( int pointi=0; pointi < alpha.size() - 1; pointi++ )
+                    {
+                        value += (cs.scalarCoord(pointi+1) - cs.scalarCoord(pointi)) * ( alpha[pointi+1] + alpha[pointi] );
 
-                		minScalarCoord = Foam::min( minScalarCoord, cs.scalarCoord(pointi + 1) );
-                	}
-                	value *= 0.5;
+                        minScalarCoord = Foam::min( minScalarCoord, cs.scalarCoord(pointi + 1) );
+                    }
+                    value *= 0.5;
 
-                	result[seti] = value + minScalarCoord;
+                    result[seti] = value + minScalarCoord;
                 }
-			}
+            }
         }
     }
 }
@@ -616,10 +616,17 @@ void Foam::sampledSurfaceElevation::updateMesh(const mapPolyMesh&)
 }
 
 
+#if OFVERSION<220
 void Foam::sampledSurfaceElevation::movePoints(const pointField&)
 {
     correct();
 }
+#else
+void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
+{
+    correct();
+}
+#endif
 
 
 void Foam::sampledSurfaceElevation::readUpdate(const polyMesh::readUpdateState state)

@@ -23,14 +23,14 @@
   Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
   Class
-	Foam::relaxationZone
+    Foam::relaxationZone
 
   Description
-	Base class for relaxationSchemes.
-	(This is the class formerly known as "waveRelaxationOnEcstacy".)
+    Base class for relaxationSchemes.
+    (This is the class formerly known as "waveRelaxationOnEcstacy".)
 
   SourceFiles
-  	relaxationZone.C
+      relaxationZone.C
 
   Author
   Niels Gjoel Jacobsen and Bo Terp Paulsen, The Technical University of Denmark
@@ -56,22 +56,22 @@ class relaxationZone
 {
 private:
 
-	const fvMesh & mesh_;
-	volVectorField & U_;
-	volScalarField & alpha_;
-	
-	wordList relaxNames_;
+    const fvMesh & mesh_;
+    volVectorField & U_;
+    volScalarField & alpha_;
+    
+    wordList relaxNames_;
 
-	List<autoPtr<relaxationSchemes::relaxationScheme> > relaxSchemePtr_;
+    List<autoPtr<relaxationSchemes::relaxationScheme> > relaxSchemePtr_;
 
 public:
-	 //- Runtime type information
+     //- Runtime type information
     TypeName("relaxationZone");
 
     // Constructors
 
         //- Construct from components
-    	relaxationZone
+        relaxationZone
         (
             const fvMesh &,
             volVectorField &,

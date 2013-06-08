@@ -83,8 +83,8 @@ protected:
 
     // Protected data
         const fvMesh & mesh_;
-	    
-	    const dictionary coeffDict_;
+        
+        const dictionary coeffDict_;
         vector direction_;
 
         labelList cells_;
@@ -127,7 +127,7 @@ public:
             relaxationShape,
             dictionary,
             (
-            	const word & subDictName, const fvMesh & mesh_
+                const word & subDictName, const fvMesh & mesh_
             ),
             (subDictName, mesh_)
         );

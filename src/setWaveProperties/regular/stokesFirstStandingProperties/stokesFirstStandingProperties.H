@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	stokesFirstStandingProperties.C
+    stokesFirstStandingProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -60,27 +60,27 @@ namespace Foam
 
 class stokesFirstStandingProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-	stokesFirstProperties sfp_;
+    stokesFirstProperties sfp_;
 
 public:
 
-	//- Runtime type information
-	TypeName("stokesFirstStandingProperties");
+    //- Runtime type information
+    TypeName("stokesFirstStandingProperties");
 
-	stokesFirstStandingProperties
-	(
-		const Time &,
-		dictionary &,
-		bool
-	);
+    stokesFirstStandingProperties
+    (
+        const Time &,
+        dictionary &,
+        bool
+    );
 
-	// Method
+    // Method
 
-	void set(Ostream &);
+    void set(Ostream &);
 };
 
 }

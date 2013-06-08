@@ -45,99 +45,99 @@ addToRunTimeSelectionTable(waveSpectra, JONSWAP, waveSpectra);
 
 JONSWAP::JONSWAP
 (
-	const Time & rT,
-	dictionary & dict,
-	scalarField & amp,
-	scalarField & freq,
-	scalarField & phi,
-	vectorField & k
+    const Time & rT,
+    dictionary & dict,
+    scalarField & amp,
+    scalarField & freq,
+    scalarField & phi,
+    vectorField & k
 )
 :
-	waveSpectra(rT, dict, amp, freq, phi, k)
+    waveSpectra(rT, dict, amp, freq, phi, k)
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 wordList JONSWAP::list()
 {
-	wordList res(5);
+    wordList res(5);
 
-	res[0] = "Hs";
-	res[1] = "Tp";
-	res[2] = "gamma";
-	res[3] = "depth";
-	res[4] = "direction";
+    res[0] = "Hs";
+    res[1] = "Tp";
+    res[2] = "gamma";
+    res[3] = "depth";
+    res[4] = "direction";
 
-	return res;
+    return res;
 }
 
 void JONSWAP::set(Ostream & os)
 {
-	// Get the input parameters
-	scalar Hs( readScalar(dict_.lookup("Hs")) );
-	scalar Tp( readScalar(dict_.lookup("Tp")) );
-	scalar gamma( readScalar(dict_.lookup("gamma")) );
-	scalar depth( readScalar(dict_.lookup("depth")) );
-	vector direction( vector( dict_.lookup("direction")));
+    // Get the input parameters
+    scalar Hs( readScalar(dict_.lookup("Hs")) );
+    scalar Tp( readScalar(dict_.lookup("Tp")) );
+    scalar gamma( readScalar(dict_.lookup("gamma")) );
+    scalar depth( readScalar(dict_.lookup("depth")) );
+    vector direction( vector( dict_.lookup("direction")));
 
-	label  N( static_cast<label>(readScalar(dict_.lookup("N"))) );
+    label  N( static_cast<label>(readScalar(dict_.lookup("N"))) );
 
-	freq_.setSize(N);
-	amp_.setSize(N);
-	phi_.setSize(N);
-	k_.setSize(N);
+    freq_.setSize(N);
+    amp_.setSize(N);
+    phi_.setSize(N);
+    k_.setSize(N);
 
-	N++;
+    N++;
 
-	// Additional parameters
-	scalar fp    = ( 1.0 / Tp );
-	scalar alpha = 0.0624 / (0.230 + 0.0336 * gamma - 0.185 / ( 1.9 + gamma) );
+    // Additional parameters
+    scalar fp    = ( 1.0 / Tp );
+    scalar alpha = 0.0624 / (0.230 + 0.0336 * gamma - 0.185 / ( 1.9 + gamma) );
 
-	scalar flow( 0.3 * fp ), fhigh( 3.0 * fp );
+    scalar flow( 0.3 * fp ), fhigh( 3.0 * fp );
 
-	label Nlow ( ceil( (fp - flow) / ( fhigh - fp) * N ) );
-	label Nhigh( N - Nlow );
+    label Nlow ( ceil( (fp - flow) / ( fhigh - fp) * N ) );
+    label Nhigh( N - Nlow );
 
-	scalarField f(N, 0.0), sigma(N, 0.07), beta(N, 0.0);
+    scalarField f(N, 0.0), sigma(N, 0.07), beta(N, 0.0);
 
-	for ( int i=0; i < Nlow; i++)
-		f[i] = ( fp - flow ) * Foam::sin( 2 * PI_ / ( 4.0 * Nlow ) * i ) + flow;
+    for ( int i=0; i < Nlow; i++)
+        f[i] = ( fp - flow ) * Foam::sin( 2 * PI_ / ( 4.0 * Nlow ) * i ) + flow;
 
-	for ( int i=0; i<=Nhigh; i++)
-		f[Nlow - 1 + i] = (fhigh - fp) * ( - Foam::cos( 2 * PI_ / ( 4 * Nhigh) * i ) + 1) + fp;
+    for ( int i=0; i<=Nhigh; i++)
+        f[Nlow - 1 + i] = (fhigh - fp) * ( - Foam::cos( 2 * PI_ / ( 4 * Nhigh) * i ) + 1) + fp;
 
-	forAll( sigma, ii )
-	{
-		if ( f[ii] >= fp )
-			sigma[ii] = 0.09;
-	}
+    forAll( sigma, ii )
+    {
+        if ( f[ii] >= fp )
+            sigma[ii] = 0.09;
+    }
 
-	beta = Foam::exp( - Foam::pow( f - fp, 2.0 ) / ( 2 * Foam::pow(sigma, 2.0) * Foam::pow(fp, 2.0)) );
+    beta = Foam::exp( - Foam::pow( f - fp, 2.0 ) / ( 2 * Foam::pow(sigma, 2.0) * Foam::pow(fp, 2.0)) );
 
-	// Compute spectrum
-	scalarField S = alpha * Foam::pow(Hs,2.0) * Foam::pow(fp,4.0) * Foam::pow(f,-5.0) * Foam::pow(gamma,beta) * Foam::exp( - 5.0 / 4.0 * Foam::pow( fp / f, 4.0 ) );
+    // Compute spectrum
+    scalarField S = alpha * Foam::pow(Hs,2.0) * Foam::pow(fp,4.0) * Foam::pow(f,-5.0) * Foam::pow(gamma,beta) * Foam::exp( - 5.0 / 4.0 * Foam::pow( fp / f, 4.0 ) );
 
-	Foam::stokesFirstProperties stp( rT_, dict_ );
+    Foam::stokesFirstProperties stp( rT_, dict_ );
 
-	// Compute return variables
-	for( int i = 1; i < N; i++)
-	{
-		freq_[i - 1] = 0.5 * ( f[i - 1] + f[i] );
-		amp_[i-1]    = Foam::sqrt( ( S[i-1] + S[i] ) * ( f[i] - f[i - 1] ) );
-		phi_[i-1]    = randomPhaselag();
-		k_[i-1]      = direction * stp.linearWaveNumber(depth, freq_[i-1]);
-	}
+    // Compute return variables
+    for( int i = 1; i < N; i++)
+    {
+        freq_[i - 1] = 0.5 * ( f[i - 1] + f[i] );
+        amp_[i-1]    = Foam::sqrt( ( S[i-1] + S[i] ) * ( f[i] - f[i - 1] ) );
+        phi_[i-1]    = randomPhaselag();
+        k_[i-1]      = direction * stp.linearWaveNumber(depth, freq_[i-1]);
+    }
 
-	if ( dict_.lookupOrDefault<Switch>("writeSpectrum",false) )
-	{
-		S.writeEntry("spectramValues", os);
-		os << nl;
+    if ( dict_.lookupOrDefault<Switch>("writeSpectrum",false) )
+    {
+        S.writeEntry("spectramValues", os);
+        os << nl;
 
-		f.writeEntry("fspectrum", os);
-		os << nl;
-	}
+        f.writeEntry("fspectrum", os);
+        os << nl;
+    }
 }
 
 

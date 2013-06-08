@@ -88,7 +88,7 @@ public:
         combinedWaves
         (
             const word &,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 
@@ -99,25 +99,40 @@ public:
 
 
     // Member Functions
+        Switch conflictTSoftInitialise() const
+        {
+            Switch res = false;
+
+            forAll( combinedWavesPtr_, wavei )
+            {
+                res = combinedWavesPtr_[wavei]->conflictTSoftInitialise();
+
+                if ( res )
+                    break;
+            }
+
+            return res;
+        };
+
         void printCoeffs();
         
         scalar eta
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 
         scalar ddxPd
         (
-        	const point &,
-        	const scalar &,
-        	const vector &
+            const point &,
+            const scalar &,
+            const vector &
         ) const;
         
         vector U
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const;
 };
 

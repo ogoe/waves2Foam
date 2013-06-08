@@ -32,11 +32,11 @@ Description
 
     Input parameters are given in the file:
 
-    	constant/waveProperties.input
+        constant/waveProperties.input
 
     and the derived wave parameters are written to the file
 
-     	constant/waveProperties
+         constant/waveProperties
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -145,36 +145,36 @@ int main(int argc, char *argv[])
 
     forAll(toc, item )
     {
-    	// If a sub-dictionary, then compute parameters and write the subdict
-    	if ( waveProperties.isDict(toc[item]) )
-    	{
-    		dictionary & sd = waveProperties.subDict(toc[item]);
+        // If a sub-dictionary, then compute parameters and write the subdict
+        if ( waveProperties.isDict(toc[item]) )
+        {
+            dictionary & sd = waveProperties.subDict(toc[item]);
 
-    		autoPtr<setWaveProperties> props( setWaveProperties::New(runTime, sd, true) );
+            autoPtr<setWaveProperties> props( setWaveProperties::New(runTime, sd, true) );
 
-    		props->set( os );
-    	}
-    	else
-    	{
-    		label Nspaces = 20;
+            props->set( os );
+        }
+        else
+        {
+            label Nspaces = 20;
 
-    		// Read the entry and write to the dummy output file
-    	    ITstream read = waveProperties.lookup(toc[item]);
-    	    os << toc[item] << token::SPACE;
+            // Read the entry and write to the dummy output file
+            ITstream read = waveProperties.lookup(toc[item]);
+            os << toc[item] << token::SPACE;
 
-    		for( int i=toc[item].size(); i<Nspaces-1; i++)
-    			os << token::SPACE;
-    	    
-    	    forAll(read, ri )
-    	    {
-    	        if ( ri < read.size() - 1)
-        	        os << read[ri] << token::SPACE;
-        	    else
-        	        os << read[ri];
-        	}
-    	        
-    	    os << token::END_STATEMENT << nl << endl;
-    	}
+            for( int i=toc[item].size(); i<Nspaces-1; i++)
+                os << token::SPACE;
+            
+            forAll(read, ri )
+            {
+                if ( ri < read.size() - 1)
+                    os << read[ri] << token::SPACE;
+                else
+                    os << read[ri];
+            }
+                
+            os << token::END_STATEMENT << nl << endl;
+        }
     }
 
     // Write end divider

@@ -44,51 +44,51 @@ addToRunTimeSelectionTable(setWaveProperties, streamFunctionProperties, setWaveP
 
 streamFunctionProperties::streamFunctionProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write),
-	sfp_( rT, dict, false, "")
+    setWaveProperties(rT, dict, write),
+    sfp_( rT, dict, false, "")
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void streamFunctionProperties::set( Ostream & os)
 {
-	Info << "\n--------------------- NB! ---------------------" << endl;
-	Info << "The setWaveProperties for\n\n\t" << this->type() << "\n\nis not implemented" << endl;
-	Info << "--------------------- NB! ---------------------" << endl;
+    Info << "\n--------------------- NB! ---------------------" << endl;
+    Info << "The setWaveProperties for\n\n\t" << this->type() << "\n\nis not implemented" << endl;
+    Info << "--------------------- NB! ---------------------" << endl;
 
-	scalar k0 = sfp_.linearWaveNumber();
+    scalar k0 = sfp_.linearWaveNumber();
 
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
 
-	if ( dict_.found( "Tsoft" ) )
-		writeGiven( os, "Tsoft");
+    if ( dict_.found( "Tsoft" ) )
+        writeGiven( os, "Tsoft");
 
-	// This part should compute the properties for stream function wave theory
+    // This part should compute the properties for stream function wave theory
 
-	if ( write_ )
-	{
-		vector direction( vector(dict_.lookup("direction")));
-		direction /= Foam::mag(direction);
+    if ( write_ )
+    {
+        vector direction( vector(dict_.lookup("direction")));
+        direction /= Foam::mag(direction);
 
-		// This part should write the needed information to the waveProperties-file
-	}
+        // This part should write the needed information to the waveProperties-file
+    }
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

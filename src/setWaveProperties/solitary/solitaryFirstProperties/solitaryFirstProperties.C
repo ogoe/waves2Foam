@@ -44,36 +44,36 @@ addToRunTimeSelectionTable(setWaveProperties, solitaryFirstProperties, setWavePr
 
 solitaryFirstProperties::solitaryFirstProperties
 (
-	const Time & rT,
-	dictionary & dict,
-	bool write
+    const Time & rT,
+    dictionary & dict,
+    bool write
 )
 :
-	setWaveProperties(rT, dict, write)
+    setWaveProperties(rT, dict, write)
 {
-	Info << "\nConstructing: " << this->type() << endl;
+    Info << "\nConstructing: " << this->type() << endl;
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 void solitaryFirstProperties::set(Ostream & os)
 {
-	// Write the beginning of the sub-dictionary
-	writeBeginning( os );
+    // Write the beginning of the sub-dictionary
+    writeBeginning( os );
 
-	// Write the already given parameters
-	writeGiven( os, "waveType" );
+    // Write the already given parameters
+    writeGiven( os, "waveType" );
 
-	writeGiven( os, "height");
-	writeGiven( os, "depth");
-	writeGiven( os, "direction" );
-	writeGiven( os, "x0" );
+    writeGiven( os, "height");
+    writeGiven( os, "depth");
+    writeGiven( os, "direction" );
+    writeGiven( os, "x0" );
 
-	// Write the relaxation zone
-	writeRelaxationZone( os );
+    // Write the relaxation zone
+    writeRelaxationZone( os );
 
-	// Write the closing bracket
-	writeEnding( os );
+    // Write the closing bracket
+    writeEnding( os );
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

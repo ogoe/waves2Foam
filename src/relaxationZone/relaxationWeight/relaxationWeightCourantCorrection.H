@@ -26,11 +26,11 @@ Class
     Foam::relaxationWeights::relaxationWeightCourantCorrection
 
 Description
-	This class performs an additional weighting of the relaxation zone weights,
-	which are based on the local cell Courant number.
+    This class performs an additional weighting of the relaxation zone weights,
+    which are based on the local cell Courant number.
 
-	This is based on a presentation by Sopheak Seng, Technical University of
-	Denmark.
+    This is based on a presentation by Sopheak Seng, Technical University of
+    Denmark.
 
 SourceFiles
     relaxationWeightCourantCorrection.C
@@ -76,10 +76,10 @@ private:
 
         scalar courantNumber
         (
-       		const surfaceScalarField & phi,
-       		const surfaceScalarField & magSf,
-       		const surfaceScalarField & deltaCoeffs,
-       		const cell & cc
+               const surfaceScalarField & phi,
+               const surfaceScalarField & magSf,
+               const surfaceScalarField & deltaCoeffs,
+               const cell & cc
         ) const;
 
         //- Disallow default bitwise copy construct
@@ -98,8 +98,8 @@ public:
         //- Construct from components
         relaxationWeightCourantCorrection
         (
-        	const fvMesh &,
-        	const dictionary &
+            const fvMesh &,
+            const dictionary &
         );
 
     // Destructor
@@ -109,8 +109,8 @@ public:
     // Member Functions
         void courantCorrection
         (
-        	const labelList &,
-        	scalarField &
+            const labelList &,
+            scalarField &
         );
 };
 

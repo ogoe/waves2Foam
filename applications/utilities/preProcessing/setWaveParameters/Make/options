@@ -1,14 +1,14 @@
 EXE_INC = \
     -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -DEXTBRANCH=$(EXTBRANCH) \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
-    -I./../../../../src/lnInclude \
-    -I./../../../../src/lnInclude \
-    -I/usr/local/include \
-    -I/include
+    -I$(WAVES_SRC)/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
 
 EXE_LIBS = \
     -lfiniteVolume \
+    -L$(WAVES_GSL_LIB) \
     -lgsl \
     -lgslcblas \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(WAVES_LIBBIN) \
     -lwaves2Foam

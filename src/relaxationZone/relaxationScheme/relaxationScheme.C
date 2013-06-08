@@ -47,8 +47,8 @@ defineRunTimeSelectionTable(relaxationScheme, dictionary);
 
 relaxationScheme::relaxationScheme
 (
-	const word & subDictName,
-	const fvMesh & mesh,
+    const word & subDictName,
+    const fvMesh & mesh,
     vectorField & U,
     scalarField & alpha
 )
@@ -78,37 +78,37 @@ relaxationScheme::~relaxationScheme()
 
 void relaxationScheme::signedPointToSurfaceDistance
 (
-	const pointField & pp,
-	scalarField & sd
+    const pointField & pp,
+    scalarField & sd
 )
 {
-	forAll( pp, pointi )
-	{
-		sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
-	}
+    forAll( pp, pointi )
+    {
+        sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
+    }
 }
 
 scalar relaxationScheme::signedPointToSurfaceDistance
 (
-	const point & pp
+    const point & pp
 ) const
 {
-	scalar temp = waveProps_->eta(pp, db().time().value() );
-	temp += ( waveProps_->returnDir() & pp );
-	temp *= -1.0;
+    scalar temp = waveProps_->eta(pp, db().time().value() );
+    temp += ( waveProps_->returnDir() & pp );
+    temp *= -1.0;
 
-	return temp;
+    return temp;
 }
 
 void relaxationScheme::numericalBeach
 (
-	volScalarField & artVisc
+    volScalarField & artVisc
 )
 {
-	const labelList   & cc( cells() );
-	const scalarField & ss( sigma() );
+    const labelList   & cc( cells() );
+    const scalarField & ss( sigma() );
 
-	numBeach_->correct( cc, ss, artVisc );
+    numBeach_->correct( cc, ss, artVisc );
 
 }
 

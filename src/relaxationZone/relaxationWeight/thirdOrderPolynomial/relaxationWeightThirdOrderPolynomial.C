@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(relaxationWeight, relaxationWeightThirdOrderPolynomia
 relaxationWeightThirdOrderPolynomial::relaxationWeightThirdOrderPolynomial
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     relaxationWeight(subDictName, mesh_)
@@ -56,14 +56,14 @@ relaxationWeightThirdOrderPolynomial::relaxationWeightThirdOrderPolynomial
 
 void relaxationWeightThirdOrderPolynomial::computeWeights
 (
-	const labelList & cells,
-	const scalarField & sigma,
-	scalarField & weight
+    const labelList & cells,
+    const scalarField & sigma,
+    scalarField & weight
 )
 {
     forAll( weight, celli )
     {
-    	scalar s(1.0 - sigma[celli]);
+        scalar s(1.0 - sigma[celli]);
         weight[celli] = -2.0 * Foam::pow(s, 3.0) + 3.0 * Foam::pow(s, 2.0);
     }
 }

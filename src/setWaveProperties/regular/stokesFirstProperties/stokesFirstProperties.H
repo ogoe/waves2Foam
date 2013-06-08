@@ -60,49 +60,49 @@ namespace Foam
 
 class stokesFirstProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-	scalar period_;
-	scalar omega_;
-	scalar depth_;
+    scalar period_;
+    scalar omega_;
+    scalar depth_;
 
 public:
 
-		//- Runtime type information
-		TypeName("stokesFirstProperties");
+        //- Runtime type information
+        TypeName("stokesFirstProperties");
 
-		stokesFirstProperties
-		(
-			const Time &,
-			dictionary &
-		);
+        stokesFirstProperties
+        (
+            const Time &,
+            dictionary &
+        );
 
-		stokesFirstProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        stokesFirstProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		stokesFirstProperties
-		(
-			const Time &,
-			dictionary &,
-			bool,
-			word
-		);
+        stokesFirstProperties
+        (
+            const Time &,
+            dictionary &,
+            bool,
+            word
+        );
 
-		// Method
+        // Method
 
-		void set( Ostream & );
+        void set( Ostream & );
 
-		scalar linearWaveNumber() const;
+        scalar linearWaveNumber() const;
 
-		scalar linearWaveNumber(const scalar &, const scalar &);
+        scalar linearWaveNumber(const scalar &, const scalar &);
 
-		const scalar & omega() const { return omega_; };
+        const scalar & omega() const { return omega_; };
 };
 
 }

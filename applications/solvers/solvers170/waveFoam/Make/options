@@ -5,7 +5,8 @@ EXE_INC = \
     -I$(LIB_SRC)/turbulenceModels/incompressible/turbulenceModel \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=170 \
-    -I./../../../../src/lnInclude
+    -DEXTBRANCH=0 \
+    -I$(WAVES_SRC)/lnInclude
 
 EXE_LIBS = \
     -linterfaceProperties \
@@ -14,6 +15,5 @@ EXE_LIBS = \
     -lincompressibleRASModels \
     -lincompressibleLESModels \
     -lfiniteVolume \
-    -llduSolvers \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(WAVES_LIBBIN) \
     -lwaves2Foam

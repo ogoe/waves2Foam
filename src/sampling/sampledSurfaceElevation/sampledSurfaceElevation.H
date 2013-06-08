@@ -35,13 +35,14 @@ Description
     OF-1.7
     OF-2.0
     OF-2.1
+    OF-2.2
 
 SourceFiles
     sampledSurfaceElevation.C
 
 Authors
-	Niels G. Jacobsen and Sopheak Seng
-	Technical University of Denmark
+    Niels G. Jacobsen and Sopheak Seng
+    Technical University of Denmark
 
 \*---------------------------------------------------------------------------*/
 
@@ -188,10 +189,6 @@ class sampledSurfaceElevation
         // Categorized scalar/vector/tensor fields
 
             fieldGroup<scalar> scalarFields_;
-//            fieldGroup<vector> vectorFields_;
-//            fieldGroup<sphericalTensor> sphericalTensorFields_;
-//            fieldGroup<symmTensor> symmTensorFields_;
-//            fieldGroup<tensor> tensorFields_;
 
 
         // Merging structures
@@ -253,7 +250,7 @@ public:
 
         //- Construct for given objectRegistry and dictionary
         //  allow the possibility to load fields from files
-		sampledSurfaceElevation
+        sampledSurfaceElevation
         (
             const word& name,
             const objectRegistry&,
@@ -297,7 +294,11 @@ public:
         virtual void updateMesh(const mapPolyMesh&);
 
         //- Update for mesh point-motion
+#if OFVERSION<220
         virtual void movePoints(const pointField&);
+#else
+        virtual void movePoints(const polyMesh&);
+#endif
 
         //- Update for changes of mesh due to readUpdate
         virtual void readUpdate(const polyMesh::readUpdateState state);

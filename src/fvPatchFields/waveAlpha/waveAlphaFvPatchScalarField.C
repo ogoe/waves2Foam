@@ -120,26 +120,26 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 
 void waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
 (
-	const pointField & pp,
-	scalarField & sd
+    const pointField & pp,
+    scalarField & sd
 )
 {
-	forAll( pp, pointi )
-	{
-		sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
-	}
+    forAll( pp, pointi )
+    {
+        sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
+    }
 }
 
 scalar waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
 (
-	const point & pp
+    const point & pp
 ) const
 {
-	scalar temp = waveProps_->eta(pp, db().time().value() );
-	temp += ( waveProps_->returnDir() & pp );
-	temp *= -1.0;
+    scalar temp = waveProps_->eta(pp, db().time().value() );
+    temp += ( waveProps_->returnDir() & pp );
+    temp *= -1.0;
 
-	return temp;
+    return temp;
 }
 
 // Update the coefficients associated with the patch field
@@ -158,11 +158,11 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
 
     forAll( magSf, facei )
     {
-    	localFace lf = this->divideFace(facei + start);
+        localFace lf = this->divideFace(facei + start);
 
-    	this->refValue()[facei]      = lf.negMag() / magSf[facei];
-    	this->refGrad()[facei]       = 0.0;
-    	this->valueFraction()[facei] = 1.0;
+        this->refValue()[facei]      = lf.negMag() / magSf[facei];
+        this->refGrad()[facei]       = 0.0;
+        this->valueFraction()[facei] = 1.0;
     }
 
     mixedFvPatchField<scalar>::updateCoeffs();
@@ -206,8 +206,8 @@ void waveAlphaFvPatchScalarField::write(Ostream& os) const
 
 makePatchTypeField
 (
-	fvPatchScalarField,
-	waveAlphaFvPatchScalarField
+    fvPatchScalarField,
+    waveAlphaFvPatchScalarField
 );
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

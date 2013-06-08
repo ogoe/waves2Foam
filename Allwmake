@@ -1,51 +1,91 @@
 #!/bin/bash 
 
-# Remove option "-llduSolvers" from non-extended versions of OF
-
-arg=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
-
-if [ -z "$arg" ] 
+if [ ! -f "./bin/bashrc" ]
 then
-
-    list=`find ./ -name "options" | grep -v $WM_OPTIONS`
-    
-    for i in $list
-    do
-        dir=`dirname $i`
-
-        cd $dir
-
-        argInner=`grep "\-llduSolvers" options`
-
-        if [ -n "$argInner" ]
-        then 
-            grep -v "\-llduSolvers" options > options.temp
-            mv options.temp options
-        fi
-
-        cd $OLDPWD
-    done
+    cp ./bin/bashrc.org ./bin/bashrc
+    chmod a+x ./bin/bashrc
 fi
 
-# Compilation of wave boundary conditions / relaxation zone
+. ./bin/bashrc
 
+if [ ! -d "$WAVES_DIR" ]
+then
+    echo ""
+    echo "FATAL ERROR."
+    echo "    The directory path "$WAVES_DIR "does not exist."
+    echo "    Correct the path in bin/bashrc"
+    echo ""
+    echo "    Please note that once bin/bashrc is created, bin/bashrc.org is only an"
+    echo "    inactive file. The latter is also the only of the two files, which is"
+    echo "    updated through the SVN-repository."
+    echo ""
+    echo "EXITING"
+    echo ""
+    exit
+fi
+
+## LIBRARY
+echo "====================================="
+echo "    COMPILE LIBRARY"
+echo "====================================="
 ( cd src; ./Allwmake )
 
-# Compilation of solvers
+## SOLVERS
+# Find all solver names in $WAVES_SOL
+echo ""
+echo "====================================="
+echo "    COMPILE SOLVERS"
+echo "====================================="
+solvers=`ls -d $WAVES_SOL/*`
 
-apps="applications"
+# Loop over the solver names
+for s in $solvers
+do
+    solverName=`basename $s`
 
-# The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
-if [ `uname` == "Darwin" ]
+    # Correct options file if extend branch or not
+    if [ "$EXTBRANCH" -eq "1" ]
+    then
+        rm -f $WAVES_SOL/$solverName/Make/options
+        ln -s -f $WAVES_SOL/$solverName/Make/options.ext $WAVES_SOL/$apps/$solverName/Make/options
+    else
+        if [ -f $WAVES_SOL/$solverName/Make/options.reg ]
+        then
+            rm -f $WAVES_SOL/$solverName/Make/options
+            ln -s -f $WAVES_SOL/$solverName/Make/options.reg $WAVES_SOL/$apps/$solverName/Make/options
+        fi
+    fi
+
+    # Compile the solver
+    ( cd $WAVES_SOL/$solverName; wmake )
+done
+
+## UTILITIES
+# Pre-processing utilities
+echo ""
+echo "====================================="
+echo "    COMPILE PRE-PROCESSING"
+echo "====================================="
+( cd $WAVES_PRE  && wmake all )
+
+# Post-processing utilities
+echo ""
+echo "====================================="
+echo "    COMPILE POST-PROCESSING"
+echo "====================================="
+rm -f $WAVES_POST/surfaceElevation/Make/options
+
+if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
 then
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+    ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
 else
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+    ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
 fi
-export WM_PROJECT_VERSION_NUMBER=$version
 
-( cd $apps/solvers/solvers$version && wmake all )
+( cd $WAVES_POST && wmake all )
 
-# Compilation of utilities
-( cd $apps/utilities && wmake all )
-
+echo ""
+echo "====================================="
+echo "    COMPILATION DONE"
+echo "====================================="
+echo ""

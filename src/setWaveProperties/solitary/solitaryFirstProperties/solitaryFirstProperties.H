@@ -26,10 +26,10 @@ Class
     Foam::solitaryFirstProperties
 
 Description
-	This is a dummy file, where nothing happens, as the input parameters given
-	by the user is sufficient.
+    This is a dummy file, where nothing happens, as the input parameters given
+    by the user is sufficient.
 
-	A description of the general wave framework is given in
+    A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
         Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
@@ -43,7 +43,7 @@ Description
     }
 
 SourceFiles
-	solitaryFirstProperties.C
+    solitaryFirstProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -60,25 +60,25 @@ namespace Foam
 
 class solitaryFirstProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
 public:
 
-		//- Runtime type information
-		TypeName("solitaryFirstProperties");
+        //- Runtime type information
+        TypeName("solitaryFirstProperties");
 
-		solitaryFirstProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        solitaryFirstProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set(Ostream &);
+        void set(Ostream &);
 };
 
 }

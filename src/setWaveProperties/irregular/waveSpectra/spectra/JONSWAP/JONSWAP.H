@@ -23,12 +23,12 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-	Foam::JONSWAP
+    Foam::JONSWAP
 
 Description
 
 SourceFiles
-	JONSWAP.C
+    JONSWAP.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -47,28 +47,28 @@ namespace Foam
 
 class JONSWAP
 :
-	public waveSpectra
+    public waveSpectra
 {
 private:
 
 public:
 
-		//- Runtime type information
-		TypeName("JONSWAP");
+        //- Runtime type information
+        TypeName("JONSWAP");
 
-		JONSWAP
-		(
-			const Time &,
-			dictionary &,
-			scalarField &,
-			scalarField &,
-			scalarField &,
-			vectorField &
-		);
+        JONSWAP
+        (
+            const Time &,
+            dictionary &,
+            scalarField &,
+            scalarField &,
+            scalarField &,
+            vectorField &
+        );
 
-		void set(Ostream &);
+        void set(Ostream &);
 
-		wordList list();
+        wordList list();
 };
 
 }

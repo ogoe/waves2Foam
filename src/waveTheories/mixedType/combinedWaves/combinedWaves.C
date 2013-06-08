@@ -87,8 +87,8 @@ scalar combinedWaves::factor(const scalar & time) const
 
 scalar combinedWaves::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar eta(0);
@@ -106,9 +106,9 @@ scalar combinedWaves::eta
 
 scalar combinedWaves::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     scalar ddxPd(0.0);
@@ -123,8 +123,8 @@ scalar combinedWaves::ddxPd
 
 vector combinedWaves::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     vector U(vector::zero);

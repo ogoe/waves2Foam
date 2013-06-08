@@ -49,8 +49,8 @@ defineRunTimeSelectionTable(relaxationWeight, dictionary);
 
 relaxationWeight::relaxationWeight
 (
-	const word & subDictName,
-	const fvMesh & mesh
+    const word & subDictName,
+    const fvMesh & mesh
 )
 :
     IOdictionary
@@ -74,8 +74,8 @@ relaxationWeight::~relaxationWeight()
 
 autoPtr<relaxationWeight> relaxationWeight::New
 (
-	const word & subDictName,
-	const fvMesh & mesh_
+    const word & subDictName,
+    const fvMesh & mesh_
 )
 {
     word relaxationWeightTypeName;
@@ -86,9 +86,9 @@ autoPtr<relaxationWeight> relaxationWeight::New
     {
         const dictionary coeffDict_
         (
-        	(mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
-        	 .subDict(subDictName + "Coeffs")
-        	 .subDict("relaxationZone")
+            (mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
+             .subDict(subDictName + "Coeffs")
+             .subDict("relaxationZone")
         );
 
         relaxationWeightTypeName = coeffDict_.lookupOrDefault<word>("relaxationWeight","Exponential");
@@ -118,16 +118,16 @@ autoPtr<relaxationWeight> relaxationWeight::New
 
 void relaxationWeight::weights
 (
-	const labelList & cells,
-	const scalarField & sigma,
-	scalarField & weights
+    const labelList & cells,
+    const scalarField & sigma,
+    scalarField & weights
 )
 {
-	// First obtain the weights from the specific weight specification
-	computeWeights(cells, sigma, weights);
+    // First obtain the weights from the specific weight specification
+    computeWeights(cells, sigma, weights);
 
-	// Perform the courant number dependent weight correction
-	rwcc_.courantCorrection(cells, weights);
+    // Perform the courant number dependent weight correction
+    rwcc_.courantCorrection(cells, weights);
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -44,7 +44,7 @@ addToRunTimeSelectionTable(relaxationShape, relaxationShapeSemiCylindrical, dict
 relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     relaxationShape(subDictName, mesh_),
@@ -61,19 +61,19 @@ relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 
     if ( angleEnd_ > 180 )
     {
-    	angleEnd_ -= 360;
+        angleEnd_ -= 360;
     }
     if ( angleEnd_ < -180 )
     {
-    	angleEnd_ += 360;
+        angleEnd_ += 360;
     }
     if (angleStart_ > 180 )
     {
-    	angleStart_ -= 360;
+        angleStart_ -= 360;
     }
     if ( angleStart_ < -180 )
     {
-    	angleStart_ += 360;
+        angleStart_ += 360;
     }
 
     piHalfAngleDirection_ = ( zeroAngleDirection_ ^ direction_ );
@@ -126,17 +126,17 @@ void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
 
 bool relaxationShapeSemiCylindrical::angleCheck
 (
-	const scalar & angle
+    const scalar & angle
 ) const
 {
-	if ( angleStart_ < angleEnd_ )
-	{
-		return ( angleStart_ <= angle && angle <= angleEnd_ );
-	}
-	else
-	{
-		return ( angleStart_ <= angle || angle <= angleEnd_ );
-	}
+    if ( angleStart_ < angleEnd_ )
+    {
+        return ( angleStart_ <= angle && angle <= angleEnd_ );
+    }
+    else
+    {
+        return ( angleStart_ <= angle || angle <= angleEnd_ );
+    }
 }
 
 bool relaxationShapeSemiCylindrical::insideZone
@@ -154,7 +154,7 @@ bool relaxationShapeSemiCylindrical::insideZone
     scalar angle( 180 / PI_ * Foam::atan2( cc & piHalfAngleDirection_, cc & zeroAngleDirection_ ) );
 
     if ( dist >= rInner_ && dist <= rOuter_ && angleCheck( angle ) )
-    	inside = true;
+        inside = true;
     
     return inside;
 }

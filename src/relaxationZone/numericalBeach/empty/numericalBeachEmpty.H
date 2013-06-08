@@ -69,10 +69,10 @@ public:
     // Constructors
 
         //- from components
-    	numericalBeachEmpty
+        numericalBeachEmpty
         (
             const word & ,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 
@@ -86,9 +86,9 @@ public:
 
         virtual void correct
         (
-        	const labelList &,
-        	const scalarField &,
-        	volScalarField &
+            const labelList &,
+            const scalarField &,
+            volScalarField &
         );
 };
 

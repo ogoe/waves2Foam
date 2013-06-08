@@ -38,8 +38,8 @@ namespace waveTheories
 
 autoPtr<waveTheory> waveTheory::New
 (
-	const word & subDictName,
-	const fvMesh & mesh_
+    const word & subDictName,
+    const fvMesh & mesh_
 )
 {
     word waveTheoryTypeName;

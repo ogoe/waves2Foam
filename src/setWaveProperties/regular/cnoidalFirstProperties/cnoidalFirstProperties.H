@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	cnoidalFirstProperties.C
+    cnoidalFirstProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -59,39 +59,39 @@ namespace Foam
 
 class cnoidalFirstProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-	scalar T_;
-	scalar d_;
-	scalar H_;
+    scalar T_;
+    scalar d_;
+    scalar H_;
 
-	double solve( );
+    double solve( );
 
 public:
 
-	//- Runtime type information
-		TypeName("cnoidalFirstProperties");
+    //- Runtime type information
+        TypeName("cnoidalFirstProperties");
 
-		cnoidalFirstProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        cnoidalFirstProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set( Ostream &);
+        void set( Ostream &);
 };
 
 struct cnoidalFirstParams
 {
-	double depth_;
-	double height_;
-	double period_;
-	double g_;
+    double depth_;
+    double height_;
+    double period_;
+    double g_;
 };
 
 double lowerMBound_f ( double m, void * params);

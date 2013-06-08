@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	irregularProperties.C
+    irregularProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -61,29 +61,29 @@ namespace Foam
 
 class irregularProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
 protected:
 
-		const Time & rT_;
+        const Time & rT_;
 
 public:
 
-		//- Runtime type information
-		TypeName("irregularProperties");
+        //- Runtime type information
+        TypeName("irregularProperties");
 
-		irregularProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        irregularProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set( Ostream & );
+        void set( Ostream & );
 };
 
 }

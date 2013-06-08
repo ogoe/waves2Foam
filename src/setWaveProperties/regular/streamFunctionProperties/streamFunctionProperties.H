@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	streamFunctionProperties.C
+    streamFunctionProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -60,25 +60,25 @@ namespace Foam
 
 class streamFunctionProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-	stokesFirstProperties sfp_;
+    stokesFirstProperties sfp_;
 
 public:
 
-	TypeName("streamFunctionProperties");
+    TypeName("streamFunctionProperties");
 
-	streamFunctionProperties
-	(
-		const Time &,
-		dictionary &,
-		bool
-	);
+    streamFunctionProperties
+    (
+        const Time &,
+        dictionary &,
+        bool
+    );
 
-	// Method
-		void set( Ostream & );
+    // Method
+        void set( Ostream & );
 };
 
 }

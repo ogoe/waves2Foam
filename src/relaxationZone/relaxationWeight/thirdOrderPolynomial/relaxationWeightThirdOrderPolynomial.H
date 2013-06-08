@@ -29,10 +29,10 @@ Description
     An object used to create a weighting function in the relaxation zone, which
     has a specific polynomial behaviour. See eq. 6.18 in
 
-	A. P. Engsig-Karup
-	Unstructured Nodal DG-FEM Solution of High-Order Boussinesq-Type Equations
-	PhD Thesis
-	Technical University of Denmark
+    A. P. Engsig-Karup
+    Unstructured Nodal DG-FEM Solution of High-Order Boussinesq-Type Equations
+    PhD Thesis
+    Technical University of Denmark
 
 SourceFiles
     relaxationWeightThirdOrderPolynomial.C
@@ -70,12 +70,12 @@ private:
 protected:
 
     // Protected Member functions
-    	virtual void computeWeights
-    	(
-    		const labelList &,
-    	    const scalarField &,
-    	    scalarField &
-    	);
+        virtual void computeWeights
+        (
+            const labelList &,
+            const scalarField &,
+            scalarField &
+        );
 
 public:
 
@@ -88,7 +88,7 @@ public:
         relaxationWeightThirdOrderPolynomial
         (
             const word & ,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 

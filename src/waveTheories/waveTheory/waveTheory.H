@@ -85,13 +85,13 @@ protected:
         scalar rhoWater_;
         vector g_;
         vector direction_;
-	    
-	    const dictionary coeffDict_;
+        
+        const dictionary coeffDict_;
 
-	    scalar PI_;
+        scalar PI_;
 
     // Wind vector
-	    vector wind_;
+        vector wind_;
 
     // Protected member functions
         
@@ -99,7 +99,7 @@ protected:
         
         inline scalar returnZ(const point & x) const
         {
-        	return (-(direction_ & x) - seaLevel_);
+            return (-(direction_ & x) - seaLevel_);
         }
         
 private:
@@ -125,7 +125,7 @@ public:
             waveTheory,
             dictionary,
             (
-            	const word & subDictName, const fvMesh & mesh_
+                const word & subDictName, const fvMesh & mesh_
             ),
             (subDictName, mesh_)
         );
@@ -158,52 +158,55 @@ public:
 
     // Member Functions
 
+        //-
+        virtual Switch conflictTSoftInitialise() const = 0;
+
         const vector windVelocity( const scalar & time ) const { return factor( time ) * wind_; };
 
         // Access - single value
         virtual scalar eta
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const = 0;
 
         virtual scalar ddxPd
         (
-        	const point &,
-        	const scalar &,
-        	const vector &
+            const point &,
+            const scalar &,
+            const vector &
         ) const = 0;
 
         virtual vector U
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const = 0;
 
         virtual scalar p
         (
-        	const point &,
-        	const scalar &
+            const point &,
+            const scalar &
         ) const { return 0.0; };
 
         // Access - field
         virtual scalarField eta
         (
-        	const pointField &,
-        	const scalar &
+            const pointField &,
+            const scalar &
         ) const;
 
         virtual scalarField ddxPd
         (
-        	const pointField &,
-        	const scalar &,
-        	const vectorField &
+            const pointField &,
+            const scalar &,
+            const vectorField &
         ) const;
 
         virtual vectorField U
         (
-        	const pointField &,
-        	const scalar &
+            const pointField &,
+            const scalar &
         ) const;
 
         // Return the unit vertical direction in the direction of g

@@ -59,7 +59,22 @@ setWaveField::setWaveField
 
     waveProps_(waveTheories::waveTheory::New(name_, mesh_))
 {
-    
+    if ( waveProps_->conflictTSoftInitialise() )
+    {
+        WarningIn
+        (
+            "setWaveField::setWaveField"
+            "("
+            " const fvMesh & mesh,"
+            " volVectorField & U,"
+            " volScalarField & alpha,"
+            " volScalarField & p"
+            ")"
+        ) << "\n    The specified value of Tsoft is non-zero in the waveType: `" << waveProps_->type() << "'" << nl
+          << "    specified in the sub-dictionary waveProperties::" << name_ << "Coeffs"
+          << "\n\n    Consequently, the initialised `wave field' is set to a horizontal free surface with zero velocity." << nl << endl;
+    }
+
 }
 
 setWaveField::setWaveField
@@ -93,55 +108,55 @@ setWaveField::setWaveField
  
 void setWaveField::signedPointToSurfaceDistance
 (
-	const pointField & pp,
-	scalarField & sd
+    const pointField & pp,
+    scalarField & sd
 )
 {
-	forAll( pp, pointi )
-	{
-		sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
-	}
+    forAll( pp, pointi )
+    {
+        sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
+    }
 }
 
 scalar setWaveField::signedPointToSurfaceDistance
 (
-	const point & pp
+    const point & pp
 ) const
 {
-	scalar temp = waveProps_->eta(pp, U_.db().time().value() );
-	temp += ( waveProps_->returnDir() & pp );
-	temp *= -1.0;
+    scalar temp = waveProps_->eta(pp, U_.db().time().value() );
+    temp += ( waveProps_->returnDir() & pp );
+    temp *= -1.0;
 
-	return temp;
+    return temp;
 }
 
 void setWaveField::correct()
 {
-	const scalarField & V( mesh_.V() );
+    const scalarField & V( mesh_.V() );
 
-	forAll( U_, celli )
-	{
-		localCell lc = dividePolyhedral( celli, point::zero, point::one);
+    forAll( U_, celli )
+    {
+        localCell lc = dividePolyhedral( celli, point::zero, point::one);
 
-//		vector UTarget(vector::zero);
-		vector UTarget( waveProps_->windVelocity( U_.db().time().value() ));
-		scalar pTarget(0.0);
-		scalar alphaTarget( 0.0 );
+//        vector UTarget(vector::zero);
+        vector UTarget( waveProps_->windVelocity( U_.db().time().value() ));
+        scalar pTarget(0.0);
+        scalar alphaTarget( 0.0 );
 
-		// If size is less than 4, then one cannot evaluate centre/magnitude without getting
-		// an floating point exception error
-		if ( lc.ccNeg().size() >= 4 )
-		{
-			UTarget = waveProps_->U( lc.centreNeg(), U_.db().time().value() );
-			pTarget = waveProps_->p( lc.centreNeg(), U_.db().time().value() );
-			alphaTarget = lc.magNeg() / V[celli];
-		}
+        // If size is less than 4, then one cannot evaluate centre/magnitude without getting
+        // an floating point exception error
+        if ( lc.ccNeg().size() >= 4 )
+        {
+            UTarget = waveProps_->U( lc.centreNeg(), U_.db().time().value() );
+            pTarget = waveProps_->p( lc.centreNeg(), U_.db().time().value() );
+            alphaTarget = lc.magNeg() / V[celli];
+        }
 
-		U_[celli] = UTarget;
-		alpha_[celli] = alphaTarget;
-		p_[celli] = pTarget;
+        U_[celli] = UTarget;
+        alpha_[celli] = alphaTarget;
+        p_[celli] = pTarget;
 
-	}
+    }
 }
 
 

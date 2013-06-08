@@ -3,8 +3,10 @@ EXE_INC = \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/sampling/lnInclude \
     -I$(LIB_SRC)/lagrangian/basic/lnInclude \
+    -I$(LIB_SRC)/fileFormats/lnInclude \
     -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
-    -I./../../../../src/lnInclude
+    -DEXTBRANCH=$(EXTBRANCH) \
+    -I$(WAVES_SRC)/lnInclude
 
 EXE_LIBS = \
     -lfiniteVolume \
@@ -13,5 +15,5 @@ EXE_LIBS = \
     -lsurfMesh \
     -ltriSurface \
     -llagrangian \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(WAVES_LIBBIN) \
     -lwaves2Foam

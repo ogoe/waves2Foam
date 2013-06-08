@@ -41,7 +41,7 @@ Description
     }
 
 SourceFiles
-	stokesFifthProperties.C
+    stokesFifthProperties.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -60,36 +60,36 @@ namespace Foam
 
 class stokesFifthProperties
 :
-	public setWaveProperties
+    public setWaveProperties
 {
 private:
 
-	scalar period_;
-	scalar depth_;
-	scalar height_;
-	scalar Q_; // Stokes drift
+    scalar period_;
+    scalar depth_;
+    scalar height_;
+    scalar Q_; // Stokes drift
 
-	scalar omega_;
+    scalar omega_;
 
-	scalar eval(scalar &);
+    scalar eval(scalar &);
 
-	scalar waveNumber();
+    scalar waveNumber();
 
 public:
 
-	//- Runtime type information
-		TypeName("stokesFifthProperties");
+    //- Runtime type information
+        TypeName("stokesFifthProperties");
 
-		stokesFifthProperties
-		(
-			const Time &,
-			dictionary &,
-			bool
-		);
+        stokesFifthProperties
+        (
+            const Time &,
+            dictionary &,
+            bool
+        );
 
-		// Method
+        // Method
 
-		void set(Ostream &);
+        void set(Ostream &);
 };
 
 }

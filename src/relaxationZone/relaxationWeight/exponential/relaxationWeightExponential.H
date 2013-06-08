@@ -72,17 +72,17 @@ class relaxationWeightExponential
 private:
 
     // Private data
-    	scalar exponent_;
+        scalar exponent_;
         
 protected:
 
     // Protected Member functions
-    	virtual void computeWeights
-    	(
-    		const labelList &,
-    	    const scalarField &,
-    	    scalarField &
-    	);
+        virtual void computeWeights
+        (
+            const labelList &,
+            const scalarField &,
+            scalarField &
+        );
 
 public:
 
@@ -95,7 +95,7 @@ public:
         relaxationWeightExponential
         (
             const word & ,
-        	const fvMesh & mesh_
+            const fvMesh & mesh_
         );
 
 

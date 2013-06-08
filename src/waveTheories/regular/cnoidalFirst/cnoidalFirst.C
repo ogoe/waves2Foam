@@ -47,7 +47,7 @@ addToRunTimeSelectionTable(waveTheory, cnoidalFirst, dictionary);
 cnoidalFirst::cnoidalFirst
 (
     const word & subDictName,
-	const fvMesh & mesh_
+    const fvMesh & mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -91,8 +91,8 @@ scalar cnoidalFirst::factor(const scalar & time) const
 
 scalar cnoidalFirst::argument
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar arg = 2.0 * Kelliptic_ * (time / period_ - (propagationDirection_ & x) / length_);
@@ -102,9 +102,9 @@ scalar cnoidalFirst::argument
 
 scalar cnoidalFirst::eta_x
 (
-	const scalar & sn,
-	const scalar & cn,
-	const scalar & dn
+    const scalar & sn,
+    const scalar & cn,
+    const scalar & dn
 ) const
 {
     scalar val( 4.0 * H_ * Kelliptic_ / length_ * ( cn * dn * sn ));
@@ -113,9 +113,9 @@ scalar cnoidalFirst::eta_x
 
 scalar cnoidalFirst::eta_xx
 (
-	const scalar & sn,
-	const scalar & cn,
-	const scalar & dn
+    const scalar & sn,
+    const scalar & cn,
+    const scalar & dn
 ) const
 {
     scalar val( 
@@ -133,9 +133,9 @@ scalar cnoidalFirst::eta_xx
 
 scalar cnoidalFirst::eta_xxx
 (
-	const scalar & sn,
-	const scalar & cn,
-	const scalar & dn
+    const scalar & sn,
+    const scalar & cn,
+    const scalar & dn
 ) const
 {
     scalar val( 
@@ -155,8 +155,8 @@ scalar cnoidalFirst::eta_xxx
 
 scalar cnoidalFirst::eta
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar arg(argument(x,time));
@@ -172,9 +172,9 @@ scalar cnoidalFirst::eta
 
 scalar cnoidalFirst::ddxPd
 (
-	const point & x,
-	const scalar & time,
-	const vector & unitVector
+    const point & x,
+    const scalar & time,
+    const vector & unitVector
 ) const
 {
     
@@ -200,8 +200,8 @@ scalar cnoidalFirst::ddxPd
 
 vector cnoidalFirst::U
 (
-	const point & x,
-	const scalar & time
+    const point & x,
+    const scalar & time
 ) const
 {
     scalar Z(returnZ(x));
