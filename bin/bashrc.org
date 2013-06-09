@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### SETTING A FLAG AND PROJECT PATH
+### SETTING A FLAG
 if [ -z "$WAVES_DIR" ]
 then
     printVariables=1
