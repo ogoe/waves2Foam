@@ -30,7 +30,11 @@
 
 
     Info<< "Reading transportProperties\n" << endl;
+#if XVERSION == 0
     twoPhaseMixture twoPhaseProperties(U, phi);
+#else
+    incompressibleTwoPhaseMixture twoPhaseProperties(U, phi);
+#endif
 
     volScalarField& alpha1(twoPhaseProperties.alpha1());
 
