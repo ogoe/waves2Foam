@@ -1,0 +1,44 @@
+#!/bin/bash
+
+waveName=$1
+
+# Check for the presence of an argument
+if [ -z "$waveName" ]
+then
+    echo ""
+    echo "Give a string with the name of the wave theory as first argument"
+    echo "    E.g.: ./makeNewWaveTheory helloWorld"
+    echo "Exiting ..."
+    echo ""
+    exit
+fi
+
+# Check that the wave theory is not already created
+if [ -d "$waveName" ]
+then
+    echo ""
+    echo "A wave theory of this name has already been created in:"
+    echo "    "$PWD"/"$waveName
+    echo "Exiting ..."
+    echo ""
+    exit
+fi
+
+# Create output folder
+mkdir $waveName
+
+# Replace string "templateWaveTheory" with the name of the wave theory
+sed 's/templateWaveTheory/'$waveName'/g' < templateWaveTheory.C > $waveName/$waveName.C
+sed 's/templateWaveTheory/'$waveName'/g' < templateWaveTheory.H > $waveName/$waveName.H
+
+# Information to the user:
+echo ""
+echo "A directory called '"$waveName"' with [C,H]-files is created."
+echo ""
+echo "Steps to finalise:"
+echo "1. Copy the directory to the correct wave type in waves2Foam/src/waveTheories"
+echo "2. Insert the needed variables and expressions for eta, U, etc."
+echo "3. Add a line in waves2Foam/src/Make/files to include the new theory in the compilation."
+echo "4. Done."
+echo ""
+

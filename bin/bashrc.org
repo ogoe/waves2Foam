@@ -1,6 +1,6 @@
 #!/bin/bash
 
-### SETTING A FLAG AND PROJECT PATH
+### SETTING A FLAG
 if [ -z "$WAVES_DIR" ]
 then
     printVariables=1
@@ -25,6 +25,18 @@ else
 fi
 
 export WM_PROJECT_VERSION_NUMBER=$version
+
+## Is this a D.D.x version of OpenFoam. Needed to distinguish 2.2.0 and 2.2.x
+truncatedVersion=${WM_PROJECT_VERSION%.x}
+
+if [ "$WM_PROJECT_VERSION" == "$truncatedVersion" ]
+then
+    xVersion=0
+else
+    xVersion=1
+fi
+
+export WAVES_XVERSION=$xVersion
 
 ## Easy navigation
 export WAVES_SRC=$WAVES_DIR/src

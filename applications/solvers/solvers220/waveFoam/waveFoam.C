@@ -41,7 +41,11 @@ Description
 #include "MULES.H"
 #include "subCycle.H"
 #include "interfaceProperties.H"
-#include "twoPhaseMixture.H"
+#if XVERSION == 0
+#    include "twoPhaseMixture.H"
+#else
+#    include "incompressibleTwoPhaseMixture.H"
+#endif
 #include "turbulenceModel.H"
 #include "pimpleControl.H"
 #include "fvIOoptionList.H"
