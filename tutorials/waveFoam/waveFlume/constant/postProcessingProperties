@@ -10,51 +10,29 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      controlDict;
+    object      postProcessingProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application interFoam;
+deleteParentOutputDirectory false;
 
-startFrom       startTime;
-
-startTime       0;
-
-stopAt          endTime;
-
-endTime         20;
-
-deltaT          0.001;
-
-writeControl    adjustableRunTime;
-
-writeInterval   0.2;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression uncompressed;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable yes;
-
-adjustTimeStep  yes;
-
-maxCo           0.25;
-
-maxAlphaCo      0.25;
-
-maxDeltaT       1;
-
-functions
+regularSpectrum
 {
-    #includeIfPresent "../waveGaugesNProbes/surfaceElevationAnyName_controlDict";
+    callName surfaceElevation;
+
+    removeDuplicate true;
+    inputDir surfaceElevationAnyName;
+
+    deltaT 0.01;
+    tMin    10.0; // Default: minimum time
+    //tMax    11.0; // Default: maximum time
+
+    // The action list is a set of processes on the data
+    actionList ( interpolateSurfaceElevation powerSpectraLS write2Ascii removeData );
+
+    nFreq 4;
+    period 2.0;
+    allDataSets true;
 }
 
 // ************************************************************************* //

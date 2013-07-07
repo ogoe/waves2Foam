@@ -10,51 +10,22 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      controlDict;
+    object      loggingProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-application interFoam;
-
-startFrom       startTime;
-
-startTime       0;
-
-stopAt          endTime;
-
-endTime         20;
-
-deltaT          0.001;
-
-writeControl    adjustableRunTime;
-
-writeInterval   0.2;
-
-purgeWrite      0;
-
-writeFormat     ascii;
-
-writePrecision  6;
-
-writeCompression uncompressed;
-
-timeFormat      general;
-
-timePrecision   6;
-
-runTimeModifiable yes;
-
-adjustTimeStep  yes;
-
-maxCo           0.25;
-
-maxAlphaCo      0.25;
-
-maxDeltaT       1;
-
-functions
+surfaceElevationAnyName
 {
-    #includeIfPresent "../waveGaugesNProbes/surfaceElevationAnyName_controlDict";
+    type waveGauge;
+
+    pointDistribution lineDistribution;
+    N 179;
+    linestart (0.10 -0.3 0.05);
+    lineend   (17.9 -0.3 0.05);
+    add       ( 0 0.45 0);
+    axis      y;
+    stretch 1.;
 }
+
 
 // ************************************************************************* //

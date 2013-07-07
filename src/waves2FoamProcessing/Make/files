@@ -1,5 +1,3 @@
-
-
 /* SET WAVE PROPERTIES */
 waveProp=preProcessing/setWaveProperties
 $(waveProp)/setWaveProperties.C
@@ -46,6 +44,61 @@ $(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
 
 /* INITIALIZATION */
 preProcessing/setWaveField/setWaveField.C
+
+/* PROBES AND WAVE GAUGES */
+prep=preProcessing/probes
+pointd=pointDistributions
+$(prep)/waveGauges/waveGauges.C
+$(prep)/$(pointd)/pointDistributions.C
+$(prep)/$(pointd)/lineDistribution/lineDistribution.C
+$(prep)/$(pointd)/circularDistribution/circularDistribution.C
+$(prep)/$(pointd)/quadrilateralDistribution/quadrilateralDistribution.C
+
+/* POSTPROCESSINGWAVES */
+ppw=postProcessing/postProcessingWaves
+$(ppw)/postProcessingWaves.C
+
+/* Read and write */
+rawData=writeRawData
+$(ppw)/$(rawData)/rawSurfaceElevation/rawSurfaceElevation.C
+$(ppw)/$(rawData)/rawVelocityProbes/rawVelocityProbes.C
+$(ppw)/$(rawData)/rawForcesAndMoments/rawForcesAndMoments.C
+$(ppw)/$(rawData)/rawAlphaProbes/rawAlphaProbes.C
+$(ppw)/write2Ascii/write2Ascii.C
+
+cleaning=cleaningUtil
+$(ppw)/$(cleaning)/removeData/removeData.C
+$(ppw)/$(cleaning)/removeSubDirs/removeSubDirs.C
+
+
+/* Interpolation routines */
+wintData=writeInterpolatedData
+$(ppw)/$(wintData)/interpolateSurfaceElevation/interpolateSurfaceElevation.C
+$(ppw)/$(wintData)/interpolateVelocityProbes/interpolateVelocityProbes.C
+$(ppw)/$(wintData)/interpolateForcesAndMoments/interpolateForcesAndMoments.C
+$(ppw)/$(wintData)/interpolateAlphaProbes/interpolateAlphaProbes.C
+
+/* Spectral methods */
+spec=spectralAnalysis
+specHelp=spectralMethods
+fft=fftBasedMethods
+lsb=leastSquareBasedMethods
+
+$(ppw)/$(spec)/$(specHelp)/complexExp.C
+$(ppw)/$(spec)/$(specHelp)/spectralMethodsFFTBased.C
+$(ppw)/$(spec)/$(specHelp)/spectralMethodsLeastSquaresBased.C
+
+$(ppw)/$(spec)/$(fft)/powerSpectraFFT/powerSpectraFFT.C
+$(ppw)/$(spec)/$(fft)/reflectionAnalysis2DFFT/reflectionAnalysis2DFFT.C
+
+$(ppw)/$(spec)/$(lsb)/powerSpectraLS/powerSpectraLS.C
+$(ppw)/$(spec)/$(lsb)/reflectionAnalysis2DLS/reflectionAnalysis2DLS.C
+
+/* Misc post-processing */
+misc=miscOperations
+$(ppw)/$(misc)/ensembleAverage/ensembleAverage.C
+$(ppw)/$(misc)/trapz/trapz.C
+$(ppw)/$(misc)/cumTrapz/cumTrapz.C
 
 /* OUTPUT */
 LIB = $(WAVES_LIBBIN)/libwaves2FoamProcessing

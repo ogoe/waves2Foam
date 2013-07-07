@@ -8,6 +8,17 @@ sh ../../../bin/prepareCase.sh
 # Set application name
 application="waveFoam"
 
+# Create the computational mesh
 runApplication blockMesh
+
+# Create the wave probes
+runApplication waveGaugesNProbes
+
+# Set the wave field
 runApplication setWaveField
+
+# Run the application
 runApplication $application
+
+# To a post-processing analysis
+runApplication postProcessWaves2Foam
