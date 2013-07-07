@@ -26,4 +26,6 @@ else
 fi
 
 # Compile the library
-(cd waves2Foam; wmake libso)
+(cd waves2Foam          ; wmake libso)
+(cd waves2FoamProcessing; wmake libso)
+(cd waves2FoamSampling  ; wmake libso)

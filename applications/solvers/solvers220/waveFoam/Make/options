@@ -10,7 +10,8 @@ EXE_INC = \
     -DOFVERSION=220 \
     -DEXTBRANCH=0 \
     -DXVERSION=$(WAVES_XVERSION) \
-    -I$(WAVES_SRC)/lnInclude
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude
 
 EXE_LIBS = \
     -linterfaceProperties \
@@ -24,4 +25,5 @@ EXE_LIBS = \
     -lfvOptions \
     -lsampling \
     -L$(WAVES_LIBBIN) \
-    -lwaves2Foam
+    -lwaves2Foam \
+    -lwaves2FoamSampling

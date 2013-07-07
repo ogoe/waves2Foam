@@ -1,0 +1,51 @@
+
+
+/* SET WAVE PROPERTIES */
+waveProp=preProcessing/setWaveProperties
+$(waveProp)/setWaveProperties.C
+
+/* Current type */
+current=current
+$(waveProp)/$(current)/potentialCurrentProperties/potentialCurrentProperties.C
+
+/* Solitary type */
+solitary=solitary
+$(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
+
+/* Stokes theories */
+regular=regular
+$(waveProp)/$(regular)/stokesFirstProperties/stokesFirstProperties.C
+$(waveProp)/$(regular)/stokesFirstStandingProperties/stokesFirstStandingProperties.C
+$(waveProp)/$(regular)/stokesSecondProperties/stokesSecondProperties.C
+$(waveProp)/$(regular)/stokesSecondModulationProperties/stokesSecondModulationProperties.C
+$(waveProp)/$(regular)/stokesFifthProperties/stokesFifthProperties.C
+
+/* Cnoidal Theory */
+$(waveProp)/$(regular)/cnoidalFirstProperties/cnoidalFirstProperties.C
+
+/* Streamfunction Theory */
+$(waveProp)/$(regular)/streamFunctionProperties/streamFunctionProperties.C
+
+/* Irregular wave theories */
+irregular=irregular
+$(waveProp)/$(irregular)/bichromaticFirstProperties/bichromaticFirstProperties.C
+$(waveProp)/$(irregular)/bichromaticSecondProperties/bichromaticSecondProperties.C
+
+dws=waveSpectra
+$(waveProp)/$(irregular)/$(dws)/waveSpectra.C
+
+spectra=spectra
+$(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
+$(waveProp)/$(irregular)/$(dws)/$(spectra)/PiersonMoskowitz/PiersonMoskowitz.C
+
+$(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
+
+/* Mixed type wave theories */
+mixedType=mixedType
+$(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
+
+/* INITIALIZATION */
+preProcessing/setWaveField/setWaveField.C
+
+/* OUTPUT */
+LIB = $(WAVES_LIBBIN)/libwaves2FoamProcessing

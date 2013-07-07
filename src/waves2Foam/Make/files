@@ -48,6 +48,12 @@ $(waveTheories)/$(irregular)/bichromaticSecond/bichromaticSecond.C
 mixedType=mixedType
 $(waveTheories)/$(mixedType)/combinedWaves/combinedWaves.C
 
+/* WAVE BOUNDARY CONDITIONS */ 
+fvPatchFields=fvPatchFields
+$(fvPatchFields)/waveAlpha/waveAlphaFvPatchScalarField.C
+$(fvPatchFields)/wavePressure/wavePressureFvPatchScalarField.C
+$(fvPatchFields)/waveVelocity/waveVelocityFvPatchVectorField.C
+
 /* RELAXATION METHOD */
 relaxMethod=relaxationZone
 

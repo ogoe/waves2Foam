@@ -2,9 +2,11 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
     -DEXTBRANCH=$(EXTBRANCH) \
-    -I$(WAVES_SRC)/lnInclude   
-
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamProcessing/lnInclude
+    
 EXE_LIBS = \
     -lfiniteVolume \
     -L$(WAVES_LIBBIN) \
-    -lwaves2Foam
+    -lwaves2Foam \
+    -lwaves2FoamProcessing
