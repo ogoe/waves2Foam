@@ -44,58 +44,9 @@ $(waveTheories)/$(irregular)/irregular/irregular.C
 $(waveTheories)/$(irregular)/bichromaticFirst/bichromaticFirst.C
 $(waveTheories)/$(irregular)/bichromaticSecond/bichromaticSecond.C
 
-
 /* Mixed type wave theories */
 mixedType=mixedType
 $(waveTheories)/$(mixedType)/combinedWaves/combinedWaves.C
-
-/* SET WAVE PROPERTIES */
-waveProp=setWaveProperties
-$(waveProp)/setWaveProperties.C
-
-/* Current type */
-$(waveProp)/$(current)/potentialCurrentProperties/potentialCurrentProperties.C
-
-/* Solitary type */
-$(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
-
-/* Stokes theories */
-$(waveProp)/$(regular)/stokesFirstProperties/stokesFirstProperties.C
-$(waveProp)/$(regular)/stokesFirstStandingProperties/stokesFirstStandingProperties.C
-$(waveProp)/$(regular)/stokesSecondProperties/stokesSecondProperties.C
-$(waveProp)/$(regular)/stokesSecondModulationProperties/stokesSecondModulationProperties.C
-$(waveProp)/$(regular)/stokesFifthProperties/stokesFifthProperties.C
-
-/* Cnoidal Theory */
-$(waveProp)/$(regular)/cnoidalFirstProperties/cnoidalFirstProperties.C
-
-/* Streamfunction Theory */
-$(waveProp)/$(regular)/streamFunctionProperties/streamFunctionProperties.C
-
-/* Irregular wave theories */
-$(waveProp)/$(irregular)/bichromaticFirstProperties/bichromaticFirstProperties.C
-$(waveProp)/$(irregular)/bichromaticSecondProperties/bichromaticSecondProperties.C
-
-dws=waveSpectra
-$(waveProp)/$(irregular)/$(dws)/waveSpectra.C
-
-spectra=spectra
-$(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
-$(waveProp)/$(irregular)/$(dws)/$(spectra)/PiersonMoskowitz/PiersonMoskowitz.C
-
-$(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
-
-/* Mixed type wave theories */
-$(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
-
-/* WAVE BOUNDARY CONDITIONS */ 
-fvPatchFields=fvPatchFields
-$(fvPatchFields)/waveAlpha/waveAlphaFvPatchScalarField.C
-$(fvPatchFields)/wavePressure/wavePressureFvPatchScalarField.C
-$(fvPatchFields)/waveVelocity/waveVelocityFvPatchVectorField.C
-
-/* INITIALIZATION */
-setWaveField/setWaveField.C
 
 /* RELAXATION METHOD */
 relaxMethod=relaxationZone
@@ -139,10 +90,6 @@ $(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
 
 /* Relaxation Zone */
 $(relaxMethod)/relaxationZone.C
-
-/* POST PROCESSING */
-sampling/sampledSurfaceElevation/sampledSurfaceElevation.C
-sampling/sampledSurfaceElevationFunctionObject/sampledSurfaceElevationFunctionObject.C
 
 /* OUTPUT */
 LIB = $(WAVES_LIBBIN)/libwaves2Foam

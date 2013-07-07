@@ -254,7 +254,7 @@ scalar bichromaticSecond::eta
     eta +=   Gnmm_ * Anm_ * Foam::cos( thetan - thetam ) + Gnmp_ * Anm_ * Foam::cos( thetan - thetam )
            + G2n_ * A2n_ * Foam::cos( 2 * thetan ) + G2m_ * A2m_ * Foam::cos( 2 * thetam );
 
-    return eta * factor;
+    return eta * factor(time) + seaLevel_;
 }
 
 scalar bichromaticSecond::ddxPd
@@ -310,7 +310,7 @@ vector bichromaticSecond::U
              + Fnmp_      * kappanmp_ * Foam::sinh( kappanmp_ * (Z + h_))     * Anm_ * Foam::sin( thetan + thetam) // Second order super-harmonic
            ) * direction_;
 
-    return res * factor;
+    return res * factor(time);
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
