@@ -50,6 +50,7 @@ prep=preProcessing/probes
 pointd=pointDistributions
 $(prep)/waveGauges/waveGauges.C
 $(prep)/$(pointd)/pointDistributions.C
+$(prep)/$(pointd)/userDefinedDistribution/userDefinedDistribution.C
 $(prep)/$(pointd)/lineDistribution/lineDistribution.C
 $(prep)/$(pointd)/circularDistribution/circularDistribution.C
 $(prep)/$(pointd)/quadrilateralDistribution/quadrilateralDistribution.C
