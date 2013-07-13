@@ -298,6 +298,12 @@ public:
         virtual void movePoints(const pointField&);
 #else
         virtual void movePoints(const polyMesh&);
+
+    #if OFVERSION > 220
+        virtual bool timeSet();
+    #elif XVERSION
+        virtual bool timeSet();
+    #endif
 #endif
 
         //- Update for changes of mesh due to readUpdate

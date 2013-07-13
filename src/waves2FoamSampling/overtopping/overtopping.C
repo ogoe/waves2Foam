@@ -65,6 +65,21 @@ void Foam::overtopping::movePoints(const polyMesh&)
 {
     // Do nothing
 }
+
+#if OFVERSION > 220
+    bool Foam::overtopping::timeSet()
+    {
+        // Do nothing
+    	return true;
+    }
+#elif XVERSION
+    bool Foam::overtopping::timeSet()
+    {
+        // Do nothing
+    	return true;
+    }
+#endif
+
 #endif
 
 void Foam::overtopping::makeFile()

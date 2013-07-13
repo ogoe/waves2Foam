@@ -154,6 +154,11 @@ public:
 
         //- Move points
         virtual void movePoints(const polyMesh&);
+    #if OFVERSION > 220
+        virtual bool timeSet();
+    #elif XVERSION
+        virtual bool timeSet();
+    #endif
 #endif
 
 };

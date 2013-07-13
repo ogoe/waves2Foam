@@ -626,6 +626,21 @@ void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
 {
     correct();
 }
+
+#if OFVERSION > 220
+    bool Foam::sampledSurfaceElevation::timeSet()
+    {
+        // Do nothing
+    	return true;
+    }
+#elif XVERSION
+    bool Foam::sampledSurfaceElevation::timeSet()
+    {
+        // Do nothing
+    	return true;
+    }
+#endif
+
 #endif
 
 
