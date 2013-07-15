@@ -65,6 +65,7 @@ $(ppw)/$(rawData)/rawSurfaceElevation/rawSurfaceElevation.C
 $(ppw)/$(rawData)/rawVelocityProbes/rawVelocityProbes.C
 $(ppw)/$(rawData)/rawForcesAndMoments/rawForcesAndMoments.C
 $(ppw)/$(rawData)/rawAlphaProbes/rawAlphaProbes.C
+$(ppw)/$(rawData)/rawOvertopping/rawOvertopping.C
 $(ppw)/write2Ascii/write2Ascii.C
 
 cleaning=cleaningUtil
@@ -78,6 +79,7 @@ $(ppw)/$(wintData)/interpolateSurfaceElevation/interpolateSurfaceElevation.C
 $(ppw)/$(wintData)/interpolateVelocityProbes/interpolateVelocityProbes.C
 $(ppw)/$(wintData)/interpolateForcesAndMoments/interpolateForcesAndMoments.C
 $(ppw)/$(wintData)/interpolateAlphaProbes/interpolateAlphaProbes.C
+$(ppw)/$(wintData)/interpolateOvertopping/interpolateOvertopping.C
 
 /* Spectral methods */
 spec=spectralAnalysis
