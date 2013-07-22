@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 1991-2008 OpenCFD Ltd.
+    \\  /    A nd           | Copyright held by original author
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -76,7 +76,7 @@ protected:
     List<autoPtr<waveTheories::waveTheory> > combinedWavesPtr_;
     // Protected member functions
 
-        scalar factor(const scalar &) const;
+        scalar factor(const scalar&) const;
 public:
 
     //- Runtime type information
@@ -87,8 +87,8 @@ public:
         //- from components
         combinedWaves
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -103,7 +103,7 @@ public:
         {
             Switch res = false;
 
-            forAll( combinedWavesPtr_, wavei )
+            forAll(combinedWavesPtr_, wavei)
             {
                 res = combinedWavesPtr_[wavei]->conflictTSoftInitialise();
 
@@ -115,24 +115,24 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

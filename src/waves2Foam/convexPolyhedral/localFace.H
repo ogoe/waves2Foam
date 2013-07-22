@@ -79,10 +79,10 @@ public:
     // Set local face properties
         void setAttributes
         (
-            const pointField & pp,
-            const face & negF,
-            const face & posF,
-            const label & nOI
+            const pointField& pp,
+            const face& negF,
+            const face& posF,
+            const label& nOI
         )
         {
             pp_    = pp;
@@ -100,12 +100,12 @@ public:
 
         const face posFace() const {return posF_; };
 
-        face & negFace() { return negF_; };
-        face & posFace() { return posF_; };
+        face& negFace() { return negF_; };
+        face& posFace() { return posF_; };
 
-        const pointField & points() const { return pp_; };
-        pointField & points() { return pp_; };
-        void points( const pointField & pp) { pp_ = pp; };
+        const pointField& points() const { return pp_; };
+        pointField& points() { return pp_; };
+        void points( const pointField& pp) { pp_ = pp; };
 
         inline point posCentre() const { return posF_.centre(pp_); };
 

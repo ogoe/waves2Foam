@@ -119,11 +119,11 @@ wavePressureFvPatchScalarField::wavePressureFvPatchScalarField
 
 void wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 (
-    const pointField & pp,
-    scalarField & sd
+    const pointField& pp,
+    scalarField& sd
 )
 {
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -131,7 +131,7 @@ void wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 
 scalar wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 (
-    const point & pp
+    const point& pp
 ) const
 {
     scalar temp = waveProps_->eta(pp, db().time().value() );
@@ -149,17 +149,17 @@ void wavePressureFvPatchScalarField::updateCoeffs()
         return;
     }
 
-    const fvMesh & mesh = this->dimensionedInternalField().mesh();
+    const fvMesh& mesh = this->dimensionedInternalField().mesh();
     const label patchID = mesh.boundaryMesh().findPatchID(this->patch().name());
-    const scalarField & magSf( mesh.magSf().boundaryField()[patchID] );
-    const vectorField & Sf ( mesh.Sf().boundaryField()[patchID] );
+    const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
+    const vectorField& Sf ( mesh.Sf().boundaryField()[patchID] );
 
     const label start = patch().patch().start();
 
     vector centre( vector::zero );
     vector normal( vector::zero );
 
-    forAll( magSf, facei )
+    forAll(magSf, facei)
     {
         localFace lf = this->divideFace(facei + start);
 
@@ -186,7 +186,7 @@ void wavePressureFvPatchScalarField::evaluate()
     {
         this->updateCoeffs();
     }
-    
+
     Field<scalar>::operator=
     (
         this->valueFraction()*this->refValue()

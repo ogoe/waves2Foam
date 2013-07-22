@@ -90,9 +90,9 @@ public:
         //- Construct from components
         interpolateForcesAndMoments
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

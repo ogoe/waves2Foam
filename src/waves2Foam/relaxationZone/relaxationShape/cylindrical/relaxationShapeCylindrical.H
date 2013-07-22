@@ -74,19 +74,19 @@ protected:
         vector      centre_;
         scalar      rInner_;
         scalar      rOuter_;
-        
+
         scalar      width_;
-    
+
     // Protected member functions
         bool insideZone
         (
-            const label &
+            const label&
         ) const;
 
         virtual void computeSigmaCoordinate();
-        
+
         virtual void findComputationalCells();
-        
+
 public:
 
     //- Runtime type information
@@ -97,8 +97,8 @@ public:
         //- from components
         relaxationShapeCylindrical
         (
-            const word & ,
-            const fvMesh & mesh_
+            const word& ,
+            const fvMesh& mesh_
         );
 
 

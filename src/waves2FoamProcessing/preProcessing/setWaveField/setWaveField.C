@@ -39,10 +39,10 @@ defineTypeNameAndDebug(setWaveField, 0);
 
 setWaveField::setWaveField
 (
-    const fvMesh & mesh,
+    const fvMesh& mesh,
     volVectorField& U,
-    volScalarField & alpha,
-    volScalarField & p
+    volScalarField& alpha,
+    volScalarField& p
 )
 :
     convexPolyhedral(mesh, true),
@@ -65,10 +65,10 @@ setWaveField::setWaveField
         (
             "setWaveField::setWaveField"
             "("
-            " const fvMesh & mesh,"
-            " volVectorField & U,"
-            " volScalarField & alpha,"
-            " volScalarField & p"
+            " const fvMesh& mesh,"
+            " volVectorField& U,"
+            " volScalarField& alpha,"
+            " volScalarField& p"
             ")"
         ) << "\n    The specified value of Tsoft is non-zero in the waveType: `" << waveProps_->type() << "'" << nl
           << "    specified in the sub-dictionary waveProperties::" << name_ << "Coeffs"
@@ -79,11 +79,11 @@ setWaveField::setWaveField
 
 setWaveField::setWaveField
 (
-    const fvMesh & mesh,
+    const fvMesh& mesh,
     const word name,
     volVectorField& U,
-    volScalarField & alpha,
-    volScalarField & p
+    volScalarField& alpha,
+    volScalarField& p
 )
 :
     convexPolyhedral(mesh, true),
@@ -105,14 +105,14 @@ setWaveField::setWaveField
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
- 
+
 void setWaveField::signedPointToSurfaceDistance
 (
-    const pointField & pp,
-    scalarField & sd
+    const pointField& pp,
+    scalarField& sd
 )
 {
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -120,7 +120,7 @@ void setWaveField::signedPointToSurfaceDistance
 
 scalar setWaveField::signedPointToSurfaceDistance
 (
-    const point & pp
+    const point& pp
 ) const
 {
     scalar temp = waveProps_->eta(pp, U_.db().time().value() );
@@ -132,9 +132,9 @@ scalar setWaveField::signedPointToSurfaceDistance
 
 void setWaveField::correct()
 {
-    const scalarField & V( mesh_.V() );
+    const scalarField& V( mesh_.V() );
 
-    forAll( U_, celli )
+    forAll(U_, celli)
     {
         localCell lc = dividePolyhedral( celli, point::zero, point::one);
 

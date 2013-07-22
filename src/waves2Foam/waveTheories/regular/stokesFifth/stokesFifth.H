@@ -48,10 +48,10 @@ SourceFiles
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
 
-TODO: 
+TODO:
     - Compute detadt
     - Compute dpdx
-    
+
 \*---------------------------------------------------------------------------*/
 
 #ifndef stokesFifth_H
@@ -86,7 +86,7 @@ protected:
         vector k_;
         scalar K_;
         scalar Tsoft_;
-        
+
         // A-coefficients
         scalar A11_;
         scalar A22_;
@@ -97,7 +97,7 @@ protected:
         scalar A51_;
         scalar A53_;
         scalar A55_;
-        
+
         // B-coefficients
         scalar B22_;
         scalar B31_;
@@ -105,23 +105,23 @@ protected:
         scalar B44_;
         scalar B53_;
         scalar B55_;
-        
+
         // C-coefficients
         scalar C0_;
         scalar C2_;
         scalar C4_;
-        
+
         // D-coefficients
         scalar D2_;
         scalar D4_;
-        
+
         // E-coefficients
         scalar E2_;
         scalar E4_;
 
     // Protected member functions
 
-        scalar factor(const scalar &) const;
+        scalar factor(const scalar&) const;
 public:
 
     //- Runtime type information
@@ -132,8 +132,8 @@ public:
         //- from components
         stokesFifth
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -154,24 +154,24 @@ public:
 
         void printCoeffs();
         void setCoefficients();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
-        
+
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

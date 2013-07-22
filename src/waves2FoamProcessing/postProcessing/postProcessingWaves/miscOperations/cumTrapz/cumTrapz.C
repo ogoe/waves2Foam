@@ -48,10 +48,10 @@ void cumTrapz::evaluateScalar()
 
     List<scalarField> ct( input.size() );
 
-    forAll( input, I )
+    forAll(input, I)
     {
-        const scalarField & field( input[I] );
-        scalarField & out( ct[ I ] );
+        const scalarField& field( input[I] );
+        scalarField& out( ct[ I ] );
         out.setSize( time.size(), 0.0 );
 
         for ( int i=1; i < field.size(); i++)
@@ -63,7 +63,7 @@ void cumTrapz::evaluateScalar()
 
 void cumTrapz::writeScalar
 (
-    const List<scalarField> & ct
+    const List<scalarField>& ct
 )
 {
     Info << "        - Writing cumulative trapezoidal integral: " << directDir_.c_str() << this->type() << endl;
@@ -72,16 +72,16 @@ void cumTrapz::writeScalar
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
         spectrumPtr_.reset( new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_cumTrapz.dat" ));
 
-        const scalarField & data( ct[indexi] );
+        const scalarField& data( ct[indexi] );
 
-        forAll( data, ii )
+        forAll(data, ii)
             spectrumPtr_() << data[ii] << endl;
     }
 }
@@ -95,10 +95,10 @@ void cumTrapz::evaluateVector()
 
     List<vectorField> ct( input.size() );
 
-    forAll( input, I )
+    forAll(input, I)
     {
-        const vectorField & field( input[I] );
-        vectorField & out( ct[ I ] );
+        const vectorField& field( input[I] );
+        vectorField& out( ct[ I ] );
         out.setSize( time.size(), vector::zero );
 
         for ( int i=1; i < field.size(); i++)
@@ -110,7 +110,7 @@ void cumTrapz::evaluateVector()
 
 void cumTrapz::writeVector
 (
-    const List<vectorField> & ct
+    const List<vectorField>& ct
 )
 {
     Info << "        - Writing cumulative trapezoidal integral: " << directDir_.c_str() << this->type() << endl;
@@ -119,16 +119,16 @@ void cumTrapz::writeVector
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
         spectrumPtr_.reset( new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_cumTrapz.dat" ));
 
-        const vectorField & data( ct[indexi] );
+        const vectorField& data( ct[indexi] );
 
-        forAll( data, ii )
+        forAll(data, ii)
             spectrumPtr_() << data[ii].x() << tab << data[ii].y() << tab << data[ii].z() << endl;
     }
 }
@@ -137,9 +137,9 @@ void cumTrapz::writeVector
 
 cumTrapz::cumTrapz
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),

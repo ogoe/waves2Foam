@@ -86,9 +86,9 @@ public:
         //- Construct from components
         write2Ascii
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

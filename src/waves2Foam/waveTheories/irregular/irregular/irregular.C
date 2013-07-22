@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, irregular, dictionary);
 
 irregular::irregular
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -71,7 +71,7 @@ void irregular::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar irregular::factor(const scalar & time) const
+scalar irregular::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
@@ -82,13 +82,13 @@ scalar irregular::factor(const scalar & time) const
 
 scalar irregular::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta(0);
 
-    forAll( amp_, index )
+    forAll(amp_, index)
     {
         eta += ( amp_[index] * Foam::cos( omega_[index] * time - (k_[index] & x) + phi_[index] ) );
     }
@@ -100,9 +100,9 @@ scalar irregular::eta
 
 scalar irregular::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     return 0.0;
@@ -110,8 +110,8 @@ scalar irregular::ddxPd
 
 vector irregular::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
@@ -119,7 +119,7 @@ vector irregular::U
     scalar Uhorz(0), Uvert(0);
     vector U(vector::zero);
 
-    forAll( amp_, index )
+    forAll(amp_, index)
     {
         scalar period = 2 * PI_ / omega_[index];
         Uhorz = (

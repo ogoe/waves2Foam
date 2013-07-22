@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(numericalBeach, numericalBeachEmpty, dictionary);
 
 numericalBeachEmpty::numericalBeachEmpty
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     numericalBeach(subDictName, mesh_)
@@ -55,9 +55,9 @@ numericalBeachEmpty::numericalBeachEmpty
 
 void numericalBeachEmpty::correct
 (
-    const labelList & cells,
-    const scalarField & sigma,
-    volScalarField & artVisc
+    const labelList& cells,
+    const scalarField& sigma,
+    volScalarField& artVisc
 )
 {
     // Nothing to be done. Dummy function.

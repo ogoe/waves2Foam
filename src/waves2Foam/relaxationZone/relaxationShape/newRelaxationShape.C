@@ -38,8 +38,8 @@ namespace relaxationShapes
 
 autoPtr<relaxationShape> relaxationShape::New
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 {
     word relaxationShapeTypeName;
@@ -66,7 +66,7 @@ autoPtr<relaxationShape> relaxationShape::New
     {
         FatalErrorIn
         (
-            "relaxationShape::New(const word &, const fvMesh &)"
+            "relaxationShape::New(const word&, const fvMesh&)"
         )   << "Unknown relaxation shape type 'relaxationShape" << relaxationShapeTypeName << "'"
             << endl << endl
             << "Valid relaxation shape types are :" << endl

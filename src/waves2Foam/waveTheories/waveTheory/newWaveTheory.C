@@ -38,8 +38,8 @@ namespace waveTheories
 
 autoPtr<waveTheory> waveTheory::New
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 {
     word waveTheoryTypeName;
@@ -60,7 +60,7 @@ autoPtr<waveTheory> waveTheory::New
     {
         FatalErrorIn
         (
-            "waveTheory::New(const word &, const fvMesh &)"
+            "waveTheory::New(const word&, const fvMesh&)"
         )   << "Unknown wave theory type " << waveTheoryTypeName
             << endl << endl
             << "Valid wave theories types are :" << endl

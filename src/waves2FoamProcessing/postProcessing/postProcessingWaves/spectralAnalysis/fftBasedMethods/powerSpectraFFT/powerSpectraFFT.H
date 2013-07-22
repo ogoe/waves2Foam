@@ -78,14 +78,14 @@ private:
 
         void writeScalar
         (
-            const scalarField &,
-            const List<scalarField> &
+            const scalarField&,
+            const List<scalarField>&
         );
 
         void writeVector
         (
-            const scalarField &,
-            const List<vectorField> &
+            const scalarField&,
+            const List<vectorField>&
         );
 
         //- Disallow default bitwise copy construct
@@ -106,9 +106,9 @@ public:
         //- Construct from components
         powerSpectraFFT
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

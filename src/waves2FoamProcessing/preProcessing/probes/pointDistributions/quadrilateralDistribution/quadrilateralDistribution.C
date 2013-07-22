@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(pointDistributions, quadrilateralDistribution, pointD
 
 quadrilateralDistribution::quadrilateralDistribution
 (
-    const fvMesh & mesh,
-    const dictionary & dict
+    const fvMesh& mesh,
+    const dictionary& dict
 )
 :
     pointDistributions( mesh, dict )

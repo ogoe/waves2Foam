@@ -41,10 +41,10 @@ defineTypeNameAndDebug(relaxationWeightCourantCorrection, 0);
 
 scalar relaxationWeightCourantCorrection::courantNumber
 (
-    const surfaceScalarField & phi,
-    const surfaceScalarField & magSf,
-    const surfaceScalarField & deltaCoeffs,
-    const cell & cc
+    const surfaceScalarField& phi,
+    const surfaceScalarField& magSf,
+    const surfaceScalarField& deltaCoeffs,
+    const cell& cc
 ) const
 {
     scalar res(-1);
@@ -65,8 +65,8 @@ scalar relaxationWeightCourantCorrection::courantNumber
 
 relaxationWeightCourantCorrection::relaxationWeightCourantCorrection
 (
-    const fvMesh & mesh,
-    const dictionary & coeffDict
+    const fvMesh& mesh,
+    const dictionary& coeffDict
 )
 :
     mesh_(mesh),
@@ -83,20 +83,20 @@ relaxationWeightCourantCorrection::~relaxationWeightCourantCorrection()
 
 void relaxationWeightCourantCorrection::courantCorrection
 (
-    const labelList & cells,
-    scalarField & weights
+    const labelList& cells,
+    scalarField& weights
 )
 {
     if ( courantCorrection_ )
     {
         scalar maxCo( readScalar(mesh_.time().controlDict().lookup("maxCo")) );
 
-        const surfaceScalarField & phi( mesh_.thisDb().lookupObject<surfaceScalarField>("phi"));
-        const surfaceScalarField & magSf( mesh_.magSf() );
-        const surfaceScalarField & delta( mesh_.deltaCoeffs() );
-        const cellList & cellFaces( mesh_.cells() );
+        const surfaceScalarField& phi( mesh_.thisDb().lookupObject<surfaceScalarField>("phi"));
+        const surfaceScalarField& magSf( mesh_.magSf() );
+        const surfaceScalarField& delta( mesh_.deltaCoeffs() );
+        const cellList& cellFaces( mesh_.cells() );
 
-        forAll( cells, celli )
+        forAll(cells, celli)
         {
             label cellI( cells[celli] );
 

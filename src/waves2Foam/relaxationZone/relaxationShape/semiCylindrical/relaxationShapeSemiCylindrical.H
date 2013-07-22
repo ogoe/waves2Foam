@@ -78,25 +78,25 @@ protected:
         scalar      rOuter_;
         scalar      angleStart_;
         scalar      angleEnd_;
-        
+
         scalar      width_;
         vector      piHalfAngleDirection_;
-    
+
     // Protected member functions
         bool angleCheck
         (
-            const scalar &
+            const scalar&
         ) const;
 
         bool insideZone
         (
-            const label &
+            const label&
         ) const;
 
         virtual void computeSigmaCoordinate();
-        
+
         virtual void findComputationalCells();
-        
+
 public:
 
     //- Runtime type information
@@ -107,8 +107,8 @@ public:
         //- from components
         relaxationShapeSemiCylindrical
         (
-            const word & ,
-            const fvMesh & mesh_
+            const word& ,
+            const fvMesh& mesh_
         );
 
 

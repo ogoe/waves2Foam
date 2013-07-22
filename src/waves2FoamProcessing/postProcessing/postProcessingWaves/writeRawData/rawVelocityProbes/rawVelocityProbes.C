@@ -41,8 +41,8 @@ addToRunTimeSelectionTable(postProcessingWaves, rawVelocityProbes, postProcessin
 
 void rawVelocityProbes::resizeFields
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    List<vectorField> & Us,
+    List<std::pair<scalar, label> >& timeLabel,
+    List<vectorField>& Us,
     label N
 )
 {
@@ -51,18 +51,18 @@ void rawVelocityProbes::resizeFields
 
     forAll(Us, UI)
     {
-        vectorField & U( Us[UI] );
+        vectorField& U( Us[UI] );
         U.setSize(N);
     }
 }
 
 void rawVelocityProbes::writeRawData
 (
-    const List<std::pair<scalar, label> > & timeLabel,
-    const scalarField & x,
-    const scalarField & y,
-    const scalarField & z,
-    const List<vectorField> & Us
+    const List<std::pair<scalar, label> >& timeLabel,
+    const scalarField& x,
+    const scalarField& y,
+    const scalarField& z,
+    const List<vectorField>& Us
 )
 {
     // Write the time vector
@@ -70,7 +70,7 @@ void rawVelocityProbes::writeRawData
     vectorField output1( timeLabel.size(), vector::zero );
 
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output0[labeli] = timeLabel[labeli].first;
         }
@@ -84,12 +84,12 @@ void rawVelocityProbes::writeRawData
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
-    forAll( Us, UI )
+    forAll(Us, UI)
     {
-        const vectorField & U( Us[UI] );
+        const vectorField& U( Us[UI] );
 
         // Rearrange according to indexing
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output1[labeli] = U[ timeLabel[labeli].second ];
         }
@@ -109,9 +109,9 @@ void rawVelocityProbes::writeRawData
 
 rawVelocityProbes::rawVelocityProbes
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -152,11 +152,11 @@ void rawVelocityProbes::evaluate()
 
 void rawVelocityProbes::readVelocityProbeData
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    scalarField & x,
-    scalarField & y,
-    scalarField & z,
-    List<vectorField> & Us
+    List<std::pair<scalar, label> >& timeLabel,
+    scalarField& x,
+    scalarField& y,
+    scalarField& z,
+    List<vectorField>& Us
 )
 {
     label Nprobes(0);
@@ -164,7 +164,7 @@ void rawVelocityProbes::readVelocityProbeData
     string dummy;
     label Nentries(0);
 
-    forAll( timeDirs_, timeI )
+    forAll(timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
@@ -261,7 +261,7 @@ void rawVelocityProbes::readVelocityProbeData
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll( Us, UI )
+            forAll(Us, UI)
             {
                 vector temp( vector::zero );
 
@@ -277,7 +277,7 @@ void rawVelocityProbes::readVelocityProbeData
                 iss >> dummy;
                 temp.z() = std::atof( (dummy.substr(0,dummy.size()-1)).c_str() );
 
-                vectorField & U( Us[ UI ] );
+                vectorField& U( Us[ UI ] );
 
                 // Rotates the velocities into a given local coordinate system
                 U[Nentries] = (R_ & temp);

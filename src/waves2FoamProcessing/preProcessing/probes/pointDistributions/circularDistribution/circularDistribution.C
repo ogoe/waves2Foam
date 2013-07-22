@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(pointDistributions, circularDistribution, pointDistri
 
 circularDistribution::circularDistribution
 (
-    const fvMesh & mesh,
-    const dictionary & dict
+    const fvMesh& mesh,
+    const dictionary& dict
 )
 :
     pointDistributions( mesh, dict )

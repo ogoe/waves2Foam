@@ -68,12 +68,12 @@ class numericalBeach
 protected:
 
     // Protected data
-        const fvMesh & mesh_;
-        
+        const fvMesh& mesh_;
+
         const dictionary coeffDict_;
-        
+
         word beachType_;
-        
+
 private:
 
     // Private Member Functions
@@ -97,7 +97,7 @@ public:
             numericalBeach,
             dictionary,
             (
-                const word & subDictName, const fvMesh & mesh_
+                const word& subDictName, const fvMesh& mesh_
             ),
             (subDictName, mesh_)
         );
@@ -107,8 +107,8 @@ public:
         //- Construct from components
         numericalBeach
         (
-            const word & type,
-            const fvMesh & mesh_
+            const word& type,
+            const fvMesh& mesh_
         );
 
 
@@ -117,8 +117,8 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<numericalBeach> New
         (
-            const word & subDictName,
-            const fvMesh & mesh_
+            const word& subDictName,
+            const fvMesh& mesh_
         );
 
     // Destructor
@@ -130,9 +130,9 @@ public:
 
         virtual void correct
         (
-            const labelList &,
-            const scalarField &,
-            volScalarField &
+            const labelList&,
+            const scalarField&,
+            volScalarField&
         ) = 0;
 };
 

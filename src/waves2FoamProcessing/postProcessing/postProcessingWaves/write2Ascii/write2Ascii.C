@@ -44,9 +44,9 @@ addToRunTimeSelectionTable(postProcessingWaves, write2Ascii, postProcessingWaves
 
 write2Ascii::write2Ascii
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action )
@@ -107,7 +107,7 @@ void write2Ascii::evaluate()
         {
             IOField<scalar> field( fileHeader );
 
-            forAll( field, datai )
+            forAll(field, datai)
             {
                 asciiPtr_() << field[datai] << endl;
             }
@@ -116,7 +116,7 @@ void write2Ascii::evaluate()
         {
             IOField<vector> field( fileHeader );
 
-            forAll( field, datai )
+            forAll(field, datai)
             {
                 asciiPtr_() << field[datai].x() << tab << field[datai].y() << tab << field[datai].z() << endl;
             }
@@ -164,7 +164,7 @@ void write2Ascii::evaluate()
 
         asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_indexXYZ.txt" ) );
 
-        forAll( indices, indexi)
+        forAll(indices, indexi)
             asciiPtr_() << indices[indexi] << tab << x[indexi] << tab << y[indexi] << tab << z[indexi] << endl;
     }
     else
@@ -173,7 +173,7 @@ void write2Ascii::evaluate()
 
         asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_indexNames.txt" ) );
 
-        forAll( indices, indexi)
+        forAll(indices, indexi)
             asciiPtr_() << indices[indexi] << tab << names[indexi] << endl;
     }
 }

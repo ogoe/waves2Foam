@@ -56,7 +56,7 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
     this->refValue() = pTraits<vector>::zero;
     this->refGrad() = pTraits<vector>::zero;
     this->valueFraction() = 0.0;
-        
+
 }
 
 
@@ -120,11 +120,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 
 void waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 (
-    const pointField & pp,
-    scalarField & sd
+    const pointField& pp,
+    scalarField& sd
 )
 {
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -132,7 +132,7 @@ void waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 
 scalar waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 (
-    const point & pp
+    const point& pp
 ) const
 {
     scalar temp = waveProps_->eta(pp, db().time().value() );
@@ -150,13 +150,13 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
         return;
     }
 
-    const fvMesh & mesh = this->dimensionedInternalField().mesh();
+    const fvMesh& mesh = this->dimensionedInternalField().mesh();
     const label patchID = mesh.boundaryMesh().findPatchID(this->patch().name());
-    const scalarField & magSf( mesh.magSf().boundaryField()[patchID] );
+    const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
 
     const label start = patch().patch().start();
 
-    forAll( magSf, facei )
+    forAll(magSf, facei)
     {
         localFace lf = this->divideFace(facei + start);
 
@@ -180,7 +180,7 @@ void waveVelocityFvPatchVectorField::evaluate()
     {
         this->updateCoeffs();
     }
-    
+
     Field<vector>::operator=
     (
         this->valueFraction()*this->refValue()

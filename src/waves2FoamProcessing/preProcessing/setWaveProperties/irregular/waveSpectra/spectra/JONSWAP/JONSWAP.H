@@ -58,15 +58,15 @@ public:
 
         JONSWAP
         (
-            const Time &,
-            dictionary &,
-            scalarField &,
-            scalarField &,
-            scalarField &,
-            vectorField &
+            const Time&,
+            dictionary&,
+            scalarField&,
+            scalarField&,
+            scalarField&,
+            vectorField&
         );
 
-        void set(Ostream &);
+        void set(Ostream&);
 
         wordList list();
 };

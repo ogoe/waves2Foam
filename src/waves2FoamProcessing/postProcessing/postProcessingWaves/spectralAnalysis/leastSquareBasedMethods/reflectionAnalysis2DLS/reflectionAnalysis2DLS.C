@@ -41,8 +41,8 @@ addToRunTimeSelectionTable(postProcessingWaves, reflectionAnalysis2DLS, postProc
 
 void reflectionAnalysis2DLS::write
 (
-    const scalarField & frequencies,
-    const scalarField & spectra
+    const scalarField& frequencies,
+    const scalarField& spectra
 )
 {
     Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
@@ -86,9 +86,9 @@ void reflectionAnalysis2DLS::write
 
 reflectionAnalysis2DLS::reflectionAnalysis2DLS
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -110,7 +110,7 @@ reflectionAnalysis2DLS::reflectionAnalysis2DLS
     scalarField y( dataDict_.lookup("y") );
     scalarField z( dataDict_.lookup("z") );
 
-    forAll( indices_ , indexi )
+    forAll(indices_ , indexi)
         x_[indexi] = vector( x[indices_[indexi]], y[indices_[indexi]], z[indices_[indexi]] );
 }
 
@@ -137,20 +137,20 @@ void reflectionAnalysis2DLS::evaluate()
 
         label count(0);
 
-        forAll( input, inputi )
+        forAll(input, inputi)
         {
-            const scalarField & in( input[inputi] );
+            const scalarField& in( input[inputi] );
 
-            forAll( in, ii )
+            forAll(in, ii)
                 b[count++] = in[ii];
         }
 
         // Creating left hand side of the over-determined system
         List<scalarField> A( 4 * N_ + 1);
 
-        forAll( A, Ai )
+        forAll(A, Ai)
         {
-            scalarField & a(A[Ai]);
+            scalarField& a(A[Ai]);
             a.setSize(b.size(), 1.0);
         }
 
@@ -162,12 +162,12 @@ void reflectionAnalysis2DLS::evaluate()
             scalar J( nf + 1.0 );
             count = 0;
 
-            scalarField & a0( A[ 4 * nf ] );
-            scalarField & a1( A[ 4 * nf + 1 ] );
-            scalarField & a2( A[ 4 * nf + 2 ] );
-            scalarField & a3( A[ 4 * nf + 3 ] );
+            scalarField& a0( A[ 4 * nf ] );
+            scalarField& a1( A[ 4 * nf + 1 ] );
+            scalarField& a2( A[ 4 * nf + 2 ] );
+            scalarField& a3( A[ 4 * nf + 3 ] );
 
-            forAll( x_, xi )
+            forAll(x_, xi)
             {
                 point X( x_[xi] );
 

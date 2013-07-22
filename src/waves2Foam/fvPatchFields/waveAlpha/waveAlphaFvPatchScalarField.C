@@ -120,11 +120,11 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 
 void waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
 (
-    const pointField & pp,
-    scalarField & sd
+    const pointField& pp,
+    scalarField& sd
 )
 {
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -132,7 +132,7 @@ void waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
 
 scalar waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
 (
-    const point & pp
+    const point& pp
 ) const
 {
     scalar temp = waveProps_->eta(pp, db().time().value() );
@@ -149,14 +149,14 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
     {
         return;
     }
-    
-    const fvMesh & mesh = this->dimensionedInternalField().mesh();
+
+    const fvMesh& mesh = this->dimensionedInternalField().mesh();
     const label patchID = mesh.boundaryMesh().findPatchID(this->patch().name());
-    const scalarField & magSf( mesh.magSf().boundaryField()[patchID] );
+    const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
 
     const label start = patch().patch().start();
 
-    forAll( magSf, facei )
+    forAll(magSf, facei)
     {
         localFace lf = this->divideFace(facei + start);
 
@@ -175,7 +175,7 @@ void waveAlphaFvPatchScalarField::evaluate()
     {
         this->updateCoeffs();
     }
-    
+
     Field<scalar>::operator=
     (
         this->valueFraction()*this->refValue()

@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFirstProperties, setWaveProp
 
 stokesFirstProperties::stokesFirstProperties
 (
-    const Time & rT,
-    dictionary & dict
+    const Time& rT,
+    dictionary& dict
 )
 :
     setWaveProperties(rT, dict, false)
@@ -59,8 +59,8 @@ stokesFirstProperties::stokesFirstProperties
 
 stokesFirstProperties::stokesFirstProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -75,8 +75,8 @@ stokesFirstProperties::stokesFirstProperties
 
 stokesFirstProperties::stokesFirstProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write,
     word string
 )
@@ -92,7 +92,7 @@ stokesFirstProperties::stokesFirstProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesFirstProperties::set( Ostream & os )
+void stokesFirstProperties::set( Ostream& os )
 {
     scalar k = linearWaveNumber();
 
@@ -171,8 +171,8 @@ scalar stokesFirstProperties::linearWaveNumber() const
 // Note that the frequency is NOT the cyclic frequency
 scalar stokesFirstProperties::linearWaveNumber
 (
-    const scalar & depth,
-    const scalar & frequency
+    const scalar& depth,
+    const scalar& frequency
 )
 {
     depth_ = depth;

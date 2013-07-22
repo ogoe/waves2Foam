@@ -43,10 +43,10 @@ addToRunTimeSelectionTable(relaxationScheme, relaxationSchemeSpatial, dictionary
 
 relaxationSchemeSpatial::relaxationSchemeSpatial
 (
-    const word & subDictName,
-    const fvMesh & mesh,
-    vectorField & U,
-    scalarField & alpha
+    const word& subDictName,
+    const fvMesh& mesh,
+    vectorField& U,
+    scalarField& alpha
 )
 :
     relaxationScheme(subDictName, mesh, U, alpha),
@@ -55,9 +55,9 @@ relaxationSchemeSpatial::relaxationSchemeSpatial
     const scalarField sigma(relaxShape_->sigma());
 
     weight_.setSize(sigma.size());
-   
-    forAll( weight_, celli )
-    {    
+
+    forAll(weight_, celli)
+    {
         weight_[celli] = 1.0 - (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0) / (Foam::exp(1.0) - 1.0);
     }
 }
@@ -69,8 +69,8 @@ void relaxationSchemeSpatial::correct()
     // Obtain relaxation zone cells and local sigma coordinate
     // The number of cells and the sigma coordinate can have changed
     // for dynamic meshes
-    const labelList   & cells = relaxShape_->cells();
-    const scalarField & sigma = relaxShape_->sigma();
+    const labelList& cells = relaxShape_->cells();
+    const scalarField& sigma = relaxShape_->sigma();
 
     // Compute the relaxation weights - only changes for moving/changing meshes
     if ( weight_.size() != sigma.size() )
@@ -80,16 +80,16 @@ void relaxationSchemeSpatial::correct()
 
 
     // Perform the correction
-    const scalarField & V ( mesh_.V() );
-    const vectorField & C ( mesh_.C() );
-    const cellList    & cc( mesh_.cells() );
-    const pointField  & pp( mesh_.points() );
-    const faceList    & fL( mesh_.faces() );
-    
+    const scalarField& V ( mesh_.V() );
+    const vectorField& C ( mesh_.C() );
+    const cellList& cc( mesh_.cells() );
+    const pointField& pp( mesh_.points() );
+    const faceList& fL( mesh_.faces() );
+
     forAll(cells, celli)
     {
         const label cellNo = cells[celli];
-        const pointField & p = cc[cellNo].points(fL, pp);
+        const pointField& p = cc[cellNo].points(fL, pp);
 
         // Evaluate the cell height and the signedDistance to the surface from the cell centre
         scalar cellHeight( Foam::max( p & waveProps_->returnDir() ) - Foam::min( p & waveProps_->returnDir() ) );

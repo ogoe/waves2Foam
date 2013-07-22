@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, bichromaticFirst, dictionary);
 
 bichromaticFirst::bichromaticFirst
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -61,7 +61,7 @@ bichromaticFirst::bichromaticFirst
     k2_(vector(coeffDict_.lookup("waveNumber2"))),
     K1_(mag(k1_)),
     K2_(mag(k2_)),
-    
+
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",Foam::max(period1_,period2_)))
 {}
 
@@ -73,22 +73,22 @@ void bichromaticFirst::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar bichromaticFirst::factor(const scalar & time) const
+scalar bichromaticFirst::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
-        
+
     return factor;
 }
 
 scalar bichromaticFirst::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
-    scalar eta =  ( H1_ / 2.0 * Foam::cos(omega1_ * time - (k1_ & x) + phi1_) 
+    scalar eta =  ( H1_ / 2.0 * Foam::cos(omega1_ * time - (k1_ & x) + phi1_)
                   + H2_ / 2.0 * Foam::cos(omega2_ * time - (k2_ & x) + phi2_) ) * factor(time)
                  + seaLevel_;
     return eta;
@@ -96,23 +96,23 @@ scalar bichromaticFirst::eta
 
 scalar bichromaticFirst::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
-    
+
     scalar Z(returnZ(x));
     scalar arg1(omega1_ * time - (k1_ & x) + phi1_);
     scalar arg2(omega2_ * time - (k2_ & x) + phi2_);
-    
+
     scalar ddxPd(0);
 
     ddxPd = (
                 rhoWater_ * mag(g_) * K1_ * H1_ / 2.0 * Foam::cosh(K1_ * (Z + h_)) / Foam::cosh(K1_ * h_) * Foam::sin(arg1)
               + rhoWater_ * mag(g_) * K2_ * H2_ / 2.0 * Foam::cosh(K2_ * (Z + h_)) / Foam::cosh(K2_ * h_) * Foam::sin(arg2)
             ) * factor(time);
-    
+
 //     ddxPd += rhoWater * Foam::mag(G) * k_ * height_ / 2 * Foam::cosh(k_ * (c[cI].component(1) - seaLevel_ + depth_))
 //                                     / Foam::cosh(k_ * depth_) * Foam::sin(omega_ * db().time().value() + mathematicalConstant::pi / 2) * factor;
 //     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
@@ -121,30 +121,30 @@ scalar bichromaticFirst::ddxPd
 
 vector bichromaticFirst::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
-    
+
     scalar Uhorz1 = PI_ * H1_ / period1_ *
-                    Foam::cosh(K1_ * (Z + h_)) / Foam::sinh(K1_ * h_) * 
+                    Foam::cosh(K1_ * (Z + h_)) / Foam::sinh(K1_ * h_) *
                     Foam::cos(omega1_ * time - (k1_ & x) + phi1_);
 
     scalar Uhorz2 = PI_ * H2_ / period2_ *
-                    Foam::cosh(K2_ * (Z + h_)) / Foam::sinh(K2_ * h_) * 
+                    Foam::cosh(K2_ * (Z + h_)) / Foam::sinh(K2_ * h_) *
                     Foam::cos(omega2_ * time - (k2_ & x) + phi2_);
 
     Uhorz1 *= factor(time);
     Uhorz2 *= factor(time);
 
     scalar Uvert1 = - PI_ * H1_ / period1_ *
-                    Foam::sinh(K1_ * (Z + h_)) / Foam::sinh(K1_ * h_) * 
+                    Foam::sinh(K1_ * (Z + h_)) / Foam::sinh(K1_ * h_) *
                     Foam::sin(omega1_ * time - (k1_ & x) + phi1_);
 
     scalar Uvert2 = - PI_ * H2_ / period2_ *
-                    Foam::sinh(K2_ * (Z + h_)) / Foam::sinh(K2_ * h_) * 
-                    Foam::sin(omega2_ * time - (k2_ & x) + phi2_);                   
+                    Foam::sinh(K2_ * (Z + h_)) / Foam::sinh(K2_ * h_) *
+                    Foam::sin(omega2_ * time - (k2_ & x) + phi2_);
 
     Uvert1 *= factor(time);
     Uvert2 *= factor(time);

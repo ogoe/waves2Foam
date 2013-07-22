@@ -26,10 +26,10 @@ Class
     Foam::waveTheories::potentialCurrent
 
 Description
-    Implementation of a potential current velocity profile, e.g. uniform 
-    velocity distribution over the vertical. In the special case of 
+    Implementation of a potential current velocity profile, e.g. uniform
+    velocity distribution over the vertical. In the special case of
     U = vector::zero it can be used as outlet sponge layer wave type.
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -48,7 +48,7 @@ SourceFiles
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
-    
+
 \*---------------------------------------------------------------------------*/
 
 #ifndef potentialCurrent_H
@@ -81,7 +81,7 @@ protected:
 
     // Protected member functions
 
-        scalar factor(const scalar &) const;
+        scalar factor(const scalar&) const;
 public:
 
     //- Runtime type information
@@ -92,8 +92,8 @@ public:
         //- from components
         potentialCurrent
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -113,30 +113,30 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
-        
+
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         scalar p
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, streamFunctionProperties, setWaveP
 
 streamFunctionProperties::streamFunctionProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -57,7 +57,7 @@ streamFunctionProperties::streamFunctionProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void streamFunctionProperties::set( Ostream & os)
+void streamFunctionProperties::set( Ostream& os)
 {
     Info << "\n--------------------- NB! ---------------------" << endl;
     Info << "The setWaveProperties for\n\n\t" << this->type() << "\n\nis not implemented" << endl;

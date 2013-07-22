@@ -27,7 +27,7 @@ Class
 
 Description
     An abstract base class for wave theories.
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -85,7 +85,7 @@ protected:
         scalar rhoWater_;
         vector g_;
         vector direction_;
-        
+
         const dictionary coeffDict_;
 
         scalar PI_;
@@ -94,14 +94,14 @@ protected:
         vector wind_;
 
     // Protected member functions
-        
-        virtual scalar factor(const scalar &) const = 0;
-        
-        inline scalar returnZ(const point & x) const
+
+        virtual scalar factor(const scalar&) const = 0;
+
+        inline scalar returnZ(const point& x) const
         {
             return (-(direction_ & x) - seaLevel_);
         }
-        
+
 private:
 
     // Private Member Functions
@@ -125,7 +125,7 @@ public:
             waveTheory,
             dictionary,
             (
-                const word & subDictName, const fvMesh & mesh_
+                const word& subDictName, const fvMesh& mesh_
             ),
             (subDictName, mesh_)
         );
@@ -135,8 +135,8 @@ public:
         //- Construct from components
         waveTheory
         (
-            const word & type,
-            const fvMesh & mesh_
+            const word& type,
+            const fvMesh& mesh_
         );
 
 
@@ -145,8 +145,8 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<waveTheory> New
         (
-            const word & subDictName,
-            const fvMesh & mesh_
+            const word& subDictName,
+            const fvMesh& mesh_
         );
 
         virtual void printCoeffs() = 0;
@@ -161,56 +161,56 @@ public:
         //-
         virtual Switch conflictTSoftInitialise() const = 0;
 
-        const vector windVelocity( const scalar & time ) const { return factor( time ) * wind_; };
+        const vector windVelocity( const scalar& time ) const { return factor( time ) * wind_; };
 
         // Access - single value
         virtual scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const = 0;
 
         virtual scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const = 0;
 
         virtual vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const = 0;
 
         virtual scalar p
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const { return 0.0; };
 
         // Access - field
         virtual scalarField eta
         (
-            const pointField &,
-            const scalar &
+            const pointField&,
+            const scalar&
         ) const;
 
         virtual scalarField ddxPd
         (
-            const pointField &,
-            const scalar &,
-            const vectorField &
+            const pointField&,
+            const scalar&,
+            const vectorField&
         ) const;
 
         virtual vectorField U
         (
-            const pointField &,
-            const scalar &
+            const pointField&,
+            const scalar&
         ) const;
 
         // Return the unit vertical direction in the direction of g
-        const inline vector & returnDir() const { return direction_;}
+        const inline vector& returnDir() const { return direction_;}
 };
 
 

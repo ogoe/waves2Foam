@@ -43,8 +43,8 @@ defineRunTimeSelectionTable(pointDistributions, pointDistributions);
 
 pointDistributions::pointDistributions
 (
-    const fvMesh & mesh,
-    const dictionary & dict
+    const fvMesh& mesh,
+    const dictionary& dict
 )
 :
     mesh_(mesh),
@@ -55,8 +55,8 @@ pointDistributions::pointDistributions
 
 autoPtr<pointDistributions> pointDistributions::New
 (
-    const fvMesh & mesh,
-    const dictionary & dict
+    const fvMesh& mesh,
+    const dictionary& dict
 )
 {
     word pd( dict.lookup("pointDistribution") );
@@ -68,7 +68,7 @@ autoPtr<pointDistributions> pointDistributions::New
     {
         FatalErrorIn
         (
-            "pointDistributions::New(const dictionary &)"
+            "pointDistributions::New(const dictionary&)"
         )   << "Unknown point distribution: " << pd
             << endl << endl
             << "Valid methods are :" << endl

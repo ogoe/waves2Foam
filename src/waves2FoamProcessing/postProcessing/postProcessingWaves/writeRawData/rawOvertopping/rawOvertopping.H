@@ -74,16 +74,16 @@ private:
     // Private Member Functions
         void resizeFields
         (
-            List<std::pair<scalar, label> > &,
-            List<vectorField> &,
+            List<std::pair<scalar, label> >&,
+            List<vectorField>&,
             label
         );
 
         void writeRawData
         (
-            const List<std::pair<scalar, label> > &,
-            const wordList &,
-            const List<vectorField> &
+            const List<std::pair<scalar, label> >&,
+            const wordList&,
+            const List<vectorField>&
         );
 
         //- Disallow default bitwise copy construct
@@ -104,9 +104,9 @@ public:
         //- Construct from components
         rawOvertopping
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 
@@ -119,9 +119,9 @@ public:
 
         void readOvertoppingData
         (
-            List<std::pair<scalar, label> > &,
-            wordList &,
-            List<vectorField> &
+            List<std::pair<scalar, label> >&,
+            wordList&,
+            List<vectorField>&
         );
 };
 

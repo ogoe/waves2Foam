@@ -40,11 +40,11 @@ defineTypeNameAndDebug(spectralMethodsLeastSquaresBased, 0);
 
 void spectralMethodsLeastSquaresBased::computePowerSpectrum
 (
-    const scalarField & t,
-    const scalarField & input,
-    const label & N,
-    const scalar & f,
-    scalarField & bOut
+    const scalarField& t,
+    const scalarField& input,
+    const label& N,
+    const scalar& f,
+    scalarField& bOut
 )
 {
     // A cosine and a sine for each frequency and
@@ -55,14 +55,14 @@ void spectralMethodsLeastSquaresBased::computePowerSpectrum
     List<scalarField> matrix( 2 * N + 1 );
 
     // Set ones in the right most column
-    scalarField & m( matrix[2 * N] );
+    scalarField& m( matrix[2 * N] );
     m.setSize( t.size(), 1.0 );
 
     // Set the cosine components - every second
     // column starting from column index 0
     for( int i = 0; i < N; i++ )
     {
-        scalarField & m( matrix[ 2 * i] );
+        scalarField& m( matrix[ 2 * i] );
         m.setSize( t.size(), 0.0);
 
         m = Foam::cos( static_cast<scalar>(i+1) * 2 * M_PI * f * t );
@@ -72,7 +72,7 @@ void spectralMethodsLeastSquaresBased::computePowerSpectrum
     // column starting from column index 0
     for( int i = 0; i < N; i++)
     {
-        scalarField & m( matrix[ 2 * i + 1] );
+        scalarField& m( matrix[ 2 * i + 1] );
         m.setSize( t.size(), 0.0);
 
         m = Foam::sin( static_cast<scalar>(i+1) * 2 * M_PI * f * t );
@@ -85,8 +85,8 @@ void spectralMethodsLeastSquaresBased::computePowerSpectrum
 
 spectralMethodsLeastSquaresBased::spectralMethodsLeastSquaresBased
 (
-    const Time & rT,
-    const dictionary & actionProp
+    const Time& rT,
+    const dictionary& actionProp
 )
 {
 }
@@ -98,8 +98,8 @@ spectralMethodsLeastSquaresBased::~spectralMethodsLeastSquaresBased()
 
 void spectralMethodsLeastSquaresBased::solve
 (
-    const List<scalarField> & A,
-    scalarField & b
+    const List<scalarField>& A,
+    scalarField& b
 )
 {
     // Create the least-squares right and left hand sides
@@ -115,11 +115,11 @@ void spectralMethodsLeastSquaresBased::solve
     // Fill the matrix elements
     for( int i=0; i<N; i++)
     {
-        const scalarField & ai( A[i] );
+        const scalarField& ai( A[i] );
 
         for ( int j=0; j<N; j++)
         {
-            const scalarField & aj( A[j] );
+            const scalarField& aj( A[j] );
             AtA[i][j] = Foam::sum( ai * aj );
         }
 
@@ -139,7 +139,7 @@ void spectralMethodsLeastSquaresBased::solve
 
 scalarField spectralMethodsLeastSquaresBased::frequencies
 (
-    const label & N
+    const label& N
 )
 {
     scalarField res(2 * N + 1, 0);
@@ -155,10 +155,10 @@ scalarField spectralMethodsLeastSquaresBased::frequencies
 
 scalarField spectralMethodsLeastSquaresBased::powerSpectra
 (
-    const scalarField & t,
-    const scalarField & input,
-    const label & N,
-    const scalar & f
+    const scalarField& t,
+    const scalarField& input,
+    const label& N,
+    const scalar& f
 )
 {
     scalarField res;
@@ -170,18 +170,18 @@ scalarField spectralMethodsLeastSquaresBased::powerSpectra
 
 List<scalarField> spectralMethodsLeastSquaresBased::powerSpectra
 (
-    const scalarField & t,
-    const List<scalarField> & input,
-    const label & N,
-    const scalar & f
+    const scalarField& t,
+    const List<scalarField>& input,
+    const label& N,
+    const scalar& f
 )
 {
     List<scalarField> res( input.size() );
 
-    forAll( input, inputi )
+    forAll(input, inputi)
     {
         const scalarField i( input[inputi] );
-        scalarField & r( res[inputi] );
+        scalarField& r( res[inputi] );
 
         r = powerSpectra(t, i, N, f );
     }
@@ -191,18 +191,18 @@ List<scalarField> spectralMethodsLeastSquaresBased::powerSpectra
 
 List<vectorField> spectralMethodsLeastSquaresBased::powerSpectra
 (
-    const scalarField & t,
-    const List<vectorField> & input,
-    const label & N,
-    const scalar & f
+    const scalarField& t,
+    const List<vectorField>& input,
+    const label& N,
+    const scalar& f
 )
 {
     List<vectorField> res( input.size() );
 
-    forAll( input, inputi )
+    forAll(input, inputi)
     {
         const vectorField i( input[inputi] );
-        vectorField & r( res[inputi] );
+        vectorField& r( res[inputi] );
         r.setSize( 2 * N + 1);
 
         for ( int j=0; j<3; j++)

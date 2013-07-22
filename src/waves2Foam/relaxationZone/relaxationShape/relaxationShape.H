@@ -82,16 +82,16 @@ class relaxationShape
 protected:
 
     // Protected data
-        const fvMesh & mesh_;
-        
+        const fvMesh& mesh_;
+
         const dictionary coeffDict_;
         vector direction_;
 
         labelList cells_;
         scalarField sigma_;
-        
+
         word relaxType_;
-        
+
         scalar PI_;
 
         label refreshIndexCells_, refreshIndexSigma_;
@@ -100,7 +100,7 @@ protected:
         virtual void computeSigmaCoordinate() = 0;
 
         virtual void findComputationalCells() = 0;
-        
+
 private:
 
     // Private Member Functions
@@ -127,7 +127,7 @@ public:
             relaxationShape,
             dictionary,
             (
-                const word & subDictName, const fvMesh & mesh_
+                const word& subDictName, const fvMesh& mesh_
             ),
             (subDictName, mesh_)
         );
@@ -137,8 +137,8 @@ public:
         //- Construct from components
         relaxationShape
         (
-            const word & type,
-            const fvMesh & mesh_
+            const word& type,
+            const fvMesh& mesh_
         );
 
 
@@ -147,8 +147,8 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<relaxationShape> New
         (
-            const word & subDictName,
-            const fvMesh & mesh_
+            const word& subDictName,
+            const fvMesh& mesh_
         );
 
     // Destructor
@@ -159,8 +159,8 @@ public:
     // Member Functions
 
         // Access
-        inline const labelList   & cells() { refreshCells(); return cells_; };
-        inline const scalarField & sigma() { refreshSigma(); return sigma_; };
+        inline const labelList& cells() { refreshCells(); return cells_; };
+        inline const scalarField& sigma() { refreshSigma(); return sigma_; };
 };
 
 

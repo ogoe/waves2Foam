@@ -68,7 +68,7 @@ protected:
 
 private:
     // Private data
-        const fvMesh & mesh_;
+        const fvMesh& mesh_;
 
         Switch courantCorrection_;
 
@@ -76,10 +76,10 @@ private:
 
         scalar courantNumber
         (
-               const surfaceScalarField & phi,
-               const surfaceScalarField & magSf,
-               const surfaceScalarField & deltaCoeffs,
-               const cell & cc
+               const surfaceScalarField& phi,
+               const surfaceScalarField& magSf,
+               const surfaceScalarField& deltaCoeffs,
+               const cell& cc
         ) const;
 
         //- Disallow default bitwise copy construct
@@ -98,8 +98,8 @@ public:
         //- Construct from components
         relaxationWeightCourantCorrection
         (
-            const fvMesh &,
-            const dictionary &
+            const fvMesh&,
+            const dictionary&
         );
 
     // Destructor
@@ -109,8 +109,8 @@ public:
     // Member Functions
         void courantCorrection
         (
-            const labelList &,
-            scalarField &
+            const labelList&,
+            scalarField&
         );
 };
 

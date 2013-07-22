@@ -26,7 +26,7 @@ Application
     setWaveField
 
 Description
-    Loop over every cell in the computational domain and set VOF-ratio and 
+    Loop over every cell in the computational domain and set VOF-ratio and
     velocity field accordingly to specified wave theory.
 
 Author
@@ -34,7 +34,7 @@ Author
 
 Additional information
     Implementation published and validated in the following journal article:
-    
+
     @article { jacobsenFuhrmanFredsoe2011,
         Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
         title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},

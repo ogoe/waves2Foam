@@ -28,11 +28,11 @@ Class
 Description
     Implementation of first order stokes theory for standing surface water
     waves. Implemented following the description by
-    
+
         Dean, R. G. and Dalrymple, R. A (1991)
         Water Wave Mechanics for Engineers and Scientists
         World Scientific, 1st edition
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -90,7 +90,7 @@ protected:
 
     // Protected member functions
 
-        scalar factor( const scalar & ) const;
+        scalar factor( const scalar& ) const;
 public:
 
     //- Runtime type information
@@ -101,8 +101,8 @@ public:
         //- from components
         stokesFirstStanding
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -122,24 +122,24 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
-        
+
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

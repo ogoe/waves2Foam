@@ -74,12 +74,12 @@ private:
 
         void writeScalar
         (
-            const scalarField &
+            const scalarField&
         );
 
         void writeVector
         (
-            const vectorField &
+            const vectorField&
         );
 
         //- Disallow default bitwise copy construct
@@ -100,9 +100,9 @@ public:
         //- Construct from components
         trapz
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

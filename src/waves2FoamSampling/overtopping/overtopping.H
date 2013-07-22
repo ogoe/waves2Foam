@@ -66,31 +66,31 @@ private:
 
         scalar rho1_, rho2_, invRhoDiff_;
 
-        const fvMesh & mesh_;
+        const fvMesh& mesh_;
 
         autoPtr<OFstream> outputFilePtr_;
 
         autoPtr<OFstream> outputFileForcePtr_;
 
     // Private member functions
-        bool operateOnZone( const faceZone & ) const;
+        bool operateOnZone( const faceZone& ) const;
 
         void computeAndWriteBoundary
         (
-            const label &,
-            const surfaceScalarField &,
-            const surfaceScalarField &,
-            const surfaceScalarField &,
-            const surfaceVectorField &,
-            vector &,
-            vector &
+            const label&,
+            const surfaceScalarField&,
+            const surfaceScalarField&,
+            const surfaceScalarField&,
+            const surfaceVectorField&,
+            vector&,
+            vector&
         ) const;
 
         void computeAndWrite
         (
-            const faceZone &,
-            const surfaceScalarField &,
-            const surfaceScalarField &
+            const faceZone&,
+            const surfaceScalarField&,
+            const surfaceScalarField&
         );
 
 

@@ -155,8 +155,8 @@ double cnoidalFirstProperties::solve()
 
 cnoidalFirstProperties::cnoidalFirstProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -170,7 +170,7 @@ cnoidalFirstProperties::cnoidalFirstProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void cnoidalFirstProperties::set( Ostream & os)
+void cnoidalFirstProperties::set( Ostream& os)
 {
     scalar m = solve();
 

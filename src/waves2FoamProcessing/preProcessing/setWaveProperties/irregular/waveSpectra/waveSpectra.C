@@ -44,12 +44,12 @@ defineRunTimeSelectionTable(waveSpectra, waveSpectra);
 
 waveSpectra::waveSpectra
 (
-    const Time & rT,
-    dictionary & dict,
-    scalarField & amp,
-    scalarField & freq,
-    scalarField & phi,
-    vectorField & k
+    const Time& rT,
+    dictionary& dict,
+    scalarField& amp,
+    scalarField& freq,
+    scalarField& phi,
+    vectorField& k
 )
 :
     rT_(rT),
@@ -79,12 +79,12 @@ scalar waveSpectra::randomPhaselag()
 
 autoPtr<waveSpectra> waveSpectra::New
 (
-    const Time & rT,
-    dictionary & dict,
-    scalarField & amp,
-    scalarField & freq,
-    scalarField & phi,
-    vectorField & k
+    const Time& rT,
+    dictionary& dict,
+    scalarField& amp,
+    scalarField& freq,
+    scalarField& phi,
+    vectorField& k
 )
 {
     word spectrumName;
@@ -97,7 +97,7 @@ autoPtr<waveSpectra> waveSpectra::New
     {
         FatalErrorIn
         (
-            "waveSpectra::New(const fvMesh &, dictionary &, bool)"
+            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
         )   << "Unknown wave spectrum '" << spectrumName << "'"
             << endl << endl
             << "Valid wave spectra are:" << endl

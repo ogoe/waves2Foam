@@ -46,8 +46,8 @@ addToRunTimeSelectionTable(waveTheory, cnoidalFirst, dictionary);
 
 cnoidalFirst::cnoidalFirst
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -59,7 +59,7 @@ cnoidalFirst::cnoidalFirst
     m_(readScalar(coeffDict_.lookup("m"))),
     length_(readScalar(coeffDict_.lookup("length"))),
     celerity_(readScalar(coeffDict_.lookup("celerity")))
-{   
+{
     scalar Eelliptic = gsl_sf_ellint_Ecomp( Foam::sqrt(m_), GSL_PREC_DOUBLE);
 
     period_    = 2.0 * PI_ / omega_;
@@ -68,7 +68,7 @@ cnoidalFirst::cnoidalFirst
     etaMin_    = ((1.0 - Eelliptic / Kelliptic_) / m_ - 1.0) * H_;
 
     propagationDirection_ /= Foam::mag(propagationDirection_);
-    
+
     Tsoft_ = coeffDict_.lookupOrDefault<scalar>("Tsoft",period_);
 }
 
@@ -80,7 +80,7 @@ void cnoidalFirst::printCoeffs()
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * * * //
 
-scalar cnoidalFirst::factor(const scalar & time) const
+scalar cnoidalFirst::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
@@ -91,8 +91,8 @@ scalar cnoidalFirst::factor(const scalar & time) const
 
 scalar cnoidalFirst::argument
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar arg = 2.0 * Kelliptic_ * (time / period_ - (propagationDirection_ & x) / length_);
@@ -102,9 +102,9 @@ scalar cnoidalFirst::argument
 
 scalar cnoidalFirst::eta_x
 (
-    const scalar & sn,
-    const scalar & cn,
-    const scalar & dn
+    const scalar& sn,
+    const scalar& cn,
+    const scalar& dn
 ) const
 {
     scalar val( 4.0 * H_ * Kelliptic_ / length_ * ( cn * dn * sn ));
@@ -113,41 +113,41 @@ scalar cnoidalFirst::eta_x
 
 scalar cnoidalFirst::eta_xx
 (
-    const scalar & sn,
-    const scalar & cn,
-    const scalar & dn
+    const scalar& sn,
+    const scalar& cn,
+    const scalar& dn
 ) const
 {
-    scalar val( 
-                Foam::pow(dn, 2.0) * Foam::pow(sn, 2.0) 
+    scalar val(
+                Foam::pow(dn, 2.0) * Foam::pow(sn, 2.0)
               + Foam::pow(cn, 2.0)
               * (
                     - Foam::pow(dn, 2.0) + m_ * Foam::pow(sn, 2.0)
                 )
               );
-    
+
     val *= 8.0 * H_ * Foam::pow(Kelliptic_ / length_, 2.0);
-    
+
     return val;
 }
 
 scalar cnoidalFirst::eta_xxx
 (
-    const scalar & sn,
-    const scalar & cn,
-    const scalar & dn
+    const scalar& sn,
+    const scalar& cn,
+    const scalar& dn
 ) const
 {
-    scalar val( 
-                - cn * dn * sn 
+    scalar val(
+                - cn * dn * sn
                 * (
                       Foam::pow(dn, 2.0)
                     + m_ * (Foam::pow(cn, 2.0) - Foam::pow(sn, 2.0))
                   )
               );
-              
+
     val *= 64.0 * H_ * Foam::pow(Kelliptic_ / length_, 3.0);
-    
+
     return val;
 }
 
@@ -155,8 +155,8 @@ scalar cnoidalFirst::eta_xxx
 
 scalar cnoidalFirst::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar arg(argument(x,time));
@@ -172,12 +172,12 @@ scalar cnoidalFirst::eta
 
 scalar cnoidalFirst::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
-    
+
     scalar Z(returnZ(x));
     scalar arg(argument(x,time));
 
@@ -190,7 +190,7 @@ scalar cnoidalFirst::ddxPd
              * (
                  eta_x(snn, cnn, dnn) + 1.0 / 2.0 * Foam::pow(h_, 2.0) * (1 - Foam::pow((Z + h_) / h_, 2.0)) * eta_xxx(snn, cnn, dnn)
                );
-                     
+
     ddxPd *= factor(time);
 
 //     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
@@ -200,8 +200,8 @@ scalar cnoidalFirst::ddxPd
 
 vector cnoidalFirst::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
@@ -212,15 +212,15 @@ vector cnoidalFirst::U
 
     scalar etaVal = eta(x,time);
 
-    scalar Uhorz =   celerity_ 
+    scalar Uhorz =   celerity_
                    * (
-                         etaVal / h_ 
-                       - Foam::pow(etaVal / h_, 2.0) 
-                       + 1.0 / 2.0 * 
+                         etaVal / h_
+                       - Foam::pow(etaVal / h_, 2.0)
+                       + 1.0 / 2.0 *
                          (
-                            1.0 / 3.0 
+                            1.0 / 3.0
                           - Foam::pow((Z + h_) / h_, 2.0)
-                         ) 
+                         )
                        * h_ * eta_xx(snn, cnn, dnn)
                      );
 

@@ -51,8 +51,8 @@ defineRunTimeSelectionTable(postProcessingWaves, postProcessingWaves);
 
 void postProcessingWaves::getTimeDirs
 (
-    const word & inputDir,
-    wordList & timeDirs
+    const word& inputDir,
+    wordList& timeDirs
 )
 {
     if ( actionProperties_.found("timeDirs") )
@@ -67,7 +67,7 @@ void postProcessingWaves::getTimeDirs
 
         timeDirs.setSize( fnl.size() );
 
-        forAll( timeDirs, timei )
+        forAll(timeDirs, timei)
             timeDirs[timei] = fnl[timei].name();
     }
 
@@ -76,7 +76,7 @@ void postProcessingWaves::getTimeDirs
     // the outputted data, when read by raw-data methods
     List<std::pair<scalar, word> > timeWord( timeDirs.size() );
 
-    forAll( timeWord, timei )
+    forAll(timeWord, timei)
     {
         timeWord[timei].first = std::atof( timeDirs[timei].c_str() );
         timeWord[timei].second = timeDirs[timei];
@@ -84,14 +84,14 @@ void postProcessingWaves::getTimeDirs
 
     std::sort( timeWord.begin(), timeWord.end(), pairSortB );
 
-    forAll( timeDirs, timei )
+    forAll(timeDirs, timei)
         timeDirs[timei] = timeWord[timei].second;
 }
 
 void postProcessingWaves::writeNameDict
 (
-    const scalar & dt,
-    const wordList & names
+    const scalar& dt,
+    const wordList& names
 )
 {
     IOdictionary xyz
@@ -127,10 +127,10 @@ void postProcessingWaves::writeNameDict
 
 void postProcessingWaves::writeXYZDict
 (
-    const scalar & dt,
-    const scalarField & x,
-    const scalarField & y,
-    const scalarField & z
+    const scalar& dt,
+    const scalarField& x,
+    const scalarField& y,
+    const scalarField& z
 )
 {
     // Open a dictionary used for outputting data
@@ -171,8 +171,8 @@ void postProcessingWaves::writeXYZDict
 
 void postProcessingWaves::writeIOScalarField
 (
-    const scalarField & field,
-    const word & name
+    const scalarField& field,
+    const word& name
 )
 {
     IOField<scalar> output
@@ -193,8 +193,8 @@ void postProcessingWaves::writeIOScalarField
 
 void postProcessingWaves::writeIOVectorField
 (
-    const vectorField & field,
-    const word & name
+    const vectorField& field,
+    const word& name
 )
 {
     IOField<vector> output
@@ -215,7 +215,7 @@ void postProcessingWaves::writeIOVectorField
 
 scalarField postProcessingWaves::readIOScalarField
 (
-    const word & name
+    const word& name
 )
 {
     IOField<scalar> field
@@ -236,7 +236,7 @@ scalarField postProcessingWaves::readIOScalarField
 
 vectorField postProcessingWaves::readIOVectorField
 (
-    const word & name
+    const word& name
 )
 {
     IOField<vector> field
@@ -286,7 +286,7 @@ word postProcessingWaves::dataType()
 
 scalar postProcessingWaves::readDeltaT
 (
-    const dictionary & timeDict
+    const dictionary& timeDict
 )
 {
     scalar dt( readScalar(timeDict.lookup("deltaT")) );
@@ -304,8 +304,8 @@ scalar postProcessingWaves::readDeltaT
 
 void postProcessingWaves::readIndices
 (
-    const dictionary & indexDict,
-    labelList & indices
+    const dictionary& indexDict,
+    labelList& indices
 )
 {
     // Getting the labelList of data set indices
@@ -325,17 +325,17 @@ void postProcessingWaves::readIndices
 
 List<scalarField> postProcessingWaves::readScalarFields
 (
-    const labelList & indices
+    const labelList& indices
 )
 {
     List<scalarField> res( indices.size() );
 
-    forAll( indices, indexi )
+    forAll(indices, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices[indexi];
 
-        scalarField & r( res[indexi] );
+        scalarField& r( res[indexi] );
 
         r = readIOScalarField( ss.str() );
     }
@@ -345,17 +345,17 @@ List<scalarField> postProcessingWaves::readScalarFields
 
 List<vectorField> postProcessingWaves::readVectorFields
 (
-    const labelList & indices
+    const labelList& indices
 )
 {
     List<vectorField> res( indices.size() );
 
-    forAll( indices, indexi )
+    forAll(indices, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices[indexi];
 
-        vectorField & r( res[indexi] );
+        vectorField& r( res[indexi] );
 
         r = readIOVectorField( ss.str() );
     }
@@ -365,8 +365,8 @@ List<vectorField> postProcessingWaves::readVectorFields
 
 scalarField postProcessingWaves::equidistantTime
 (
-    const List<std::pair<scalar, label > > & timeLabel,
-    const dictionary & dict
+    const List<std::pair<scalar, label > >& timeLabel,
+    const dictionary& dict
 )
 {
     scalar tmin( dict.lookupOrDefault<scalar>("tMin", timeLabel[0].first ) );
@@ -379,7 +379,7 @@ scalarField postProcessingWaves::equidistantTime
 
     scalarField t(N, tmin);
 
-    forAll( t, timei )
+    forAll(t, timei)
     {
         t[timei] += timei * dt;
     }
@@ -389,11 +389,11 @@ scalarField postProcessingWaves::equidistantTime
 
 void postProcessingWaves::interpolationWeights
 (
-    const List<std::pair<scalar, label> > & timeLabel,
-    const scalarField & t,
-    scalarField & weights,
-    labelList & first,
-    labelList & second
+    const List<std::pair<scalar, label> >& timeLabel,
+    const scalarField& t,
+    scalarField& weights,
+    labelList& first,
+    labelList& second
 )
 {
     weights.setSize( t.size() );
@@ -409,7 +409,7 @@ void postProcessingWaves::interpolationWeights
 
     label count(0);
 
-    forAll( t, timei )
+    forAll(t, timei)
     {
         while ( t[timei] >= timeLabel[count].first && t[timei] >= timeLabel[count+1].first )
             count++;
@@ -426,9 +426,9 @@ void postProcessingWaves::interpolationWeights
 
 postProcessingWaves::postProcessingWaves
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     rT_(rT),
@@ -451,9 +451,9 @@ postProcessingWaves::~postProcessingWaves()
 
 autoPtr<postProcessingWaves> postProcessingWaves::New
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 {
     postProcessingWavesConstructorTable::iterator cstrIter =
@@ -463,7 +463,7 @@ autoPtr<postProcessingWaves> postProcessingWaves::New
     {
         FatalErrorIn
         (
-            "postProcessingWaves::New(const dictionary &)"
+            "postProcessingWaves::New(const dictionary&)"
         )   << "Unknown post processing method: " << action
             << endl << endl
             << "Valid methods are :" << endl

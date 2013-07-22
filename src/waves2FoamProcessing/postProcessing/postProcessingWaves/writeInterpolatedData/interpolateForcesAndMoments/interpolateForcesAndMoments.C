@@ -48,9 +48,9 @@ addToRunTimeSelectionTable(postProcessingWaves, interpolateForcesAndMoments, pos
 
 interpolateForcesAndMoments::interpolateForcesAndMoments
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action )
@@ -83,7 +83,7 @@ void interpolateForcesAndMoments::evaluate()
 
     // Outputs the forces as index 0
     {
-        forAll( weights, ii )
+        forAll(weights, ii)
         {
             output[ii] = weights[ii] * forces[leftData[ii]] + (1.0 - weights[ii] ) * forces[rightData[ii]];
         }
@@ -96,7 +96,7 @@ void interpolateForcesAndMoments::evaluate()
 
     // Outputs the moments as index 1
     {
-        forAll( weights, ii )
+        forAll(weights, ii)
         {
             output[ii] = weights[ii] * moments[leftData[ii]] + (1.0 - weights[ii] ) * moments[rightData[ii]];
         }

@@ -138,17 +138,17 @@ int main(int argc, char *argv[])
     // Write the divider
     wOut.writeDivider( os );
     os << nl;
-    
+
     /* Loop over all subdicts in waveProperties. For each of them compute the
        wave parameters relevant for that particular wave theory. */
     wordList toc = waveProperties.toc();
 
-    forAll(toc, item )
+    forAll(toc, item)
     {
         // If a sub-dictionary, then compute parameters and write the subdict
         if ( waveProperties.isDict(toc[item]) )
         {
-            dictionary & sd = waveProperties.subDict(toc[item]);
+            dictionary& sd = waveProperties.subDict(toc[item]);
 
             autoPtr<setWaveProperties> props( setWaveProperties::New(runTime, sd, true) );
 
@@ -164,15 +164,15 @@ int main(int argc, char *argv[])
 
             for( int i=toc[item].size(); i<Nspaces-1; i++)
                 os << token::SPACE;
-            
-            forAll(read, ri )
+
+            forAll(read, ri)
             {
                 if ( ri < read.size() - 1)
                     os << read[ri] << token::SPACE;
                 else
                     os << read[ri];
             }
-                
+
             os << token::END_STATEMENT << nl << endl;
         }
     }

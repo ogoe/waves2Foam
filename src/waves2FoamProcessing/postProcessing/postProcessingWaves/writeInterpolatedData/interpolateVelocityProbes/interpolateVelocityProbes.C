@@ -48,9 +48,9 @@ addToRunTimeSelectionTable(postProcessingWaves, interpolateVelocityProbes, postP
 
 interpolateVelocityProbes::interpolateVelocityProbes
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action )
@@ -82,11 +82,11 @@ void interpolateVelocityProbes::evaluate()
 
     vectorField output( weights.size(), vector::zero );
 
-    forAll( Us, UI )
+    forAll(Us, UI)
     {
-        const vectorField & U( Us[UI] );
+        const vectorField& U( Us[UI] );
 
-        forAll( weights, ii )
+        forAll(weights, ii)
         {
             output[ii] = weights[ii] * U[leftData[ii]] + (1.0 - weights[ii] ) * U[rightData[ii]];
         }

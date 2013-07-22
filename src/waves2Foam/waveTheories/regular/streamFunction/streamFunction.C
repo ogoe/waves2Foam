@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, streamFunction, dictionary);
 
 streamFunction::streamFunction
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -58,7 +58,7 @@ streamFunction::streamFunction
     N_(readScalar(coeffDict_.lookup("N"))),
     A_("A", coeffDict_, N_),
     B_("B", coeffDict_, N_),
-    
+
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_)),
     Tstart_(coeffDict_.lookupOrDefault<scalar>("Tstart",0.0)),
     Tend_(coeffDict_.lookupOrDefault<scalar>("Tend",GREAT))
@@ -74,24 +74,24 @@ void streamFunction::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar streamFunction::factor(const scalar & time) const
+scalar streamFunction::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if ( time < Tstart_ )
         factor = 0.0;
     else if ( Tsoft_ > 0.0)
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tstart_));
-        
+
     if ( time > Tend_)
         factor = Foam::cos(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tend_));
-        
+
     return factor;
 }
 
 scalar streamFunction::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta(0);
@@ -108,15 +108,15 @@ scalar streamFunction::eta
 
 scalar streamFunction::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     // PAS PAA, DETTE FOELGER IKKE KONVENTIONEN MED ARBITRAER BOELGETALSVEKTOR!!!!!!!!!!!!!
     scalar Z(returnZ(x));
     scalar arg = (k_ & x) - omega_ * time + phi_;
-    
+
     scalar ddxPd(0);
     vector uu(U(x,time));
     scalar Ux(uu.x());
@@ -133,13 +133,13 @@ scalar streamFunction::ddxPd
     }
     dUx *= factor(time);
     dUy *= factor(time);
-        
+
     ddxPd =  rhoWater_ * (omega_ / K_ * dUx - Ux * dUx - Uy * dUy) * factor(time);
 
 //     vector temp(uu);
 //     uu = (uu - (uu & direction_) * direction_);
-    
-    
+
+
 //     ddxPd += rhoWater * Foam::mag(G) * k_ * height_ / 2 * Foam::cosh(k_ * (c[cI].component(1) - seaLevel_ + depth_))
 //                                     / Foam::cosh(k_ * depth_) * Foam::sin(omega_ * db().time().value() + mathematicalConstant::pi / 2) * factor;
 //     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
@@ -148,8 +148,8 @@ scalar streamFunction::ddxPd
 
 vector streamFunction::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
@@ -166,7 +166,7 @@ vector streamFunction::U
     }
     Uhorz *= factor(time);
     Uvert *= factor(time);
-    
+
     return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
 }
 

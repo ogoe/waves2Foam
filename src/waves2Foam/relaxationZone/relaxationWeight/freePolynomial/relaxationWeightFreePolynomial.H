@@ -73,9 +73,9 @@ protected:
     // Protected Member functions
         virtual void computeWeights
         (
-            const labelList &,
-            const scalarField &,
-            scalarField &
+            const labelList&,
+            const scalarField&,
+            scalarField&
         );
 
 public:
@@ -88,8 +88,8 @@ public:
         //- from components
         relaxationWeightFreePolynomial
         (
-            const word & ,
-            const fvMesh & mesh_
+            const word& ,
+            const fvMesh& mesh_
         );
 
 

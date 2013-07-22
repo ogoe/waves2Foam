@@ -75,13 +75,13 @@ int main(int argc, char *argv[])
 
     wordList toc( probeDefs.toc() );
 
-    forAll( toc, item )
+    forAll(toc, item)
     {
         word name( toc[item] );
 
         if ( probeDefs.isDict(name) )
         {
-            const dictionary & dict( probeDefs.subDict(name) );
+            const dictionary& dict( probeDefs.subDict(name) );
 
             if ( word(dict.lookup("type")) == "waveGauge" )
             {

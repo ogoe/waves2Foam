@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
-    \\  /    A nd           | Copyright (C) 1991-2008 OpenCFD Ltd.
+    \\  /    A nd           | Copyright held by original author
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, combinedWaves, dictionary);
 
 combinedWaves::combinedWaves
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -56,13 +56,13 @@ combinedWaves::combinedWaves
     {
         FatalErrorIn
             (
-             "Foam::waveTheories::combinedWaves(const word & subDictName, const fvMesh & mesh_)"
+             "Foam::waveTheories::combinedWaves(const word& subDictName, const fvMesh& mesh_)"
             )   << "The size of the combining waves is " << combinedWavesNames_.size()
             << endl << endl
             << "There should be at least one (1) wave type." << endl
             << exit(FatalError);
     }
-    
+
     forAll(combinedWavesPtr_, cI)
     {
         combinedWavesPtr_[cI] = waveTheories::waveTheory::New(combinedWavesNames_[cI], mesh_);
@@ -77,7 +77,7 @@ void combinedWaves::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar combinedWaves::factor(const scalar & time) const
+scalar combinedWaves::factor(const scalar& time) const
 {
     // Not used in the present case, as the factor is multiplied on to the data
     // in the individual wave theories.
@@ -87,54 +87,54 @@ scalar combinedWaves::factor(const scalar & time) const
 
 scalar combinedWaves::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta(0);
-    
+
     forAll(combinedWavesPtr_, cI)
     {
         eta += combinedWavesPtr_[cI]->eta(x, time);
     }
-    
+
     // There must only be corrected for the seaLevel_ once.
     eta -= ( (combinedWavesNames_.size() - 1.0) * seaLevel_ );
-    
+
     return eta;
 }
 
 scalar combinedWaves::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     scalar ddxPd(0.0);
-    
+
     forAll(combinedWavesPtr_, cI)
     {
         ddxPd += combinedWavesPtr_[cI]->ddxPd(x, time, unitVector);
     }
-    
+
     return ddxPd;
 }
 
 vector combinedWaves::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     vector U(vector::zero);
-    
+
     forAll(combinedWavesPtr_, cI)
     {
         U += combinedWavesPtr_[cI]->U(x, time);
     }
 
-    
+
     return U;
 }
 

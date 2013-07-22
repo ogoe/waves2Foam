@@ -85,8 +85,8 @@ public:
         //- Construct from components
         quadrilateralDistribution
         (
-            const fvMesh &,
-            const dictionary &
+            const fvMesh&,
+            const dictionary&
         );
 
 

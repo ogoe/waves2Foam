@@ -85,7 +85,7 @@ protected:
 
     // Protected data
         bool write_;
-        dictionary & dict_;
+        dictionary& dict_;
         vector g_;
         scalar G_;
 
@@ -94,30 +94,30 @@ protected:
         label Nspaces_;
 
     // Protected member functions
-        void writeBeginning( Ostream & );
+        void writeBeginning( Ostream& );
 
-        void writeGiven( Ostream & );
+        void writeGiven( Ostream& );
 
-        void writeGiven( Ostream & , word );
+        void writeGiven( Ostream& , word );
 
-        void writeDerived( Ostream &, word, scalar);
+        void writeDerived( Ostream&, word, scalar);
 
-        void writeDerived( Ostream &, word, vector);
+        void writeDerived( Ostream&, word, vector);
 
-        void writeDerived( Ostream &, word, scalarField);
+        void writeDerived( Ostream&, word, scalarField);
 
-        void writeDerived( Ostream &, word, vectorField);
+        void writeDerived( Ostream&, word, vectorField);
 
-        void writeRelaxationZone( Ostream & );
+        void writeRelaxationZone( Ostream& );
 
-        void writeEnding( Ostream & );
+        void writeEnding( Ostream& );
 
 private:
 
     // Private Member Functions
-        void lineFormatting( Ostream &, const word &);
+        void lineFormatting( Ostream&, const word&);
 
-        void addITstream( Ostream &, const word &, const ITstream & );
+        void addITstream( Ostream&, const word&, const ITstream& );
 
         //- Disallow default bitwise copy construct
         setWaveProperties(const setWaveProperties&);
@@ -138,7 +138,7 @@ public:
             setWaveProperties,
             setWaveProperties,
             (
-                const Time & rT, dictionary & dict, bool write
+                const Time& rT, dictionary& dict, bool write
             ),
             (rT, dict, write)
         );
@@ -148,8 +148,8 @@ public:
         //- Construct from components
         setWaveProperties
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool
         );
 
@@ -158,8 +158,8 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<setWaveProperties> New
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool
         );
 
@@ -169,7 +169,7 @@ public:
 
     // Member Functions
 
-        virtual void set(Ostream &) = 0;
+        virtual void set(Ostream&) = 0;
 };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

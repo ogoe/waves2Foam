@@ -41,7 +41,7 @@ Author
 namespace Foam
 {
     //- Computes the complex exponentital
-    Foam::complex exp( const Foam::complex & );
+    Foam::complex exp( const Foam::complex& );
 
 } // End namespace Foam
 

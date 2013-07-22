@@ -28,11 +28,11 @@ Class
 Description
     Implementation of a first order stokes theory for bichromatic surface
     water waves. For a theoretical description e.g.
-    
+
         Madsen, P.A. and Fuhrman, D.R. (2006)
         Third-Order Theory for Bichromatic Bi-Directional Water Waves
         Journal of Fluid Mechanics, 557, 369-397
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -91,7 +91,7 @@ protected:
 
     // Protected member functions
 
-        scalar factor(const scalar &) const;
+        scalar factor(const scalar&) const;
 
 public:
 
@@ -103,8 +103,8 @@ public:
         //- from components
         irregular
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -124,24 +124,24 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
-        
+
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

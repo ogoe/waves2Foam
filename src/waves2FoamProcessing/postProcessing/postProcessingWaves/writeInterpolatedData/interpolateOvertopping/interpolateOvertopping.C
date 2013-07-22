@@ -48,9 +48,9 @@ addToRunTimeSelectionTable(postProcessingWaves, interpolateOvertopping, postProc
 
 interpolateOvertopping::interpolateOvertopping
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action )
@@ -82,11 +82,11 @@ void interpolateOvertopping::evaluate()
 
     vectorField output( weights.size(), vector::zero );
 
-    forAll( OTs, OTI )
+    forAll(OTs, OTI)
     {
-        const vectorField & OT( OTs[OTI] );
+        const vectorField& OT( OTs[OTI] );
 
-        forAll( weights, ii )
+        forAll(weights, ii)
         {
             output[ii] = weights[ii] * OT[leftData[ii]] + (1.0 - weights[ii] ) * OT[rightData[ii]];
         }

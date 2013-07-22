@@ -48,9 +48,9 @@ addToRunTimeSelectionTable(postProcessingWaves, interpolateAlphaProbes, postProc
 
 interpolateAlphaProbes::interpolateAlphaProbes
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action )
@@ -82,11 +82,11 @@ void interpolateAlphaProbes::evaluate()
 
     scalarField output( weights.size(), 0.0 );
 
-    forAll( alphas, alphaI )
+    forAll(alphas, alphaI)
     {
-        const scalarField & alpha( alphas[alphaI] );
+        const scalarField& alpha( alphas[alphaI] );
 
-        forAll( weights, ii )
+        forAll(weights, ii)
         {
             output[ii] = weights[ii] * alpha[leftData[ii]] + (1.0 - weights[ii] ) * alpha[rightData[ii]];
         }

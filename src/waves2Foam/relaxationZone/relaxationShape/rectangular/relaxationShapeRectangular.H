@@ -77,20 +77,20 @@ protected:
         vector      crossOrient_;
         vector      xAxis_; // The 'x-axis in the rotated coordinate system'
         vector      yAxis_; // The 'y-axis in the rotated coordinate system'
-        
+
         scalar      width_;
-    
-    
+
+
     // Protected member functions
         bool insideZone
         (
-            const label &
+            const label&
         ) const;
 
         virtual void computeSigmaCoordinate();
-        
+
         virtual void findComputationalCells();
-        
+
 public:
 
     //- Runtime type information
@@ -101,8 +101,8 @@ public:
         //- from components
         relaxationShapeRectangular
         (
-            const word & ,
-            const fvMesh & mesh_
+            const word& ,
+            const fvMesh& mesh_
         );
 
 

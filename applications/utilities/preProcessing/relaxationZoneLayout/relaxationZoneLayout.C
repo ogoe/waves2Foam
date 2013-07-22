@@ -34,7 +34,7 @@ Author
 
 Additional information
     Implementation published and validated in the following journal article:
-    
+
     @article { jacobsenFuhrmanFredsoe2011,
         Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
         title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
@@ -124,18 +124,18 @@ int main(int argc, char *argv[])
 
     // Read the relaxation names from waveProperties
     wordList relaxNames( waveProperties.lookup("relaxationNames") );
-    
+
     // Create the relaxation shape function and add the data to the above generated fields
-    forAll( relaxNames, relaxi )
+    forAll(relaxNames, relaxi)
     {
         // Get relaxation zone cells and coorsponding sigma coordinates
         autoPtr<relaxationShapes::relaxationShape> relaxShape = relaxationShapes::relaxationShape::New(relaxNames[relaxi], mesh);
 
-        const labelList & cells( relaxShape->cells());
+        const labelList& cells( relaxShape->cells());
 
-        const scalarField & sigma( relaxShape->sigma());
+        const scalarField& sigma( relaxShape->sigma());
 
-        forAll( cells, celli )
+        forAll(cells, celli)
         {
             rzl[cells[celli]] += (relaxi + 1);
             srzl[cells[celli]] = sigma[celli];
@@ -150,12 +150,12 @@ int main(int argc, char *argv[])
 
         relaxWeight->weights(cells, sigma, weights);
 
-        forAll( weights, celli )
+        forAll(weights, celli)
         {
             wrzl[cells[celli]] = weights[celli];
         }
     }
-    
+
     Info << "Write the fields to Time = " << runTime.timeName() << endl;
     rzl.write();
     srzl.write();

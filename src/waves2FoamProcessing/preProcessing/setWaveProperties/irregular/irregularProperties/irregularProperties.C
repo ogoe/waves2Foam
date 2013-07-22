@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, irregularProperties, setWaveProper
 
 irregularProperties::irregularProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -57,7 +57,7 @@ irregularProperties::irregularProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void irregularProperties::set( Ostream & os )
+void irregularProperties::set( Ostream& os )
 {
     // Write the beginning of the sub-dictionary
     writeBeginning( os );
@@ -85,7 +85,7 @@ void irregularProperties::set( Ostream & os )
     // Write properties specific to chosen spectral theory
     wordList specificInput( spectra->list() );
 
-    forAll( specificInput, speci )
+    forAll(specificInput, speci)
         writeGiven( os, specificInput[speci] );
 
     // Computing the spectral quantities

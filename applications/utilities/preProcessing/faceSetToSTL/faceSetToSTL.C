@@ -30,7 +30,7 @@ Description
     faceList
 
     It can also based on a faceList with one entry perform a simple trans-
-    lation of this face and create a closed STL. See the example file 
+    lation of this face and create a closed STL. See the example file
     "stlDefinitions".
 
 Author
@@ -48,9 +48,9 @@ using namespace Foam;
 
 void extrudeFacesAndPoints
 (
-    const dictionary &,
-    faceList &,
-    pointField &
+    const dictionary&,
+    faceList&,
+    pointField&
 );
 
 int main(int argc, char *argv[])
@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 
     wordList toc = stlDefs.toc();
 
-    forAll( toc, item)
+    forAll(toc, item)
     {
         if ( stlDefs.isDict(toc[item]) )
         {
@@ -103,7 +103,7 @@ int main(int argc, char *argv[])
 
                 tfl.setSize( count + triangulation.size() );
 
-                forAll( triangulation, triI )
+                forAll(triangulation, triI)
                 {
                     tfl[count++] = triangulation[triI];
                 }
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
 
 void extrudeFacesAndPoints
 (
-    const dictionary & dict, faceList & fL, pointField & pp
+    const dictionary& dict, faceList& fL, pointField& pp
 )
 {
     vector extrude( dict.lookup("extrudeVector") );
@@ -143,15 +143,15 @@ void extrudeFacesAndPoints
 
     fL[1].setSize(M);
 
-    face & fOrg( fL[0] );
-    face & fExt( fL[1] );
+    face& fOrg( fL[0] );
+    face& fExt( fL[1] );
 
-    forAll( fOrg, pointi )
+    forAll(fOrg, pointi)
         fExt[pointi] = fOrg[pointi] + N;
 
     for ( int i=0; i < M ; i++)
     {
-        face & f( fL[i+2] );
+        face& f( fL[i+2] );
         f.setSize(4);
 
         f[0] = fOrg[i];

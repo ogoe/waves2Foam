@@ -88,9 +88,9 @@ public:
         //- Construct from components
         interpolateSurfaceElevation
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

@@ -338,7 +338,7 @@ bool Foam::sampledSurfaceElevation::performAction()
 
 void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 (
-    fieldGroup<scalar> & fields
+    fieldGroup<scalar>& fields
 )
 {
     if ( fields.size() && performAction() )
@@ -380,7 +380,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
                 {
                     FatalErrorIn
                     (
-                           "void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite(    fieldGroup<scalar> & fields )"
+                           "void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite(    fieldGroup<scalar>& fields )"
                     )   << "Output file could not be opened in " << outputPath_ << "/" << mesh_.time().timeName() << endl << endl << exit(FatalError);
                 }
             }
@@ -403,7 +403,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 void Foam::sampledSurfaceElevation::sampleAndIntegrate
 (
     fieldGroup<scalar>& fields,
-    Field<scalar> & result
+    Field<scalar>& result
 )
 {
     result.setSize(0);
@@ -510,7 +510,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
 
         if (Pstream::master())
         {
-            forAll( masterSampledSets_, seti )
+            forAll(masterSampledSets_, seti)
             {
                 const coordSet & cs( masterSampledSets_[seti] );
 
@@ -631,13 +631,13 @@ void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
     bool Foam::sampledSurfaceElevation::timeSet()
     {
         // Do nothing
-    	return true;
+        return true;
     }
 #elif XVERSION
     bool Foam::sampledSurfaceElevation::timeSet()
     {
         // Do nothing
-    	return true;
+        return true;
     }
 #endif
 

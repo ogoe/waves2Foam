@@ -75,17 +75,17 @@ private:
     // Private Member Functions
         void resizeFields
         (
-            List<std::pair<scalar, label> > &,
-            vectorField &,
-            vectorField &,
+            List<std::pair<scalar, label> >&,
+            vectorField&,
+            vectorField&,
             label
         );
 
         void writeRawData
         (
-            const List<std::pair<scalar, label> > &,
-            const vectorField &,
-            const vectorField &
+            const List<std::pair<scalar, label> >&,
+            const vectorField&,
+            const vectorField&
         );
 
         //- Disallow default bitwise copy construct
@@ -106,9 +106,9 @@ public:
         //- Construct from components
         rawForcesAndMoments
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
     // Destructor
@@ -120,9 +120,9 @@ public:
 
         void readForceAndMomentData
         (
-            List<std::pair<scalar, label> > &,
-            vectorField &,
-            vectorField &
+            List<std::pair<scalar, label> >&,
+            vectorField&,
+            vectorField&
         );
 };
 

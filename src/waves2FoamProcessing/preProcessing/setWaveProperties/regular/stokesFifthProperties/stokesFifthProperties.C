@@ -42,7 +42,7 @@ addToRunTimeSelectionTable(setWaveProperties, stokesFifthProperties, setWaveProp
 
 // * * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
-scalar stokesFifthProperties::eval(scalar & k)
+scalar stokesFifthProperties::eval(scalar& k)
 {
     scalar S  = 1.0 / Foam::cosh(2 * k * depth_);
     scalar C0 = Foam::sqrt( Foam::tanh(k * depth_) );
@@ -95,8 +95,8 @@ scalar stokesFifthProperties::waveNumber()
 
 stokesFifthProperties::stokesFifthProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -114,7 +114,7 @@ stokesFifthProperties::stokesFifthProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesFifthProperties::set( Ostream & os)
+void stokesFifthProperties::set( Ostream& os)
 {
     scalar k = waveNumber();
 

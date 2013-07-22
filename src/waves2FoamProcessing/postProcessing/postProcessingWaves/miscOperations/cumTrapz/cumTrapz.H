@@ -74,12 +74,12 @@ private:
 
         void writeScalar
         (
-            const List<scalarField> &
+            const List<scalarField>&
         );
 
         void writeVector
         (
-            const List<vectorField> &
+            const List<vectorField>&
         );
 
         //- Disallow default bitwise copy construct
@@ -100,9 +100,9 @@ public:
         //- Construct from components
         cumTrapz
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

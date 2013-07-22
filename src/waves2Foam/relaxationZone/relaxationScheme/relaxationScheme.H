@@ -87,14 +87,14 @@ class relaxationScheme
 protected:
 
     // Protected data
-        const fvMesh & mesh_;
-        vectorField & U_;
-        scalarField & alpha_;
+        const fvMesh& mesh_;
+        vectorField& U_;
+        scalarField& alpha_;
 
         const dictionary coeffDict_;
 
         word relaxScheme_;
-        
+
         autoPtr<relaxationShapes::relaxationShape> relaxShape_;
 
         autoPtr<relaxationWeights::relaxationWeight> relaxWeight_;
@@ -102,21 +102,21 @@ protected:
         autoPtr<numericalBeaches::numericalBeach> numBeach_;
 
         autoPtr<waveTheories::waveTheory> waveProps_;
-        
+
     // Protected member functions
 
         //- Returns a scalarField of the signed distance to an arbitrary surface
         virtual void signedPointToSurfaceDistance
         (
-                const pointField &,
-                scalarField      &
+                const pointField&,
+                scalarField&
         );
 
 
         //- Returns a scalar of the signed distance to an arbitrary surface
         virtual scalar signedPointToSurfaceDistance
         (
-                const point &
+                const point&
         ) const;
 
 private:
@@ -128,7 +128,7 @@ private:
 
         //- Disallow default bitwise assignment
         void operator=(const relaxationScheme&);
-        
+
 public:
 
     //- Runtime type information
@@ -142,10 +142,10 @@ public:
             relaxationScheme,
             dictionary,
             (
-                const word & subDictName,
-                const fvMesh & mesh,
-                vectorField & U,
-                scalarField & alpha
+                const word& subDictName,
+                const fvMesh& mesh,
+                vectorField& U,
+                scalarField& alpha
             ),
             (subDictName, mesh, U, alpha)
         );
@@ -155,10 +155,10 @@ public:
         //- Construct from components
         relaxationScheme
         (
-            const word & type,
-            const fvMesh & mesh,
-            vectorField & U,
-            scalarField & alpha
+            const word& type,
+            const fvMesh& mesh,
+            vectorField& U,
+            scalarField& alpha
         );
 
 
@@ -167,10 +167,10 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<relaxationScheme> New
         (
-            const word & subDictName,
-            const fvMesh & mesh,
-            vectorField & U,
-            scalarField & alpha
+            const word& subDictName,
+            const fvMesh& mesh,
+            vectorField& U,
+            scalarField& alpha
         );
 
     // Destructor
@@ -183,10 +183,10 @@ public:
         // Access
         virtual void correct() = 0;
 
-        inline const labelList   & cells() { return relaxShape_->cells(); };
-        inline const scalarField & sigma() { return relaxShape_->sigma(); };
+        inline const labelList& cells() { return relaxShape_->cells(); };
+        inline const scalarField& sigma() { return relaxShape_->sigma(); };
 
-        void numericalBeach( volScalarField & );
+        void numericalBeach( volScalarField& );
 };
 
 

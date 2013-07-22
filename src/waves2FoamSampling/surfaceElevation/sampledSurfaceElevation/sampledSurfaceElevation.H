@@ -230,9 +230,9 @@ class sampledSurfaceElevation
             PtrList<volFieldSampler<T> >& masterFields
         );
 
-        void sampleIntegrateAndWrite( fieldGroup<scalar> & fields );
+        void sampleIntegrateAndWrite( fieldGroup<scalar>& fields );
 
-        void sampleAndIntegrate( fieldGroup<scalar> & fields, Field<scalar> & );
+        void sampleAndIntegrate( fieldGroup<scalar>& fields, Field<scalar>& );
 
         //- Disallow default bitwise copy construct and assignment
         sampledSurfaceElevation(const sampledSurfaceElevation&);

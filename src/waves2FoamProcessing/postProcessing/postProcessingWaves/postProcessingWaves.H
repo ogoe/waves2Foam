@@ -71,9 +71,9 @@ class postProcessingWaves
 protected:
 
     // Protected data
-//        const fvMesh & mesh_;
-        const Time & rT_;
-        const dictionary & actionProperties_;
+//        const fvMesh& mesh_;
+        const Time& rT_;
+        const dictionary& actionProperties_;
 
         word callName_;
         word actionType_;
@@ -84,82 +84,82 @@ protected:
 
         void getTimeDirs
         (
-            const word &,
-            wordList &
+            const word&,
+            wordList&
         );
 
         void writeNameDict
         (
-            const scalar & dt,
-            const wordList & names
+            const scalar& dt,
+            const wordList& names
         );
 
         void writeXYZDict
         (
-            const scalar &,
-            const scalarField &,
-            const scalarField &,
-            const scalarField &
+            const scalar&,
+            const scalarField&,
+            const scalarField&,
+            const scalarField&
         );
 
         void writeIOScalarField
         (
-            const scalarField & field,
-            const word & name
+            const scalarField& field,
+            const word& name
         );
 
         void writeIOVectorField
         (
-            const vectorField & field,
-            const word & name
+            const vectorField& field,
+            const word& name
         );
 
         scalarField readIOScalarField
         (
-            const word & name
+            const word& name
         );
 
         vectorField readIOVectorField
         (
-            const word & name
+            const word& name
         );
 
         word dataType();
 
         scalar readDeltaT
         (
-            const dictionary &
+            const dictionary&
         );
 
         void readIndices
         (
-            const dictionary &,
-            labelList &
+            const dictionary&,
+            labelList&
         );
 
         List<scalarField> readScalarFields
         (
-            const labelList & indices
+            const labelList& indices
         );
 
         List<vectorField> readVectorFields
         (
-            const labelList & indices
+            const labelList& indices
         );
 
         scalarField equidistantTime
         (
-            const List<std::pair<scalar, label > > & timeLabel,
-            const dictionary &
+            const List<std::pair<scalar, label > >& timeLabel,
+            const dictionary&
         );
 
         void interpolationWeights
         (
-            const List<std::pair<scalar, label> > &,
-            const scalarField &,
-            scalarField &,
-            labelList &,
-            labelList &
+            const List<std::pair<scalar, label> >&,
+            const scalarField&,
+            scalarField&,
+            labelList&,
+            labelList&
         );
 
 private:
@@ -185,10 +185,10 @@ public:
             postProcessingWaves,
             postProcessingWaves,
             (
-//                   const fvMesh & mesh,
-                   const Time & rT,
-                const dictionary & actionProp,
-                const word & action
+//                   const fvMesh& mesh,
+                   const Time& rT,
+                const dictionary& actionProp,
+                const word& action
             ),
             ( rT, actionProp, action )
         );
@@ -198,9 +198,9 @@ public:
         //- Construct from components
         postProcessingWaves
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
     // Selectors
@@ -208,9 +208,9 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<postProcessingWaves> New
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
     // Destructor

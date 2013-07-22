@@ -41,9 +41,9 @@ addToRunTimeSelectionTable(postProcessingWaves, removeSubDirs, postProcessingWav
 
 removeSubDirs::removeSubDirs
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action )
@@ -61,7 +61,7 @@ void removeSubDirs::evaluate()
 
     Foam::fileNameList fnl = Foam::readDir( fn, Foam::fileName::DIRECTORY);
 
-    forAll( fnl, i )
+    forAll(fnl, i)
     {
         Foam::rmDir( fn + fnl[i] );
     }

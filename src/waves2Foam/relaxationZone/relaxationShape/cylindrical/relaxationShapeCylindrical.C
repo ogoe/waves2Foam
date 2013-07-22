@@ -43,19 +43,19 @@ addToRunTimeSelectionTable(relaxationShape, relaxationShapeCylindrical, dictiona
 
 relaxationShapeCylindrical::relaxationShapeCylindrical
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     relaxationShape(subDictName, mesh_),
-                    
+
     centre_( vector(coeffDict_.lookup("centre")) ),
     rInner_( readScalar(coeffDict_.lookup("rInner")) ),
     rOuter_( readScalar(coeffDict_.lookup("rOuter")) )
 
 {
     width_   = Foam::mag(rOuter_ - rInner_);
-    centre_ -= ( centre_ & direction_ ) * direction_; 
+    centre_ -= ( centre_ & direction_ ) * direction_;
 
     // Find computational cells inside the relaxation-shape
     findComputationalCells();
@@ -68,33 +68,33 @@ relaxationShapeCylindrical::relaxationShapeCylindrical
 
 void relaxationShapeCylindrical::findComputationalCells()
 {
-    const vectorField & cc = mesh_.C();
-    
+    const vectorField& cc = mesh_.C();
+
     cells_.setSize(5000);
     label count(0);
-    
-    forAll( cc, celli )
+
+    forAll(cc, celli)
     {
         if ( insideZone( celli ))
         {
             cells_[count++] = celli;
-            
+
             if ( count == cells_.size() )
             {
                 cells_.setSize( static_cast<label>( count * 1.1 ) );
             }
         }
     }
-    
+
     cells_.setSize(count);
 }
 
 void relaxationShapeCylindrical::computeSigmaCoordinate()
 {
-    const vectorField & C = mesh_.C();
+    const vectorField& C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
 
-    forAll( cells_, celli )
+    forAll(cells_, celli)
     {
         vector cc( C[cells_[celli]] );
         cc -= ( ( cc & direction_ ) * direction_ );
@@ -106,19 +106,19 @@ void relaxationShapeCylindrical::computeSigmaCoordinate()
 
 bool relaxationShapeCylindrical::insideZone
 (
-    const label & celli
+    const label& celli
 ) const
 {
     bool inside( false );
-    
+
     vector cc( mesh_.C()[celli] );
     cc -= ( direction_ & cc ) * direction_;
-    
+
     scalar dist( Foam::mag( cc - centre_ ) );
-    
+
     if ( dist >= rInner_ && dist <= rOuter_ )
         inside = true;
-    
+
     return inside;
 }
 

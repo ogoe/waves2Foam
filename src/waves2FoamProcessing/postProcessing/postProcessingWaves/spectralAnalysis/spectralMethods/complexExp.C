@@ -28,7 +28,7 @@ License
 
 /* * * * * * * * * * * * * * * HELPER FUNCTIONS  * * * * * * * * * * * * * * */
 
-Foam::complex Foam::exp( const Foam::complex & C )
+Foam::complex Foam::exp( const Foam::complex& C )
 {
     Foam::complex res( Foam::complex::zero );
 

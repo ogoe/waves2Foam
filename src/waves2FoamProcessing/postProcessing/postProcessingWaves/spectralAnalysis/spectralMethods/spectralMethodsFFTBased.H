@@ -62,7 +62,7 @@ class spectralMethodsFFTBased
 
 private:
     // Private member data
-        const dictionary & dict_;
+        const dictionary& dict_;
 
         label bins_;
         label step_;
@@ -78,21 +78,21 @@ private:
 
         void powerSpectrum
         (
-            const scalarField &,
-            const scalar &,
-            scalarField &
+            const scalarField&,
+            const scalar&,
+            scalarField&
         );
 
         void powerSpectrum
         (
-            const vectorField &,
-            const scalar &,
-            vectorField &
+            const vectorField&,
+            const scalar&,
+            vectorField&
         );
 
         Field<complex> computeFourierTransform
         (
-            const scalarField &
+            const scalarField&
         );
 
         //- Disallow default bitwise copy construct
@@ -111,8 +111,8 @@ public:
         //- Construct from components
         spectralMethodsFFTBased
         (
-            const Time &,
-            const dictionary &
+            const Time&,
+            const dictionary&
         );
 
     // Destructor
@@ -122,34 +122,34 @@ public:
     // Member Functions
         Field<complex> fft
         (
-            const scalarField &
+            const scalarField&
         );
 
         List<Field<complex> > fft
         (
-            const List<scalarField> &
+            const List<scalarField>&
         );
 
         List<scalarField> powerSpectra
         (
-            const List<scalarField> &,
-            const scalar &
+            const List<scalarField>&,
+            const scalar&
         );
 
         List<vectorField> powerSpectra
         (
-            const List<vectorField> &,
-            const scalar &
+            const List<vectorField>&,
+            const scalar&
         );
 
         scalarField frequencies
         (
-            const scalar & deltaT
+            const scalar& deltaT
         );
 
         void initSweep
         (
-            const scalarField &
+            const scalarField&
         );
 
         void resetSweep();

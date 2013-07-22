@@ -78,9 +78,9 @@ public:
         //- Construct from components
         removeSubDirs
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
     // Destructor

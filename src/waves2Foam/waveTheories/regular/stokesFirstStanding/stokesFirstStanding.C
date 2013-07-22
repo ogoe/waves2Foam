@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, stokesFirstStanding, dictionary);
 
 stokesFirstStanding::stokesFirstStanding
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -55,7 +55,7 @@ stokesFirstStanding::stokesFirstStanding
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
-    
+
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_))
 {}
 
@@ -67,19 +67,19 @@ void stokesFirstStanding::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar stokesFirstStanding::factor(const scalar & time) const
+scalar stokesFirstStanding::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
         factor = Foam::sin(omega_ / 4.0 * Foam::min(Tsoft_, time));
-        
+
     return factor;
 }
 
 scalar stokesFirstStanding::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta = (H_ / 2.0 * Foam::cos(omega_ * time - (k_ & x) + phi_) + H_ / 2.0 * Foam::cos(omega_ * time + (k_ & x) + phi_)) * factor(time) + seaLevel_;
@@ -88,16 +88,16 @@ scalar stokesFirstStanding::eta
 
 scalar stokesFirstStanding::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
-    
+
     scalar Z(returnZ(x));
     scalar arg1(omega_ * time - (k_ & x) + phi_);
     scalar arg2(omega_ * time + (k_ & x) + phi_);
-    
+
     scalar ddxPd(0);
 
     ddxPd = (
@@ -110,30 +110,30 @@ scalar stokesFirstStanding::ddxPd
 
 vector stokesFirstStanding::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
-    
+
     scalar Uhorz = PI_ * H_ / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::cos(omega_ * time - (k_ & x) + phi_)
                  - PI_ * H_ / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::cos(omega_ * time + (k_ & x) + phi_);
-                   
+
     Uhorz *= factor(time);
-    
+
     scalar Uvert = - PI_ * H_ / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::sin(omega_ * time - (k_ & x) + phi_)
                  - PI_ * H_ / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::sin(omega_ * time + (k_ & x) + phi_);
-                   
+
     Uvert *= factor(time);
-    
+
 
     return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
 }

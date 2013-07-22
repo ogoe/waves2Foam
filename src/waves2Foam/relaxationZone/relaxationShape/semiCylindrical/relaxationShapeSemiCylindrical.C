@@ -43,12 +43,12 @@ addToRunTimeSelectionTable(relaxationShape, relaxationShapeSemiCylindrical, dict
 
 relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     relaxationShape(subDictName, mesh_),
-                    
+
     centre_( vector(coeffDict_.lookup("centre")) ),
     zeroAngleDirection_( vector(coeffDict_.lookup("zeroAngleDirection")) ),
     rInner_( readScalar(coeffDict_.lookup("rInner")) ),
@@ -57,7 +57,7 @@ relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
     angleEnd_( readScalar(coeffDict_.lookup("angleEnd")) )
 {
     width_   = Foam::mag(rOuter_ - rInner_);
-    centre_ -= ( centre_ & direction_ ) * direction_; 
+    centre_ -= ( centre_ & direction_ ) * direction_;
 
     if ( angleEnd_ > 180 )
     {
@@ -89,33 +89,33 @@ relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 
 void relaxationShapeSemiCylindrical::findComputationalCells()
 {
-    const vectorField & cc = mesh_.C();
-    
+    const vectorField& cc = mesh_.C();
+
     cells_.setSize(5000);
     label count(0);
-    
-    forAll( cc, celli )
+
+    forAll(cc, celli)
     {
         if ( insideZone( celli ))
         {
             cells_[count++] = celli;
-            
+
             if ( count == cells_.size() )
             {
                 cells_.setSize( static_cast<label>( count * 1.1 ) );
             }
         }
     }
-    
+
     cells_.setSize(count);
 }
 
 void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
 {
-    const vectorField & C = mesh_.C();
+    const vectorField& C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
 
-    forAll( cells_, celli )
+    forAll(cells_, celli)
     {
         vector cc( C[cells_[celli]] );
         cc -= ( ( cc & direction_ ) * direction_ );
@@ -126,7 +126,7 @@ void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
 
 bool relaxationShapeSemiCylindrical::angleCheck
 (
-    const scalar & angle
+    const scalar& angle
 ) const
 {
     if ( angleStart_ < angleEnd_ )
@@ -141,7 +141,7 @@ bool relaxationShapeSemiCylindrical::angleCheck
 
 bool relaxationShapeSemiCylindrical::insideZone
 (
-    const label & celli
+    const label& celli
 ) const
 {
     bool inside( false );
@@ -155,7 +155,7 @@ bool relaxationShapeSemiCylindrical::insideZone
 
     if ( dist >= rInner_ && dist <= rOuter_ && angleCheck( angle ) )
         inside = true;
-    
+
     return inside;
 }
 

@@ -26,7 +26,7 @@ Class
     Foam::wavePressureFvPatchScalarField
 
 Description
-    Boundary condition for the pressure gradient in a multiphase solver. 
+    Boundary condition for the pressure gradient in a multiphase solver.
     To be used for wave boundary conditions. For more details see:
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -39,7 +39,7 @@ Description
         Pages = {1073-1088},
         DOI = {{10.1002/fld.2726}},
     }
-    
+
     The boundary condition is derived from mixedFvPatchField and it is generic
     in the sense, that it loads the abstract class waveTheory.
 
@@ -78,23 +78,23 @@ private:
 
     // Private member functions
     autoPtr<waveTheories::waveTheory> waveProps_;
-    
+
     // Private member functions
 
     //- Returns a scalarField of the signed distance to an arbitrary surface
         virtual void signedPointToSurfaceDistance
         (
-            const pointField &,
-            scalarField      &
+            const pointField&,
+            scalarField&
         );
 
 
     //- Returns a scalar of the signed distance to an arbitrary surface
         virtual scalar signedPointToSurfaceDistance
         (
-            const point &
+            const point&
         ) const;
-    
+
 public:
 
     //- Runtime type information
@@ -157,7 +157,7 @@ public:
 
         //- Update the coefficients associated with the patch field
         virtual void updateCoeffs();
-        
+
         //- Evaluate the patch field
         virtual void evaluate();
 

@@ -28,7 +28,7 @@ Application
 Description
     Utility to carry out a wide range of post-processing operations, which are
     typically related to coastal and offshore engineering topics. The post-
-    processing utility can, however, also be used on other data sets, e.g. 
+    processing utility can, however, also be used on other data sets, e.g.
     general probing of velocities.
 
 Author
@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
     wordList toc( postProcProperties.toc() );
 
     // Loop over all items in TOC
-    forAll( toc, itemi )
+    forAll(toc, itemi)
     {
         word tocName( toc[itemi] );
 
@@ -107,12 +107,12 @@ int main(int argc, char *argv[])
         {
             Info << "Processing: " << tocName << endl;
 
-            const dictionary & subDict( postProcProperties.subDict( tocName ) );
+            const dictionary& subDict( postProcProperties.subDict( tocName ) );
 
             wordList actionList( subDict.lookup("actionList") );
 
             // Loop over the action list for each process
-            forAll( actionList, actionItem )
+            forAll(actionList, actionItem)
             {
                 Info << "    Processing sub-action: " << actionList[actionItem] << endl;
                 autoPtr<postProcessingWaves> action( postProcessingWaves::New( runTime, subDict, actionList[actionItem] ) );

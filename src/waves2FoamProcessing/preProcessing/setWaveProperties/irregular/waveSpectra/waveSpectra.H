@@ -79,14 +79,14 @@ class waveSpectra
 protected:
 
     // Protected data
-        const Time & rT_;
+        const Time& rT_;
 
-        dictionary & dict_;
+        dictionary& dict_;
 
-        scalarField & amp_;
-        scalarField & freq_;
-        scalarField & phi_;
-        vectorField & k_;
+        scalarField& amp_;
+        scalarField& freq_;
+        scalarField& phi_;
+        vectorField& k_;
 
         scalar G_;
 
@@ -119,12 +119,12 @@ public:
             waveSpectra,
             waveSpectra,
             (
-                const Time & rT,
-                dictionary & dict,
-                scalarField & amp,
-                scalarField & freq,
-                scalarField & phi,
-                vectorField & k
+                const Time& rT,
+                dictionary& dict,
+                scalarField& amp,
+                scalarField& freq,
+                scalarField& phi,
+                vectorField& k
             ),
             (rT, dict, amp, freq, phi, k)
         );
@@ -134,12 +134,12 @@ public:
         //- Construct from components
         waveSpectra
         (
-            const Time &,
-            dictionary &,
-            scalarField &,
-            scalarField &,
-            scalarField &,
-            vectorField &
+            const Time&,
+            dictionary&,
+            scalarField&,
+            scalarField&,
+            scalarField&,
+            vectorField&
         );
 
     // Selectors
@@ -147,12 +147,12 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<waveSpectra> New
         (
-            const Time &,
-            dictionary &,
-            scalarField &,
-            scalarField &,
-            scalarField &,
-            vectorField &
+            const Time&,
+            dictionary&,
+            scalarField&,
+            scalarField&,
+            scalarField&,
+            vectorField&
         );
 
     // Destructor
@@ -161,7 +161,7 @@ public:
 
     // Member functions
 
-        virtual void set(Ostream &) = 0;
+        virtual void set(Ostream&) = 0;
 
         virtual wordList list() = 0;
 };

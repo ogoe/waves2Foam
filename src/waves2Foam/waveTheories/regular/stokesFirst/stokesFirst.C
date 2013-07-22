@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, stokesFirst, dictionary);
 
 stokesFirst::stokesFirst
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -55,7 +55,7 @@ stokesFirst::stokesFirst
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
-    
+
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_))
 {}
 
@@ -68,19 +68,19 @@ void stokesFirst::printCoeffs()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-scalar stokesFirst::factor(const scalar & time) const
+scalar stokesFirst::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
-        
+
     return factor;
 }
 
 scalar stokesFirst::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta = H_ / 2.0 * Foam::cos(omega_ * time - (k_ & x) + phi_) * factor(time) + seaLevel_;
@@ -89,21 +89,21 @@ scalar stokesFirst::eta
 
 scalar stokesFirst::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
-    
+
     scalar Z(returnZ(x));
     scalar arg(omega_ * time - (k_ & x) + phi_);
-    
+
     scalar ddxPd(0);
 
     ddxPd = (
                 rhoWater_ * mag(g_) * K_ * H_ / 2.0 * Foam::cosh(K_ * (Z + h_)) / Foam::cosh(K_ * h_) * Foam::sin(arg)
             ) * factor(time);
-    
+
 //     ddxPd += rhoWater * Foam::mag(G) * k_ * height_ / 2 * Foam::cosh(k_ * (c[cI].component(1) - seaLevel_ + depth_))
 //                                     / Foam::cosh(k_ * depth_) * Foam::sin(omega_ * db().time().value() + mathematicalConstant::pi / 2) * factor;
 //     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
@@ -112,22 +112,22 @@ scalar stokesFirst::ddxPd
 
 vector stokesFirst::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
-    
+
     scalar Uhorz = PI_ * H_ / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::cos(omega_ * time - (k_ & x) + phi_);
     Uhorz *= factor(time);
-    
+
     scalar Uvert = - PI_ * H_ / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::sin(omega_ * time - (k_ & x) + phi_);
     Uvert *= factor(time);
-    
+
     return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
 }
 

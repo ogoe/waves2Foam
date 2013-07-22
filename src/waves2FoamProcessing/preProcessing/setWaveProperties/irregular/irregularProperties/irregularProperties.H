@@ -67,7 +67,7 @@ private:
 
 protected:
 
-        const Time & rT_;
+        const Time& rT_;
 
 public:
 
@@ -76,14 +76,14 @@ public:
 
         irregularProperties
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool
         );
 
         // Method
 
-        void set( Ostream & );
+        void set( Ostream& );
 };
 
 }

@@ -58,8 +58,8 @@ void powerSpectraLS::evaluateScalar()
 
 void powerSpectraLS::writeScalar
 (
-    const scalarField & frequencies,
-    const List<scalarField> & spectra
+    const scalarField& frequencies,
+    const List<scalarField>& spectra
 )
 {
     Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
@@ -68,16 +68,16 @@ void powerSpectraLS::writeScalar
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        const scalarField & spectrum( spectra[indexi] );
+        const scalarField& spectrum( spectra[indexi] );
 
-        forAll( frequencies, freqi )
+        forAll(frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi] << tab << spectrum[freqi] << endl;
         }
@@ -103,8 +103,8 @@ void powerSpectraLS::evaluateVector()
 
 void powerSpectraLS::writeVector
 (
-    const scalarField & frequencies,
-    const List<vectorField> & spectra
+    const scalarField& frequencies,
+    const List<vectorField>& spectra
 )
 {
     Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
@@ -113,16 +113,16 @@ void powerSpectraLS::writeVector
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        const vectorField & spectrum( spectra[indexi] );
+        const vectorField& spectrum( spectra[indexi] );
 
-        forAll( frequencies, freqi )
+        forAll(frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi]  << tab
                            << spectrum[freqi].x() << tab
@@ -136,9 +136,9 @@ void powerSpectraLS::writeVector
 
 powerSpectraLS::powerSpectraLS
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),

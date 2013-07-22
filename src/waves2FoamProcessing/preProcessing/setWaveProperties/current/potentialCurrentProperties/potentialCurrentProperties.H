@@ -72,14 +72,14 @@ public:
 
         potentialCurrentProperties
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool
         );
 
         // Method
 
-        void set(Ostream &);
+        void set(Ostream&);
 };
 
 }

@@ -81,8 +81,8 @@ private:
     // Private Member Functions
         void write
         (
-            const scalarField &,
-            const scalarField &
+            const scalarField&,
+            const scalarField&
         );
 
         //- Disallow default bitwise copy construct
@@ -103,9 +103,9 @@ public:
         //- Construct from components
         reflectionAnalysis2DLS
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

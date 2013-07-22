@@ -43,14 +43,14 @@ addToRunTimeSelectionTable(waveTheory, stokesSecond, dictionary);
 
 stokesSecond::stokesSecond
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 //     const volVectorField& U,
 //     const surfaceScalarField& phi,
 //     transportModel& lamTransportModel
 )
 :
-//     testRunTime(typeName, U, phi, lamTransportModel)    
+//     testRunTime(typeName, U, phi, lamTransportModel)
     waveTheory(subDictName, mesh_),
     H_(readScalar(coeffDict_.lookup("height"))),
     h_(readScalar(coeffDict_.lookup("depth"))),
@@ -84,47 +84,47 @@ void stokesSecond::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar stokesSecond::factor(const scalar & time) const
+scalar stokesSecond::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
-        
+
     return factor;
 }
 
 scalar stokesSecond::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar arg(omega_ * time - (k_ & x) + phi_);
-    
+
     scalar eta = (
                      H_ / 2.0 * Foam::cos(arg) // First order contribution.
                    + 1.0 / 16.0 * K_ * sqr(H_) * (3.0 / Foam::pow(Foam::tanh(K_ * h_),3.0) - 1.0 / Foam::tanh(K_ * h_)) * Foam::cos(2.0 * arg) // Second order contribution.
                  ) * factor(time)  // Hot-starting.
                  + seaLevel_;      // Adding sea level.
-    
+
     return eta;
 }
 
 scalar stokesSecond::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     scalar Z(returnZ(x));
     scalar arg(omega_ * time - (k_ & x) + phi_);
-    
+
     scalar ddxPd(0);
 
     ddxPd = (
                 rhoWater_ * mag(g_) * K_ * H_ / 2.0 * Foam::cosh(K_ * (Z + h_)) / Foam::cosh(K_ * h_) * Foam::sin(arg)
-                + 1 / 4 * rhoWater_ * mag(g_) * pow(K_,2) * pow(H_,2) / Foam::sinh(2 * K_ * h_) 
+                + 1 / 4 * rhoWater_ * mag(g_) * pow(K_,2) * pow(H_,2) / Foam::sinh(2 * K_ * h_)
                 * ( 3 * Foam::cosh(2 * K_ * (Z + h_)) / pow(Foam::sinh(K_ * h_),2) - 1) * Foam::sin(2 * arg)
             ) * factor(time);
 /*
@@ -135,37 +135,37 @@ scalar stokesSecond::ddxPd
 
 vector stokesSecond::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
     scalar cel(omega_ / K_);
     scalar arg(omega_ * time - (k_ & x) + phi_);
-    
+
     // First order contribution
     scalar Uhorz = PI_ * H_ / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::cos(arg);
-    
+
     // Second order contribution
-    Uhorz += 3.0 / 16.0 * cel * Foam::sqr(K_ * H_) * Foam::cosh(2 * K_ * (Z + h_)) 
-             / Foam::pow(Foam::sinh(K_ * h_),4.0) * Foam::cos(2 * arg) 
+    Uhorz += 3.0 / 16.0 * cel * Foam::sqr(K_ * H_) * Foam::cosh(2 * K_ * (Z + h_))
+             / Foam::pow(Foam::sinh(K_ * h_),4.0) * Foam::cos(2 * arg)
              - 1.0 / 8.0 * mag(g_) * sqr(H_) / (cel * h_);
-    
+
     // First order contribution
     scalar Uvert = - PI_ * H_ / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::sin(arg);
-    
+
     // Second order contribution
-    Uvert += - 3.0 / 16.0 * cel * sqr(K_ * H_) * Foam::sinh(2 * K_ * (Z + h_)) 
+    Uvert += - 3.0 / 16.0 * cel * sqr(K_ * H_) * Foam::sinh(2 * K_ * (Z + h_))
              / Foam::pow(Foam::sinh(K_ * h_), 4.0) * Foam::sin(2 * arg);
-    
+
     // Multiply by the time stepping factor
     Uvert *= factor(time);
     Uhorz *= factor(time);
-    
+
     // Generate the velocity vector
     return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
 }

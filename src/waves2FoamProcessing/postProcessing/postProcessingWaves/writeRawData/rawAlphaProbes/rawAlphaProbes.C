@@ -41,8 +41,8 @@ addToRunTimeSelectionTable(postProcessingWaves, rawAlphaProbes, postProcessingWa
 
 void rawAlphaProbes::resizeFields
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    List<scalarField> & alphas,
+    List<std::pair<scalar, label> >& timeLabel,
+    List<scalarField>& alphas,
     label N
 )
 {
@@ -51,25 +51,25 @@ void rawAlphaProbes::resizeFields
 
     forAll(alphas, alphaI)
     {
-        scalarField & alpha( alphas[alphaI] );
+        scalarField& alpha( alphas[alphaI] );
         alpha.setSize(N);
     }
 }
 
 void rawAlphaProbes::writeRawData
 (
-    const List<std::pair<scalar, label> > & timeLabel,
-    const scalarField & x,
-    const scalarField & y,
-    const scalarField & z,
-    const List<scalarField> & alphas
+    const List<std::pair<scalar, label> >& timeLabel,
+    const scalarField& x,
+    const scalarField& y,
+    const scalarField& z,
+    const List<scalarField>& alphas
 )
 {
     // Write the time vector
     scalarField output( timeLabel.size(), 0.0 );
 
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output[labeli] = timeLabel[labeli].first;
         }
@@ -83,12 +83,12 @@ void rawAlphaProbes::writeRawData
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
-    forAll( alphas, alphaI )
+    forAll(alphas, alphaI)
     {
-        const scalarField & alpha( alphas[alphaI] );
+        const scalarField& alpha( alphas[alphaI] );
 
         // Rearrange according to indexing
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output[labeli] = alpha[ timeLabel[labeli].second];
         }
@@ -108,9 +108,9 @@ void rawAlphaProbes::writeRawData
 
 rawAlphaProbes::rawAlphaProbes
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -140,11 +140,11 @@ void rawAlphaProbes::evaluate()
 
 void rawAlphaProbes::readAlphaProbesData
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    scalarField & x,
-    scalarField & y,
-    scalarField & z,
-    List<scalarField> & alphas
+    List<std::pair<scalar, label> >& timeLabel,
+    scalarField& x,
+    scalarField& y,
+    scalarField& z,
+    List<scalarField>& alphas
 )
 {
     label Nprobes(0);
@@ -154,7 +154,7 @@ void rawAlphaProbes::readAlphaProbesData
 
 
 
-    forAll( timeDirs_, timeI )
+    forAll(timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
@@ -249,10 +249,10 @@ void rawAlphaProbes::readAlphaProbesData
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll( alphas, alphaI )
+            forAll(alphas, alphaI)
             {
                 iss >> val;
-                scalarField & alpha( alphas[ alphaI ] );
+                scalarField& alpha( alphas[ alphaI ] );
 
                 alpha[Nentries] = val;
             }

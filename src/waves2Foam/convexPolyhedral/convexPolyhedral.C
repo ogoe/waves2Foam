@@ -43,10 +43,10 @@ namespace Foam
 
 labelList convexPolyhedral::edgeCutLabel
 (
-        const edgeList    & eL,
-        const labelList   & pType,
-        const scalarField & sD,
-        pointField        & pf
+        const edgeList& eL,
+        const labelList& pType,
+        const scalarField& sD,
+        pointField& pf
 )
 {
     labelList edgeCut( eL.size(), -1);
@@ -56,7 +56,7 @@ labelList convexPolyhedral::edgeCutLabel
     label pCount(pf.size());
     pf.setSize( pf.size() + eL.size() );
 
-    forAll ( eL, edgei )
+    forAll(eL, edgei)
     {
         edge e(eL[edgei]);
 
@@ -115,10 +115,10 @@ labelList convexPolyhedral::edgeCutLabel
 
 void convexPolyhedral::faceCut
 (
-        const labelList   & pType,
-        const edgeList    & eL,
-        const labelList   & edgeCut,
-        localCell         & lc
+        const labelList& pType,
+        const edgeList& eL,
+        const labelList& edgeCut,
+        localCell& lc
 )
 {
     lc.initCut();
@@ -134,24 +134,24 @@ void convexPolyhedral::faceCut
     // Since they are created with the same orientation as the
     // original cell, all cell normals points outward.
 
-    const labelListList & faceEdges(lc.faceEdges());
-    const faceList & fL = lc.faces();
+    const labelListList& faceEdges(lc.faceEdges());
+    const faceList& fL = lc.faces();
 
-    forAll( lc.cc(), facei )
+    forAll(lc.cc(), facei)
     {
-        const face & f( fL[facei] );
-        const edgeList & eLt  (f.edges());
+        const face& f( fL[facei] );
+        const edgeList& eLt  (f.edges());
 
         labelList edgeCutt(f.size());
 
-        const labelList & fE( faceEdges[facei] );
+        const labelList& fE( faceEdges[facei] );
 
-        forAll( eLt, edgei )
+        forAll(eLt, edgei)
         {
             edgeCutt[edgei] = edgeCut[ fE[edgei] ];
         }
 
-        edge & cutted( cuttedEdges[cutCount]);
+        edge& cutted( cuttedEdges[cutCount]);
 
         faceCut(pType, f, eLt, edgeCutt, lc.points(), lf, cutted);
 
@@ -188,7 +188,7 @@ void convexPolyhedral::faceCut
     {
 
         // Add special edges, where both end are on the plane
-        forAll( eL, edgei )
+        forAll(eL, edgei)
         {
             if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
                 cuttedEdges[cutCount++] = eL[edgei];
@@ -217,10 +217,10 @@ void convexPolyhedral::faceCut
 
 void convexPolyhedral::faceCut
 (
-        const labelList   & pType,
-        const edgeList    & eL,
-        const labelList   & edgeCut,
-        localCellNeg      & lc
+        const labelList& pType,
+        const edgeList& eL,
+        const labelList& edgeCut,
+        localCellNeg& lc
 )
 {
     lc.initCut();
@@ -236,24 +236,24 @@ void convexPolyhedral::faceCut
     // Since they are created with the same orientation as the
     // original cell, all cell normals points outward.
 
-    const labelListList & faceEdges(lc.faceEdges());
-    const faceList & fL = lc.faces();
+    const labelListList& faceEdges(lc.faceEdges());
+    const faceList& fL = lc.faces();
 
-    forAll( lc.cc(), facei )
+    forAll(lc.cc(), facei)
     {
-        const face & f( fL[facei] );
-        const edgeList & eLt  (f.edges());
+        const face& f( fL[facei] );
+        const edgeList& eLt  (f.edges());
 
         labelList edgeCutt(f.size());
 
-        const labelList & fE( faceEdges[facei] );
+        const labelList& fE( faceEdges[facei] );
 
-        forAll( eLt, edgei )
+        forAll(eLt, edgei)
         {
             edgeCutt[edgei] = edgeCut[ fE[edgei] ];
         }
 
-        edge & cutted( cuttedEdges[cutCount]);
+        edge& cutted( cuttedEdges[cutCount]);
 
         faceCut(pType, f, eLt, edgeCutt, lc.points(), lf, cutted);
 
@@ -291,7 +291,7 @@ void convexPolyhedral::faceCut
     else
     {
         // Add special edges, where both ends are on the plane
-        forAll( eL, edgei )
+        forAll(eL, edgei)
         {
             if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
                 cuttedEdges[cutCount++] = eL[edgei];
@@ -319,13 +319,13 @@ void convexPolyhedral::faceCut
 
 void convexPolyhedral::faceCut
 (
-        const labelList  & pType,
-        const face       & f,
-        const edgeList   & eL,
-        const labelList  & edgeCut,
-        const pointField & pf,
-        localFace        & lf,
-        edge             & cutted
+        const labelList& pType,
+        const face& f,
+        const edgeList& eL,
+        const labelList& edgeCut,
+        const pointField& pf,
+        localFace& lf,
+        edge& cutted
 )
 {
     lf.points(pf);
@@ -337,7 +337,7 @@ void convexPolyhedral::faceCut
     label pTypeSqr(0);
     label pTypeSum(0);
 
-    forAll( f, pointi )
+    forAll(f, pointi)
     {
         pTypeSqr += ( pType[f[pointi]] * pType[f[pointi]] );
         pTypeSum += pType[f[pointi]];
@@ -366,11 +366,11 @@ void convexPolyhedral::faceCut
     {
         lf.posFace().setSize( f.size() + 2);
         lf.negFace().setSize( f.size() + 2);
-        face & posF( lf.posFace() );
-        face & negF( lf.negFace() );
+        face& posF( lf.posFace() );
+        face& negF( lf.negFace() );
         label posCount(0), negCount(0), noi(0);
 
-        forAll( eL, edgei )
+        forAll(eL, edgei)
         {
             edge e(eL[edgei]);
             label start(e.start());
@@ -415,7 +415,7 @@ void convexPolyhedral::faceCut
 
 face convexPolyhedral::combineEdgeList
 (
-        const edgeList & eL
+        const edgeList& eL
 )
 {
     face fInter(eL.size());
@@ -463,14 +463,14 @@ face convexPolyhedral::combineEdgeList
 void convexPolyhedral::signedPointToSurfaceDistance
 //void convexPolyhedral::signedPointToSurfaceDistance
 (
-        const pointField & pp,
-        scalarField      & signedDistance
+        const pointField& pp,
+        scalarField& signedDistance
 )
 {
     if ( pp.size() != signedDistance.size() )
         signedDistance.setSize( pp.size() );
 
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         signedDistance[pointi] = signedPointToSurfaceDistance( pp[pointi] );
     }
@@ -478,7 +478,7 @@ void convexPolyhedral::signedPointToSurfaceDistance
 
 scalar convexPolyhedral::signedPointToSurfaceDistance
 (
-        const point & p
+        const point& p
 ) const
 {
     return (p - pointOnPlane_) & normalToPlane_;
@@ -489,11 +489,11 @@ scalar convexPolyhedral::signedPointToSurfaceDistance
 // labelList attribute is 0. Else the attribute is the sign of the distance.
 void convexPolyhedral::floatingPointToLabel
 (
-        const scalarField & s,
-        labelList         & l
+        const scalarField& s,
+        labelList& l
 )
 {
-    forAll( s, pointi )
+    forAll(s, pointi)
     {
         l[pointi] = floatingPointToLabel( s[pointi] );
     }
@@ -501,7 +501,7 @@ void convexPolyhedral::floatingPointToLabel
 
 label convexPolyhedral::floatingPointToLabel
 (
-    const scalar & s
+    const scalar& s
 )
 {
     return Foam::mag(s) < 5.0e-14 ? 0 : Foam::sign(s);
@@ -512,23 +512,23 @@ label convexPolyhedral::floatingPointToLabel
 
 localFace convexPolyhedral::divideFace
 (
-        const label  & faceLabel,
-        const point  & pointOnPlane,
-        const vector & normalToPlane
+        const label& faceLabel,
+        const point& pointOnPlane,
+        const vector& normalToPlane
 )
 {
     // Update private member functions
     setPoint ( pointOnPlane  );
     setNormal( normalToPlane );
 
-    const pointField & pp(mesh_.points());
-    const faceList   & fL(mesh_.faces());
+    const pointField& pp(mesh_.points());
+    const faceList& fL(mesh_.faces());
 
     // Make a local face representation
     face f( fL[faceLabel] );
     pointField pf( f.size() );
 
-    forAll( f, pointi )
+    forAll(f, pointi)
     {
         pf[pointi] = pp[f[pointi]];
         f[pointi]  = pointi;
@@ -542,7 +542,7 @@ localFace convexPolyhedral::divideFace
     floatingPointToLabel( sD, pType );
 
     // Add potential new points to pf and return their labels in edgeCut
-    const edgeList & eL(f.edges());
+    const edgeList& eL(f.edges());
     labelList edgeCut = edgeCutLabel(eL, pType, sD, pf);
 
     // Return variable. To be populated below - constructed to empty
@@ -556,17 +556,17 @@ localFace convexPolyhedral::divideFace
 
 localFace convexPolyhedral::divideFace
 (
-    const label & faceLabel
+    const label& faceLabel
 )
 {
-    const pointField & pp(mesh_.points());
-    const faceList   & fL(mesh_.faces());
+    const pointField& pp(mesh_.points());
+    const faceList& fL(mesh_.faces());
 
     // Make a local face representation
     face f( fL[faceLabel] );
     pointField pf( f.size() );
 
-    forAll( f, pointi )
+    forAll(f, pointi)
     {
         pf[pointi] = pp[f[pointi]];
         f[pointi]  = pointi;
@@ -580,7 +580,7 @@ localFace convexPolyhedral::divideFace
     floatingPointToLabel( sD, pType );
 
     // Add potential new points to pf and return their labels in edgeCut
-    const edgeList & eL(f.edges());
+    const edgeList& eL(f.edges());
     labelList edgeCut = edgeCutLabel(eL, pType, sD, pf);
 
     // Return variable. To be populated below - constructed to empty
@@ -594,9 +594,9 @@ localFace convexPolyhedral::divideFace
 
 localCell convexPolyhedral::dividePolyhedral
 (
-        const label  & cellLabel,
-        const point  & pointOnPlane,
-        const vector & normalToPlane
+        const label& cellLabel,
+        const point& pointOnPlane,
+        const vector& normalToPlane
 )
 {
     // Create a localised cell
@@ -610,9 +610,9 @@ localCell convexPolyhedral::dividePolyhedral
 
 void convexPolyhedral::dividePolyhedral
 (
-        const point  & pointOnPlane,
-        const vector & normalToPlane,
-        localCell & lc
+        const point& pointOnPlane,
+        const vector& normalToPlane,
+        localCell& lc
 )
 {
     lc.clearCut();
@@ -622,8 +622,8 @@ void convexPolyhedral::dividePolyhedral
     setNormal( normalToPlane );
 
     // Get data from localised cell
-    const edgeList & eL( lc.edges() );
-    pointField & pp( lc.points() );
+    const edgeList& eL( lc.edges() );
+    pointField& pp( lc.points() );
 
     // Get the signed distance and point type
     scalarField sD   ( pp.size(), 0.0);
@@ -653,9 +653,9 @@ void convexPolyhedral::dividePolyhedral
 
 void convexPolyhedral::dividePolyhedral
 (
-    const point & pointOnPlane,
-    const vector & normalToPlane,
-    localCellNeg & lc
+    const point& pointOnPlane,
+    const vector& normalToPlane,
+    localCellNeg& lc
 )
 {
     lc.clearCut();
@@ -665,8 +665,8 @@ void convexPolyhedral::dividePolyhedral
     setNormal( normalToPlane );
 
     // Get data from localised cell
-    const edgeList & eL( lc.edges() );
-    pointField & pp( lc.points() );
+    const edgeList& eL( lc.edges() );
+    pointField& pp( lc.points() );
 
     // Get the signed distance and point type
     scalarField sD   ( pp.size(), 0.0);
@@ -699,15 +699,15 @@ void convexPolyhedral::dividePolyhedral
 
 void convexPolyhedral::unionSet
 (
-    const localCell & cell0,
-    localCell & cell1
+    const localCell& cell0,
+    localCell& cell1
 )
 {
-    const cell & c( cell0.ccNeg() );
-    const faceList & fL( cell0.faces() );
-    const pointField & pp( cell0.points() );
+    const cell& c( cell0.ccNeg() );
+    const faceList& fL( cell0.faces() );
+    const pointField& pp( cell0.points() );
 
-    forAll( c, facei )
+    forAll(c, facei)
     {
         const vector n( fL[c[facei]].normal(pp) );
         const point Cf( fL[c[facei]].centre(pp) );
@@ -729,15 +729,15 @@ void convexPolyhedral::unionSet
 
 void convexPolyhedral::unionSet
 (
-    const localCellNeg & cell0,
-    localCellNeg & cell1
+    const localCellNeg& cell0,
+    localCellNeg& cell1
 )
 {
-    const cell & c( cell0.ccNeg() );
-    const faceList & fL( cell0.faces() );
-    const pointField & pp( cell0.points() );
+    const cell& c( cell0.ccNeg() );
+    const faceList& fL( cell0.faces() );
+    const pointField& pp( cell0.points() );
 
-    forAll( c, facei )
+    forAll(c, facei)
     {
         const vector n( fL[c[facei]].normal(pp) );
         const point Cf( fL[c[facei]].centre(pp) );

@@ -42,8 +42,8 @@ namespace Foam
 
 localCellNeg::localCellNeg
 (
-    const fvMesh & mesh,
-    const label & cellI
+    const fvMesh& mesh,
+    const label& cellI
 )
 :
     ccNeg_(0),
@@ -86,14 +86,14 @@ localCellNeg::localCellNeg()
 
 void localCellNeg::localizeCell
 (
-        const fvMesh & mesh,
-        const label & cellI
+        const fvMesh& mesh,
+        const label& cellI
 )
 {
     // Reference to some global mesh data
-    const labelList    & own = mesh.owner();
-    const faceList     & ff = mesh.faces();
-    const pointField   & pp = mesh.points();
+    const labelList& own = mesh.owner();
+    const faceList& ff = mesh.faces();
+    const pointField& pp = mesh.points();
     const label nFaces      = mesh.nInternalFaces();
 
     // Get local cell properties
@@ -115,7 +115,7 @@ void localCellNeg::localizeCell
         // If the other holds, the normal points outward per definition
         if ( nFace < nFaces && own[nFace] != cellI )
         {
-            face & f( fL_[facei] );
+            face& f( fL_[facei] );
             f = f.reverseFace();
         }
     }
@@ -140,7 +140,7 @@ void localCellNeg::localizeCell
     // Change point labels in the faces to be consistent with local point numbering
     forAll(fL_, facei)
     {
-        face & f(fL_[facei]);
+        face& f(fL_[facei]);
 
         forAll(f, pointi)
         {
@@ -156,21 +156,21 @@ void localCellNeg::localizeCell
     edgeFaces_.setSize( eL_.size() );
     labelList counter(eL_.size(), 0);
 
-    forAll( edgeFaces_, edgei )
+    forAll(edgeFaces_, edgei)
     {
-        labelList & eF = edgeFaces_[edgei];
+        labelList& eF = edgeFaces_[edgei];
         eF.setSize(2);
     }
 
-    forAll( fL_, facei )
+    forAll(fL_, facei)
     {
-        const face & f(fL_[facei]);
-        const edgeList & eLf = f.edges();
+        const face& f(fL_[facei]);
+        const edgeList& eLf = f.edges();
 
-        labelList & fE( faceEdges_[facei] );
+        labelList& fE( faceEdges_[facei] );
         fE.setSize(eLf.size());
 
-        forAll( eLf, edgei )
+        forAll(eLf, edgei)
         {
             label count(0);
 
@@ -180,7 +180,7 @@ void localCellNeg::localizeCell
                 {
                     fE[edgei] = count;
 
-                    labelList & eF( edgeFaces_[count]);
+                    labelList& eF( edgeFaces_[count]);
                     eF[counter[count]++] = facei;
 
                     break;
@@ -204,21 +204,21 @@ void localCellNeg::cellConnectivity()
     edgeFaces_.setSize( eL_.size() );
     labelList counter(eL_.size(), 0);
 
-    forAll( edgeFaces_, edgei )
+    forAll(edgeFaces_, edgei)
     {
-        labelList & eF = edgeFaces_[edgei];
+        labelList& eF = edgeFaces_[edgei];
         eF.setSize(2);
     }
 
-    forAll( fL_, facei )
+    forAll(fL_, facei)
     {
-        const face & f(fL_[facei]);
-        const edgeList & eLf = f.edges();
+        const face& f(fL_[facei]);
+        const edgeList& eLf = f.edges();
 
-        labelList & fE( faceEdges_[facei] );
+        labelList& fE( faceEdges_[facei] );
         fE.setSize(eLf.size());
 
-        forAll( eLf, edgei )
+        forAll(eLf, edgei)
         {
             label count(0);
 
@@ -228,7 +228,7 @@ void localCellNeg::cellConnectivity()
                 {
                     fE[edgei] = count;
 
-                    labelList & eF( edgeFaces_[count]);
+                    labelList& eF( edgeFaces_[count]);
                     eF[counter[count]++] = facei;
 
                     break;
@@ -260,7 +260,7 @@ void localCellNeg::localizeCell
     // Clean out the face list to contain only the necessary faces
     faceList fL( this->cc_.size());
 
-    forAll( this->cc_, facei )
+    forAll(this->cc_, facei)
     {
         fL[facei] = fL_[this->cc_[facei]];
     }
@@ -289,7 +289,7 @@ void localCellNeg::localizeCell
     // Change point labels in the faces to be consistent with local point numbering
     forAll(this->fL_, facei)
     {
-        face & f(this->fL_[facei]);
+        face& f(this->fL_[facei]);
 
         forAll(f, pointi)
         {
@@ -304,7 +304,7 @@ void localCellNeg::localizeCell
     nextFace_ = cc_.size();
 }
 
-void localCellNeg::initCell( const fvMesh & mesh, const label & cellI)
+void localCellNeg::initCell( const fvMesh& mesh, const label& cellI)
 {
     localizeCell(mesh, cellI);
 }
@@ -324,13 +324,13 @@ void localCellNeg::emptyCell()
     nextFace_ = 0;
 }
 
-/*void localCellNeg::write(const fvMesh & mesh, const List<localCellNeg> & lcs)
+/*void localCellNeg::write(const fvMesh& mesh, const List<localCellNeg>& lcs)
 {
     label pCount(0);
 
-    forAll( lcs, celli )
+    forAll(lcs, celli)
     {
-        const localCellNeg & lc(lcs[celli]);
+        const localCellNeg& lc(lcs[celli]);
         pCount += lc.points().size();
     }
 
@@ -339,24 +339,24 @@ void localCellNeg::emptyCell()
     pointField pp(pCount);
     pCount = 0;
 
-    forAll( lcs, celli )
+    forAll(lcs, celli)
     {
-        const localCellNeg & lc(lcs[celli]);
+        const localCellNeg& lc(lcs[celli]);
 
         // Put points into a common pointField
         pointField p( lc.points() );
 
-        forAll( p, pointi )
+        forAll(p, pointi)
         {
             pp[pointi + pCount] = p[pointi];
         }
 
         // Add interface-face to the face list. Correct for the new point numbering
-        face & f( fL[celli]);
+        face& f( fL[celli]);
 
         f = lc.iface();
 
-        forAll( f, pointi )
+        forAll(f, pointi)
         {
             f[pointi] += pCount;
         }

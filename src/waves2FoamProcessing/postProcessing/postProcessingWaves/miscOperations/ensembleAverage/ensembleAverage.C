@@ -50,16 +50,16 @@ void ensembleAverage::evaluateScalar()
 
     scalarField count( N_ + 1, 0.0 );
 
-    forAll( input, I )
+    forAll(input, I)
     {
-        const scalarField & field( input[I] );
+        const scalarField& field( input[I] );
 
-        scalarField & ensAv( ensAverage[I] );
+        scalarField& ensAv( ensAverage[I] );
         ensAv.setSize( N_ + 1, 0.0 );
 
         count *= 0.0;
 
-        forAll( field, fi )
+        forAll(field, fi)
         {
             ensAv[ fi % N_ ] += field[fi];
             count[ fi % N_ ]++;
@@ -76,7 +76,7 @@ void ensembleAverage::evaluateScalar()
 
 void ensembleAverage::writeScalar
 (
-    const List<scalarField> & ensAv
+    const List<scalarField>& ensAv
 )
 {
     Info << "        - Writing ensemble average to: " << directDir_.c_str() << this->type() << endl;
@@ -85,14 +85,14 @@ void ensembleAverage::writeScalar
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_ensAv.dat"));
 
-        const scalarField & data( ensAv[indexi] );
+        const scalarField& data( ensAv[indexi] );
 
         for( int i=0; i < N_; i++)
             spectrumPtr_() << static_cast<scalar>(i) * deltaT_ << tab << data[i] << endl;
@@ -112,16 +112,16 @@ void ensembleAverage::evaluateVector()
 
     scalarField count( N_ + 1, 0.0 );
 
-    forAll( input, I )
+    forAll(input, I)
     {
-        const vectorField & field( input[I] );
+        const vectorField& field( input[I] );
 
-        vectorField & ensAv( ensAverage[I] );
+        vectorField& ensAv( ensAverage[I] );
         ensAv.setSize( N_ + 1, vector::zero );
 
         count *= 0.0;
 
-        forAll( field, fi )
+        forAll(field, fi)
         {
             ensAv[ fi % N_ ] += field[fi];
             count[ fi % N_ ]++;
@@ -138,7 +138,7 @@ void ensembleAverage::evaluateVector()
 
 void ensembleAverage::writeVector
 (
-    const List<vectorField> & ensAv
+    const List<vectorField>& ensAv
 )
 {
     Info << "        - Writing ensemble average to: " << directDir_.c_str() << this->type() << endl;
@@ -147,14 +147,14 @@ void ensembleAverage::writeVector
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_ensAv.dat"));
 
-        const vectorField & data( ensAv[indexi] );
+        const vectorField& data( ensAv[indexi] );
 
         for( int i=0; i < N_; i++)
             spectrumPtr_() << static_cast<scalar>(i) * deltaT_
@@ -173,9 +173,9 @@ void ensembleAverage::writeVector
 
 ensembleAverage::ensembleAverage
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -192,7 +192,7 @@ ensembleAverage::ensembleAverage
         N_ = static_cast<label>( period_ / deltaT_ );
     else
     {
-        FatalErrorIn("ensembleAverage::ensembleAverage(const fvMesh & mesh, const dictionary & actionProp, const word & action)")
+        FatalErrorIn("ensembleAverage::ensembleAverage(const fvMesh& mesh, const dictionary& actionProp, const word& action)")
                     << "    There is not an integer number of time steps per period.\n"
                     << "    T = " << period_ << " s and " << "dt = " << deltaT_ << " s.\n"
                     << "    Yielding a total of " << period_ / deltaT_ << " dt per period, which is non-integer."

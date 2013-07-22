@@ -63,10 +63,10 @@ protected:
     // Protected data
         scalar exponent_;
         scalarField weight_;
-    
+
     // Protected member functions
 
-    
+
 public:
 
     //- Runtime type information
@@ -77,10 +77,10 @@ public:
         //- from components
         relaxationSchemeSpatial
         (
-            const word & ,
-            const fvMesh & mesh_,
-            vectorField & U,
-            scalarField & alpha
+            const word& ,
+            const fvMesh& mesh_,
+            vectorField& U,
+            scalarField& alpha
         );
 
     // Destructor

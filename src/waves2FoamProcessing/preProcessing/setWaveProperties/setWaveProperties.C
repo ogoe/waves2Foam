@@ -38,7 +38,7 @@ defineRunTimeSelectionTable(setWaveProperties, setWaveProperties);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
-void setWaveProperties::lineFormatting( Ostream & os, const word & key)
+void setWaveProperties::lineFormatting( Ostream& os, const word& key)
 {
     os << indent << key << token::SPACE;
 
@@ -46,11 +46,11 @@ void setWaveProperties::lineFormatting( Ostream & os, const word & key)
         os << token::SPACE;
 }
 
-void setWaveProperties::addITstream( Ostream & os, const word & key, const ITstream & it )
+void setWaveProperties::addITstream( Ostream& os, const word& key, const ITstream& it )
 {
     lineFormatting(os, key);
 
-    forAll( it, ii)
+    forAll(it, ii)
     {
         os << it[ii];
 
@@ -63,7 +63,7 @@ void setWaveProperties::addITstream( Ostream & os, const word & key, const ITstr
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
-void setWaveProperties::writeBeginning( Ostream & os)
+void setWaveProperties::writeBeginning( Ostream& os)
 {
     wordList names( dict_.name().components('/') );
 
@@ -80,11 +80,11 @@ void setWaveProperties::writeBeginning( Ostream & os)
     os << dictName << nl << token::BEGIN_BLOCK << incrIndent << nl;
 }
 
-void setWaveProperties::writeGiven( Ostream & os )
+void setWaveProperties::writeGiven( Ostream& os )
 {
     wordList toc( dict_.toc() );
 
-    forAll( toc, item )
+    forAll(toc, item)
     {
         if ( !dict_.isDict( toc[item]) )
         {
@@ -94,28 +94,28 @@ void setWaveProperties::writeGiven( Ostream & os )
     }
 }
 
-void setWaveProperties::writeGiven( Ostream & os, word name )
+void setWaveProperties::writeGiven( Ostream& os, word name )
 {
     ITstream it( dict_.lookup(name) );
 
     addITstream( os, name, it );
 }
 
-void setWaveProperties::writeDerived( Ostream & os, word name, scalar val)
+void setWaveProperties::writeDerived( Ostream& os, word name, scalar val)
 {
     lineFormatting(os, name);
 
     os << val << token::END_STATEMENT << nl;
 }
 
-void setWaveProperties::writeDerived( Ostream & os, word name, vector val)
+void setWaveProperties::writeDerived( Ostream& os, word name, vector val)
 {
     lineFormatting(os, name);
 
     os << val << token::END_STATEMENT << nl;
 }
 
-void setWaveProperties::writeDerived( Ostream & os, word name, scalarField val)
+void setWaveProperties::writeDerived( Ostream& os, word name, scalarField val)
 {
     lineFormatting(os, name);
 
@@ -123,7 +123,7 @@ void setWaveProperties::writeDerived( Ostream & os, word name, scalarField val)
 
     os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
 
-    forAll( val, vali)
+    forAll(val, vali)
     {
         os << indent << val[vali] << nl;
     }
@@ -131,7 +131,7 @@ void setWaveProperties::writeDerived( Ostream & os, word name, scalarField val)
     os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
 }
 
-void setWaveProperties::writeDerived( Ostream & os, word name, vectorField val)
+void setWaveProperties::writeDerived( Ostream& os, word name, vectorField val)
 {
     lineFormatting(os, name);
 
@@ -139,7 +139,7 @@ void setWaveProperties::writeDerived( Ostream & os, word name, vectorField val)
 
     os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
 
-    forAll( val, vali)
+    forAll(val, vali)
     {
         os << indent << val[vali] << nl;
     }
@@ -147,7 +147,7 @@ void setWaveProperties::writeDerived( Ostream & os, word name, vectorField val)
     os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
 }
 
-void setWaveProperties::writeRelaxationZone( Ostream & os )
+void setWaveProperties::writeRelaxationZone( Ostream& os )
 {
     word rl("relaxationZone");
 
@@ -159,7 +159,7 @@ void setWaveProperties::writeRelaxationZone( Ostream & os )
 
         wordList toc( sd.toc() );
 
-        forAll( toc, item )
+        forAll(toc, item)
         {
             ITstream it( sd.lookup(toc[item]) );
 
@@ -170,7 +170,7 @@ void setWaveProperties::writeRelaxationZone( Ostream & os )
     }
 }
 
-void setWaveProperties::writeEnding( Ostream & os )
+void setWaveProperties::writeEnding( Ostream& os )
 {
     os  << decrIndent << token::END_BLOCK << nl << endl;
 }
@@ -179,8 +179,8 @@ void setWaveProperties::writeEnding( Ostream & os )
 
 setWaveProperties::setWaveProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -205,8 +205,8 @@ setWaveProperties::~setWaveProperties()
 
 autoPtr<setWaveProperties> setWaveProperties::New
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 {
@@ -220,7 +220,7 @@ autoPtr<setWaveProperties> setWaveProperties::New
     {
         FatalErrorIn
         (
-            "setWaveProperties::New(const fvMesh &, const Time &, dictionary &, bool)"
+            "setWaveProperties::New(const fvMesh&, const Time&, dictionary&, bool)"
         )   << "Unknown wave property type " << waveTheoryTypeName << "Properties"
             << endl << endl
             << "Valid wave property types are :" << endl

@@ -70,13 +70,13 @@ void Foam::overtopping::movePoints(const polyMesh&)
     bool Foam::overtopping::timeSet()
     {
         // Do nothing
-    	return true;
+        return true;
     }
 #elif XVERSION
     bool Foam::overtopping::timeSet()
     {
         // Do nothing
-    	return true;
+        return true;
     }
 #endif
 
@@ -131,9 +131,9 @@ void Foam::overtopping::writeFileHeader()
     {
         outputFilePtr_() << "Time:";
 
-        const faceZoneMesh & faceZones( mesh_.faceZones() );
+        const faceZoneMesh& faceZones( mesh_.faceZones() );
 
-        forAll( faceZones, fzi )
+        forAll(faceZones, fzi)
         {
             if ( operateOnZone( faceZones[fzi] ) )
                 outputFilePtr_() << "\t" << faceZones[fzi].name();
@@ -146,9 +146,9 @@ void Foam::overtopping::writeFileHeader()
     {
         outputFileForcePtr_() << "Time:";
 
-        const faceZoneMesh & faceZones( mesh_.faceZones() );
+        const faceZoneMesh& faceZones( mesh_.faceZones() );
 
-        forAll( faceZones, fzi )
+        forAll(faceZones, fzi)
         {
             if ( operateOnZone( faceZones[fzi] ) )
                 outputFileForcePtr_() << "\t" << faceZones[fzi].name();
@@ -189,10 +189,10 @@ Foam::overtopping::~overtopping()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-bool Foam::overtopping::operateOnZone( const faceZone & fz ) const
+bool Foam::overtopping::operateOnZone( const faceZone& fz ) const
 {
-    const string & zoneName( fz.name() );
-    const string & ownName( this->type() );
+    const string& zoneName( fz.name() );
+    const string& ownName( this->type() );
     const label N = ownName.size();
 
     if ( !zoneName.compare(0, N, ownName) )
@@ -211,13 +211,13 @@ void Foam::overtopping::read(const dictionary& dict)
 
 void Foam::overtopping::computeAndWriteBoundary
 (
-    const label & faceI,
-    const surfaceScalarField & phi,
-    const surfaceScalarField & rhoPhi,
-    const surfaceScalarField & magSf,
-    const surfaceVectorField & Sf,
-    vector & q,
-    vector & f
+    const label& faceI,
+    const surfaceScalarField& phi,
+    const surfaceScalarField& rhoPhi,
+    const surfaceScalarField& magSf,
+    const surfaceVectorField& Sf,
+    vector& q,
+    vector& f
 ) const
 {
     label facePatchId = mesh_.boundaryMesh().whichPatch(faceI);
@@ -264,10 +264,10 @@ void Foam::overtopping::computeAndWriteBoundary
 
     if ( faceId > -1 )
     {
-        const scalarField & phiw( phi.boundaryField()[facePatchId] );
-        const scalarField & rhoPhiw( rhoPhi.boundaryField()[facePatchId] );
-        const scalarField & magSfw( magSf.boundaryField()[facePatchId] );
-        const vectorField & Sfw( Sf.boundaryField()[facePatchId] );
+        const scalarField& phiw( phi.boundaryField()[facePatchId] );
+        const scalarField& rhoPhiw( rhoPhi.boundaryField()[facePatchId] );
+        const scalarField& magSfw( magSf.boundaryField()[facePatchId] );
+        const vectorField& Sfw( Sf.boundaryField()[facePatchId] );
 
         q = ( (rhoPhiw[ faceId ] - phiw[ faceId ] * rho2_) * invRhoDiff_ ) * Sfw[ faceId ] / magSfw[ faceId ];
         f = rho1_ * q * Foam::mag( q / magSfw[ faceId ] );
@@ -277,13 +277,13 @@ void Foam::overtopping::computeAndWriteBoundary
 
 void Foam::overtopping::computeAndWrite
 (
-    const faceZone & fz,
-    const surfaceScalarField & phi,
-    const surfaceScalarField & rhoPhi
+    const faceZone& fz,
+    const surfaceScalarField& phi,
+    const surfaceScalarField& rhoPhi
 )
 {
-    const surfaceVectorField & Sf( mesh_.Sf() );
-    const surfaceScalarField & magSf( mesh_.magSf() );
+    const surfaceVectorField& Sf( mesh_.Sf() );
+    const surfaceScalarField& magSf( mesh_.magSf() );
 
     vectorField q(fz.size(), vector::zero);
     vectorField f(fz.size(), vector::zero);
@@ -319,7 +319,7 @@ void Foam::overtopping::write()
 {
     makeFile();
 
-    const faceZoneMesh & faceZones( mesh_.faceZones() );
+    const faceZoneMesh& faceZones( mesh_.faceZones() );
 
     if ( Pstream::master() )
     {
@@ -331,7 +331,7 @@ void Foam::overtopping::write()
     const surfaceScalarField phi   ( mesh_.lookupObject<surfaceScalarField>(phiName_)    );
     const surfaceScalarField rhoPhi( mesh_.lookupObject<surfaceScalarField>(rhoPhiName_) );
 
-    forAll( faceZones, fzi )
+    forAll(faceZones, fzi)
     {
         if ( operateOnZone( faceZones[fzi] ) )
         {

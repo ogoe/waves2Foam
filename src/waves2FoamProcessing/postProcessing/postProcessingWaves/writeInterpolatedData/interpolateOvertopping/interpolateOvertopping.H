@@ -87,9 +87,9 @@ public:
         //- Construct from components
         interpolateOvertopping
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

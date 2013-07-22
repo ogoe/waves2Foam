@@ -41,8 +41,8 @@ addToRunTimeSelectionTable(postProcessingWaves, rawOvertopping, postProcessingWa
 
 void rawOvertopping::resizeFields
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    List<vectorField> & Us,
+    List<std::pair<scalar, label> >& timeLabel,
+    List<vectorField>& Us,
     label N
 )
 {
@@ -51,16 +51,16 @@ void rawOvertopping::resizeFields
 
     forAll(Us, UI)
     {
-        vectorField & U( Us[UI] );
+        vectorField& U( Us[UI] );
         U.setSize(N);
     }
 }
 
 void rawOvertopping::writeRawData
 (
-    const List<std::pair<scalar, label> > & timeLabel,
-    const wordList & OTnames,
-    const List<vectorField> & OTs
+    const List<std::pair<scalar, label> >& timeLabel,
+    const wordList& OTnames,
+    const List<vectorField>& OTs
 )
 {
     // Write the time vector
@@ -68,7 +68,7 @@ void rawOvertopping::writeRawData
     vectorField output1( timeLabel.size(), vector::zero );
 
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output0[labeli] = timeLabel[labeli].first;
         }
@@ -83,12 +83,12 @@ void rawOvertopping::writeRawData
     writeNameDict(-1, OTnames);
 
     // Write the surface elevation fields
-    forAll( OTs, OTI )
+    forAll(OTs, OTI)
     {
-        const vectorField & OT( OTs[OTI] );
+        const vectorField& OT( OTs[OTI] );
 
         // Rearrange according to indexing
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output1[labeli] = OT[ timeLabel[labeli].second ];
         }
@@ -108,9 +108,9 @@ void rawOvertopping::writeRawData
 
 rawOvertopping::rawOvertopping
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -142,9 +142,9 @@ void rawOvertopping::evaluate()
 
 void rawOvertopping::readOvertoppingData
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    wordList & OTnames,
-    List<vectorField> & OTs
+    List<std::pair<scalar, label> >& timeLabel,
+    wordList& OTnames,
+    List<vectorField>& OTs
 )
 {
     label Nprobes(0);
@@ -152,7 +152,7 @@ void rawOvertopping::readOvertoppingData
     string dummy;
     label Nentries(0);
 
-    forAll( timeDirs_, timeI )
+    forAll(timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
@@ -208,7 +208,7 @@ void rawOvertopping::readOvertoppingData
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll( OTs, OTI )
+            forAll(OTs, OTI)
             {
                 vector temp( vector::zero );
 
@@ -224,7 +224,7 @@ void rawOvertopping::readOvertoppingData
                 iss >> dummy;
                 temp.z() = std::atof( (dummy.substr(0,dummy.size()-1)).c_str() );
 
-                vectorField & OT( OTs[ OTI ] );
+                vectorField& OT( OTs[ OTI ] );
 
                 OT[Nentries] = scaleFlux_ * temp;
             }

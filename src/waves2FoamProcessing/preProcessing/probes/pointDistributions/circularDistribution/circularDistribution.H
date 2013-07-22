@@ -84,8 +84,8 @@ public:
         //- Construct from components
         circularDistribution
         (
-            const fvMesh &,
-            const dictionary &
+            const fvMesh&,
+            const dictionary&
         );
 
 

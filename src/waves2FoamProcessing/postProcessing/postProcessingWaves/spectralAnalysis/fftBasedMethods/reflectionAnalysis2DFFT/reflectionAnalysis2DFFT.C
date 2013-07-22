@@ -41,7 +41,7 @@ addToRunTimeSelectionTable(postProcessingWaves, reflectionAnalysis2DFFT, postPro
 
 scalarField reflectionAnalysis2DFFT::linearWaveNumbers
 (
-    const scalarField & frequencies
+    const scalarField& frequencies
 )
 {
     // Prepare return field
@@ -51,7 +51,7 @@ scalarField reflectionAnalysis2DFFT::linearWaveNumbers
     stokesFirstProperties stp( rT_ , dataDict_ );
 
     // Compute the linear wave number for each freqency
-    forAll( frequencies, freqi )
+    forAll(frequencies, freqi)
     {
         res[freqi] = stp.linearWaveNumber( depth_, frequencies[freqi] );
     }
@@ -61,9 +61,9 @@ scalarField reflectionAnalysis2DFFT::linearWaveNumbers
 
 void reflectionAnalysis2DFFT::writeReflectionIncident
 (
-    const scalarField & frequencies,
-    const scalarField & spectrumRight,
-    const scalarField & spectrumLeft
+    const scalarField& frequencies,
+    const scalarField& spectrumRight,
+    const scalarField& spectrumLeft
 )
 {
     Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
@@ -79,7 +79,7 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        forAll( frequencies, freqi )
+        forAll(frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi] << endl;
         }
@@ -92,7 +92,7 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        forAll( frequencies, freqi )
+        forAll(frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi] << tab << spectrumRight[freqi] << endl;
         }
@@ -105,7 +105,7 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        forAll( frequencies, freqi )
+        forAll(frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi] << endl;
         }
@@ -114,10 +114,10 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
 
 void reflectionAnalysis2DFFT::decomposeAmplitudes
 (
-    const scalarField & k,
-    const List<Field<complex> > & amps,
-    Field<complex> & ampRight,
-    Field<complex> & ampLeft
+    const scalarField& k,
+    const List<Field<complex> >& amps,
+    Field<complex>& ampRight,
+    Field<complex>& ampLeft
 )
 {
     // Number of wave gauges
@@ -134,7 +134,7 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         ampLeft.setSize(k.size(), complex::zero);
 
     // Loop over all frequencies (wave numbers)
-    forAll( k, freqi )
+    forAll(k, freqi)
     {
         scalar kj( k[freqi] );
 
@@ -174,7 +174,7 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         // Compute the left and right going discrete fourier coefficients. (Eq. 14a and 14b)
         for ( int p = 0; p < P; p++)
         {
-            const Field<complex> & amp( amps[p] );
+            const Field<complex>& amp( amps[p] );
 
             ampLeft[freqi]  += ( (C[p].conjugate()) * amp[freqi] );
             ampRight[freqi] += ( C[p] * amp[freqi] );
@@ -186,9 +186,9 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
 
 reflectionAnalysis2DFFT::reflectionAnalysis2DFFT
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -207,7 +207,7 @@ reflectionAnalysis2DFFT::reflectionAnalysis2DFFT
 
     scalarField allX = dataDict_.lookup( coordName_ );
 
-    forAll( indices_, indexi )
+    forAll(indices_, indexi)
         X_[indexi] = allX[indices_[indexi]];
 }
 
@@ -255,7 +255,7 @@ void reflectionAnalysis2DFFT::evaluate()
             decomposeAmplitudes( k, transforms, ampRight, ampLeft);
 
             // Add the decomposed DFTs to the left and right going power spectra
-            forAll( ampRight, freqi )
+            forAll(ampRight, freqi)
             {
                 specRight[freqi] += ( factor * (ampRight[freqi] * ampRight[freqi].conjugate()).Re() );
                 specLeft[freqi]  += ( factor * (ampLeft[freqi] * ampLeft[freqi].conjugate()).Re() );

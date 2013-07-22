@@ -83,22 +83,22 @@ private:
     // Private Member Functions
         scalarField linearWaveNumbers
         (
-            const scalarField &
+            const scalarField&
         );
 
         void writeReflectionIncident
         (
-            const scalarField &,
-            const scalarField &,
-            const scalarField &
+            const scalarField&,
+            const scalarField&,
+            const scalarField&
         );
 
         void decomposeAmplitudes
         (
-            const scalarField &,
-            const List<Field<complex> > &,
-            Field<complex> &,
-            Field<complex> &
+            const scalarField&,
+            const List<Field<complex> >&,
+            Field<complex>&,
+            Field<complex>&
         );
 
         //- Disallow default bitwise copy construct
@@ -119,9 +119,9 @@ public:
         //- Construct from components
         reflectionAnalysis2DFFT
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
     // Destructor

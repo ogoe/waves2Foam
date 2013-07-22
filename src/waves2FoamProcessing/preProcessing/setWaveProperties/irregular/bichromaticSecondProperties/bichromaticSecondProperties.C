@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, bichromaticSecondProperties, setWa
 
 bichromaticSecondProperties::bichromaticSecondProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -58,7 +58,7 @@ bichromaticSecondProperties::bichromaticSecondProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void bichromaticSecondProperties::set(Ostream & os)
+void bichromaticSecondProperties::set(Ostream& os)
 {
     scalar k1 = sfp1_.linearWaveNumber();
     scalar k2 = sfp2_.linearWaveNumber();

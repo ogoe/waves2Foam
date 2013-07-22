@@ -41,8 +41,8 @@ addToRunTimeSelectionTable(postProcessingWaves, rawSurfaceElevation, postProcess
 
 void rawSurfaceElevation::resizeFields
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    List<scalarField> & etas,
+    List<std::pair<scalar, label> >& timeLabel,
+    List<scalarField>& etas,
     label N
 )
 {
@@ -51,25 +51,25 @@ void rawSurfaceElevation::resizeFields
 
     forAll(etas, etaI)
     {
-        scalarField & eta( etas[etaI] );
+        scalarField& eta( etas[etaI] );
         eta.setSize(N);
     }
 }
 
 void rawSurfaceElevation::writeRawData
 (
-    const List<std::pair<scalar, label> > & timeLabel,
-    const scalarField & x,
-    const scalarField & y,
-    const scalarField & z,
-    const List<scalarField> & etas
+    const List<std::pair<scalar, label> >& timeLabel,
+    const scalarField& x,
+    const scalarField& y,
+    const scalarField& z,
+    const List<scalarField>& etas
 )
 {
     // Write the time vector
     scalarField output( timeLabel.size(), 0.0 );
 
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output[labeli] = timeLabel[labeli].first;
         }
@@ -83,12 +83,12 @@ void rawSurfaceElevation::writeRawData
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
-    forAll( etas, etaI )
+    forAll(etas, etaI)
     {
-        const scalarField & eta( etas[etaI] );
+        const scalarField& eta( etas[etaI] );
 
         // Rearrange according to indexing
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output[labeli] = eta[ timeLabel[labeli].second];
         }
@@ -108,9 +108,9 @@ void rawSurfaceElevation::writeRawData
 
 rawSurfaceElevation::rawSurfaceElevation
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -140,11 +140,11 @@ void rawSurfaceElevation::evaluate()
 
 void rawSurfaceElevation::readSurfaceElevationData
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    scalarField & x,
-    scalarField & y,
-    scalarField & z,
-    List<scalarField> & etas
+    List<std::pair<scalar, label> >& timeLabel,
+    scalarField& x,
+    scalarField& y,
+    scalarField& z,
+    List<scalarField>& etas
 )
 {
     label Ngauges(0);
@@ -153,7 +153,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
 
 
-    forAll( timeDirs_, timeI )
+    forAll(timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
@@ -246,10 +246,10 @@ void rawSurfaceElevation::readSurfaceElevationData
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll( etas, etaI )
+            forAll(etas, etaI)
             {
                 iss >> val;
-                scalarField & eta( etas[ etaI ] );
+                scalarField& eta( etas[ etaI ] );
 
                 eta[Nentries] = val;
             }

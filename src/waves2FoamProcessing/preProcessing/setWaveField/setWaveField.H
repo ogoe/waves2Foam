@@ -27,9 +27,9 @@ Class
 
 Description
     Implementation of a method for setting an arbitrary wave theory as initial
-    conditions in the computational domain. Change in bed level is not taken 
+    conditions in the computational domain. Change in bed level is not taken
     into consideration.
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -84,28 +84,28 @@ private:
 
         const fvMesh& mesh_;
 
-        volVectorField & U_;
-        volScalarField & alpha_;
-        volScalarField & p_;
+        volVectorField& U_;
+        volScalarField& alpha_;
+        volScalarField& p_;
 
         word name_;
         autoPtr<waveTheories::waveTheory> waveProps_;
-        
+
 
     // Private member functions
 
         //- Returns a scalarField of the signed distance to an arbitrary surface
             virtual void signedPointToSurfaceDistance
             (
-                const pointField &,
-                scalarField      &
+                const pointField&,
+                scalarField&
             );
 
 
         //- Returns a scalar of the signed distance to an arbitrary surface
             virtual scalar signedPointToSurfaceDistance
             (
-                const point &
+                const point&
             ) const;
 
 public:
@@ -118,19 +118,19 @@ public:
         //- Construct from components
         setWaveField
         (
-            const fvMesh & mesh,
+            const fvMesh& mesh,
             volVectorField& U,
-            volScalarField & alpha,
-            volScalarField & p
+            volScalarField& alpha,
+            volScalarField& p
         );
 
         setWaveField
         (
-            const fvMesh & mesh,
+            const fvMesh& mesh,
             const word,
             volVectorField& U,
-            volScalarField & alpha,
-            volScalarField & p
+            volScalarField& alpha,
+            volScalarField& p
         );
 
     // Destructor

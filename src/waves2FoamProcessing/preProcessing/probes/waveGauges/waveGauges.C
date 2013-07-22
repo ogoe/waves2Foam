@@ -39,9 +39,9 @@ defineTypeNameAndDebug(waveGauges, 0);
 
 void waveGauges::writeVTKFormat
 (
-    const word & name,
-    const pointField & pp,
-    const point & addPoint
+    const word& name,
+    const pointField& pp,
+    const point& addPoint
 )
 {
     autoPtr<OFstream> vtk;
@@ -55,13 +55,13 @@ void waveGauges::writeVTKFormat
     // Writing points
     vtk() << "POINTS " << 2*pp.size() << " float" << endl;
 
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         point p( pp[pointi] );
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
     }
 
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         point p( pp[pointi] + addPoint );
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
@@ -69,7 +69,7 @@ void waveGauges::writeVTKFormat
 
     // Writing lines
     vtk() << "LINES " << pp.size() << " " << 3*pp.size() << endl;
-    forAll( pp, pointi )
+    forAll(pp, pointi)
         vtk() << "2 " << pointi << " " << pointi + pp.size() << endl;
 
 }
@@ -78,8 +78,8 @@ void waveGauges::writeVTKFormat
 
 waveGauges::waveGauges
 (
-    const fvMesh & mesh,
-    const dictionary & dict
+    const fvMesh& mesh,
+    const dictionary& dict
 )
 :
     mesh_(mesh),
@@ -90,7 +90,7 @@ waveGauges::waveGauges
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void waveGauges::evaluate( const word & name )
+void waveGauges::evaluate( const word& name )
 {
     point addPoint( gaugeDict_.lookup("add") );
     word  vertAxis( word(gaugeDict_.lookup("axis")) );
@@ -106,7 +106,7 @@ void waveGauges::evaluate( const word & name )
 
     gauges() << "sets" << nl << token::BEGIN_LIST << nl << incrIndent;
 
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         gauges() << indent << "gauge_" << pointi << nl << indent << token::BEGIN_BLOCK << incrIndent << nl;
         gauges() << indent << "type         face" << token::END_STATEMENT << nl;

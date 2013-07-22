@@ -45,12 +45,12 @@ addToRunTimeSelectionTable(waveSpectra, PiersonMoskowitz, waveSpectra);
 
 PiersonMoskowitz::PiersonMoskowitz
 (
-    const Time & rT,
-    dictionary & dict,
-    scalarField & amp,
-    scalarField & freq,
-    scalarField & phi,
-    vectorField & k
+    const Time& rT,
+    dictionary& dict,
+    scalarField& amp,
+    scalarField& freq,
+    scalarField& phi,
+    vectorField& k
 )
 :
     waveSpectra(rT, dict, amp, freq, phi, k)
@@ -72,7 +72,7 @@ wordList PiersonMoskowitz::list()
     return res;
 }
 
-void PiersonMoskowitz::set( Ostream & os )
+void PiersonMoskowitz::set( Ostream& os )
 {
     // Get the input parameters
     scalar Hs( readScalar(dict_.lookup("Hs")) );

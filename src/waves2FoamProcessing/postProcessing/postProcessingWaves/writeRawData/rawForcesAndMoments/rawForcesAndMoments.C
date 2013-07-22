@@ -41,9 +41,9 @@ addToRunTimeSelectionTable(postProcessingWaves, rawForcesAndMoments, postProcess
 
 void rawForcesAndMoments::resizeFields
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    vectorField & field0,
-    vectorField & field1,
+    List<std::pair<scalar, label> >& timeLabel,
+    vectorField& field0,
+    vectorField& field1,
     label N
 )
 {
@@ -57,9 +57,9 @@ void rawForcesAndMoments::resizeFields
 
 void rawForcesAndMoments::writeRawData
 (
-    const List<std::pair<scalar, label> > & timeLabel,
-    const vectorField & forces,
-    const vectorField & moments
+    const List<std::pair<scalar, label> >& timeLabel,
+    const vectorField& forces,
+    const vectorField& moments
 )
 {
     // Write the time vector
@@ -67,7 +67,7 @@ void rawForcesAndMoments::writeRawData
     vectorField output1( timeLabel.size(), vector::zero );
 
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output0[labeli] = timeLabel[labeli].first;
         }
@@ -87,7 +87,7 @@ void rawForcesAndMoments::writeRawData
 
     // Write the forces as index 0
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output1[labeli] = forces[ timeLabel[labeli].second ];
         }
@@ -100,7 +100,7 @@ void rawForcesAndMoments::writeRawData
 
     // Write the moments as index 1
     {
-        forAll( timeLabel, labeli )
+        forAll(timeLabel, labeli)
         {
             output1[labeli] = moments[ timeLabel[labeli].second ];
         }
@@ -120,9 +120,9 @@ void rawForcesAndMoments::writeRawData
 
 rawForcesAndMoments::rawForcesAndMoments
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -151,9 +151,9 @@ void rawForcesAndMoments::evaluate()
 
 void rawForcesAndMoments::readForceAndMomentData
 (
-    List<std::pair<scalar, label> > & timeLabel,
-    vectorField & forces,
-    vectorField & moments
+    List<std::pair<scalar, label> >& timeLabel,
+    vectorField& forces,
+    vectorField& moments
 )
 {
     scalar val(0.0);
@@ -162,7 +162,7 @@ void rawForcesAndMoments::readForceAndMomentData
 
     resizeFields( timeLabel, forces, moments, 10000 );
 
-    forAll( timeDirs_, timeI )
+    forAll(timeDirs_, timeI)
     {
         scalar truncateReading(0);
 

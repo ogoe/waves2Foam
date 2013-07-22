@@ -75,84 +75,84 @@ private:
         bool iterateDistance_;
 
     // Private member functions
-        inline void setPoint( const point & p ) { pointOnPlane_ = p; };
+        inline void setPoint( const point& p ) { pointOnPlane_ = p; };
 
-        inline void setNormal( const vector & n ) { normalToPlane_ = n / Foam::mag(n); };
+        inline void setNormal( const vector& n ) { normalToPlane_ = n / Foam::mag(n); };
 
         labelList edgeCutLabel
         (
-            const edgeList    &,
-            const labelList   &,
-            const scalarField &,
-            pointField        &
+            const edgeList&,
+            const labelList&,
+            const scalarField&,
+            pointField&
         );
 
         void faceCut
         (
-            const labelList   & pType,
-            const edgeList    & eL,
-            const labelList   & edgeCut,
-            localCell         & lc
+            const labelList& pType,
+            const edgeList& eL,
+            const labelList& edgeCut,
+            localCell& lc
         );
 
         void faceCut
         (
-            const labelList   & pType,
-            const edgeList    & eL,
-            const labelList   & edgeCut,
-            localCellNeg      & lc
+            const labelList& pType,
+            const edgeList& eL,
+            const labelList& edgeCut,
+            localCellNeg& lc
         );
 
         void faceCut
         (
-            const labelList  &,
-            const face       &,
-            const edgeList   &,
-            const labelList  &,
-            const pointField &,
-            localFace        &,
-            edge             &
+            const labelList&,
+            const face&,
+            const edgeList&,
+            const labelList&,
+            const pointField&,
+            localFace&,
+            edge&
         );
 
-        face combineEdgeList( const edgeList & );
+        face combineEdgeList( const edgeList& );
 
 
 protected:
-    const fvMesh & mesh_;
+    const fvMesh& mesh_;
 
     // Protected member functions
 
         //- Returns a scalarField of the signed distance to an arbitrary surface
         virtual void signedPointToSurfaceDistance
         (
-            const pointField &,
-            scalarField      &
+            const pointField&,
+            scalarField&
         );
 
         //- Returns a scalar of the signed distance to an arbitrary surface
         virtual scalar signedPointToSurfaceDistance
         (
-            const point &
+            const point&
         ) const;
 
         // Take care of floating point logic, so it is only considered once per
         // intersection call
         void floatingPointToLabel
         (
-            const scalarField &,
-            labelList         &
+            const scalarField&,
+            labelList&
         );
 
         label floatingPointToLabel
         (
-            const scalar &
+            const scalar&
         );
 
 public:
 
     // Constructur - only switch on iterateDistance, if not using the signedPointToSurfaceDistance
     // computation in convecPolyhedral AND if the surfaces are non-planar.
-        convexPolyhedral( const fvMesh & mesh, const bool iterateDistance = false )
+        convexPolyhedral( const fvMesh& mesh, const bool iterateDistance = false )
         :
             iterateDistance_(iterateDistance),
             mesh_(mesh)
@@ -168,48 +168,48 @@ public:
 
         localFace divideFace
         (
-            const label  &,
-            const point  &,
-            const vector &
+            const label&,
+            const point&,
+            const vector&
         );
 
         localFace divideFace
         (
-            const label &
+            const label&
         );
 
 
         localCell dividePolyhedral
         (
-            const label  &,
-            const point  &,
-            const vector &
+            const label&,
+            const point&,
+            const vector&
         );
 
         void dividePolyhedral
         (
-            const point  &,
-            const vector &,
-            localCell    &
+            const point&,
+            const vector&,
+            localCell&
         );
 
         void dividePolyhedral
         (
-            const point  &,
-            const vector &,
-            localCellNeg &
+            const point&,
+            const vector&,
+            localCellNeg&
         );
 
         void unionSet
         (
-            const localCell &,
-            localCell &
+            const localCell&,
+            localCell&
         );
 
         void unionSet
         (
-            const localCellNeg &,
-            localCellNeg &
+            const localCellNeg&,
+            localCellNeg&
         );
 
 };

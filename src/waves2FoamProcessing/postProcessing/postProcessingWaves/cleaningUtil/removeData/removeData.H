@@ -92,9 +92,9 @@ public:
         //- Construct from components
         removeData
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 

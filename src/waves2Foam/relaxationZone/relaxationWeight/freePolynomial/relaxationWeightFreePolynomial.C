@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(relaxationWeight, relaxationWeightFreePolynomial, dic
 
 relaxationWeightFreePolynomial::relaxationWeightFreePolynomial
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     relaxationWeight(subDictName, mesh_),
@@ -59,12 +59,12 @@ relaxationWeightFreePolynomial::relaxationWeightFreePolynomial
 
 void relaxationWeightFreePolynomial::computeWeights
 (
-    const labelList & cells,
-    const scalarField & sigma,
-    scalarField & weight
+    const labelList& cells,
+    const scalarField& sigma,
+    scalarField& weight
 )
 {
-    forAll( weight, celli )
+    forAll(weight, celli)
     {
         weight[celli] = 1.0 - Foam::pow( sigma[celli], exponent_ );
     }

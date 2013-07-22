@@ -75,18 +75,18 @@ private:
     // Private Member Functions
         void resizeFields
         (
-            List<std::pair<scalar, label> > &,
-            List<vectorField> &,
+            List<std::pair<scalar, label> >&,
+            List<vectorField>&,
             label
         );
 
         void writeRawData
         (
-            const List<std::pair<scalar, label> > &,
-            const scalarField &,
-            const scalarField &,
-            const scalarField &,
-            const List<vectorField> &
+            const List<std::pair<scalar, label> >&,
+            const scalarField&,
+            const scalarField&,
+            const scalarField&,
+            const List<vectorField>&
         );
 
         //- Disallow default bitwise copy construct
@@ -107,9 +107,9 @@ public:
         //- Construct from components
         rawVelocityProbes
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 
@@ -122,11 +122,11 @@ public:
 
         void readVelocityProbeData
         (
-            List<std::pair<scalar, label> > & timeLabel,
-            scalarField & x,
-            scalarField & y,
-            scalarField & z,
-            List<vectorField> & etas
+            List<std::pair<scalar, label> >& timeLabel,
+            scalarField& x,
+            scalarField& y,
+            scalarField& z,
+            List<vectorField>& etas
         );
 };
 

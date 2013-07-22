@@ -41,9 +41,9 @@ addToRunTimeSelectionTable(postProcessingWaves, removeData, postProcessingWaves)
 
 removeData::removeData
 (
-    const Time & rT,
-    const dictionary & actionProp,
-    const word & action
+    const Time& rT,
+    const dictionary& actionProp,
+    const word& action
 )
 :
     postProcessingWaves( rT, actionProp, action ),
@@ -100,7 +100,7 @@ void removeData::evaluate()
 
         fileNameList fnl = Foam::readDir( fn, Foam::fileName::FILE);
 
-        forAll( fnl, fi )
+        forAll(fnl, fi)
         {
             label N = fnl[fi].size();
             if ( fnl[fi].substr(N-3,N) == "txt" )

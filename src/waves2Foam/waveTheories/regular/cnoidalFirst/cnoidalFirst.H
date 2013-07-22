@@ -28,13 +28,13 @@ Class
 Description
     Implementation of a first order cnoidal theory for monochromatic surface
     water waves. Implemented following the description by
-    
+
         Hydrodynamics of Coastal Regions
         Ib A. Svendsen and Ivar G. Jonsson
         1982
         Den private ingenioerfond
         Technical University of Denmark
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -89,42 +89,42 @@ protected:
         scalar length_;
         scalar celerity_;
         scalar Tsoft_;
-        
+
         scalar period_;
         scalar Kelliptic_;
         scalar etaMin_;
     // Protected member functions
 
-        scalar factor(const scalar &) const;
+        scalar factor(const scalar&) const;
 
     // Helper functions
         scalar argument
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
         scalar eta_x
         (
-            const scalar &,
-            const scalar &,
-            const scalar &
+            const scalar&,
+            const scalar&,
+            const scalar&
         ) const;
 
         scalar eta_xx
         (
-            const scalar &,
-            const scalar &,
-            const scalar &
+            const scalar&,
+            const scalar&,
+            const scalar&
         ) const;
 
         scalar eta_xxx
         (
-            const scalar &,
-            const scalar &,
-            const scalar &
+            const scalar&,
+            const scalar&,
+            const scalar&
         ) const;
-        
+
 public:
 
     //- Runtime type information
@@ -135,8 +135,8 @@ public:
         //- from components
         cnoidalFirst
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -156,24 +156,24 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

@@ -65,7 +65,7 @@ class relaxationSchemeEmpty
 protected:
 
     // Protected data
-    
+
     // Protected member functions
 
 public:
@@ -78,10 +78,10 @@ public:
         //- from components
         relaxationSchemeEmpty
         (
-            const word & ,
-            const fvMesh & mesh_,
-            vectorField & U,
-            scalarField & alpha
+            const word& ,
+            const fvMesh& mesh_,
+            vectorField& U,
+            scalarField& alpha
         );
 
     // Destructor

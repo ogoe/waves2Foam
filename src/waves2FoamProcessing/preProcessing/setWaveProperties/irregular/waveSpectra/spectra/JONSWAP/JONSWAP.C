@@ -45,12 +45,12 @@ addToRunTimeSelectionTable(waveSpectra, JONSWAP, waveSpectra);
 
 JONSWAP::JONSWAP
 (
-    const Time & rT,
-    dictionary & dict,
-    scalarField & amp,
-    scalarField & freq,
-    scalarField & phi,
-    vectorField & k
+    const Time& rT,
+    dictionary& dict,
+    scalarField& amp,
+    scalarField& freq,
+    scalarField& phi,
+    vectorField& k
 )
 :
     waveSpectra(rT, dict, amp, freq, phi, k)
@@ -73,7 +73,7 @@ wordList JONSWAP::list()
     return res;
 }
 
-void JONSWAP::set(Ostream & os)
+void JONSWAP::set(Ostream& os)
 {
     // Get the input parameters
     scalar Hs( readScalar(dict_.lookup("Hs")) );
@@ -108,7 +108,7 @@ void JONSWAP::set(Ostream & os)
     for ( int i=0; i<=Nhigh; i++)
         f[Nlow - 1 + i] = (fhigh - fp) * ( - Foam::cos( 2 * PI_ / ( 4 * Nhigh) * i ) + 1) + fp;
 
-    forAll( sigma, ii )
+    forAll(sigma, ii)
     {
         if ( f[ii] >= fp )
             sigma[ii] = 0.09;

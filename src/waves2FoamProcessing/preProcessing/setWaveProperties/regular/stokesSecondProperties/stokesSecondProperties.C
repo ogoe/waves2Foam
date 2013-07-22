@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, stokesSecondProperties, setWavePro
 
 stokesSecondProperties::stokesSecondProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -61,7 +61,7 @@ stokesSecondProperties::stokesSecondProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void stokesSecondProperties::set(Ostream & os)
+void stokesSecondProperties::set(Ostream& os)
 {
     scalar k = sfp_.linearWaveNumber();
 
@@ -118,7 +118,7 @@ void stokesSecondProperties::set(Ostream & os)
 
         WarningIn
         (
-            "void stokesSecondProperties::set(Ostream & os)"
+            "void stokesSecondProperties::set(Ostream& os)"
         ) << endl << "The validity of Stokes second order is violated." << endl
           << endl;
     }

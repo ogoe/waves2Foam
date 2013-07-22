@@ -97,7 +97,7 @@ protected:
 
     // Protected member functions
 
-        scalar factor(const scalar & ) const;
+        scalar factor(const scalar& ) const;
 public:
 
     //- Runtime type information
@@ -108,8 +108,8 @@ public:
         //- from components
         solitaryFirst
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -126,30 +126,30 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
         scalar p
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 
 };

@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, potentialCurrentProperties, setWav
 
 potentialCurrentProperties::potentialCurrentProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -56,7 +56,7 @@ potentialCurrentProperties::potentialCurrentProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void potentialCurrentProperties::set(Ostream & os)
+void potentialCurrentProperties::set(Ostream& os)
 {
     // Write the beginning of the sub-dictionary
     writeBeginning( os );
@@ -68,7 +68,7 @@ void potentialCurrentProperties::set(Ostream & os)
 
     if ( dict_.found( "localSeaLevel" ) )
         writeGiven( os, "localSeaLevel");
-        
+
 
     // This is where type specific data can be written
     // Nothing to be done for potentialCurrent

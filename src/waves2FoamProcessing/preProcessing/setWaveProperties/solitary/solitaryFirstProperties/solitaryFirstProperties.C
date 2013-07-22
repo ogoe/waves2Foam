@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(setWaveProperties, solitaryFirstProperties, setWavePr
 
 solitaryFirstProperties::solitaryFirstProperties
 (
-    const Time & rT,
-    dictionary & dict,
+    const Time& rT,
+    dictionary& dict,
     bool write
 )
 :
@@ -56,7 +56,7 @@ solitaryFirstProperties::solitaryFirstProperties
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void solitaryFirstProperties::set(Ostream & os)
+void solitaryFirstProperties::set(Ostream& os)
 {
     // Write the beginning of the sub-dictionary
     writeBeginning( os );

@@ -75,34 +75,34 @@ public:
 
         stokesFirstProperties
         (
-            const Time &,
-            dictionary &
+            const Time&,
+            dictionary&
         );
 
         stokesFirstProperties
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool
         );
 
         stokesFirstProperties
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool,
             word
         );
 
         // Method
 
-        void set( Ostream & );
+        void set( Ostream& );
 
         scalar linearWaveNumber() const;
 
-        scalar linearWaveNumber(const scalar &, const scalar &);
+        scalar linearWaveNumber(const scalar&, const scalar&);
 
-        const scalar & omega() const { return omega_; };
+        const scalar& omega() const { return omega_; };
 };
 
 }

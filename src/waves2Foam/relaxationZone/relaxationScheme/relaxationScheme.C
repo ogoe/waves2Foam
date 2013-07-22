@@ -47,10 +47,10 @@ defineRunTimeSelectionTable(relaxationScheme, dictionary);
 
 relaxationScheme::relaxationScheme
 (
-    const word & subDictName,
-    const fvMesh & mesh,
-    vectorField & U,
-    scalarField & alpha
+    const word& subDictName,
+    const fvMesh& mesh,
+    vectorField& U,
+    scalarField& alpha
 )
 :
     IOdictionary
@@ -78,11 +78,11 @@ relaxationScheme::~relaxationScheme()
 
 void relaxationScheme::signedPointToSurfaceDistance
 (
-    const pointField & pp,
-    scalarField & sd
+    const pointField& pp,
+    scalarField& sd
 )
 {
-    forAll( pp, pointi )
+    forAll(pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -90,7 +90,7 @@ void relaxationScheme::signedPointToSurfaceDistance
 
 scalar relaxationScheme::signedPointToSurfaceDistance
 (
-    const point & pp
+    const point& pp
 ) const
 {
     scalar temp = waveProps_->eta(pp, db().time().value() );
@@ -102,11 +102,11 @@ scalar relaxationScheme::signedPointToSurfaceDistance
 
 void relaxationScheme::numericalBeach
 (
-    volScalarField & artVisc
+    volScalarField& artVisc
 )
 {
-    const labelList   & cc( cells() );
-    const scalarField & ss( sigma() );
+    const labelList& cc( cells() );
+    const scalarField& ss( sigma() );
 
     numBeach_->correct( cc, ss, artVisc );
 

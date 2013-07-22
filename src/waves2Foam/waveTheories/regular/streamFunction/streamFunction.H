@@ -26,14 +26,14 @@ Class
     Foam::waveTheories::streamFunction
 
 Description
-    Implementation of stream function theory. Implemented following the 
+    Implementation of stream function theory. Implemented following the
     description by
-    
-        J.D. Fenton (1988)        
+
+        J.D. Fenton (1988)
         The Numerical Solution of Steady Water Wave Problems
         Computer & Geosciences, vol. 14, No. 3
         pp. 357-368
-    
+
     A description of the general wave framework is given in
 
     @article { jacobsenFuhrmanFredsoe2011,
@@ -96,7 +96,7 @@ protected:
 
     // Protected member functions
 
-        scalar factor(const scalar & ) const;
+        scalar factor(const scalar& ) const;
 public:
 
     //- Runtime type information
@@ -107,8 +107,8 @@ public:
         //- from components
         streamFunction
         (
-            const word &,
-            const fvMesh & mesh_
+            const word&,
+            const fvMesh& mesh_
         );
 
 
@@ -128,24 +128,24 @@ public:
         };
 
         void printCoeffs();
-        
+
         scalar eta
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
-        
+
         scalar ddxPd
         (
-            const point &,
-            const scalar &,
-            const vector &
+            const point&,
+            const scalar&,
+            const vector&
         ) const;
-        
+
         vector U
         (
-            const point &,
-            const scalar &
+            const point&,
+            const scalar&
         ) const;
 };
 

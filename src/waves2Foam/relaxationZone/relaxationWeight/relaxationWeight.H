@@ -81,20 +81,20 @@ class relaxationWeight
 protected:
 
     // Protected data
-        const fvMesh & mesh_;
+        const fvMesh& mesh_;
 
         const dictionary coeffDict_;
 
         scalar PI_;
-        
+
         relaxationWeightCourantCorrection rwcc_;
 
     // Protected member functions
         virtual void computeWeights
         (
-            const labelList &,
-            const scalarField &,
-            scalarField &
+            const labelList&,
+            const scalarField&,
+            scalarField&
         ) = 0;
 
 private:
@@ -120,7 +120,7 @@ public:
             relaxationWeight,
             dictionary,
             (
-                const word & subDictName, const fvMesh & mesh_
+                const word& subDictName, const fvMesh& mesh_
             ),
             (subDictName, mesh_)
         );
@@ -130,8 +130,8 @@ public:
         //- Construct from components
         relaxationWeight
         (
-            const word & type,
-            const fvMesh & mesh_
+            const word& type,
+            const fvMesh& mesh_
         );
 
 
@@ -140,8 +140,8 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<relaxationWeight> New
         (
-            const word & subDictName,
-            const fvMesh & mesh_
+            const word& subDictName,
+            const fvMesh& mesh_
         );
 
     // Destructor
@@ -154,9 +154,9 @@ public:
         // Access
         virtual void weights
         (
-            const labelList &,
-            const scalarField &,
-            scalarField &
+            const labelList&,
+            const scalarField&,
+            scalarField&
         );
 };
 

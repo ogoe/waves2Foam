@@ -42,7 +42,7 @@ Description
 
     The boundary condition is derived from mixedFvPatchField and it is generic
     in the sense, that it loads the abstract class waveTheory.
-    
+
 SourceFiles
     waveAlphaFvPatchScalarField.C
 
@@ -78,21 +78,21 @@ private:
 
     //- Private member functions
         autoPtr<waveTheories::waveTheory> waveProps_;
-    
+
     // Private member functions
-    
+
     //- Returns a scalarField of the signed distance to an arbitrary surface
         virtual void signedPointToSurfaceDistance
         (
-            const pointField &,
-            scalarField      &
+            const pointField&,
+            scalarField&
         );
 
 
     //- Returns a scalar of the signed distance to an arbitrary surface
         virtual scalar signedPointToSurfaceDistance
         (
-            const point &
+            const point&
         ) const;
 
 public:
@@ -157,7 +157,7 @@ public:
 
         //- Update the coefficients associated with the patch field
         virtual void updateCoeffs();
-        
+
         //- Evaluate the patch field
         virtual void evaluate();
 

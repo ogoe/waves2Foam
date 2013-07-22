@@ -38,8 +38,8 @@ namespace numericalBeaches
 
 autoPtr<numericalBeach> numericalBeach::New
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 {
     word beachTypeName;
@@ -65,7 +65,7 @@ autoPtr<numericalBeach> numericalBeach::New
     {
         FatalErrorIn
         (
-            "numericalBeach::New(const word &, const fvMesh &)"
+            "numericalBeach::New(const word&, const fvMesh&)"
         )   << "Unknown beach type 'numericalBeach" << beachTypeName << "'"
             << endl << endl
             << "Valid beach types are :" << endl

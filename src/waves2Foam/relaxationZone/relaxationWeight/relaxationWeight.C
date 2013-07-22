@@ -49,8 +49,8 @@ defineRunTimeSelectionTable(relaxationWeight, dictionary);
 
 relaxationWeight::relaxationWeight
 (
-    const word & subDictName,
-    const fvMesh & mesh
+    const word& subDictName,
+    const fvMesh& mesh
 )
 :
     IOdictionary
@@ -74,8 +74,8 @@ relaxationWeight::~relaxationWeight()
 
 autoPtr<relaxationWeight> relaxationWeight::New
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 {
     word relaxationWeightTypeName;
@@ -102,7 +102,7 @@ autoPtr<relaxationWeight> relaxationWeight::New
     {
         FatalErrorIn
         (
-            "relaxationWeight::New(const word &, const fvMesh &)"
+            "relaxationWeight::New(const word&, const fvMesh&)"
         )   << "Unknown relaxation weight type 'relaxationWeight" << relaxationWeightTypeName << "'"
             << endl << endl
             << "Valid relaxation weight types are :" << endl
@@ -118,9 +118,9 @@ autoPtr<relaxationWeight> relaxationWeight::New
 
 void relaxationWeight::weights
 (
-    const labelList & cells,
-    const scalarField & sigma,
-    scalarField & weights
+    const labelList& cells,
+    const scalarField& sigma,
+    scalarField& weights
 )
 {
     // First obtain the weights from the specific weight specification

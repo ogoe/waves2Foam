@@ -48,8 +48,8 @@ defineRunTimeSelectionTable(relaxationShape, dictionary);
 
 relaxationShape::relaxationShape
 (
-    const word & subDictName,
-    const fvMesh & mesh
+    const word& subDictName,
+    const fvMesh& mesh
 )
 :
     IOdictionary

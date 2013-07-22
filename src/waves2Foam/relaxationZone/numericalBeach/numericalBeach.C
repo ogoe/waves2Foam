@@ -46,8 +46,8 @@ defineRunTimeSelectionTable(numericalBeach, dictionary);
 
 numericalBeach::numericalBeach
 (
-    const word & subDictName,
-    const fvMesh & mesh
+    const word& subDictName,
+    const fvMesh& mesh
 )
 :
     IOdictionary

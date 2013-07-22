@@ -50,7 +50,7 @@ void Foam::spectralMethodsFFTBased::checkBins()
 
 Field<complex> spectralMethodsFFTBased::computeFourierTransform
 (
-    const scalarField & input
+    const scalarField& input
 )
 {
     Field<complex> res( bins_ / 2 );
@@ -77,9 +77,9 @@ Field<complex> spectralMethodsFFTBased::computeFourierTransform
 
 void Foam::spectralMethodsFFTBased::powerSpectrum
 (
-    const scalarField & input,
-    const scalar & deltaT,
-    scalarField & spectrum
+    const scalarField& input,
+    const scalar& deltaT,
+    scalarField& spectrum
 )
 {
     // Getting the sweep parameters
@@ -102,9 +102,9 @@ void Foam::spectralMethodsFFTBased::powerSpectrum
 
 void spectralMethodsFFTBased::powerSpectrum
 (
-    const vectorField & input,
-    const scalar & deltaT,
-    vectorField & spectrum
+    const vectorField& input,
+    const scalar& deltaT,
+    vectorField& spectrum
 )
 {
     // Compute the spectrum for each vector component
@@ -123,8 +123,8 @@ void spectralMethodsFFTBased::powerSpectrum
 
 spectralMethodsFFTBased::spectralMethodsFFTBased
 (
-    const Time & mesh,
-    const dictionary & actionProp
+    const Time& mesh,
+    const dictionary& actionProp
 )
 :
     dict_( actionProp ),
@@ -143,7 +143,7 @@ spectralMethodsFFTBased::spectralMethodsFFTBased
 
     if ( overlap <= 0 || step_ == 0 )
     {
-        FatalErrorIn("void Foam::spectralMethodsFFTBased::spectralMethodsFFTBased( const fvMesh &, const dictionary & )" )
+        FatalErrorIn("void Foam::spectralMethodsFFTBased::spectralMethodsFFTBased( const fvMesh&, const dictionary& )" )
                         << "The overlap-factor is negative or the overlap is so small that the resulting step" << endl
                         << "in window size is 0" << endl << exit(FatalError);
     }
@@ -164,18 +164,18 @@ spectralMethodsFFTBased::~spectralMethodsFFTBased()
 
 List<scalarField> spectralMethodsFFTBased::powerSpectra
 (
-    const List<scalarField> & inputData,
-    const scalar & deltaT
+    const List<scalarField>& inputData,
+    const scalar& deltaT
 )
 {
     List<scalarField> spectra( inputData.size() );
 
-    forAll( spectra, speci )
+    forAll(spectra, speci)
     {
-        scalarField & spectrum( spectra[speci] );
+        scalarField& spectrum( spectra[speci] );
         spectrum.setSize( bins_ / 2, 0.0 );
 
-        const scalarField & input( inputData[ speci ] );
+        const scalarField& input( inputData[ speci ] );
 
         powerSpectrum( input, deltaT, spectrum );
     }
@@ -185,18 +185,18 @@ List<scalarField> spectralMethodsFFTBased::powerSpectra
 
 List<vectorField> spectralMethodsFFTBased::powerSpectra
 (
-    const List<vectorField> & inputData,
-    const scalar & deltaT
+    const List<vectorField>& inputData,
+    const scalar& deltaT
 )
 {
     List<vectorField> spectra( inputData.size() );
 
-    forAll( spectra, speci )
+    forAll(spectra, speci)
     {
-        vectorField & spectrum( spectra[speci] );
+        vectorField& spectrum( spectra[speci] );
         spectrum.setSize( bins_ / 2, vector::zero );
 
-        const vectorField & input( inputData[ speci ] );
+        const vectorField& input( inputData[ speci ] );
 
         powerSpectrum( input, deltaT, spectrum );
     }
@@ -206,12 +206,12 @@ List<vectorField> spectralMethodsFFTBased::powerSpectra
 
 scalarField spectralMethodsFFTBased::frequencies
 (
-    const scalar & deltaT
+    const scalar& deltaT
 )
 {
     scalarField res(bins_ / 2, 0);
 
-    forAll( res, freqi )
+    forAll(res, freqi)
         res[freqi] = (freqi + 1) / (deltaT * bins_);
 
     return res;
@@ -219,7 +219,7 @@ scalarField spectralMethodsFFTBased::frequencies
 
 Field<complex> spectralMethodsFFTBased::fft
 (
-    const scalarField & input
+    const scalarField& input
 )
 {
     Field<complex> res(0);
@@ -238,7 +238,7 @@ Field<complex> spectralMethodsFFTBased::fft
 
 List<Field<complex> > spectralMethodsFFTBased::fft
 (
-    const List<scalarField> & input
+    const List<scalarField>& input
 )
 {
     List<Field<complex> > res(0);
@@ -247,10 +247,10 @@ List<Field<complex> > spectralMethodsFFTBased::fft
     {
         res.setSize( input.size() );
 
-        forAll( input, inputi )
+        forAll(input, inputi)
         {
-            Field<complex> & r( res[inputi] );
-            const scalarField & in( input[inputi] );
+            Field<complex>& r( res[inputi] );
+            const scalarField& in( input[inputi] );
 
             r.setSize( bins_ / 2 );
 
@@ -271,7 +271,7 @@ void spectralMethodsFFTBased::resetSweep()
 
 void spectralMethodsFFTBased::initSweep
 (
-    const scalarField & input
+    const scalarField& input
 )
 {
     resetSweep();
@@ -280,7 +280,7 @@ void spectralMethodsFFTBased::initSweep
 
     if ( sweeps_ <= 0 )
     {
-        FatalErrorIn("void spectralMethodsFFTBased::initSweep( const scalarField & input)" )
+        FatalErrorIn("void spectralMethodsFFTBased::initSweep( const scalarField& input)" )
                             << "The input data set is too short relative to the window size" << exit(FatalError);
     }
 }

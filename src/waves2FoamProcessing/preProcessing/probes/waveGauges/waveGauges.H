@@ -63,15 +63,15 @@ class waveGauges
 private:
 
     // Private data
-        const fvMesh & mesh_;
-        const dictionary & gaugeDict_;
+        const fvMesh& mesh_;
+        const dictionary& gaugeDict_;
 
     // Private Member Functions
         void writeVTKFormat
         (
-            const word &,
-            const pointField &,
-            const point &
+            const word&,
+            const pointField&,
+            const point&
         );
 
         //- Disallow default bitwise copy construct
@@ -90,8 +90,8 @@ public:
         //- Construct from components
         waveGauges
         (
-            const fvMesh &,
-            const dictionary &
+            const fvMesh&,
+            const dictionary&
         );
 
     // Destructor
@@ -101,7 +101,7 @@ public:
     // Member Functions
 
         // Access
-        void evaluate( const word & );
+        void evaluate( const word& );
 };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

@@ -65,7 +65,7 @@ private:
         label negCount_, posCount_, nextFace_;
 
     // Private member functions
-        void localizeCell( const fvMesh &, const label &);
+        void localizeCell( const fvMesh&, const label&);
 
         void cellConnectivity();
 
@@ -76,11 +76,11 @@ public:
     // Constructor
         localCell();
 
-        localCell(const fvMesh &, const label &);
+        localCell(const fvMesh&, const label&);
 
         localCell(const cell, const faceList, const pointField, bool checkCell = false);
 
-        void initCell( const fvMesh &, const label &);
+        void initCell( const fvMesh&, const label&);
 
 
     // Cut-control
@@ -171,23 +171,23 @@ public:
         vector centreNeg() const { return ccNeg_.centre(pp_, fL_); };
         vector centrePos() const { return ccPos_.centre(pp_, fL_); };
 
-        const pointField & points() const {return pp_; };
-        pointField & points() { return pp_; };
+        const pointField& points() const {return pp_; };
+        pointField& points() { return pp_; };
 
-        const edgeList & edges() const { return eL_; };
-        const labelListList & faceEdges() const { return faceEdges_; };
-        const labelListList & edgeFaces() const { return edgeFaces_; };
+        const edgeList& edges() const { return eL_; };
+        const labelListList& faceEdges() const { return faceEdges_; };
+        const labelListList& edgeFaces() const { return edgeFaces_; };
 
-        const cell & cc() const { return cc_;};
-        const cell & ccNeg() const { return ccNeg_; };
-        const cell & ccPos() const { return ccPos_; };
+        const cell& cc() const { return cc_;};
+        const cell& ccNeg() const { return ccNeg_; };
+        const cell& ccPos() const { return ccPos_; };
 
-        cell & ccNeg() { return ccNeg_; };
+        cell& ccNeg() { return ccNeg_; };
 
-        const faceList & faces() const { return fL_;};
-        faceList & faces() { return fL_; };
+        const faceList& faces() const { return fL_;};
+        faceList& faces() { return fL_; };
 
-        const face & faces( const label faceI ) const { return fL_[faceI]; };
+        const face& faces( const label faceI ) const { return fL_[faceI]; };
 
         const face iface() const { return fL_[ccNeg_[ ccNeg_.size() - 1]]; };
 
@@ -198,7 +198,7 @@ public:
         vector fnormal(const label faceI) const {return fL_[faceI].normal(pp_); };
 
     // Write
-        void write( const fvMesh & , const List<localCell> & );
+        void write( const fvMesh& , const List<localCell>& );
 };
 
 

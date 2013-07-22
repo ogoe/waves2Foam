@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, bichromaticSecond, dictionary);
 
 bichromaticSecond::bichromaticSecond
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -59,7 +59,7 @@ bichromaticSecond::bichromaticSecond
     phim_(readScalar(coeffDict_.lookup("phi2"))),
     kn_(vector(coeffDict_.lookup("waveNumber1"))),
     km_(vector(coeffDict_.lookup("waveNumber2"))),
-    
+
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",Foam::max(periodn_,periodm_)))
 {
     setCoeffs();
@@ -146,9 +146,9 @@ void bichromaticSecond::setCoeffs()
 
 scalar bichromaticSecond::betanm
 (
-    const scalar & omega0,
-    const scalar & omega1,
-    const scalar & kappa01
+    const scalar& omega0,
+    const scalar& omega1,
+    const scalar& kappa01
 ) const
 {
     scalar res = 0.0;
@@ -163,13 +163,13 @@ scalar bichromaticSecond::betanm
 
 scalar bichromaticSecond::Lambda2
 (
-    const scalar & omega0,
-    const vector & k0,
-    const scalar & kappa0,
-    const scalar & omega1,
-    const vector & k1,
-    const scalar & kappa1,
-    const scalar & kappa01
+    const scalar& omega0,
+    const vector& k0,
+    const scalar& kappa0,
+    const scalar& omega1,
+    const vector& k1,
+    const scalar& kappa1,
+    const scalar& kappa01
 ) const
 {
     scalar res0 = 0, res1 = 0;
@@ -187,13 +187,13 @@ scalar bichromaticSecond::Lambda2
 
 scalar bichromaticSecond::Gamma2
 (
-    const scalar & omega0,
-    const vector & k0,
-    const scalar & kappa0,
-    const scalar & omega1,
-    const vector & k1,
-    const scalar & kappa1,
-    const scalar & kappa01
+    const scalar& omega0,
+    const vector& k0,
+    const scalar& kappa0,
+    const scalar& omega1,
+    const vector& k1,
+    const scalar& kappa1,
+    const scalar& kappa01
 ) const
 {
     scalar res0 = 0, res1 = 0;
@@ -211,8 +211,8 @@ scalar bichromaticSecond::Gamma2
 
 scalar bichromaticSecond::argn
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     return omega1n_ * time - (kn_ & x) + phin_;
@@ -220,8 +220,8 @@ scalar bichromaticSecond::argn
 
 scalar bichromaticSecond::argm
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     return omega1m_ * time - (km_ & x) + phim_;
@@ -229,7 +229,7 @@ scalar bichromaticSecond::argm
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar bichromaticSecond::factor(const scalar & time) const
+scalar bichromaticSecond::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
@@ -240,8 +240,8 @@ scalar bichromaticSecond::factor(const scalar & time) const
 
 scalar bichromaticSecond::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta = 0.0;
@@ -259,9 +259,9 @@ scalar bichromaticSecond::eta
 
 scalar bichromaticSecond::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     scalar ddxPd(0);
@@ -271,8 +271,8 @@ scalar bichromaticSecond::ddxPd
 
 vector bichromaticSecond::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z( returnZ(x) );

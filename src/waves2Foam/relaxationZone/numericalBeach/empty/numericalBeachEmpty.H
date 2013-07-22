@@ -71,8 +71,8 @@ public:
         //- from components
         numericalBeachEmpty
         (
-            const word & ,
-            const fvMesh & mesh_
+            const word& ,
+            const fvMesh& mesh_
         );
 
 
@@ -86,9 +86,9 @@ public:
 
         virtual void correct
         (
-            const labelList &,
-            const scalarField &,
-            volScalarField &
+            const labelList&,
+            const scalarField&,
+            volScalarField&
         );
 };
 

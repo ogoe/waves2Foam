@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, solitaryFirst, dictionary);
 
 solitaryFirst::solitaryFirst
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -68,7 +68,7 @@ void solitaryFirst::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-scalar solitaryFirst::factor( const scalar & time) const
+scalar solitaryFirst::factor( const scalar& time) const
 {
     // Dummy, as it does not make sense to ramp up a solitary wave
 
@@ -77,8 +77,8 @@ scalar solitaryFirst::factor( const scalar & time) const
 
 scalar solitaryFirst::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar eta = H_ * 1.0 / Foam::pow( cosh( Foam::sqrt( 3.0 * H_ / ( 4.0 * Foam::pow(h_, 3.0))) * (c_ * time - ((x - x0_) & propagationDirection_))) ,2.0 ) + seaLevel_;
@@ -87,9 +87,9 @@ scalar solitaryFirst::eta
 
 scalar solitaryFirst::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     // A quite nasty expression!
@@ -99,8 +99,8 @@ scalar solitaryFirst::ddxPd
 
 scalar solitaryFirst::p
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
@@ -124,8 +124,8 @@ scalar solitaryFirst::p
 
 vector solitaryFirst::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));

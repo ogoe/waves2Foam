@@ -4,7 +4,7 @@
    \\    /   O peration     |
     \\  /    A nd           | Copyright held by original author
      \\/     M anipulation  |
-  -------------------------------------------------------------------------------
+-------------------------------------------------------------------------------
   License
   This file is part of OpenFOAM.
 
@@ -56,10 +56,10 @@ class relaxationZone
 {
 private:
 
-    const fvMesh & mesh_;
-    volVectorField & U_;
-    volScalarField & alpha_;
-    
+    const fvMesh& mesh_;
+    volVectorField& U_;
+    volScalarField& alpha_;
+
     wordList relaxNames_;
 
     List<autoPtr<relaxationSchemes::relaxationScheme> > relaxSchemePtr_;
@@ -73,9 +73,9 @@ public:
         //- Construct from components
         relaxationZone
         (
-            const fvMesh &,
-            volVectorField &,
-            volScalarField &
+            const fvMesh&,
+            volVectorField&,
+            volScalarField&
         );
 
     // Destructor

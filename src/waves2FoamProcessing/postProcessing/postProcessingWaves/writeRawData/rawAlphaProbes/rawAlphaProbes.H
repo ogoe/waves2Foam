@@ -72,18 +72,18 @@ private:
     // Private Member Functions
         void resizeFields
         (
-            List<std::pair<scalar, label> > &,
-            List<scalarField> &,
+            List<std::pair<scalar, label> >&,
+            List<scalarField>&,
             label
         );
 
         void writeRawData
         (
-            const List<std::pair<scalar, label> > &,
-            const scalarField &,
-            const scalarField &,
-            const scalarField &,
-            const List<scalarField> &
+            const List<std::pair<scalar, label> >&,
+            const scalarField&,
+            const scalarField&,
+            const scalarField&,
+            const List<scalarField>&
         );
 
         //- Disallow default bitwise copy construct
@@ -104,9 +104,9 @@ public:
         //- Construct from components
         rawAlphaProbes
         (
-            const Time &,
-            const dictionary &,
-            const word &
+            const Time&,
+            const dictionary&,
+            const word&
         );
 
 
@@ -119,11 +119,11 @@ public:
 
         void readAlphaProbesData
         (
-            List<std::pair<scalar, label> > & timeLabel,
-            scalarField & x,
-            scalarField & y,
-            scalarField & z,
-            List<scalarField> & alphas
+            List<std::pair<scalar, label> >& timeLabel,
+            scalarField& x,
+            scalarField& y,
+            scalarField& z,
+            List<scalarField>& alphas
         );
 };
 

@@ -44,8 +44,8 @@ addToRunTimeSelectionTable(pointDistributions, userDefinedDistribution, pointDis
 
 userDefinedDistribution::userDefinedDistribution
 (
-    const fvMesh & mesh,
-    const dictionary & dict
+    const fvMesh& mesh,
+    const dictionary& dict
 )
 :
     pointDistributions( mesh, dict )
@@ -60,9 +60,9 @@ userDefinedDistribution::~userDefinedDistribution()
 pointField userDefinedDistribution::evaluate()
 {
     // Read needed material
-	scalarField x("xValues", pointDict_, readLabel( pointDict_.lookup("N")));
-	scalarField y("yValues", pointDict_, readLabel( pointDict_.lookup("N")));
-	scalarField z("zValues", pointDict_, readLabel( pointDict_.lookup("N")));
+    scalarField x("xValues", pointDict_, readLabel( pointDict_.lookup("N")));
+    scalarField y("yValues", pointDict_, readLabel( pointDict_.lookup("N")));
+    scalarField z("zValues", pointDict_, readLabel( pointDict_.lookup("N")));
 
     // Define the return field
     pointField res(x.size(), point::zero);

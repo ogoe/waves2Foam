@@ -71,7 +71,7 @@ private:
 
     scalar omega_;
 
-    scalar eval(scalar &);
+    scalar eval(scalar&);
 
     scalar waveNumber();
 
@@ -82,14 +82,14 @@ public:
 
         stokesFifthProperties
         (
-            const Time &,
-            dictionary &,
+            const Time&,
+            dictionary&,
             bool
         );
 
         // Method
 
-        void set(Ostream &);
+        void set(Ostream&);
 };
 
 }

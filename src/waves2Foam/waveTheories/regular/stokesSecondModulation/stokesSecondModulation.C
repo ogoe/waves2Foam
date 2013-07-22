@@ -43,8 +43,8 @@ addToRunTimeSelectionTable(waveTheory, stokesSecondModulation, dictionary);
 
 stokesSecondModulation::stokesSecondModulation
 (
-    const word & subDictName,
-    const fvMesh & mesh_
+    const word& subDictName,
+    const fvMesh& mesh_
 )
 :
     waveTheory(subDictName, mesh_),
@@ -84,8 +84,8 @@ void stokesSecondModulation::printCoeffs()
 
 scalar stokesSecondModulation::waveHeight
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar arg( ( omega_ * time - (k_ & x) + phi_ ) / modN_ );
@@ -93,44 +93,44 @@ scalar stokesSecondModulation::waveHeight
     return H_ * (1.0 + epsilon_ * sin( arg ) );
 }
 
-scalar stokesSecondModulation::factor(const scalar & time) const
+scalar stokesSecondModulation::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
-        
+
     return factor;
 }
 
 scalar stokesSecondModulation::eta
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar arg(omega_ * time - (k_ & x) + phi_);
     scalar modH = waveHeight( x, time );
-    
+
     scalar eta = (
                      modH / 2.0 * Foam::cos(arg) // First order contribution.
                    + 1.0 / 16.0 * K_ * sqr(modH) * (3.0 / Foam::pow(Foam::tanh(K_ * h_),3.0) - 1.0 / Foam::tanh(K_ * h_)) * Foam::cos(2.0 * arg) // Second order contribution.
                  ) * factor(time)  // Hot-starting.
                  + seaLevel_;      // Adding sea level.
-    
+
     return eta;
 }
 
 scalar stokesSecondModulation::ddxPd
 (
-    const point & x,
-    const scalar & time,
-    const vector & unitVector
+    const point& x,
+    const scalar& time,
+    const vector& unitVector
 ) const
 {
     scalar Z(returnZ(x));
     scalar arg(omega_ * time - (k_ & x) + phi_);
     scalar modH = waveHeight( x, time );
-    
+
     scalar ddxPd(0);
 
     ddxPd = (
@@ -146,38 +146,38 @@ scalar stokesSecondModulation::ddxPd
 
 vector stokesSecondModulation::U
 (
-    const point & x,
-    const scalar & time
+    const point& x,
+    const scalar& time
 ) const
 {
     scalar Z(returnZ(x));
     scalar cel(omega_ / K_);
     scalar arg(omega_ * time - (k_ & x) + phi_);
     scalar modH = waveHeight( x, time );
-    
+
     // First order contribution
     scalar Uhorz = PI_ * modH / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::cos(arg);
-    
+
     // Second order contribution
     Uhorz += 3.0 / 16.0 * cel * Foam::sqr(K_ * modH) * Foam::cosh(2 * K_ * (Z + h_))
-             / Foam::pow(Foam::sinh(K_ * h_),4.0) * Foam::cos(2 * arg) 
+             / Foam::pow(Foam::sinh(K_ * h_),4.0) * Foam::cos(2 * arg)
              - 1.0 / 8.0 * mag(g_) * sqr(modH) / (cel * h_);
-    
+
     // First order contribution
     scalar Uvert = - PI_ * modH / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) * 
+                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
                    Foam::sin(arg);
-    
+
     // Second order contribution
     Uvert += - 3.0 / 16.0 * cel * sqr(K_ * modH) * Foam::sinh(2 * K_ * (Z + h_))
              / Foam::pow(Foam::sinh(K_ * h_), 4.0) * Foam::sin(2 * arg);
-    
+
     // Multiply by the time stepping factor
     Uvert *= factor(time);
     Uhorz *= factor(time);
-    
+
     // Generate the velocity vector
     return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
 }

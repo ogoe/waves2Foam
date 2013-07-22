@@ -67,11 +67,11 @@ private:
 
         void computePowerSpectrum
         (
-            const scalarField &,
-            const scalarField &,
-            const label &,
-            const scalar &,
-            scalarField &
+            const scalarField&,
+            const scalarField&,
+            const label&,
+            const scalar&,
+            scalarField&
         );
 
         //- Disallow default bitwise copy construct
@@ -92,8 +92,8 @@ public:
         //- Construct from components
         spectralMethodsLeastSquaresBased
         (
-            const Time &,
-            const dictionary &
+            const Time&,
+            const dictionary&
         );
 
     // Destructor
@@ -107,37 +107,37 @@ public:
         //  The solution is returned in the right hand side field
         void solve
         (
-            const List<scalarField> &,
-            scalarField &
+            const List<scalarField>&,
+            scalarField&
         );
 
         scalarField frequencies
         (
-            const label &
+            const label&
         );
 
         scalarField powerSpectra
         (
-               const scalarField &,
-            const scalarField &,
-            const label &,
-            const scalar &
+               const scalarField&,
+            const scalarField&,
+            const label&,
+            const scalar&
         );
 
         List<vectorField> powerSpectra
         (
-               const scalarField &,
-            const List<vectorField> &,
-            const label &,
-            const scalar &
+               const scalarField&,
+            const List<vectorField>&,
+            const label&,
+            const scalar&
         );
 
         List<scalarField> powerSpectra
         (
-               const scalarField &,
-            const List<scalarField> &,
-            const label & N,
-            const scalar &
+               const scalarField&,
+            const List<scalarField>&,
+            const label& N,
+            const scalar&
         );
 };
 
