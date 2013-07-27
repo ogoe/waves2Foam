@@ -42,20 +42,24 @@ void setWaveProperties::lineFormatting( Ostream& os, const word& key)
 {
     os << indent << key << token::SPACE;
 
-    for( int i=key.size(); i<Nspaces_-1; i++)
+    for (int i=key.size(); i<Nspaces_-1; i++)
+    {
         os << token::SPACE;
+    }
 }
 
 void setWaveProperties::addITstream( Ostream& os, const word& key, const ITstream& it )
 {
     lineFormatting(os, key);
 
-    forAll(it, ii)
+    forAll (it, ii)
     {
         os << it[ii];
 
         if ( ii < it.size() - 1)
+        {
             os << token::SPACE;
+        }
     }
 
     os << token::END_STATEMENT << nl;
@@ -84,7 +88,7 @@ void setWaveProperties::writeGiven( Ostream& os )
 {
     wordList toc( dict_.toc() );
 
-    forAll(toc, item)
+    forAll (toc, item)
     {
         if ( !dict_.isDict( toc[item]) )
         {
@@ -123,7 +127,7 @@ void setWaveProperties::writeDerived( Ostream& os, word name, scalarField val)
 
     os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
 
-    forAll(val, vali)
+    forAll (val, vali)
     {
         os << indent << val[vali] << nl;
     }
@@ -139,7 +143,7 @@ void setWaveProperties::writeDerived( Ostream& os, word name, vectorField val)
 
     os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
 
-    forAll(val, vali)
+    forAll (val, vali)
     {
         os << indent << val[vali] << nl;
     }
@@ -159,7 +163,7 @@ void setWaveProperties::writeRelaxationZone( Ostream& os )
 
         wordList toc( sd.toc() );
 
-        forAll(toc, item)
+        forAll (toc, item)
         {
             ITstream it( sd.lookup(toc[item]) );
 

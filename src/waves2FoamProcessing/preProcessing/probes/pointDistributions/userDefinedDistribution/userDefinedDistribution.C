@@ -67,8 +67,10 @@ pointField userDefinedDistribution::evaluate()
     // Define the return field
     pointField res(x.size(), point::zero);
 
-    forAll(res, pointi)
+    forAll (res, pointi)
+    {
         res[pointi] = point(x[pointi], y[pointi], z[pointi]);
+    }
 
     return res;
 }

@@ -102,16 +102,22 @@ void JONSWAP::set(Ostream& os)
 
     scalarField f(N, 0.0), sigma(N, 0.07), beta(N, 0.0);
 
-    for ( int i=0; i < Nlow; i++)
+    for (int i=0; i < Nlow; i++)
+    {
         f[i] = ( fp - flow ) * Foam::sin( 2 * PI_ / ( 4.0 * Nlow ) * i ) + flow;
+    }
 
-    for ( int i=0; i<=Nhigh; i++)
+    for (int i=0; i<=Nhigh; i++)
+    {
         f[Nlow - 1 + i] = (fhigh - fp) * ( - Foam::cos( 2 * PI_ / ( 4 * Nhigh) * i ) + 1) + fp;
+    }
 
-    forAll(sigma, ii)
+    forAll (sigma, ii)
     {
         if ( f[ii] >= fp )
+        {
             sigma[ii] = 0.09;
+        }
     }
 
     beta = Foam::exp( - Foam::pow( f - fp, 2.0 ) / ( 2 * Foam::pow(sigma, 2.0) * Foam::pow(fp, 2.0)) );
@@ -122,7 +128,7 @@ void JONSWAP::set(Ostream& os)
     Foam::stokesFirstProperties stp( rT_, dict_ );
 
     // Compute return variables
-    for( int i = 1; i < N; i++)
+    for (int i = 1; i < N; i++)
     {
         freq_[i - 1] = 0.5 * ( f[i - 1] + f[i] );
         amp_[i-1]    = Foam::sqrt( ( S[i-1] + S[i] ) * ( f[i] - f[i - 1] ) );

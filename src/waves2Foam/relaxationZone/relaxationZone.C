@@ -51,7 +51,7 @@ relaxationZone::relaxationZone
 
     relaxSchemePtr_(relaxNames_.size())
 {
-    forAll(relaxNames_, relaxi)
+    forAll (relaxNames_, relaxi)
     {
         relaxSchemePtr_[relaxi] = relaxationSchemes::relaxationScheme::New(relaxNames_[relaxi], mesh_, U_, alpha_);
     }
@@ -61,7 +61,7 @@ relaxationZone::relaxationZone
 
 void relaxationZone::correct()
 {
-    forAll(relaxSchemePtr_, relaxi)
+    forAll (relaxSchemePtr_, relaxi)
     {
         relaxSchemePtr_[relaxi]->correct();
     }
@@ -93,7 +93,7 @@ tmp<volScalarField> relaxationZone::numericalBeach()
 
     volScalarField& artificialViscosity( tartificialViscotity() );
 
-    forAll(relaxSchemePtr_, relaxi)
+    forAll (relaxSchemePtr_, relaxi)
     {
         relaxSchemePtr_[relaxi]->numericalBeach( artificialViscosity );
     }

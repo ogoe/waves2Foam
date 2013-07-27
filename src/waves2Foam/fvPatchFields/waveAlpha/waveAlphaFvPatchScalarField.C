@@ -124,7 +124,7 @@ void waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
     scalarField& sd
 )
 {
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -156,7 +156,7 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
 
     const label start = patch().patch().start();
 
-    forAll(magSf, facei)
+    forAll (magSf, facei)
     {
         localFace lf = this->divideFace(facei + start);
 

@@ -72,7 +72,9 @@ void irregularProperties::set( Ostream& os )
     writeGiven( os, "Tsoft");
 
     if ( dict_.found("writeSpectrum" ) )
+    {
         writeGiven( os, "writeSpectrum");
+    }
 
     // Make a pointer to the spectral theory
     scalarField amp(0);
@@ -85,8 +87,10 @@ void irregularProperties::set( Ostream& os )
     // Write properties specific to chosen spectral theory
     wordList specificInput( spectra->list() );
 
-    forAll(specificInput, speci)
+    forAll (specificInput, speci)
+    {
         writeGiven( os, specificInput[speci] );
+    }
 
     // Computing the spectral quantities
     spectra->set( os );

@@ -75,7 +75,7 @@ int main(int argc, char *argv[])
 
     wordList toc( probeDefs.toc() );
 
-    forAll(toc, item)
+    forAll (toc, item)
     {
         word name( toc[item] );
 

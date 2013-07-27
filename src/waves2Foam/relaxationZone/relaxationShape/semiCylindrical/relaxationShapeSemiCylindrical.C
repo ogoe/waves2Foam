@@ -94,7 +94,7 @@ void relaxationShapeSemiCylindrical::findComputationalCells()
     cells_.setSize(5000);
     label count(0);
 
-    forAll(cc, celli)
+    forAll (cc, celli)
     {
         if ( insideZone( celli ))
         {
@@ -115,7 +115,7 @@ void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
     const vectorField& C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
 
-    forAll(cells_, celli)
+    forAll (cells_, celli)
     {
         vector cc( C[cells_[celli]] );
         cc -= ( ( cc & direction_ ) * direction_ );
@@ -153,8 +153,10 @@ bool relaxationShapeSemiCylindrical::insideZone
     scalar dist( Foam::mag( cc ) );
     scalar angle( 180 / PI_ * Foam::atan2( cc & piHalfAngleDirection_, cc & zeroAngleDirection_ ) );
 
-    if ( dist >= rInner_ && dist <= rOuter_ && angleCheck( angle ) )
+    if (dist >= rInner_ && dist <= rOuter_ && angleCheck( angle ))
+    {
         inside = true;
+    }
 
     return inside;
 }

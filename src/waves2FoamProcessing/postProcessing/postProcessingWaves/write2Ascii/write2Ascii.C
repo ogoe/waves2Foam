@@ -76,7 +76,7 @@ void write2Ascii::evaluate()
     autoPtr<OFstream> asciiPtr_;
     asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_time.txt" ) );
 
-    forAll(time, timei)
+    forAll (time, timei)
     {
         asciiPtr_() << time[timei] << endl;
     }
@@ -99,7 +99,9 @@ void write2Ascii::evaluate()
         );
 
         if ( !fileHeader.headerOk() )
+        {
             break;
+        }
 
         asciiPtr_.reset(new OFstream( directDir_ + "/" + ss.str() + ".txt" ) );
 
@@ -107,7 +109,7 @@ void write2Ascii::evaluate()
         {
             IOField<scalar> field( fileHeader );
 
-            forAll(field, datai)
+            forAll (field, datai)
             {
                 asciiPtr_() << field[datai] << endl;
             }
@@ -116,7 +118,7 @@ void write2Ascii::evaluate()
         {
             IOField<vector> field( fileHeader );
 
-            forAll(field, datai)
+            forAll (field, datai)
             {
                 asciiPtr_() << field[datai].x() << tab << field[datai].y() << tab << field[datai].z() << endl;
             }
@@ -164,8 +166,10 @@ void write2Ascii::evaluate()
 
         asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_indexXYZ.txt" ) );
 
-        forAll(indices, indexi)
+        forAll (indices, indexi)
+        {
             asciiPtr_() << indices[indexi] << tab << x[indexi] << tab << y[indexi] << tab << z[indexi] << endl;
+        }
     }
     else
     {
@@ -173,8 +177,10 @@ void write2Ascii::evaluate()
 
         asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_indexNames.txt" ) );
 
-        forAll(indices, indexi)
+        forAll (indices, indexi)
+        {
             asciiPtr_() << indices[indexi] << tab << names[indexi] << endl;
+        }
     }
 }
 

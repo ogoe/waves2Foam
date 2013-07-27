@@ -85,7 +85,9 @@ scalar stokesFifthProperties::waveNumber()
         valMiddle = eval(middle);
 
         if ( Foam::mag(valMiddle) < 1.0e-13 )
+        {
             break;
+        }
     }
 
     return middle;
@@ -132,7 +134,9 @@ void stokesFifthProperties::set( Ostream& os)
     writeGiven( os, "direction" );
 
     if ( dict_.found( "Tsoft" ) )
+    {
         writeGiven( os, "Tsoft");
+    }
 
     writeGiven( os, "phi");
 

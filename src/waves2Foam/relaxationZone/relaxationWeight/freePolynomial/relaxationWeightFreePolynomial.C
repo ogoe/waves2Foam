@@ -64,7 +64,7 @@ void relaxationWeightFreePolynomial::computeWeights
     scalarField& weight
 )
 {
-    forAll(weight, celli)
+    forAll (weight, celli)
     {
         weight[celli] = 1.0 - Foam::pow( sigma[celli], exponent_ );
     }

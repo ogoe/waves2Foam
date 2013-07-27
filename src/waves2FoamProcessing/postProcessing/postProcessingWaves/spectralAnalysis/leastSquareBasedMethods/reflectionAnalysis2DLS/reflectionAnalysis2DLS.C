@@ -58,7 +58,7 @@ void reflectionAnalysis2DLS::write
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        for( int i = 0; i < N_; i++)
+        for (int i = 0; i < N_; i++)
         {
             spectrumPtr_() << frequencies[ 2 * i ] << tab << spectra[ 4 * i ] << endl;
             spectrumPtr_() << frequencies[ 2 * i + 1] << tab << spectra[ 4 * i + 1] << endl;
@@ -73,7 +73,7 @@ void reflectionAnalysis2DLS::write
 
         spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
 
-        for( int i = 0; i < N_; i++)
+        for (int i = 0; i < N_; i++)
         {
             spectrumPtr_() << frequencies[ 2 * i ] << tab << spectra[ 4 * i + 2] << endl;
             spectrumPtr_() << frequencies[ 2 * i + 1] << tab << spectra[ 4 * i + 3] << endl;
@@ -110,8 +110,10 @@ reflectionAnalysis2DLS::reflectionAnalysis2DLS
     scalarField y( dataDict_.lookup("y") );
     scalarField z( dataDict_.lookup("z") );
 
-    forAll(indices_ , indexi)
+    forAll (indices_ , indexi)
+    {
         x_[indexi] = vector( x[indices_[indexi]], y[indices_[indexi]], z[indices_[indexi]] );
+    }
 }
 
 reflectionAnalysis2DLS::~reflectionAnalysis2DLS()
@@ -137,18 +139,20 @@ void reflectionAnalysis2DLS::evaluate()
 
         label count(0);
 
-        forAll(input, inputi)
+        forAll (input, inputi)
         {
             const scalarField& in( input[inputi] );
 
-            forAll(in, ii)
+            forAll (in, ii)
+            {
                 b[count++] = in[ii];
+            }
         }
 
         // Creating left hand side of the over-determined system
         List<scalarField> A( 4 * N_ + 1);
 
-        forAll(A, Ai)
+        forAll (A, Ai)
         {
             scalarField& a(A[Ai]);
             a.setSize(b.size(), 1.0);
@@ -157,7 +161,7 @@ void reflectionAnalysis2DLS::evaluate()
         label Nin( input[0].size() );
 
         // Fill the A-matrix
-        for( int nf=0; nf < N_; nf++ )
+        for (int nf=0; nf < N_; nf++)
         {
             scalar J( nf + 1.0 );
             count = 0;
@@ -167,11 +171,11 @@ void reflectionAnalysis2DLS::evaluate()
             scalarField& a2( A[ 4 * nf + 2 ] );
             scalarField& a3( A[ 4 * nf + 3 ] );
 
-            forAll(x_, xi)
+            forAll (x_, xi)
             {
                 point X( x_[xi] );
 
-                for( int n=0; n<Nin; n++)
+                for (int n=0; n<Nin; n++)
                 {
                     a0[count] = Foam::cos( J * ( omega * time[n] - ( waveNumber_ & X) ) );
                     a1[count] = Foam::sin( J * ( omega * time[n] - ( waveNumber_ & X) ) );

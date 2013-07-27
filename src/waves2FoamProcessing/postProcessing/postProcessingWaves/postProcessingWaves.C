@@ -67,8 +67,10 @@ void postProcessingWaves::getTimeDirs
 
         timeDirs.setSize( fnl.size() );
 
-        forAll(timeDirs, timei)
+        forAll (timeDirs, timei)
+        {
             timeDirs[timei] = fnl[timei].name();
+        }
     }
 
     // Make a numerical sorting of the words
@@ -76,7 +78,7 @@ void postProcessingWaves::getTimeDirs
     // the outputted data, when read by raw-data methods
     List<std::pair<scalar, word> > timeWord( timeDirs.size() );
 
-    forAll(timeWord, timei)
+    forAll (timeWord, timei)
     {
         timeWord[timei].first = std::atof( timeDirs[timei].c_str() );
         timeWord[timei].second = timeDirs[timei];
@@ -84,8 +86,10 @@ void postProcessingWaves::getTimeDirs
 
     std::sort( timeWord.begin(), timeWord.end(), pairSortB );
 
-    forAll(timeDirs, timei)
+    forAll (timeDirs, timei)
+    {
         timeDirs[timei] = timeWord[timei].second;
+    }
 }
 
 void postProcessingWaves::writeNameDict
@@ -113,8 +117,10 @@ void postProcessingWaves::writeNameDict
     // Adding indexing to the dictionary
     labelList index( names.size(), 0 );
 
-    forAll(index, indexi)
+    forAll (index, indexi)
+    {
         index[indexi] = indexi;
+    }
 
     xyz.add("index", index, true);
 
@@ -153,8 +159,10 @@ void postProcessingWaves::writeXYZDict
     // Adding indexing to the dictionary
     labelList index( x.size(), 0 );
 
-    forAll(index, indexi)
+    forAll (index, indexi)
+    {
         index[indexi] = indexi;
+    }
 
     xyz.add("index", index, true);
 
@@ -277,11 +285,17 @@ word postProcessingWaves::dataType()
     }
 
     if ( fileHeader.headerClassName() == "scalarField" )
+    {
         return "scalar";
+    }
     else if ( fileHeader.headerClassName() == "vectorField" )
+    {
         return "vector";
+    }
     else
+    {
         return "unknown";
+    }
 }
 
 scalar postProcessingWaves::readDeltaT
@@ -330,7 +344,7 @@ List<scalarField> postProcessingWaves::readScalarFields
 {
     List<scalarField> res( indices.size() );
 
-    forAll(indices, indexi)
+    forAll (indices, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices[indexi];
@@ -350,7 +364,7 @@ List<vectorField> postProcessingWaves::readVectorFields
 {
     List<vectorField> res( indices.size() );
 
-    forAll(indices, indexi)
+    forAll (indices, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices[indexi];
@@ -379,7 +393,7 @@ scalarField postProcessingWaves::equidistantTime
 
     scalarField t(N, tmin);
 
-    forAll(t, timei)
+    forAll (t, timei)
     {
         t[timei] += timei * dt;
     }
@@ -409,7 +423,7 @@ void postProcessingWaves::interpolationWeights
 
     label count(0);
 
-    forAll(t, timei)
+    forAll (t, timei)
     {
         while ( t[timei] >= timeLabel[count].first && t[timei] >= timeLabel[count+1].first )
             count++;

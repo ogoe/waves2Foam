@@ -123,7 +123,7 @@ void wavePressureFvPatchScalarField::signedPointToSurfaceDistance
     scalarField& sd
 )
 {
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -159,7 +159,7 @@ void wavePressureFvPatchScalarField::updateCoeffs()
     vector centre( vector::zero );
     vector normal( vector::zero );
 
-    forAll(magSf, facei)
+    forAll (magSf, facei)
     {
         localFace lf = this->divideFace(facei + start);
 
@@ -170,7 +170,9 @@ void wavePressureFvPatchScalarField::updateCoeffs()
             this->refGrad()[facei]   = waveProps_->ddxPd( centre, db().time().value(), normal);
         }
         else
+        {
             this->refGrad()[facei]   = 0.0;
+        }
 
         this->refValue()[facei]      = 0.0;
         this->valueFraction()[facei] = 1.0;

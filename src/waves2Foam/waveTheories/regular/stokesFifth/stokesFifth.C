@@ -138,7 +138,9 @@ scalar stokesFifth::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
+    {
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+    }
 
     return factor;
 }

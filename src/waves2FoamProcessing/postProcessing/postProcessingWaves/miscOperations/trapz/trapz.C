@@ -48,12 +48,14 @@ void trapz::evaluateScalar()
 
     scalarField trapezoidal( input.size(), 0.0 );
 
-    forAll(input, I)
+    forAll (input, I)
     {
         const scalarField& field( input[I] );
 
-        for ( int i=1; i < field.size(); i++)
+        for (int i=1; i < field.size(); i++)
+        {
             trapezoidal[I] += 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+        }
     }
 
     writeScalar( trapezoidal );
@@ -72,7 +74,7 @@ void trapz::writeScalar
 
     spectrumPtr_.reset( new OFstream( directDir_ + "/" + this->type() + "/" + callName_ + "_trapz.dat" ));
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         spectrumPtr_() << indices_[indexi] << tab << trapezoidal[indexi] << endl;
     }
@@ -87,12 +89,14 @@ void trapz::evaluateVector()
 
     vectorField trapezoidal( input.size(), vector::zero );
 
-    forAll(input, I)
+    forAll (input, I)
     {
         const vectorField& field( input[I] );
 
-        for ( int i=1; i < field.size(); i++)
+        for (int i=1; i < field.size(); i++)
+        {
             trapezoidal[I] += 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+        }
     }
 
     writeVector( trapezoidal );
@@ -111,7 +115,7 @@ void trapz::writeVector
 
     spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + callName_ + "_trapz.dat"));
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         spectrumPtr_() << indices_[indexi]
                        << tab << trapezoidal[indexi].x()

@@ -55,13 +55,13 @@ void waveGauges::writeVTKFormat
     // Writing points
     vtk() << "POINTS " << 2*pp.size() << " float" << endl;
 
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         point p( pp[pointi] );
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
     }
 
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         point p( pp[pointi] + addPoint );
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
@@ -69,8 +69,10 @@ void waveGauges::writeVTKFormat
 
     // Writing lines
     vtk() << "LINES " << pp.size() << " " << 3*pp.size() << endl;
-    forAll(pp, pointi)
+    forAll (pp, pointi)
+    {
         vtk() << "2 " << pointi << " " << pointi + pp.size() << endl;
+    }
 
 }
 
@@ -106,7 +108,7 @@ void waveGauges::evaluate( const word& name )
 
     gauges() << "sets" << nl << token::BEGIN_LIST << nl << incrIndent;
 
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         gauges() << indent << "gauge_" << pointi << nl << indent << token::BEGIN_BLOCK << incrIndent << nl;
         gauges() << indent << "type         face" << token::END_STATEMENT << nl;
@@ -165,7 +167,9 @@ void waveGauges::evaluate( const word& name )
     mesh_.writeEndDivider( gauges() );
 
     if ( gaugeDict_.lookupOrDefault<Switch>("writeVTK", true ) )
+    {
         writeVTKFormat( name, pp, addPoint );
+    }
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

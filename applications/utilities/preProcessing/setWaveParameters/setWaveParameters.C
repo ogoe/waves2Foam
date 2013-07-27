@@ -143,7 +143,7 @@ int main(int argc, char *argv[])
        wave parameters relevant for that particular wave theory. */
     wordList toc = waveProperties.toc();
 
-    forAll(toc, item)
+    forAll (toc, item)
     {
         // If a sub-dictionary, then compute parameters and write the subdict
         if ( waveProperties.isDict(toc[item]) )
@@ -162,15 +162,21 @@ int main(int argc, char *argv[])
             ITstream read = waveProperties.lookup(toc[item]);
             os << toc[item] << token::SPACE;
 
-            for( int i=toc[item].size(); i<Nspaces-1; i++)
-                os << token::SPACE;
-
-            forAll(read, ri)
+            for (int i=toc[item].size(); i<Nspaces-1; i++)
             {
-                if ( ri < read.size() - 1)
+                os << token::SPACE;
+            }
+
+            forAll (read, ri)
+            {
+                if (ri < read.size() - 1)
+                {
                     os << read[ri] << token::SPACE;
+                }
                 else
+                {
                     os << read[ri];
+                }
             }
 
             os << token::END_STATEMENT << nl << endl;

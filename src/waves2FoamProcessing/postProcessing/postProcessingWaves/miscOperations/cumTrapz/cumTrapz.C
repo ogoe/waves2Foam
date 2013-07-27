@@ -48,14 +48,16 @@ void cumTrapz::evaluateScalar()
 
     List<scalarField> ct( input.size() );
 
-    forAll(input, I)
+    forAll (input, I)
     {
         const scalarField& field( input[I] );
         scalarField& out( ct[ I ] );
         out.setSize( time.size(), 0.0 );
 
-        for ( int i=1; i < field.size(); i++)
+        for (int i=1; i < field.size(); i++)
+        {
             out[i] = out[i-1] + 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+        }
     }
 
     writeScalar( ct );
@@ -72,7 +74,7 @@ void cumTrapz::writeScalar
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
@@ -81,8 +83,10 @@ void cumTrapz::writeScalar
 
         const scalarField& data( ct[indexi] );
 
-        forAll(data, ii)
+        forAll (data, ii)
+        {
             spectrumPtr_() << data[ii] << endl;
+        }
     }
 }
 
@@ -95,14 +99,16 @@ void cumTrapz::evaluateVector()
 
     List<vectorField> ct( input.size() );
 
-    forAll(input, I)
+    forAll (input, I)
     {
         const vectorField& field( input[I] );
         vectorField& out( ct[ I ] );
         out.setSize( time.size(), vector::zero );
 
-        for ( int i=1; i < field.size(); i++)
+        for (int i=1; i < field.size(); i++)
+        {
             out[i] = out[i-1] + 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+        }
     }
 
     writeVector( ct );
@@ -119,7 +125,7 @@ void cumTrapz::writeVector
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
@@ -128,8 +134,10 @@ void cumTrapz::writeVector
 
         const vectorField& data( ct[indexi] );
 
-        forAll(data, ii)
+        forAll (data, ii)
+        {
             spectrumPtr_() << data[ii].x() << tab << data[ii].y() << tab << data[ii].z() << endl;
+        }
     }
 }
 

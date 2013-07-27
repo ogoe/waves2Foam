@@ -99,7 +99,7 @@ int main(int argc, char *argv[])
     wordList toc( postProcProperties.toc() );
 
     // Loop over all items in TOC
-    forAll(toc, itemi)
+    forAll (toc, itemi)
     {
         word tocName( toc[itemi] );
 
@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
             wordList actionList( subDict.lookup("actionList") );
 
             // Loop over the action list for each process
-            forAll(actionList, actionItem)
+            forAll (actionList, actionItem)
             {
                 Info << "    Processing sub-action: " << actionList[actionItem] << endl;
                 autoPtr<postProcessingWaves> action( postProcessingWaves::New( runTime, subDict, actionList[actionItem] ) );

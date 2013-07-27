@@ -65,7 +65,9 @@ scalar potentialCurrent::factor(const scalar& time) const
 {
     scalar factor(1);
     if (Tsoft_ > 0.0)
+    {
         factor = Foam::sin(PI_ / 2.0 / Tsoft_ * Foam::min(Tsoft_, time));
+    }
 
     return factor;
 }

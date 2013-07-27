@@ -40,7 +40,7 @@ defineTypeNameAndDebug(spectralMethodsFFTBased, 0);
 
 void Foam::spectralMethodsFFTBased::checkBins()
 {
-    if ( ( bins_ % 2) == 1 )
+    if ((bins_ % 2) == 1)
     {
         FatalErrorIn("void Foam::spectralMethodsFFTBased::checkBins()")
                 << "The number of frequency bins (" << bins_ << ") given in the dictionary" << endl
@@ -58,13 +58,15 @@ Field<complex> spectralMethodsFFTBased::computeFourierTransform
     // Prepare data for sweep i
     double data[bins_];
 
-    for( int m=0; m<bins_; m++)
+    for (int m = 0; m < bins_; m++)
+    {
         data[m] = input[ sweepCount_ * step_ + m ];
+    }
 
     // Compute the FFT
     gsl_fft_real_transform (data, 1, bins_, real, work);
 
-    for( int m = 1; m < bins_ / 2; m++ )
+    for (int m = 1; m < bins_ / 2; m++ )
     {
         res[m-1].Re() = data[2 * m - 1];
         res[m-1].Im() = data[2 * m];
@@ -89,11 +91,11 @@ void Foam::spectralMethodsFFTBased::powerSpectrum
     // GSL-FFT data
     scalar factor( 2.0 * deltaT / static_cast<scalar>( sweeps_ * bins_ ) );
 
-    for( sweepCount_ = 0; sweepCount_ < sweeps_; sweepCount_++)
+    for (sweepCount_ = 0; sweepCount_ < sweeps_; sweepCount_++)
     {
         Field<complex> transform( computeFourierTransform( input ) );
 
-        for ( int m=0; m < bins_ / 2; m++ )
+        for (int m=0; m < bins_ / 2; m++)
         {
             spectrum[m] += ( factor * transform[m] * transform[m].conjugate() ).Re();
         }
@@ -108,7 +110,7 @@ void spectralMethodsFFTBased::powerSpectrum
 )
 {
     // Compute the spectrum for each vector component
-    for( int i=0; i<3; i++)
+    for (int i=0; i<3; i++)
     {
         scalarField comp = input.component(i);
         scalarField speci = spectrum.component(i);
@@ -170,7 +172,7 @@ List<scalarField> spectralMethodsFFTBased::powerSpectra
 {
     List<scalarField> spectra( inputData.size() );
 
-    forAll(spectra, speci)
+    forAll (spectra, speci)
     {
         scalarField& spectrum( spectra[speci] );
         spectrum.setSize( bins_ / 2, 0.0 );
@@ -191,7 +193,7 @@ List<vectorField> spectralMethodsFFTBased::powerSpectra
 {
     List<vectorField> spectra( inputData.size() );
 
-    forAll(spectra, speci)
+    forAll (spectra, speci)
     {
         vectorField& spectrum( spectra[speci] );
         spectrum.setSize( bins_ / 2, vector::zero );
@@ -209,10 +211,12 @@ scalarField spectralMethodsFFTBased::frequencies
     const scalar& deltaT
 )
 {
-    scalarField res(bins_ / 2, 0);
+    scalarField res(bins_/2, 0);
 
-    forAll(res, freqi)
-        res[freqi] = (freqi + 1) / (deltaT * bins_);
+    forAll (res, freqi)
+    {
+        res[freqi] = (freqi + 1)/(deltaT*bins_);
+    }
 
     return res;
 }
@@ -224,9 +228,9 @@ Field<complex> spectralMethodsFFTBased::fft
 {
     Field<complex> res(0);
 
-    if ( sweepCount_ < sweeps_ )
+    if (sweepCount_ < sweeps_)
     {
-        res.setSize( bins_ / 2 );
+        res.setSize( bins_/2 );
 
         res = computeFourierTransform( input );
 
@@ -247,12 +251,12 @@ List<Field<complex> > spectralMethodsFFTBased::fft
     {
         res.setSize( input.size() );
 
-        forAll(input, inputi)
+        forAll (input, inputi)
         {
             Field<complex>& r( res[inputi] );
             const scalarField& in( input[inputi] );
 
-            r.setSize( bins_ / 2 );
+            r.setSize( bins_/2 );
 
             r = computeFourierTransform( in );
         }

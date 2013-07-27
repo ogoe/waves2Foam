@@ -49,7 +49,7 @@ void rawAlphaProbes::resizeFields
     // Initialise timeLabel
     timeLabel.setSize(N);
 
-    forAll(alphas, alphaI)
+    forAll (alphas, alphaI)
     {
         scalarField& alpha( alphas[alphaI] );
         alpha.setSize(N);
@@ -69,7 +69,7 @@ void rawAlphaProbes::writeRawData
     scalarField output( timeLabel.size(), 0.0 );
 
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output[labeli] = timeLabel[labeli].first;
         }
@@ -83,12 +83,12 @@ void rawAlphaProbes::writeRawData
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
-    forAll(alphas, alphaI)
+    forAll (alphas, alphaI)
     {
         const scalarField& alpha( alphas[alphaI] );
 
         // Rearrange according to indexing
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output[labeli] = alpha[ timeLabel[labeli].second];
         }
@@ -154,14 +154,18 @@ void rawAlphaProbes::readAlphaProbesData
 
 
 
-    forAll(timeDirs_, timeI)
+    forAll (timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
-        if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        if (removeDuplicate_ && timeI < timeDirs_.size() - 1)
+        {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
+        }
         else
+        {
             truncateReading = GREAT;
+        }
 
         std::stringstream ss;
         ss << inputDir_ << "/" << timeDirs_[timeI] << "/alpha1";
@@ -171,7 +175,7 @@ void rawAlphaProbes::readAlphaProbesData
 
         std::string line;
 
-        if ( timeI == 0 )
+        if (timeI == 0)
         {
             // Reading the x-coordinates
             {
@@ -183,7 +187,7 @@ void rawAlphaProbes::readAlphaProbesData
                 iss >> dummy;
                 iss >> dummy;
 
-                while ( iss >> val )
+                while (iss >> val)
                 {
                     x.setSize( Nprobes+1 );
                     x[Nprobes++] = val;
@@ -201,7 +205,7 @@ void rawAlphaProbes::readAlphaProbesData
 
                 iss >> dummy; iss >> dummy;
 
-                for ( int i=0; i < Nprobes; i++)
+                for (int i=0; i < Nprobes; i++)
                 {
                     iss >> val;
                     y[i] = val;
@@ -216,7 +220,7 @@ void rawAlphaProbes::readAlphaProbesData
 
                 iss >> dummy; iss >> dummy;
 
-                for ( int i=0; i < Nprobes; i++)
+                for (int i=0; i < Nprobes; i++)
                 {
                     iss >> val;
                     z[i] = val;
@@ -233,23 +237,27 @@ void rawAlphaProbes::readAlphaProbesData
         else
         {
             // Disgard the first four lines
-            for ( int i=0; i < 4; i++)
+            for (int i=0; i < 4; i++)
+            {
                 std::getline( input, line);
+            }
         }
 
         // Extracting time and alpha
-        while ( std::getline( input, line ) )
+        while (std::getline( input, line ))
         {
             std::istringstream iss(line);
             iss >> val;
 
-            if ( truncateReading <= val )
+            if (truncateReading <= val)
+            {
                 break;
+            }
 
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll(alphas, alphaI)
+            forAll (alphas, alphaI)
             {
                 iss >> val;
                 scalarField& alpha( alphas[ alphaI ] );
@@ -259,7 +267,7 @@ void rawAlphaProbes::readAlphaProbesData
 
             Nentries++;
 
-            if ( Nentries == timeLabel.size() )
+            if (Nentries == timeLabel.size())
             {
                 resizeFields( timeLabel, alphas, 2 * Nentries );
             }

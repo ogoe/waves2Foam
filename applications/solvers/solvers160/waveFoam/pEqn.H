@@ -20,7 +20,7 @@
         )*rUAf*mesh.magSf();
 
 
-    for(int nonOrth=0; nonOrth<=nNonOrthCorr; nonOrth++)
+    for (int nonOrth=0; nonOrth<=nNonOrthCorr; nonOrth++)
     {
         fvScalarMatrix pdEqn
         (

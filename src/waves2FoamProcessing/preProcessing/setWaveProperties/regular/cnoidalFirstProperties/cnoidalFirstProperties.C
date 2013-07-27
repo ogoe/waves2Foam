@@ -100,7 +100,7 @@ double cnoidalFirstProperties::solve()
 
     gsl_root_fsolver_set(s, &FlowerBound, mLower, mUpper);
 
-    for ( int i = 0; i < maxIter; i++)
+    for (int i = 0; i < maxIter; i++)
     {
         gsl_root_fsolver_iterate(s);
         m = gsl_root_fsolver_root(s);
@@ -108,22 +108,26 @@ double cnoidalFirstProperties::solve()
         status = gsl_root_test_residual( lowerMBound_f(m, &params), eps );
 
         if ( status == 0 )
+        {
             break;
+        }
     }
 
     mLower = m;
 
     while ( true )
     {
-        if ( ( cnoidalFirst_f(mLower, &params) < 0.0 && cnoidalFirst_f(mUpper, &params) < 0.0 ) ||
-             ( cnoidalFirst_f(mLower, &params) > 0.0 && cnoidalFirst_f(mUpper, &params)    > 0.0 ) )
+        if (( cnoidalFirst_f(mLower, &params) < 0.0 && cnoidalFirst_f(mUpper, &params) < 0.0 ) ||
+             ( cnoidalFirst_f(mLower, &params) > 0.0 && cnoidalFirst_f(mUpper, &params)    > 0.0 ))
         {
             mLower = 0.999 * mLower + 0.001 * mUpper;
         }
         else
+        {
             break;
+        }
 
-        if ( Foam::mag(mLower - mUpper) < 10e-8 )
+        if (Foam::mag(mLower - mUpper) < 10e-8)
         {
             return -1;
         }
@@ -134,7 +138,7 @@ double cnoidalFirstProperties::solve()
 
     gsl_root_fsolver_set(s, &F, mLower, mUpper);
 
-    for ( int i = 0; i < maxIter; i++)
+    for (int i = 0; i < maxIter; i++)
     {
         gsl_root_fsolver_iterate(s);
         m = gsl_root_fsolver_root(s);
@@ -142,7 +146,9 @@ double cnoidalFirstProperties::solve()
         status = gsl_root_test_residual( cnoidalFirst_f(m, &params), eps );
 
         if ( status == 0 )
+        {
             break;
+        }
     }
 
     Info << m << endl;
@@ -181,7 +187,9 @@ void cnoidalFirstProperties::set( Ostream& os)
     writeGiven( os, "waveType" );
 
     if ( dict_.found( "Tsoft" ) )
+    {
         writeGiven( os, "Tsoft");
+    }
 
     writeGiven( os, "depth");
     writeGiven( os, "period");

@@ -60,7 +60,7 @@ void spectralMethodsLeastSquaresBased::computePowerSpectrum
 
     // Set the cosine components - every second
     // column starting from column index 0
-    for( int i = 0; i < N; i++ )
+    for (int i = 0; i < N; i++)
     {
         scalarField& m( matrix[ 2 * i] );
         m.setSize( t.size(), 0.0);
@@ -70,7 +70,7 @@ void spectralMethodsLeastSquaresBased::computePowerSpectrum
 
     // Set the sine components - every second
     // column starting from column index 0
-    for( int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++)
     {
         scalarField& m( matrix[ 2 * i + 1] );
         m.setSize( t.size(), 0.0);
@@ -113,11 +113,11 @@ void spectralMethodsLeastSquaresBased::solve
     scalarField Atb( N, 0.0 );
 
     // Fill the matrix elements
-    for( int i=0; i<N; i++)
+    for (int i=0; i<N; i++)
     {
         const scalarField& ai( A[i] );
 
-        for ( int j=0; j<N; j++)
+        for (int j=0; j<N; j++)
         {
             const scalarField& aj( A[j] );
             AtA[i][j] = Foam::sum( ai * aj );
@@ -144,7 +144,7 @@ scalarField spectralMethodsLeastSquaresBased::frequencies
 {
     scalarField res(2 * N + 1, 0);
 
-    for( int i=0; i<N; i++)
+    for (int i=0; i<N; i++)
     {
         res[ 2 * i    ] = i + 1;
         res[ 2 * i + 1] = i + 1;
@@ -178,7 +178,7 @@ List<scalarField> spectralMethodsLeastSquaresBased::powerSpectra
 {
     List<scalarField> res( input.size() );
 
-    forAll(input, inputi)
+    forAll (input, inputi)
     {
         const scalarField i( input[inputi] );
         scalarField& r( res[inputi] );
@@ -199,14 +199,16 @@ List<vectorField> spectralMethodsLeastSquaresBased::powerSpectra
 {
     List<vectorField> res( input.size() );
 
-    forAll(input, inputi)
+    forAll (input, inputi)
     {
         const vectorField i( input[inputi] );
         vectorField& r( res[inputi] );
         r.setSize( 2 * N + 1);
 
-        for ( int j=0; j<3; j++)
+        for (int j = 0; j < 3; j++)
+        {
             r.replace( j, powerSpectra(t, i.component(j), N, f ));
+        }
     }
 
     return res;

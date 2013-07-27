@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, bichromaticSecond, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 bichromaticSecond::bichromaticSecond
 (
     const word& subDictName,
@@ -92,6 +93,7 @@ void bichromaticSecond::printCoeffs()
     }
 }
 
+
 void bichromaticSecond::printCoeffs
 (
     const word name,
@@ -101,6 +103,7 @@ void bichromaticSecond::printCoeffs
 {
     Info << name << tab << model << tab << theory << endl;
 }
+
 
 void bichromaticSecond::setCoeffs()
 {
@@ -144,6 +147,7 @@ void bichromaticSecond::setCoeffs()
     dirnmm_ = (kn_ - km_) / kappanmm_;
 }
 
+
 scalar bichromaticSecond::betanm
 (
     const scalar& omega0,
@@ -185,6 +189,7 @@ scalar bichromaticSecond::Lambda2
     return res0 + res1;
 }
 
+
 scalar bichromaticSecond::Gamma2
 (
     const scalar& omega0,
@@ -209,6 +214,7 @@ scalar bichromaticSecond::Gamma2
     return res0 - res1;
 }
 
+
 scalar bichromaticSecond::argn
 (
     const point& x,
@@ -217,6 +223,7 @@ scalar bichromaticSecond::argn
 {
     return omega1n_ * time - (kn_ & x) + phin_;
 }
+
 
 scalar bichromaticSecond::argm
 (
@@ -229,14 +236,18 @@ scalar bichromaticSecond::argm
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 scalar bichromaticSecond::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
+    {
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+    }
 
     return factor;
 }
+
 
 scalar bichromaticSecond::eta
 (
@@ -257,6 +268,7 @@ scalar bichromaticSecond::eta
     return eta * factor(time) + seaLevel_;
 }
 
+
 scalar bichromaticSecond::ddxPd
 (
     const point& x,
@@ -268,6 +280,7 @@ scalar bichromaticSecond::ddxPd
 
     return ddxPd;
 }
+
 
 vector bichromaticSecond::U
 (

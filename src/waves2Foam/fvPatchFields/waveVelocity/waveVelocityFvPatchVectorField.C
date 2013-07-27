@@ -124,7 +124,7 @@ void waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
     scalarField& sd
 )
 {
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -156,15 +156,18 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
 
     const label start = patch().patch().start();
 
-    forAll(magSf, facei)
+    forAll (magSf, facei)
     {
         localFace lf = this->divideFace(facei + start);
 
         if ( lf.isNegFace() )
+        {
             this->refValue()[facei]  = waveProps_->U( lf.negCentre(), db().time().value() );
+        }
         else
+        {
             this->refValue()[facei]  = waveProps_->windVelocity( db().time().value() );
-//            this->refValue()[facei]  = vector::zero;
+        }
 
         this->refGrad()[facei]       = vector::zero;
         this->valueFraction()[facei] = 1.0;

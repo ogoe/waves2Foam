@@ -7,7 +7,7 @@
         zeroGradientFvPatchScalarField::typeName
     );
 
-    forAll(p_rgh.boundaryField(), i)
+    forAll (p_rgh.boundaryField(), i)
     {
         if (p_rgh.boundaryField()[i].fixesValue())
         {

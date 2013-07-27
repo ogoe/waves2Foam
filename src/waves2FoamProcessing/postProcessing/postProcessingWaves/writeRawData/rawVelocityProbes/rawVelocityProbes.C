@@ -49,7 +49,7 @@ void rawVelocityProbes::resizeFields
     // Initialise timeLabel
     timeLabel.setSize(N);
 
-    forAll(Us, UI)
+    forAll (Us, UI)
     {
         vectorField& U( Us[UI] );
         U.setSize(N);
@@ -70,7 +70,7 @@ void rawVelocityProbes::writeRawData
     vectorField output1( timeLabel.size(), vector::zero );
 
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output0[labeli] = timeLabel[labeli].first;
         }
@@ -84,12 +84,12 @@ void rawVelocityProbes::writeRawData
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
-    forAll(Us, UI)
+    forAll (Us, UI)
     {
         const vectorField& U( Us[UI] );
 
         // Rearrange according to indexing
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output1[labeli] = U[ timeLabel[labeli].second ];
         }
@@ -124,7 +124,7 @@ rawVelocityProbes::rawVelocityProbes
 {
     getTimeDirs(inputDir_, timeDirs_);
 
-    if ( actionProperties_.lookupOrDefault<Switch>("rotateVelocity",false) )
+    if (actionProperties_.lookupOrDefault<Switch>("rotateVelocity",false))
     {
         coordinateRotation cr( actionProperties_.subDict("rotate") );
 
@@ -164,14 +164,18 @@ void rawVelocityProbes::readVelocityProbeData
     string dummy;
     label Nentries(0);
 
-    forAll(timeDirs_, timeI)
+    forAll (timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
-        if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        if (removeDuplicate_ && timeI < timeDirs_.size() - 1)
+        {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
+        }
         else
+        {
             truncateReading = GREAT;
+        }
 
         std::stringstream ss;
         ss << inputDir_ << "/" << timeDirs_[timeI] << "/U";
@@ -193,7 +197,7 @@ void rawVelocityProbes::readVelocityProbeData
                 iss >> dummy;
                 iss >> dummy;
 
-                while ( iss >> val )
+                while (iss >> val)
                 {
                     x.setSize( Nprobes+1 );
                     x[Nprobes++] = val;
@@ -211,7 +215,7 @@ void rawVelocityProbes::readVelocityProbeData
 
                 iss >> dummy; iss >> dummy;
 
-                for ( int i=0; i < Nprobes; i++)
+                for (int i=0; i < Nprobes; i++)
                 {
                     iss >> val;
                     y[i] = val;
@@ -226,7 +230,7 @@ void rawVelocityProbes::readVelocityProbeData
 
                 iss >> dummy; iss >> dummy;
 
-                for ( int i=0; i < Nprobes; i++)
+                for (int i=0; i < Nprobes; i++)
                 {
                     iss >> val;
                     z[i] = val;
@@ -243,25 +247,27 @@ void rawVelocityProbes::readVelocityProbeData
         else
         {
             // Disgard the first four lines
-            for ( int i=0; i < 4; i++)
+            for (int i=0; i < 4; i++)
+            {
                 std::getline( input, line);
+            }
         }
 
         // Extracting time and surface elevation
-        while ( std::getline( input, line ) )
+        while (std::getline( input, line ))
         {
             std::istringstream iss(line);
 
             // Reading the time instance
             iss >> val;
 
-            if ( truncateReading <= val )
+            if (truncateReading <= val)
                 break;
 
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll(Us, UI)
+            forAll (Us, UI)
             {
                 vector temp( vector::zero );
 
@@ -285,7 +291,7 @@ void rawVelocityProbes::readVelocityProbeData
 
             Nentries++;
 
-            if ( Nentries == timeLabel.size() )
+            if (Nentries == timeLabel.size())
             {
                 resizeFields( timeLabel, Us, 2 * Nentries );
             }

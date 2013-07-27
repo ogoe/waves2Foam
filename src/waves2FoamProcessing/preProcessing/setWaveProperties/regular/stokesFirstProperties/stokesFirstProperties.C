@@ -103,7 +103,9 @@ void stokesFirstProperties::set( Ostream& os )
     writeGiven( os, "waveType" );
 
     if ( dict_.found( "Tsoft" ) )
+    {
         writeGiven( os, "Tsoft");
+    }
 
     writeGiven( os, "depth");
     writeGiven( os, "period" );
@@ -162,7 +164,9 @@ scalar stokesFirstProperties::linearWaveNumber() const
         valMiddle = Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( Foam::min(middle * depth_, tanhMax) );
 
         if ( Foam::mag(valMiddle) < 1.0e-13 || Foam::mag(valLower - valUpper) / middle < 1.0e-13 )
+        {
             break;
+        }
     }
 
     return middle;

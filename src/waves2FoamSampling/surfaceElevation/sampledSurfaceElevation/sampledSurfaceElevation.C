@@ -51,7 +51,7 @@ bool Foam::sampledSurfaceElevation::checkFieldTypes()
     // check files for a particular time
     if (loadFromFiles_)
     {
-        forAll(fieldNames_, fieldi)
+        forAll (fieldNames_, fieldi)
         {
             IOobject io
             (
@@ -76,7 +76,7 @@ bool Foam::sampledSurfaceElevation::checkFieldTypes()
     else
     {
         // check objectRegistry
-        forAll(fieldNames_, fieldi)
+        forAll (fieldNames_, fieldi)
         {
             objectRegistry::const_iterator iter =
                 mesh_.find(fieldNames_[fieldi]);
@@ -147,7 +147,7 @@ void Foam::sampledSurfaceElevation::combineSampledSets
 
     const PtrList<sampledSet>& sampledSets = *this;
 
-    forAll(sampledSets, seti)
+    forAll (sampledSets, seti)
     {
         const sampledSet& samplePts = sampledSets[seti];
 
@@ -321,15 +321,21 @@ void Foam::sampledSurfaceElevation::write()
 bool Foam::sampledSurfaceElevation::performAction()
 {
     if ( surfaceSampleDeltaT_ <= 10 * SMALL )
+    {
         return mesh_.time().value() >= startTime_;
+    }
     else
     {
-        if ( mesh_.time().value() < nextSampleTime_ )
+        if (mesh_.time().value() < nextSampleTime_)
+        {
             return false;
+        }
         else
         {
-            while ( mesh_.time().value() > nextSampleTime_ )
+            while (mesh_.time().value() > nextSampleTime_)
+            {
                 nextSampleTime_ += surfaceSampleDeltaT_;
+            }
 
             return true;
         }
@@ -359,17 +365,17 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
                 {
                     surfaceElevationFilePtr_() << "Time";
 
-                    forAll(masterSampledSets_, seti)
+                    forAll (masterSampledSets_, seti)
                     {
                         surfaceElevationFilePtr_() << tab << masterSampledSets_[seti].name();
                     }
                     surfaceElevationFilePtr_() << endl;
 
-                    for ( int coordi = 0; coordi < 3; coordi++ )
+                    for (int coordi = 0; coordi < 3; coordi++)
                     {
                         surfaceElevationFilePtr_() << -1 - coordi;
 
-                        forAll(masterSampledSets_, seti)
+                        forAll (masterSampledSets_, seti)
                         {
                             surfaceElevationFilePtr_() << tab << masterSampledSets_[seti][0].component(coordi);
                         }
@@ -389,7 +395,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
             {
                 surfaceElevationFilePtr_() << mesh_.time().value();
 
-                forAll(result, seti)
+                forAll (result, seti)
                 {
                     surfaceElevationFilePtr_() << tab << result[seti];
                 }
@@ -421,7 +427,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
         // Storage for interpolated values
         PtrList<volFieldSampler<scalar> > sampledFields(fields.size());
 
-        forAll(fields, fieldi)
+        forAll (fields, fieldi)
         {
             if (Pstream::master() && verbose_)
             {
@@ -510,7 +516,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
 
         if (Pstream::master())
         {
-            forAll(masterSampledSets_, seti)
+            forAll (masterSampledSets_, seti)
             {
                 const coordSet & cs( masterSampledSets_[seti] );
 
@@ -537,7 +543,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
                     scalar value(0);
                     scalar minScalarCoord( cs.scalarCoord(0) );
 
-                    for ( int pointi=0; pointi < alpha.size() - 1; pointi++ )
+                    for (int pointi=0; pointi < alpha.size() - 1; pointi++)
                     {
                         value += (cs.scalarCoord(pointi+1) - cs.scalarCoord(pointi)) * ( alpha[pointi+1] + alpha[pointi] );
 
@@ -583,7 +589,7 @@ void Foam::sampledSurfaceElevation::read(const dictionary& dict)
         Pout<< "sample fields:" << fieldNames_ << nl
             << "sample sets:" << nl << "(" << nl;
 
-        forAll(*this, si)
+        forAll (*this, si)
         {
             Pout << "  " << operator[](si) << endl;
         }

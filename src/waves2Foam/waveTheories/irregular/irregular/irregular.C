@@ -75,7 +75,9 @@ scalar irregular::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
+    {
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+    }
 
     return factor;
 }
@@ -88,7 +90,7 @@ scalar irregular::eta
 {
     scalar eta(0);
 
-    forAll(amp_, index)
+    forAll (amp_, index)
     {
         eta += ( amp_[index] * Foam::cos( omega_[index] * time - (k_[index] & x) + phi_[index] ) );
     }
@@ -119,7 +121,7 @@ vector irregular::U
     scalar Uhorz(0), Uvert(0);
     vector U(vector::zero);
 
-    forAll(amp_, index)
+    forAll (amp_, index)
     {
         scalar period = 2 * PI_ / omega_[index];
         Uhorz = (

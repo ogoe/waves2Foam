@@ -61,7 +61,7 @@ void relaxationWeightThirdOrderPolynomial::computeWeights
     scalarField& weight
 )
 {
-    forAll(weight, celli)
+    forAll (weight, celli)
     {
         scalar s(1.0 - sigma[celli]);
         weight[celli] = -2.0 * Foam::pow(s, 3.0) + 3.0 * Foam::pow(s, 2.0);

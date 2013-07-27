@@ -73,14 +73,18 @@ void bichromaticFirst::printCoeffs()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 scalar bichromaticFirst::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
+    {
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+    }
 
     return factor;
 }
+
 
 scalar bichromaticFirst::eta
 (
@@ -93,6 +97,7 @@ scalar bichromaticFirst::eta
                  + seaLevel_;
     return eta;
 }
+
 
 scalar bichromaticFirst::ddxPd
 (
@@ -118,6 +123,7 @@ scalar bichromaticFirst::ddxPd
 //     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
     return ddxPd;
 }
+
 
 vector bichromaticFirst::U
 (

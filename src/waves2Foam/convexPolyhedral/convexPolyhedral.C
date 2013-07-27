@@ -56,7 +56,7 @@ labelList convexPolyhedral::edgeCutLabel
     label pCount(pf.size());
     pf.setSize( pf.size() + eL.size() );
 
-    forAll(eL, edgei)
+    forAll (eL, edgei)
     {
         edge e(eL[edgei]);
 
@@ -137,7 +137,7 @@ void convexPolyhedral::faceCut
     const labelListList& faceEdges(lc.faceEdges());
     const faceList& fL = lc.faces();
 
-    forAll(lc.cc(), facei)
+    forAll (lc.cc(), facei)
     {
         const face& f( fL[facei] );
         const edgeList& eLt  (f.edges());
@@ -146,7 +146,7 @@ void convexPolyhedral::faceCut
 
         const labelList& fE( faceEdges[facei] );
 
-        forAll(eLt, edgei)
+        forAll (eLt, edgei)
         {
             edgeCutt[edgei] = edgeCut[ fE[edgei] ];
         }
@@ -172,7 +172,9 @@ void convexPolyhedral::faceCut
             lc.addPos( facei );
         }
         if ( lf.noi() > 2 )
+        {
             noiProblem = true;
+        }
     }
 
     if ( noiProblem )
@@ -180,18 +182,24 @@ void convexPolyhedral::faceCut
         lc.initCut();
 
         if ( signedPointToSurfaceDistance(lc.centre() ) < 0.0 )
+        {
             lc.fullNeg();
+        }
         else
+        {
             lc.fullPos();
+        }
     }
     else
     {
 
         // Add special edges, where both end are on the plane
-        forAll(eL, edgei)
+        forAll (eL, edgei)
         {
             if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
+            {
                 cuttedEdges[cutCount++] = eL[edgei];
+            }
         }
 
         // Take care of the interface face
@@ -239,7 +247,7 @@ void convexPolyhedral::faceCut
     const labelListList& faceEdges(lc.faceEdges());
     const faceList& fL = lc.faces();
 
-    forAll(lc.cc(), facei)
+    forAll (lc.cc(), facei)
     {
         const face& f( fL[facei] );
         const edgeList& eLt  (f.edges());
@@ -248,7 +256,7 @@ void convexPolyhedral::faceCut
 
         const labelList& fE( faceEdges[facei] );
 
-        forAll(eLt, edgei)
+        forAll (eLt, edgei)
         {
             edgeCutt[edgei] = edgeCut[ fE[edgei] ];
         }
@@ -291,10 +299,12 @@ void convexPolyhedral::faceCut
     else
     {
         // Add special edges, where both ends are on the plane
-        forAll(eL, edgei)
+        forAll (eL, edgei)
         {
             if ( pType[eL[edgei].start()] == 0 && pType[eL[edgei].end()] == 0 )
+            {
                 cuttedEdges[cutCount++] = eL[edgei];
+            }
         }
 
         // Take care of the interface face
@@ -337,7 +347,7 @@ void convexPolyhedral::faceCut
     label pTypeSqr(0);
     label pTypeSum(0);
 
-    forAll(f, pointi)
+    forAll (f, pointi)
     {
         pTypeSqr += ( pType[f[pointi]] * pType[f[pointi]] );
         pTypeSum += pType[f[pointi]];
@@ -370,7 +380,7 @@ void convexPolyhedral::faceCut
         face& negF( lf.negFace() );
         label posCount(0), negCount(0), noi(0);
 
-        forAll(eL, edgei)
+        forAll (eL, edgei)
         {
             edge e(eL[edgei]);
             label start(e.start());
@@ -389,7 +399,9 @@ void convexPolyhedral::faceCut
                 posF[posCount++] = start;
 
                 if (noi < 2)
+                {
                     noi == 0 ? cutted.start() = start : cutted.end() = start;
+                }
 
                 noi++;
             }
@@ -400,7 +412,9 @@ void convexPolyhedral::faceCut
                 posF[posCount++] = edgeCut[edgei];
 
                 if (noi < 2)
+                {
                     noi == 0 ? cutted.start() = edgeCut[edgei] : cutted.end() = edgeCut[edgei];
+                }
 
                 noi++;
             }
@@ -468,9 +482,11 @@ void convexPolyhedral::signedPointToSurfaceDistance
 )
 {
     if ( pp.size() != signedDistance.size() )
+    {
         signedDistance.setSize( pp.size() );
+    }
 
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         signedDistance[pointi] = signedPointToSurfaceDistance( pp[pointi] );
     }
@@ -493,7 +509,7 @@ void convexPolyhedral::floatingPointToLabel
         labelList& l
 )
 {
-    forAll(s, pointi)
+    forAll (s, pointi)
     {
         l[pointi] = floatingPointToLabel( s[pointi] );
     }
@@ -528,7 +544,7 @@ localFace convexPolyhedral::divideFace
     face f( fL[faceLabel] );
     pointField pf( f.size() );
 
-    forAll(f, pointi)
+    forAll (f, pointi)
     {
         pf[pointi] = pp[f[pointi]];
         f[pointi]  = pointi;
@@ -566,7 +582,7 @@ localFace convexPolyhedral::divideFace
     face f( fL[faceLabel] );
     pointField pf( f.size() );
 
-    forAll(f, pointi)
+    forAll (f, pointi)
     {
         pf[pointi] = pp[f[pointi]];
         f[pointi]  = pointi;
@@ -707,7 +723,7 @@ void convexPolyhedral::unionSet
     const faceList& fL( cell0.faces() );
     const pointField& pp( cell0.points() );
 
-    forAll(c, facei)
+    forAll (c, facei)
     {
         const vector n( fL[c[facei]].normal(pp) );
         const point Cf( fL[c[facei]].centre(pp) );
@@ -737,7 +753,7 @@ void convexPolyhedral::unionSet
     const faceList& fL( cell0.faces() );
     const pointField& pp( cell0.points() );
 
-    forAll(c, facei)
+    forAll (c, facei)
     {
         const vector n( fL[c[facei]].normal(pp) );
         const point Cf( fL[c[facei]].centre(pp) );

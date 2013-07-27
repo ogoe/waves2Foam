@@ -67,7 +67,7 @@ void rawForcesAndMoments::writeRawData
     vectorField output1( timeLabel.size(), vector::zero );
 
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output0[labeli] = timeLabel[labeli].first;
         }
@@ -87,7 +87,7 @@ void rawForcesAndMoments::writeRawData
 
     // Write the forces as index 0
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output1[labeli] = forces[ timeLabel[labeli].second ];
         }
@@ -100,7 +100,7 @@ void rawForcesAndMoments::writeRawData
 
     // Write the moments as index 1
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output1[labeli] = moments[ timeLabel[labeli].second ];
         }
@@ -162,14 +162,18 @@ void rawForcesAndMoments::readForceAndMomentData
 
     resizeFields( timeLabel, forces, moments, 10000 );
 
-    forAll(timeDirs_, timeI)
+    forAll (timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
         if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
+        }
         else
+        {
             truncateReading = GREAT;
+        }
 
         std::stringstream ss;
         ss << inputDir_ << "/" << timeDirs_[timeI] << "/forces.dat";
@@ -191,7 +195,9 @@ void rawForcesAndMoments::readForceAndMomentData
             iss >> val;
 
             if ( truncateReading <= val )
+            {
                 break;
+            }
 
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;

@@ -63,7 +63,7 @@ void relaxationWeightExponential::computeWeights
     scalarField& weight
 )
 {
-    forAll(weight, celli)
+    forAll (weight, celli)
     {
         weight[celli] = 1.0 - (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0) / (Foam::exp(1.0) - 1.0);
     }

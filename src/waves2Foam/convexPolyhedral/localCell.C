@@ -75,7 +75,9 @@ localCell::localCell
     cellConnectivity();
 
     if ( checkCell )
+    {
         notImplemented("Check cell in localCell");
+    }
 }
 
 localCell::localCell()
@@ -107,14 +109,14 @@ void localCell::localizeCell
     fL_.setSize(cc_.nFaces());
 
     // Initialise the faceList
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         fL_[facei] = ff[cc_[facei]];
     }
 
     // Orient all face, so the normal vector is pointing outward
 
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         label nFace( cc_[facei] );
 
@@ -127,7 +129,7 @@ void localCell::localizeCell
     }
 
     // Make cellFaces local
-    forAll(cc_, celli)
+    forAll (cc_, celli)
     {
         cc_[celli] = celli;
     }
@@ -137,18 +139,18 @@ void localCell::localizeCell
     pp_.setSize(pLabels.size());
     std::map <label, label> pointMap;
 
-    forAll(pLabels, pointi)
+    forAll (pLabels, pointi)
     {
         pp_[pointi] = pp[pLabels[pointi]];
         pointMap[pLabels[pointi]] = pointi;
     }
 
     // Change point labels in the faces to be consistent with local point numbering
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         face& f(fL_[facei]);
 
-        forAll(f, pointi)
+        forAll (f, pointi)
         {
             f[pointi] = pointMap.find(f[pointi])->second;
         }
@@ -162,13 +164,13 @@ void localCell::localizeCell
     edgeFaces_.setSize( eL_.size() );
     labelList counter(eL_.size(), 0);
 
-    forAll(edgeFaces_, edgei)
+    forAll (edgeFaces_, edgei)
     {
         labelList& eF = edgeFaces_[edgei];
         eF.setSize(2);
     }
 
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         const face& f(fL_[facei]);
         const edgeList& eLf = f.edges();
@@ -176,7 +178,7 @@ void localCell::localizeCell
         labelList& fE( faceEdges_[facei] );
         fE.setSize(eLf.size());
 
-        forAll(eLf, edgei)
+        forAll (eLf, edgei)
         {
             label count(0);
 
@@ -210,13 +212,13 @@ void localCell::cellConnectivity()
     edgeFaces_.setSize( eL_.size() );
     labelList counter(eL_.size(), 0);
 
-    forAll(edgeFaces_, edgei)
+    forAll (edgeFaces_, edgei)
     {
         labelList& eF = edgeFaces_[edgei];
         eF.setSize(2);
     }
 
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         const face& f(fL_[facei]);
         const edgeList& eLf = f.edges();
@@ -224,7 +226,7 @@ void localCell::cellConnectivity()
         labelList& fE( faceEdges_[facei] );
         fE.setSize(eLf.size());
 
-        forAll(eLf, edgei)
+        forAll (eLf, edgei)
         {
             label count(0);
 
@@ -274,7 +276,7 @@ void localCell::localizeCell
     // Clean out the face list to contain only the necessary faces
     faceList fL( this->cc_.size());
 
-    forAll(this->cc_, facei)
+    forAll (this->cc_, facei)
     {
         fL[facei] = fL_[this->cc_[facei]];
     }
@@ -282,7 +284,7 @@ void localCell::localizeCell
     this->fL_ = fL;
 
     // Renumber the cell
-    forAll(this->cc_, celli)
+    forAll (this->cc_, celli)
     {
         this->cc_[celli] = celli;
     }
@@ -292,7 +294,7 @@ void localCell::localizeCell
     pointField pp(pLabels.size());
     std::map <label, label> pointMap;
 
-    forAll(pLabels, pointi)
+    forAll (pLabels, pointi)
     {
         pp[pointi] = pp_[pLabels[pointi]];
         pointMap[pLabels[pointi]] = pointi;
@@ -301,11 +303,11 @@ void localCell::localizeCell
     this->pp_ = pp;
 
     // Change point labels in the faces to be consistent with local point numbering
-    forAll(this->fL_, facei)
+    forAll (this->fL_, facei)
     {
         face& f(this->fL_[facei]);
 
-        forAll(f, pointi)
+        forAll (f, pointi)
         {
             f[pointi] = pointMap.find(f[pointi])->second;
         }
@@ -346,7 +348,7 @@ void localCell::write(const fvMesh& mesh, const List<localCell>& lcs)
 {
     label pCount(0);
 
-    forAll(lcs, celli)
+    forAll (lcs, celli)
     {
         const localCell& lc(lcs[celli]);
         pCount += lc.points().size();
@@ -357,14 +359,14 @@ void localCell::write(const fvMesh& mesh, const List<localCell>& lcs)
     pointField pp(pCount);
     pCount = 0;
 
-    forAll(lcs, celli)
+    forAll (lcs, celli)
     {
         const localCell& lc(lcs[celli]);
 
         // Put points into a common pointField
         pointField p( lc.points() );
 
-        forAll(p, pointi)
+        forAll (p, pointi)
         {
             pp[pointi + pCount] = p[pointi];
         }
@@ -374,7 +376,7 @@ void localCell::write(const fvMesh& mesh, const List<localCell>& lcs)
 
         f = lc.iface();
 
-        forAll(f, pointi)
+        forAll (f, pointi)
         {
             f[pointi] += pCount;
         }

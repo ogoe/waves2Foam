@@ -78,12 +78,18 @@ scalar streamFunction::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if ( time < Tstart_ )
+    {
         factor = 0.0;
+    }
     else if ( Tsoft_ > 0.0)
+    {
         factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tstart_));
+    }
 
     if ( time > Tend_)
+    {
         factor = Foam::cos(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tend_));
+    }
 
     return factor;
 }
@@ -97,7 +103,7 @@ scalar streamFunction::eta
     scalar eta(0);
     scalar arg = (k_ & x) - omega_ * time + phi_;
 
-    forAll(A_,ii)
+    forAll (A_,ii)
     {
         eta += A_[ii] * Foam::cos((ii+1) * arg);
     }
@@ -125,7 +131,7 @@ scalar streamFunction::ddxPd
     scalar dUy(0);
 
     scalar j(0);
-    forAll(B_,ii)
+    forAll (B_,ii)
     {
         j = ii+1;
         dUx += - j * K_ * B_[ii] * Foam::cosh(j * K_ * (Z + h_)) / Foam::cosh(j * K_ * h_) * Foam::sin(j * arg);
@@ -158,7 +164,7 @@ vector streamFunction::U
     scalar arg = (k_ & x) - omega_ * time + phi_;
     scalar j(0);
 
-    forAll(B_,ii)
+    forAll (B_,ii)
     {
         j = ii + 1;
         Uhorz += B_[ii] * Foam::cosh(j * K_ * (Z + h_)) / Foam::cosh(j * K_ * h_) * Foam::cos(j * arg);

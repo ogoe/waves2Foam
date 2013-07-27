@@ -46,13 +46,13 @@ Foam::sampledSurfaceElevation::volFieldSampler<Type>::volFieldSampler
         interpolation<Type>::New(interpolationScheme, field)
     );
 
-    forAll(samplers, seti)
+    forAll (samplers, seti)
     {
         Field<Type>& values = this->operator[](seti);
         const sampledSet& samples = samplers[seti];
 
         values.setSize(samples.size());
-        forAll(samples, samplei)
+        forAll (samples, samplei)
         {
             const point& samplePt = samples[samplei];
             label celli = samples.cells()[samplei];
@@ -79,13 +79,13 @@ Foam::sampledSurfaceElevation::volFieldSampler<Type>::volFieldSampler
     List<Field<Type> >(samplers.size()),
     name_(field.name())
 {
-    forAll(samplers, seti)
+    forAll (samplers, seti)
     {
         Field<Type>& values = this->operator[](seti);
         const sampledSet& samples = samplers[seti];
 
         values.setSize(samples.size());
-        forAll(samples, samplei)
+        forAll (samples, samplei)
         {
             values[samplei] = field[samples.cells()[samplei]];
         }
@@ -115,7 +115,7 @@ Foam::label Foam::sampledSurfaceElevation::grep
     fieldList.setSize(fieldNames_.size());
     label nFields = 0;
 
-    forAll(fieldNames_, fieldi)
+    forAll (fieldNames_, fieldi)
     {
         if
         (
@@ -141,11 +141,11 @@ void Foam::sampledSurfaceElevation::combineSampledValues
     PtrList<volFieldSampler<T> >& masterFields
 )
 {
-    forAll(sampledFields, fieldi)
+    forAll (sampledFields, fieldi)
     {
         List<Field<T> > masterValues(indexSets.size());
 
-        forAll(indexSets, seti)
+        forAll (indexSets, seti)
         {
             // Collect data from all processors
             List<Field<T> > gatheredData(Pstream::nProcs());

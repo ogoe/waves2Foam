@@ -49,7 +49,7 @@ void rawSurfaceElevation::resizeFields
     // Initialise timeLabel
     timeLabel.setSize(N);
 
-    forAll(etas, etaI)
+    forAll (etas, etaI)
     {
         scalarField& eta( etas[etaI] );
         eta.setSize(N);
@@ -69,7 +69,7 @@ void rawSurfaceElevation::writeRawData
     scalarField output( timeLabel.size(), 0.0 );
 
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output[labeli] = timeLabel[labeli].first;
         }
@@ -83,12 +83,12 @@ void rawSurfaceElevation::writeRawData
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
-    forAll(etas, etaI)
+    forAll (etas, etaI)
     {
         const scalarField& eta( etas[etaI] );
 
         // Rearrange according to indexing
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output[labeli] = eta[ timeLabel[labeli].second];
         }
@@ -153,14 +153,18 @@ void rawSurfaceElevation::readSurfaceElevationData
 
 
 
-    forAll(timeDirs_, timeI)
+    forAll (timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
-        if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        if (removeDuplicate_ && timeI < timeDirs_.size() - 1)
+        {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
+        }
         else
+        {
             truncateReading = GREAT;
+        }
 
         std::stringstream ss;
         ss << inputDir_ << "/" << timeDirs_[timeI] << "/surfaceElevation.dat";
@@ -183,7 +187,7 @@ void rawSurfaceElevation::readSurfaceElevationData
                 // Discard the first data entry
                 iss >> val;
 
-                while ( iss >> val )
+                while (iss >> val)
                 {
                     x.setSize( Ngauges+1 );
                     x[Ngauges++] = val;
@@ -201,7 +205,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
                 iss >> val;
 
-                for ( int i=0; i < Ngauges; i++)
+                for (int i=0; i < Ngauges; i++)
                 {
                     iss >> val;
                     y[i] = val;
@@ -216,7 +220,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
                 iss >> val;
 
-                for ( int i=0; i < Ngauges; i++)
+                for (int i=0; i < Ngauges; i++)
                 {
                     iss >> val;
                     z[i] = val;
@@ -230,23 +234,27 @@ void rawSurfaceElevation::readSurfaceElevationData
         else
         {
             // Disgard the first four lines
-            for ( int i=0; i < 4; i++)
+            for (int i=0; i < 4; i++)
+            {
                 std::getline( input, line);
+            }
         }
 
         // Extracting time and surface elevation
-        while ( std::getline( input, line ) )
+        while (std::getline( input, line ))
         {
             std::istringstream iss(line);
             iss >> val;
 
-            if ( truncateReading <= val )
+            if (truncateReading <= val)
+            {
                 break;
+            }
 
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll(etas, etaI)
+            forAll (etas, etaI)
             {
                 iss >> val;
                 scalarField& eta( etas[ etaI ] );
@@ -256,7 +264,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
             Nentries++;
 
-            if ( Nentries == timeLabel.size() )
+            if (Nentries == timeLabel.size())
             {
                 resizeFields( timeLabel, etas, 2 * Nentries );
             }

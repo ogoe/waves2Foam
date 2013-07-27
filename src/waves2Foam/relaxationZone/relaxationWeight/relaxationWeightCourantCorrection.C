@@ -50,7 +50,7 @@ scalar relaxationWeightCourantCorrection::courantNumber
     scalar res(-1);
     scalar dt( mesh_.time().deltaT().value() );
 
-    forAll(cc, facei)
+    forAll (cc, facei)
     {
         if ( cc[facei] < mesh_.nInternalFaces() )
         {
@@ -96,7 +96,7 @@ void relaxationWeightCourantCorrection::courantCorrection
         const surfaceScalarField& delta( mesh_.deltaCoeffs() );
         const cellList& cellFaces( mesh_.cells() );
 
-        forAll(cells, celli)
+        forAll (cells, celli)
         {
             label cellI( cells[celli] );
 

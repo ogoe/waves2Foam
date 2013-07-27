@@ -71,7 +71,9 @@ localCellNeg::localCellNeg
     cellConnectivity();
 
     if ( checkCell )
+    {
         notImplemented("Check cell in localCell");
+    }
 }
 
 localCellNeg::localCellNeg()
@@ -101,14 +103,14 @@ void localCellNeg::localizeCell
     fL_.setSize(cc_.nFaces());
 
     // Initialise the faceList
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         fL_[facei] = ff[cc_[facei]];
     }
 
     // Orient all face, so the normal vector is pointing outward
 
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         label nFace( cc_[facei] );
 
@@ -121,7 +123,7 @@ void localCellNeg::localizeCell
     }
 
     // Make cellFaces local
-    forAll(cc_, celli)
+    forAll (cc_, celli)
     {
         cc_[celli] = celli;
     }
@@ -131,18 +133,18 @@ void localCellNeg::localizeCell
     pp_.setSize(pLabels.size());
     std::map <label, label> pointMap;
 
-    forAll(pLabels, pointi)
+    forAll (pLabels, pointi)
     {
         pp_[pointi] = pp[pLabels[pointi]];
         pointMap[pLabels[pointi]] = pointi;
     }
 
     // Change point labels in the faces to be consistent with local point numbering
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         face& f(fL_[facei]);
 
-        forAll(f, pointi)
+        forAll (f, pointi)
         {
             f[pointi] = pointMap.find(f[pointi])->second;
         }
@@ -156,13 +158,13 @@ void localCellNeg::localizeCell
     edgeFaces_.setSize( eL_.size() );
     labelList counter(eL_.size(), 0);
 
-    forAll(edgeFaces_, edgei)
+    forAll (edgeFaces_, edgei)
     {
         labelList& eF = edgeFaces_[edgei];
         eF.setSize(2);
     }
 
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         const face& f(fL_[facei]);
         const edgeList& eLf = f.edges();
@@ -170,7 +172,7 @@ void localCellNeg::localizeCell
         labelList& fE( faceEdges_[facei] );
         fE.setSize(eLf.size());
 
-        forAll(eLf, edgei)
+        forAll (eLf, edgei)
         {
             label count(0);
 
@@ -204,13 +206,13 @@ void localCellNeg::cellConnectivity()
     edgeFaces_.setSize( eL_.size() );
     labelList counter(eL_.size(), 0);
 
-    forAll(edgeFaces_, edgei)
+    forAll (edgeFaces_, edgei)
     {
         labelList& eF = edgeFaces_[edgei];
         eF.setSize(2);
     }
 
-    forAll(fL_, facei)
+    forAll (fL_, facei)
     {
         const face& f(fL_[facei]);
         const edgeList& eLf = f.edges();
@@ -218,7 +220,7 @@ void localCellNeg::cellConnectivity()
         labelList& fE( faceEdges_[facei] );
         fE.setSize(eLf.size());
 
-        forAll(eLf, edgei)
+        forAll (eLf, edgei)
         {
             label count(0);
 
@@ -253,14 +255,18 @@ void localCellNeg::localizeCell
 {
     // Set the cell to the negative or positive intersected cell
     if ( cellSide == "neg" )
+    {
         this->cc_ = this->ccNeg_;
+    }
     else
+    {
         Info << "FATAL ERROR!!!" << endl;
+    }
 
     // Clean out the face list to contain only the necessary faces
     faceList fL( this->cc_.size());
 
-    forAll(this->cc_, facei)
+    forAll (this->cc_, facei)
     {
         fL[facei] = fL_[this->cc_[facei]];
     }
@@ -268,7 +274,7 @@ void localCellNeg::localizeCell
     this->fL_ = fL;
 
     // Renumber the cell
-    forAll(this->cc_, celli)
+    forAll (this->cc_, celli)
     {
         this->cc_[celli] = celli;
     }
@@ -278,7 +284,7 @@ void localCellNeg::localizeCell
     pointField pp(pLabels.size());
     std::map <label, label> pointMap;
 
-    forAll(pLabels, pointi)
+    forAll (pLabels, pointi)
     {
         pp[pointi] = pp_[pLabels[pointi]];
         pointMap[pLabels[pointi]] = pointi;
@@ -287,11 +293,11 @@ void localCellNeg::localizeCell
     this->pp_ = pp;
 
     // Change point labels in the faces to be consistent with local point numbering
-    forAll(this->fL_, facei)
+    forAll (this->fL_, facei)
     {
         face& f(this->fL_[facei]);
 
-        forAll(f, pointi)
+        forAll (f, pointi)
         {
             f[pointi] = pointMap.find(f[pointi])->second;
         }
@@ -328,7 +334,7 @@ void localCellNeg::emptyCell()
 {
     label pCount(0);
 
-    forAll(lcs, celli)
+    forAll (lcs, celli)
     {
         const localCellNeg& lc(lcs[celli]);
         pCount += lc.points().size();
@@ -339,14 +345,14 @@ void localCellNeg::emptyCell()
     pointField pp(pCount);
     pCount = 0;
 
-    forAll(lcs, celli)
+    forAll (lcs, celli)
     {
         const localCellNeg& lc(lcs[celli]);
 
         // Put points into a common pointField
         pointField p( lc.points() );
 
-        forAll(p, pointi)
+        forAll (p, pointi)
         {
             pp[pointi + pCount] = p[pointi];
         }
@@ -356,7 +362,7 @@ void localCellNeg::emptyCell()
 
         f = lc.iface();
 
-        forAll(f, pointi)
+        forAll (f, pointi)
         {
             f[pointi] += pCount;
         }

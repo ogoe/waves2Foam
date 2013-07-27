@@ -113,7 +113,9 @@ public:
             fL_[ nextFace_++] = f;
 
             if ( nextFace_ == fL_.size() )
+            {
                 fL_.setSize( nextFace_ + cc_.size() );
+            }
         }
 
         void addNeg( const label faceI )

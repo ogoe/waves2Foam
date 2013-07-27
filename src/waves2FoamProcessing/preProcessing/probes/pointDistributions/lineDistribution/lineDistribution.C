@@ -72,12 +72,16 @@ pointField lineDistribution::evaluate()
     scalar factor(0.0);
 
     for (int i=1; i < N; i++)
+    {
         factor += Foam::pow( stretch, static_cast<scalar>(i) );
+    }
 
     point dx( (xe - xs) / factor );
 
-    for ( int i=1; i < N; i++)
+    for (int i=1; i < N; i++)
+    {
         res[i] = res[i-1] + Foam::pow( stretch, static_cast<scalar>(i) ) * dx;
+    }
 
     return res;
 }

@@ -50,7 +50,7 @@ void ensembleAverage::evaluateScalar()
 
     scalarField count( N_ + 1, 0.0 );
 
-    forAll(input, I)
+    forAll (input, I)
     {
         const scalarField& field( input[I] );
 
@@ -59,7 +59,7 @@ void ensembleAverage::evaluateScalar()
 
         count *= 0.0;
 
-        forAll(field, fi)
+        forAll (field, fi)
         {
             ensAv[ fi % N_ ] += field[fi];
             count[ fi % N_ ]++;
@@ -85,7 +85,7 @@ void ensembleAverage::writeScalar
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
@@ -94,8 +94,10 @@ void ensembleAverage::writeScalar
 
         const scalarField& data( ensAv[indexi] );
 
-        for( int i=0; i < N_; i++)
+        for (int i=0; i < N_; i++)
+        {
             spectrumPtr_() << static_cast<scalar>(i) * deltaT_ << tab << data[i] << endl;
+        }
 
         spectrumPtr_() << static_cast<scalar>(N_) * deltaT_ << tab << data[0] << endl;
     }
@@ -112,7 +114,7 @@ void ensembleAverage::evaluateVector()
 
     scalarField count( N_ + 1, 0.0 );
 
-    forAll(input, I)
+    forAll (input, I)
     {
         const vectorField& field( input[I] );
 
@@ -121,7 +123,7 @@ void ensembleAverage::evaluateVector()
 
         count *= 0.0;
 
-        forAll(field, fi)
+        forAll (field, fi)
         {
             ensAv[ fi % N_ ] += field[fi];
             count[ fi % N_ ]++;
@@ -147,7 +149,7 @@ void ensembleAverage::writeVector
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
@@ -156,11 +158,13 @@ void ensembleAverage::writeVector
 
         const vectorField& data( ensAv[indexi] );
 
-        for( int i=0; i < N_; i++)
+        for (int i=0; i < N_; i++)
+        {
             spectrumPtr_() << static_cast<scalar>(i) * deltaT_
                            << tab << data[i].x()
                            << tab << data[i].y()
                            << tab << data[i].z() << endl;
+        }
 
         spectrumPtr_() << static_cast<scalar>(N_) * deltaT_
                        << tab << data[0].x()
@@ -189,7 +193,9 @@ ensembleAverage::ensembleAverage
     period_ = readScalar( actionProperties_.lookup("period") );
 
     if ( Foam::mag( static_cast<label>( period_ / deltaT_ ) * deltaT_ - period_ ) < 10 * SMALL )
+    {
         N_ = static_cast<label>( period_ / deltaT_ );
+    }
     else
     {
         FatalErrorIn("ensembleAverage::ensembleAverage(const fvMesh& mesh, const dictionary& actionProp, const word& action)")

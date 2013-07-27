@@ -72,7 +72,9 @@ void stokesSecondProperties::set(Ostream& os)
     writeGiven( os, "waveType" );
 
     if ( dict_.found( "Tsoft" ) )
+    {
         writeGiven( os, "Tsoft");
+    }
 
     writeGiven( os, "depth" );
     writeGiven( os, "period" );

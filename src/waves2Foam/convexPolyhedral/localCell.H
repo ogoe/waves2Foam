@@ -118,10 +118,9 @@ public:
             fL_[ nextFace_++] = f;
 
             if ( nextFace_ == fL_.size() )
+            {
                 fL_.setSize( nextFace_ + cc_.size() );
-
-//            ccNeg_[negCount_++] = fL_.size();
-//            fL_.setSize(fL_.size() + 1, f);
+            }
         }
 
         void addNeg( const label faceI )
@@ -135,10 +134,9 @@ public:
             fL_[ nextFace_++ ] = f;
 
             if ( nextFace_ == fL_.size() )
+            {
                 fL_.setSize( nextFace_ + cc_.size() );
-
-//            ccPos_[posCount_++] = fL_.size();
-//            fL_.setSize(fL_.size() + 1, f);
+            }
         }
 
         void addPos( const label faceI )

@@ -103,12 +103,14 @@ public:
         {
             Switch res = false;
 
-            forAll(combinedWavesPtr_, wavei)
+            forAll (combinedWavesPtr_, wavei)
             {
                 res = combinedWavesPtr_[wavei]->conflictTSoftInitialise();
 
                 if ( res )
+                {
                     break;
+                }
             }
 
             return res;

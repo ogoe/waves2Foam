@@ -18,7 +18,7 @@
       - ghf*fvc::snGrad(rho)
     )*rAUf*mesh.magSf();
 
-    for(int nonOrth=0; nonOrth<=nNonOrthCorr; nonOrth++)
+    for (int nonOrth=0; nonOrth<=nNonOrthCorr; nonOrth++)
     {
         fvScalarMatrix p_rghEqn
         (

@@ -70,7 +70,9 @@ void bichromaticSecondProperties::set(Ostream& os)
     writeGiven( os, "waveType" );
 
     if ( dict_.found( "Tsoft" ) )
+    {
         writeGiven( os, "Tsoft");
+    }
 
     writeGiven( os, "depth");
 

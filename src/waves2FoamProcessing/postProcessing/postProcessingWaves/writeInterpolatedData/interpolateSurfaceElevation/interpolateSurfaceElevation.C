@@ -82,11 +82,11 @@ void interpolateSurfaceElevation::evaluate()
 
     scalarField output( weights.size(), 0.0 );
 
-    forAll(etas, etaI)
+    forAll (etas, etaI)
     {
         const scalarField& eta( etas[etaI] );
 
-        forAll(weights, ii)
+        forAll (weights, ii)
         {
             output[ii] = weights[ii] * eta[leftData[ii]] + (1.0 - weights[ii] ) * eta[rightData[ii]];
         }

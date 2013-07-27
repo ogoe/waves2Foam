@@ -78,22 +78,30 @@ pointField quadrilateralDistribution::evaluate()
     scalar factor1(0.0);
 
     for (int i=1; i < N0; i++)
+    {
         factor0 += Foam::pow( stretch0, static_cast<scalar>(i) );
+    }
 
     for (int i=1; i < N1; i++)
+    {
         factor1 += Foam::pow( stretch1, static_cast<scalar>(i) );
+    }
 
     point dx0( (xe0 - xs0) / factor0 );
     point dx1( (xe1 - xs0) / factor1 );
 
     // Compute points
-    for ( int j=0; j < N1; j++ )
+    for (int j=0; j < N1; j++)
     {
         if (j != 0)
+        {
             res[j * N0] = res[(j-1) * N0] + Foam::pow( stretch1, static_cast<scalar>(j)) * dx1;
+        }
 
-        for ( int i=1; i < N0; i++)
+        for (int i=1; i < N0; i++)
+        {
             res[i + j * N0] = res[i-1 + j * N0] + Foam::pow( stretch0, static_cast<scalar>(i) ) * dx0;
+        }
     }
 
     return res;

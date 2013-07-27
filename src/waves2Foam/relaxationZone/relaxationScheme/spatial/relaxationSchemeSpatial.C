@@ -56,7 +56,7 @@ relaxationSchemeSpatial::relaxationSchemeSpatial
 
     weight_.setSize(sigma.size());
 
-    forAll(weight_, celli)
+    forAll (weight_, celli)
     {
         weight_[celli] = 1.0 - (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0) / (Foam::exp(1.0) - 1.0);
     }
@@ -86,7 +86,7 @@ void relaxationSchemeSpatial::correct()
     const pointField& pp( mesh_.points() );
     const faceList& fL( mesh_.faces() );
 
-    forAll(cells, celli)
+    forAll (cells, celli)
     {
         const label cellNo = cells[celli];
         const pointField& p = cc[cellNo].points(fL, pp);

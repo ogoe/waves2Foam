@@ -67,17 +67,17 @@ pointField circularDistribution::evaluate()
 
     label c0(-1), c1(-1);
 
-    if ( axis == "x" )
+    if (axis == "x")
     {
         c0 = 1;
         c1 = 2;
     }
-    else if ( axis == "y" )
+    else if (axis == "y")
     {
         c0 = 0;
         c1 = 2;
     }
-    else if ( axis == "z" )
+    else if (axis == "z")
     {
         c0 = 0;
         c1 = 1;
@@ -92,7 +92,7 @@ pointField circularDistribution::evaluate()
     // Define the return field
     pointField res(N, C);
 
-    for ( int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++)
     {
         res[i].component(c0) += R * Foam::cos( (2.0 * M_PI / static_cast<scalar>(N)) * static_cast<scalar>(i));
         res[i].component(c1) += R * Foam::sin( (2.0 * M_PI / static_cast<scalar>(N)) * static_cast<scalar>(i));

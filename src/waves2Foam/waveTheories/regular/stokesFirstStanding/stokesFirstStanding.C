@@ -71,7 +71,9 @@ scalar stokesFirstStanding::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
+    {
         factor = Foam::sin(omega_ / 4.0 * Foam::min(Tsoft_, time));
+    }
 
     return factor;
 }

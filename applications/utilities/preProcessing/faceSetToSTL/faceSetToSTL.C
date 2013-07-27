@@ -77,9 +77,9 @@ int main(int argc, char *argv[])
 
     wordList toc = stlDefs.toc();
 
-    forAll(toc, item)
+    forAll (toc, item)
     {
-        if ( stlDefs.isDict(toc[item]) )
+        if (stlDefs.isDict(toc[item]))
         {
             Info << "\nCreates the STL surface for " << toc[item] << endl;
 
@@ -89,21 +89,25 @@ int main(int argc, char *argv[])
             triFaceList tfl(0);
             label count(0);
 
-            if ( stlDefs.subDict(toc[item]).lookupOrDefault<Switch>("extrude", false ) )
+            if (stlDefs.subDict(toc[item]).lookupOrDefault<Switch>("extrude", false ))
             {
-                if ( faces.size() <= 1 )
+                if (faces.size() <= 1)
+                {
                     extrudeFacesAndPoints( stlDefs.subDict(toc[item]), faces, pp);
+                }
                 else
+                {
                     Info << "\nWARNING: Using extrude, but multiple faces are defined\n" << endl;
+                }
             }
 
-            forAll(faces, facei)
+            forAll (faces, facei)
             {
                 faceTriangulation triangulation( pp, faces[facei], true );
 
                 tfl.setSize( count + triangulation.size() );
 
-                forAll(triangulation, triI)
+                forAll (triangulation, triI)
                 {
                     tfl[count++] = triangulation[triI];
                 }
@@ -132,7 +136,7 @@ void extrudeFacesAndPoints
     label N = pp.size();
     pp.setSize( 2 * N );
 
-    for( int i=0; i < N; i++)
+    for (int i=0; i < N; i++)
     {
         pp[N+i] = pp[i] + extrude;
     }
@@ -146,10 +150,12 @@ void extrudeFacesAndPoints
     face& fOrg( fL[0] );
     face& fExt( fL[1] );
 
-    forAll(fOrg, pointi)
+    forAll (fOrg, pointi)
+    {
         fExt[pointi] = fOrg[pointi] + N;
+    }
 
-    for ( int i=0; i < M ; i++)
+    for (int i = 0; i < M ; i++)
     {
         face& f( fL[i+2] );
         f.setSize(4);

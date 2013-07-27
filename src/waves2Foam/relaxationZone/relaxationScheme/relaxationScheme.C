@@ -82,7 +82,7 @@ void relaxationScheme::signedPointToSurfaceDistance
     scalarField& sd
 )
 {
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }

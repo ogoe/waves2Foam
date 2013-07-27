@@ -107,9 +107,13 @@ public:
         Switch conflictTSoftInitialise() const
         {
             if ( Foam::mag(U_) > SMALL && Tsoft_ > 0 )
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         };
 
         void printCoeffs();

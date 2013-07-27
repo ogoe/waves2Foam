@@ -122,9 +122,13 @@ public:
         Switch conflictTSoftInitialise() const
         {
             if ( Tsoft_ > 0 )
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         };
 
         void printCoeffs();

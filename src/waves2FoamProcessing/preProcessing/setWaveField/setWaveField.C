@@ -112,7 +112,7 @@ void setWaveField::signedPointToSurfaceDistance
     scalarField& sd
 )
 {
-    forAll(pp, pointi)
+    forAll (pp, pointi)
     {
         sd[pointi] = signedPointToSurfaceDistance(pp[pointi]);
     }
@@ -134,7 +134,7 @@ void setWaveField::correct()
 {
     const scalarField& V( mesh_.V() );
 
-    forAll(U_, celli)
+    forAll (U_, celli)
     {
         localCell lc = dividePolyhedral( celli, point::zero, point::one);
 

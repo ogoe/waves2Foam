@@ -63,7 +63,7 @@ combinedWaves::combinedWaves
             << exit(FatalError);
     }
 
-    forAll(combinedWavesPtr_, cI)
+    forAll (combinedWavesPtr_, cI)
     {
         combinedWavesPtr_[cI] = waveTheories::waveTheory::New(combinedWavesNames_[cI], mesh_);
     }
@@ -93,7 +93,7 @@ scalar combinedWaves::eta
 {
     scalar eta(0);
 
-    forAll(combinedWavesPtr_, cI)
+    forAll (combinedWavesPtr_, cI)
     {
         eta += combinedWavesPtr_[cI]->eta(x, time);
     }
@@ -113,7 +113,7 @@ scalar combinedWaves::ddxPd
 {
     scalar ddxPd(0.0);
 
-    forAll(combinedWavesPtr_, cI)
+    forAll (combinedWavesPtr_, cI)
     {
         ddxPd += combinedWavesPtr_[cI]->ddxPd(x, time, unitVector);
     }
@@ -129,7 +129,7 @@ vector combinedWaves::U
 {
     vector U(vector::zero);
 
-    forAll(combinedWavesPtr_, cI)
+    forAll (combinedWavesPtr_, cI)
     {
         U += combinedWavesPtr_[cI]->U(x, time);
     }

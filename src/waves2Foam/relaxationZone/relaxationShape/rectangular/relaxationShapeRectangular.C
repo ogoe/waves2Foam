@@ -86,7 +86,7 @@ void relaxationShapeRectangular::findComputationalCells()
     cells_.setSize(5000);
     label count(0);
 
-    forAll(cc, celli)
+    forAll (cc, celli)
     {
         if ( insideZone( celli ))
         {
@@ -109,15 +109,17 @@ void relaxationShapeRectangular::computeSigmaCoordinate()
 
 //    Info << xAxis_ << " " << width_ << " "<< direction_ <<   endl;
 
-    forAll(cells_, celli)
+    forAll (cells_, celli)
     {
         vector cc( C[cells_[celli]] );
         cc -= ( ( cc & direction_ ) * direction_ );
 
         sigma_[celli]  = Foam::mag( ( ( xAxis_ & cc ) - (xAxis_ & cornerNodes_[0]) ) ) / ( Foam::mag(xAxis_) * width_ );
 
-        if ( relaxType_ == "INLET" )
+        if (relaxType_ == "INLET")
+        {
             sigma_[celli] = Foam::mag( sigma_[celli] - 1.0 );
+        }
     }
 }
 
@@ -140,20 +142,26 @@ bool relaxationShapeRectangular::insideZone
 
     // Uses method 3 on http://local.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/
     // to consider whether or not the point is inside the relaxation zone
-    forAll(nX, pointi)
+    forAll (nX, pointi)
     {
         scalar temp(0);
         label pointj((pointi == nX.size()-1) ? 0 : pointi + 1);
         temp = (pY - nY[pointi]) * (nX[pointj] - nX[pointi]) - (pX - nX[pointi]) * (nY[pointj] - nY[pointi]);
 
         if (temp > 0)
+        {
             positive++;
+        }
         if (temp < 0)
+        {
             negative++;
+        }
     }
 
     if ( positive == 0 || negative == 0 )
+    {
         inside = true;
+    }
 
     return inside;
 }

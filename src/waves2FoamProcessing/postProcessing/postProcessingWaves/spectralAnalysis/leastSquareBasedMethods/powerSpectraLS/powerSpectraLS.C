@@ -68,7 +68,7 @@ void powerSpectraLS::writeScalar
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
@@ -77,7 +77,7 @@ void powerSpectraLS::writeScalar
 
         const scalarField& spectrum( spectra[indexi] );
 
-        forAll(frequencies, freqi)
+        forAll (frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi] << tab << spectrum[freqi] << endl;
         }
@@ -113,7 +113,7 @@ void powerSpectraLS::writeVector
 
     autoPtr<OFstream> spectrumPtr_;
 
-    forAll(indices_, indexi)
+    forAll (indices_, indexi)
     {
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
@@ -122,7 +122,7 @@ void powerSpectraLS::writeVector
 
         const vectorField& spectrum( spectra[indexi] );
 
-        forAll(frequencies, freqi)
+        forAll (frequencies, freqi)
         {
             spectrumPtr_() << frequencies[freqi]  << tab
                            << spectrum[freqi].x() << tab

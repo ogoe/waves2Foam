@@ -49,7 +49,7 @@ void rawOvertopping::resizeFields
     // Initialise timeLabel
     timeLabel.setSize(N);
 
-    forAll(Us, UI)
+    forAll (Us, UI)
     {
         vectorField& U( Us[UI] );
         U.setSize(N);
@@ -68,7 +68,7 @@ void rawOvertopping::writeRawData
     vectorField output1( timeLabel.size(), vector::zero );
 
     {
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output0[labeli] = timeLabel[labeli].first;
         }
@@ -83,12 +83,12 @@ void rawOvertopping::writeRawData
     writeNameDict(-1, OTnames);
 
     // Write the surface elevation fields
-    forAll(OTs, OTI)
+    forAll (OTs, OTI)
     {
         const vectorField& OT( OTs[OTI] );
 
         // Rearrange according to indexing
-        forAll(timeLabel, labeli)
+        forAll (timeLabel, labeli)
         {
             output1[labeli] = OT[ timeLabel[labeli].second ];
         }
@@ -152,14 +152,18 @@ void rawOvertopping::readOvertoppingData
     string dummy;
     label Nentries(0);
 
-    forAll(timeDirs_, timeI)
+    forAll (timeDirs_, timeI)
     {
         scalar truncateReading(0);
 
         if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
+        }
         else
+        {
             truncateReading = GREAT;
+        }
 
         std::stringstream ss;
         ss << inputDir_ << "/" << timeDirs_[timeI] << "/overtopping.dat";
@@ -203,12 +207,14 @@ void rawOvertopping::readOvertoppingData
             iss >> val;
 
             if ( truncateReading <= val )
+            {
                 break;
+            }
 
             timeLabel[Nentries].first = val;
             timeLabel[Nentries].second = Nentries;
 
-            forAll(OTs, OTI)
+            forAll (OTs, OTI)
             {
                 vector temp( vector::zero );
 

@@ -71,11 +71,15 @@ void removeData::evaluate()
 
         // Remove the time instances
         if ( exists( fn + callName_ + "_time" ) )
+        {
             Foam::rm( fn + callName_ + "_time" );
+        }
 
         // Remove the dictionary file
         if ( exists( fn + callName_ + "_dict" ) )
+        {
             Foam::rm( fn + callName_ + "_dict" );
+        }
 
         // Remove all the data sets for each probe/gauge/etc
         label count = 0;
@@ -85,7 +89,9 @@ void removeData::evaluate()
             ss << callName_ << "_" << count++;
 
             if ( !exists( fn + ss.str() ) )
+            {
                 break;
+            }
 
             Foam::rm( fn + ss.str() );
         }
@@ -100,11 +106,13 @@ void removeData::evaluate()
 
         fileNameList fnl = Foam::readDir( fn, Foam::fileName::FILE);
 
-        forAll(fnl, fi)
+        forAll (fnl, fi)
         {
             label N = fnl[fi].size();
             if ( fnl[fi].substr(N-3,N) == "txt" )
+            {
                 Foam::rm( fn + fnl[fi] );
+            }
         }
     }
 }

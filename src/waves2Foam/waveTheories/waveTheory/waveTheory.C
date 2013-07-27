@@ -99,7 +99,7 @@ scalarField waveTheory::eta
 {
     scalarField temp(x.size(),0.0);
 
-    forAll(x,ii)
+    forAll (x,ii)
     {
         temp[ii] = eta(x[ii],time);
     }
@@ -116,7 +116,7 @@ scalarField waveTheory::ddxPd
 {
     scalarField temp(x.size(),0.0);
 
-    forAll(x,ii)
+    forAll (x,ii)
     {
         temp[ii] = ddxPd(x[ii],time, unitVector[ii]);
     }
@@ -132,7 +132,7 @@ vectorField waveTheory::U
 {
     vectorField temp(x.size(),vector::zero);
 
-    forAll(x,ii)
+    forAll (x,ii)
     {
         temp[ii] = U(x[ii],time);
     }

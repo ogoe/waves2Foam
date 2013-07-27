@@ -72,7 +72,9 @@ void streamFunctionProperties::set( Ostream& os)
     writeGiven( os, "waveType" );
 
     if ( dict_.found( "Tsoft" ) )
+    {
         writeGiven( os, "Tsoft");
+    }
 
     // This part should compute the properties for stream function wave theory
 

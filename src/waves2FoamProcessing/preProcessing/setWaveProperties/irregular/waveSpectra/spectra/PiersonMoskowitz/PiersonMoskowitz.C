@@ -99,11 +99,15 @@ void PiersonMoskowitz::set( Ostream& os )
 
     scalarField f(N, 0.0);
 
-    for ( int i=0; i < Nlow; i++)
+    for (int i=0; i < Nlow; i++)
+    {
         f[i] = ( fp - flow ) * Foam::sin( 2 * PI_ / ( 4.0 * Nlow ) * i ) + flow;
+    }
 
-    for ( int i=0; i<=Nhigh; i++)
+    for (int i=0; i<=Nhigh; i++)
+    {
         f[Nlow - 1 + i] = (fhigh - fp) * ( - Foam::cos( 2 * PI_ / ( 4 * Nhigh) * i ) + 1) + fp;
+    }
 
     // Compute spectrum
     scalarField S = 5.0/16.0 * Foam::pow(Hs,2.0) * Foam::pow(fp,4.0) * Foam::pow(f,-5.0) * Foam::exp( - 5.0 / 4.0 * Foam::pow( fp / f, 4.0 ) );
@@ -111,7 +115,7 @@ void PiersonMoskowitz::set( Ostream& os )
     Foam::stokesFirstProperties stp( rT_, dict_ );
 
     // Compute return variables
-    for( int i = 1; i < N; i++)
+    for (int i = 1; i < N; i++)
     {
         freq_[i - 1] = 0.5 * ( f[i - 1] + f[i] );
         amp_[i-1]    = Foam::sqrt( ( S[i-1] + S[i] ) * ( f[i] - f[i - 1] ) );
@@ -119,7 +123,7 @@ void PiersonMoskowitz::set( Ostream& os )
         k_[i-1]      = direction * stp.linearWaveNumber(depth, freq_[i-1]);
     }
 
-    if ( dict_.lookupOrDefault<Switch>("writeSpectrum",false) )
+    if (dict_.lookupOrDefault<Switch>("writeSpectrum",false))
     {
         S.writeEntry("spectramValues", os);
         os << nl;

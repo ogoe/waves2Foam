@@ -67,8 +67,10 @@ void stokesFirstStandingProperties::set( Ostream& os )
     // Write the already given parameters
     writeGiven( os, "waveType" );
 
-    if ( dict_.found( "Tsoft" ) )
+    if (dict_.found( "Tsoft" ))
+    {
         writeGiven( os, "Tsoft");
+    }
 
     writeGiven( os, "depth");
     writeGiven( os, "period" );

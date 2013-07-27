@@ -133,10 +133,12 @@ void Foam::overtopping::writeFileHeader()
 
         const faceZoneMesh& faceZones( mesh_.faceZones() );
 
-        forAll(faceZones, fzi)
+        forAll (faceZones, fzi)
         {
             if ( operateOnZone( faceZones[fzi] ) )
+            {
                 outputFilePtr_() << "\t" << faceZones[fzi].name();
+            }
         }
 
         outputFilePtr_() << endl;
@@ -148,10 +150,12 @@ void Foam::overtopping::writeFileHeader()
 
         const faceZoneMesh& faceZones( mesh_.faceZones() );
 
-        forAll(faceZones, fzi)
+        forAll (faceZones, fzi)
         {
             if ( operateOnZone( faceZones[fzi] ) )
+            {
                 outputFileForcePtr_() << "\t" << faceZones[fzi].name();
+            }
         }
 
         outputFileForcePtr_() << endl;
@@ -196,9 +200,13 @@ bool Foam::overtopping::operateOnZone( const faceZone& fz ) const
     const label N = ownName.size();
 
     if ( !zoneName.compare(0, N, ownName) )
+    {
         return true;
+    }
     else
+    {
         return false;
+    }
 }
 
 void Foam::overtopping::read(const dictionary& dict)
@@ -288,7 +296,7 @@ void Foam::overtopping::computeAndWrite
     vectorField q(fz.size(), vector::zero);
     vectorField f(fz.size(), vector::zero);
 
-    forAll(fz, facei)
+    forAll (fz, facei)
     {
         label faceI( fz[facei] );
 
@@ -331,7 +339,7 @@ void Foam::overtopping::write()
     const surfaceScalarField phi   ( mesh_.lookupObject<surfaceScalarField>(phiName_)    );
     const surfaceScalarField rhoPhi( mesh_.lookupObject<surfaceScalarField>(rhoPhiName_) );
 
-    forAll(faceZones, fzi)
+    forAll (faceZones, fzi)
     {
         if ( operateOnZone( faceZones[fzi] ) )
         {

@@ -67,7 +67,9 @@ void potentialCurrentProperties::set(Ostream& os)
     writeGiven( os, "Tsoft" );
 
     if ( dict_.found( "localSeaLevel" ) )
+    {
         writeGiven( os, "localSeaLevel");
+    }
 
 
     // This is where type specific data can be written

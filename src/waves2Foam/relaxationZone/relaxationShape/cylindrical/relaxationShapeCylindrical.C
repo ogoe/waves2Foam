@@ -73,7 +73,7 @@ void relaxationShapeCylindrical::findComputationalCells()
     cells_.setSize(5000);
     label count(0);
 
-    forAll(cc, celli)
+    forAll (cc, celli)
     {
         if ( insideZone( celli ))
         {
@@ -94,7 +94,7 @@ void relaxationShapeCylindrical::computeSigmaCoordinate()
     const vectorField& C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
 
-    forAll(cells_, celli)
+    forAll (cells_, celli)
     {
         vector cc( C[cells_[celli]] );
         cc -= ( ( cc & direction_ ) * direction_ );
@@ -116,8 +116,10 @@ bool relaxationShapeCylindrical::insideZone
 
     scalar dist( Foam::mag( cc - centre_ ) );
 
-    if ( dist >= rInner_ && dist <= rOuter_ )
+    if (dist >= rInner_ && dist <= rOuter_)
+    {
         inside = true;
+    }
 
     return inside;
 }
