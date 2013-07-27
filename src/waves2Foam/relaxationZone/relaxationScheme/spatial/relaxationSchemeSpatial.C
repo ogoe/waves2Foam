@@ -37,7 +37,12 @@ namespace relaxationSchemes
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationSchemeSpatial, 0);
-addToRunTimeSelectionTable(relaxationScheme, relaxationSchemeSpatial, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationScheme,
+    relaxationSchemeSpatial,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -58,7 +63,9 @@ relaxationSchemeSpatial::relaxationSchemeSpatial
 
     forAll (weight_, celli)
     {
-        weight_[celli] = 1.0 - (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0) / (Foam::exp(1.0) - 1.0);
+        weight_[celli] = 1.0 -
+            (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0)
+            /(Foam::exp(1.0) - 1.0);
     }
 }
 
@@ -73,7 +80,7 @@ void relaxationSchemeSpatial::correct()
     const scalarField& sigma = relaxShape_->sigma();
 
     // Compute the relaxation weights - only changes for moving/changing meshes
-    if ( weight_.size() != sigma.size() )
+    if (weight_.size() != sigma.size())
         weight_.setSize( sigma.size(), 0.0 );
 
     relaxWeight_->weights(cells, sigma, weight_);
@@ -91,8 +98,13 @@ void relaxationSchemeSpatial::correct()
         const label cellNo = cells[celli];
         const pointField& p = cc[cellNo].points(fL, pp);
 
-        // Evaluate the cell height and the signedDistance to the surface from the cell centre
-        scalar cellHeight( Foam::max( p & waveProps_->returnDir() ) - Foam::min( p & waveProps_->returnDir() ) );
+        // Evaluate the cell height and the signedDistance to the surface from
+        // the cell centre
+        scalar cellHeight
+            (
+                Foam::max( p & waveProps_->returnDir() )
+              - Foam::min( p & waveProps_->returnDir() )
+            );
         scalar sdc( signedPointToSurfaceDistance( C[cellNo] ) );
 
         // Target variables
@@ -101,19 +113,19 @@ void relaxationSchemeSpatial::correct()
         vector UTarget( waveProps_->windVelocity( mesh_.time().value() ) );
 
         // Only do cutting, if surface is close by
-        if ( Foam::mag( sdc ) <= 2 * cellHeight )
+        if (Foam::mag( sdc ) <= 2*cellHeight)
         {
             localCellNeg lc(mesh_, cellNo);
 
             dividePolyhedral( point::zero, vector::one, lc);
 
-            if ( lc.ccNeg().size() >= 4 )
+            if (lc.ccNeg().size() >= 4)
             {
-                UTarget     = waveProps_->U( lc.centreNeg(), mesh_.time().value() );
-                alphaTarget = lc.magNeg() / V[cellNo];
+                UTarget = waveProps_->U(lc.centreNeg(), mesh_.time().value());
+                alphaTarget = lc.magNeg()/V[cellNo];
             }
         }
-        else if ( sdc < 0)
+        else if (sdc < 0)
         {
             alphaTarget = 1.0;
             UTarget     = waveProps_->U( C[cellNo], mesh_.time().value() );
@@ -124,8 +136,11 @@ void relaxationSchemeSpatial::correct()
             UTarget     = waveProps_->windVelocity( mesh_.time().value() );
         }
 
-        U_[cellNo]     = (1 - weight_[celli]) * UTarget     + weight_[celli] * U_[cellNo];
-        alpha_[cellNo] = (1 - weight_[celli]) * alphaTarget + weight_[celli] * alpha_[cellNo];
+        U_[cellNo] = (1 - weight_[celli])*UTarget
+                     + weight_[celli]*U_[cellNo];
+
+        alpha_[cellNo] = (1 - weight_[celli])*alphaTarget
+                         + weight_[celli]*alpha_[cellNo];
     }
 
     // REMEMBER NOT TO PUT correctBoundaryConditions() HERE BUT ONE LEVEL UP

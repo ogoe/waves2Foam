@@ -37,14 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(interpolateAlphaProbes, 0);
 addToRunTimeSelectionTable(postProcessingWaves, interpolateAlphaProbes, postProcessingWaves);
 
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
-
-
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 interpolateAlphaProbes::interpolateAlphaProbes
 (
@@ -57,10 +51,13 @@ interpolateAlphaProbes::interpolateAlphaProbes
 {
 }
 
+
 interpolateAlphaProbes::~interpolateAlphaProbes()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void interpolateAlphaProbes::evaluate()
 {
@@ -88,7 +85,7 @@ void interpolateAlphaProbes::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii] * alpha[leftData[ii]] + (1.0 - weights[ii] ) * alpha[rightData[ii]];
+            output[ii] = weights[ii]*alpha[leftData[ii]] + (1.0 - weights[ii] )*alpha[rightData[ii]];
         }
 
         std::stringstream ss;
@@ -104,6 +101,7 @@ void interpolateAlphaProbes::evaluate()
 
     writeXYZDict( readScalar(actionProperties_.lookup("deltaT")), x, y, z);
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

@@ -142,6 +142,7 @@ scalar waveAlphaFvPatchScalarField::signedPointToSurfaceDistance
     return temp;
 }
 
+
 // Update the coefficients associated with the patch field
 void waveAlphaFvPatchScalarField::updateCoeffs()
 {
@@ -160,13 +161,14 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
     {
         localFace lf = this->divideFace(facei + start);
 
-        this->refValue()[facei]      = lf.negMag() / magSf[facei];
+        this->refValue()[facei]      = lf.negMag()/magSf[facei];
         this->refGrad()[facei]       = 0.0;
         this->valueFraction()[facei] = 1.0;
     }
 
     mixedFvPatchField<scalar>::updateCoeffs();
 }
+
 
 // Evaluate the field on the patch
 void waveAlphaFvPatchScalarField::evaluate()

@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, irregular, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 irregular::irregular
 (
     const word& subDictName,
@@ -58,29 +59,33 @@ irregular::irregular
 
     Tsoft_( readScalar(coeffDict_.lookup("Tsoft")))
 {
-    omega_ *= (2.0 * PI_);
+    omega_ *= (2.0*PI_);
 
     // Compute the length of k_
     K_ = Foam::mag(k_);
 }
+
 
 void irregular::printCoeffs()
 {
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 scalar irregular::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
     {
-        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+        factor = Foam::sin(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time));
     }
 
     return factor;
 }
+
 
 scalar irregular::eta
 (
@@ -92,13 +97,14 @@ scalar irregular::eta
 
     forAll (amp_, index)
     {
-        eta += ( amp_[index] * Foam::cos( omega_[index] * time - (k_[index] & x) + phi_[index] ) );
+        eta += ( amp_[index]*Foam::cos( omega_[index]*time - (k_[index] & x) + phi_[index] ) );
     }
     eta *= factor(time);
     eta += seaLevel_;
 
     return eta;
 }
+
 
 scalar irregular::ddxPd
 (
@@ -109,6 +115,7 @@ scalar irregular::ddxPd
 {
     return 0.0;
 }
+
 
 vector irregular::U
 (
@@ -123,26 +130,27 @@ vector irregular::U
 
     forAll (amp_, index)
     {
-        scalar period = 2 * PI_ / omega_[index];
+        scalar period = 2*PI_/omega_[index];
         Uhorz = (
-                    PI_ * 2.0 * amp_[index] / period *
-                    Foam::cosh(K_[index] * (Z + h_)) / Foam::sinh(K_[index] * h_) *
-                    Foam::cos(omega_[index] * time - (k_[index] & x) + phi_[index])
+                    PI_*2.0*amp_[index]/period *
+                    Foam::cosh(K_[index]*(Z + h_))/Foam::sinh(K_[index]*h_) *
+                    Foam::cos(omega_[index]*time - (k_[index] & x) + phi_[index])
                  );
 
         Uvert = (
-                    - PI_ * 2.0 * amp_[index] / period *
-                    Foam::sinh(K_[index] * (Z + h_)) / Foam::sinh(K_[index] * h_) *
-                    Foam::sin(omega_[index] * time - (k_[index] & x) + phi_[index])
+                    - PI_*2.0*amp_[index]/period *
+                    Foam::sinh(K_[index]*(Z + h_))/Foam::sinh(K_[index]*h_) *
+                    Foam::sin(omega_[index]*time - (k_[index] & x) + phi_[index])
                  );
 
-        U += Uhorz * k_[index] / K_[index] - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
+        U += Uhorz*k_[index]/K_[index] - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
     }
 
     U *= factor(time);
 
     return U; // Note "-" because of "g" working in the opposite direction
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

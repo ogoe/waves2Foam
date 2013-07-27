@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(stokesFirstStandingProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, stokesFirstStandingProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 stokesFirstStandingProperties::stokesFirstStandingProperties
 (
@@ -55,7 +53,9 @@ stokesFirstStandingProperties::stokesFirstStandingProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void stokesFirstStandingProperties::set( Ostream& os )
 {
@@ -78,7 +78,7 @@ void stokesFirstStandingProperties::set( Ostream& os )
     writeGiven( os, "phi");
     writeGiven( os, "height");
 
-    if ( write_ )
+    if (write_)
     {
         vector direction( vector(dict_.lookup("direction")));
         direction /= Foam::mag(direction);
@@ -94,6 +94,7 @@ void stokesFirstStandingProperties::set( Ostream& os )
     // Write the closing bracket
     writeEnding( os );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

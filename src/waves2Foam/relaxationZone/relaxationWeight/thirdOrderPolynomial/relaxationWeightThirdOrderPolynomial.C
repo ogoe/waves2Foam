@@ -37,9 +37,15 @@ namespace relaxationWeights
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationWeightThirdOrderPolynomial, 0);
-addToRunTimeSelectionTable(relaxationWeight, relaxationWeightThirdOrderPolynomial, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationWeight,
+    relaxationWeightThirdOrderPolynomial,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationWeightThirdOrderPolynomial::relaxationWeightThirdOrderPolynomial
 (
@@ -52,7 +58,9 @@ relaxationWeightThirdOrderPolynomial::relaxationWeightThirdOrderPolynomial
 
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void relaxationWeightThirdOrderPolynomial::computeWeights
 (
@@ -64,9 +72,10 @@ void relaxationWeightThirdOrderPolynomial::computeWeights
     forAll (weight, celli)
     {
         scalar s(1.0 - sigma[celli]);
-        weight[celli] = -2.0 * Foam::pow(s, 3.0) + 3.0 * Foam::pow(s, 2.0);
+        weight[celli] = -2.0*Foam::pow(s, 3.0) + 3.0*Foam::pow(s, 2.0);
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

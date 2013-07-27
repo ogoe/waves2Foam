@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(userDefinedDistribution, 0);
 addToRunTimeSelectionTable(pointDistributions, userDefinedDistribution, pointDistributions);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 userDefinedDistribution::userDefinedDistribution
 (
@@ -52,10 +50,13 @@ userDefinedDistribution::userDefinedDistribution
 {
 }
 
+
 userDefinedDistribution::~userDefinedDistribution()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 pointField userDefinedDistribution::evaluate()
 {

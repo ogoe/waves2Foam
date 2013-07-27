@@ -94,7 +94,7 @@ public:
         virtual ~lineDistribution();
 
     // Member Functions
-        pointField evaluate();
+        virtual pointField evaluate();
 };
 
 

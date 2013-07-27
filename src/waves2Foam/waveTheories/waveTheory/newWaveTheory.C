@@ -36,6 +36,7 @@ namespace waveTheories
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+
 autoPtr<waveTheory> waveTheory::New
 (
     const word& subDictName,

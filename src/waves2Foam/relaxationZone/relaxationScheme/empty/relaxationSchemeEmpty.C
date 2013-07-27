@@ -37,7 +37,12 @@ namespace relaxationSchemes
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationSchemeEmpty, 0);
-addToRunTimeSelectionTable(relaxationScheme, relaxationSchemeEmpty, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationScheme,
+    relaxationSchemeEmpty,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 

@@ -81,13 +81,16 @@ int main(int argc, char *argv[])
     );
 
     // Potentially clean out prior directory postProcessedWaves2Foam
-    Switch deleteOutput( postProcProperties.lookup("deleteParentOutputDirectory") );
+    Switch deleteOutput
+        (
+            postProcProperties.lookup("deleteParentOutputDirectory")
+        );
 
-    if ( deleteOutput )
+    if (deleteOutput)
     {
         fileName dirName( "postProcessedWaves2Foam" );
 
-        if ( isDir(dirName) )
+        if (isDir(dirName))
         {
             Info << "Deleting 'postProcessedWaves2Foam'.\n" << endl;
 
@@ -103,7 +106,7 @@ int main(int argc, char *argv[])
     {
         word tocName( toc[itemi] );
 
-        if ( postProcProperties.isDict(tocName) )
+        if (postProcProperties.isDict(tocName))
         {
             Info << "Processing: " << tocName << endl;
 
@@ -114,8 +117,17 @@ int main(int argc, char *argv[])
             // Loop over the action list for each process
             forAll (actionList, actionItem)
             {
-                Info << "    Processing sub-action: " << actionList[actionItem] << endl;
-                autoPtr<postProcessingWaves> action( postProcessingWaves::New( runTime, subDict, actionList[actionItem] ) );
+                Info << "    Processing sub-action: "
+                     << actionList[actionItem] << endl;
+                autoPtr<postProcessingWaves> action
+                    (
+                        postProcessingWaves::New
+                        (
+                            runTime,
+                            subDict,
+                            actionList[actionItem]
+                        )
+                    );
 
                 action->evaluate();
             }

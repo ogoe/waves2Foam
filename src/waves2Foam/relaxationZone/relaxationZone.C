@@ -36,6 +36,7 @@ defineTypeNameAndDebug(relaxationZone, 0);
 
 // * * * * * * * * * * * * * * * Constructor * * * * * * * * * * * * * * * * //
 
+
 relaxationZone::relaxationZone
 (
     const fvMesh& mesh,
@@ -47,17 +48,21 @@ relaxationZone::relaxationZone
     U_(U),
     alpha_(alpha),
 
-    relaxNames_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties")).lookup("relaxationNames")),
+    relaxNames_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
+        .lookup("relaxationNames")),
 
     relaxSchemePtr_(relaxNames_.size())
 {
     forAll (relaxNames_, relaxi)
     {
-        relaxSchemePtr_[relaxi] = relaxationSchemes::relaxationScheme::New(relaxNames_[relaxi], mesh_, U_, alpha_);
+        relaxSchemePtr_[relaxi] = relaxationSchemes::relaxationScheme::
+            New(relaxNames_[relaxi], mesh_, U_, alpha_);
     }
 }
 
-// * * * * * * * * * * * * * * * Member functions * * * * * * * * * * * * * * * * //
+
+// * * * * * * * * * * * * * * * Member functions  * * * * * * * * * * * * * //
+
 
 void relaxationZone::correct()
 {
@@ -69,6 +74,7 @@ void relaxationZone::correct()
     alpha_.correctBoundaryConditions();
     U_.correctBoundaryConditions();
 }
+
 
 tmp<volScalarField> relaxationZone::numericalBeach()
 {
@@ -86,7 +92,7 @@ tmp<volScalarField> relaxationZone::numericalBeach()
                 IOobject::NO_WRITE
             ),
             mesh_,
-            dimensionedScalar("null", dimless / dimTime, 0.0),
+            dimensionedScalar("null", dimless/dimTime, 0.0),
             "fixedValue"
         )
     );
@@ -100,5 +106,6 @@ tmp<volScalarField> relaxationZone::numericalBeach()
 
     return tartificialViscotity;
 }
+
 
 } // end namespace Foam

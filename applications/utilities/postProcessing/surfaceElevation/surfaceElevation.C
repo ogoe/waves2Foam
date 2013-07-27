@@ -54,14 +54,14 @@ Description
     @param fields : list of fields to sample
 
     @param sets : list of sets to sample, choice of \n
-      - uniform             evenly distributed points on line
-      - face                one point per face intersection
-      - midPoint            one point per cell, inbetween two face intersections
-      - midPointAndFace     combination of face and midPoint
+      - uniform            evenly distributed points on line
+      - face               one point per face intersection
+      - midPoint           one point per cell, inbetween two face intersections
+      - midPointAndFace    combination of face and midPoint
 
-      - curve               specified points, not nessecary on line, uses
-                            tracking
-      - cloud               specified points, uses findCell
+      - curve              specified points, not nessecary on line, uses
+                           tracking
+      - cloud              specified points, uses findCell
 
         Option axis: how to write point coordinate. Choice of
           - x/y/z: x/y/z coordinate only

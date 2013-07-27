@@ -37,14 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(interpolateVelocityProbes, 0);
 addToRunTimeSelectionTable(postProcessingWaves, interpolateVelocityProbes, postProcessingWaves);
 
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
-
-
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 interpolateVelocityProbes::interpolateVelocityProbes
 (
@@ -57,10 +51,13 @@ interpolateVelocityProbes::interpolateVelocityProbes
 {
 }
 
+
 interpolateVelocityProbes::~interpolateVelocityProbes()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void interpolateVelocityProbes::evaluate()
 {
@@ -88,7 +85,7 @@ void interpolateVelocityProbes::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii] * U[leftData[ii]] + (1.0 - weights[ii] ) * U[rightData[ii]];
+            output[ii] = weights[ii]*U[leftData[ii]] + (1.0 - weights[ii] )*U[rightData[ii]];
         }
 
         std::stringstream ss;
@@ -104,6 +101,7 @@ void interpolateVelocityProbes::evaluate()
 
     writeXYZDict( readScalar(actionProperties_.lookup("deltaT")), x, y, z);
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, rawSurfaceElevation, postProcess
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 void rawSurfaceElevation::resizeFields
 (
     List<std::pair<scalar, label> >& timeLabel,
@@ -55,6 +56,7 @@ void rawSurfaceElevation::resizeFields
         eta.setSize(N);
     }
 }
+
 
 void rawSurfaceElevation::writeRawData
 (
@@ -100,11 +102,9 @@ void rawSurfaceElevation::writeRawData
     }
 }
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 rawSurfaceElevation::rawSurfaceElevation
 (
@@ -122,10 +122,13 @@ rawSurfaceElevation::rawSurfaceElevation
     getTimeDirs(inputDir_, timeDirs_);
 }
 
+
 rawSurfaceElevation::~rawSurfaceElevation()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void rawSurfaceElevation::evaluate()
 {
@@ -137,6 +140,7 @@ void rawSurfaceElevation::evaluate()
 
     writeRawData(timeLabel, x, y, z, etas);
 }
+
 
 void rawSurfaceElevation::readSurfaceElevationData
 (
@@ -174,7 +178,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
         std::string line;
 
-        if ( timeI == 0 )
+        if (timeI == 0)
         {
             // Reading the x-coordinates
             {
@@ -189,7 +193,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
                 while (iss >> val)
                 {
-                    x.setSize( Ngauges+1 );
+                    x.setSize( Ngauges + 1 );
                     x[Ngauges++] = val;
                 }
 
@@ -266,7 +270,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
             if (Nentries == timeLabel.size())
             {
-                resizeFields( timeLabel, etas, 2 * Nentries );
+                resizeFields( timeLabel, etas, 2*Nentries );
             }
         }
 
@@ -277,6 +281,7 @@ void rawSurfaceElevation::readSurfaceElevationData
 
     std::sort( timeLabel.begin(), timeLabel.end(), pairSortA );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

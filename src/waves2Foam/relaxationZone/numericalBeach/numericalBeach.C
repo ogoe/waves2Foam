@@ -38,10 +38,6 @@ namespace numericalBeaches
 defineTypeNameAndDebug(numericalBeach, 0);
 defineRunTimeSelectionTable(numericalBeach, dictionary);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 numericalBeach::numericalBeach
@@ -63,10 +59,6 @@ numericalBeach::numericalBeach
 
 numericalBeach::~numericalBeach()
 {}
-
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

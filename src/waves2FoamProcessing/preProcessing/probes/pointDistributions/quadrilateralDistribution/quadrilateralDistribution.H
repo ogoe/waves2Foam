@@ -95,7 +95,7 @@ public:
         virtual ~quadrilateralDistribution();
 
     // Member Functions
-        pointField evaluate();
+        virtual pointField evaluate();
 };
 
 

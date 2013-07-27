@@ -28,10 +28,12 @@ License
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+
 bool pairSortA( std::pair<scalar, label> a, std::pair<scalar, label> b)
 {
     return a.first < b.first;
 }
+
 
 bool pairSortB( std::pair<scalar, word> a, std::pair<scalar, word> b)
 {
@@ -49,13 +51,14 @@ defineRunTimeSelectionTable(postProcessingWaves, postProcessingWaves);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void postProcessingWaves::getTimeDirs
 (
     const word& inputDir,
     wordList& timeDirs
 )
 {
-    if ( actionProperties_.found("timeDirs") )
+    if (actionProperties_.found("timeDirs"))
     {
         wordList temp( actionProperties_.lookup("timeDirs") );
         timeDirs = temp;
@@ -91,6 +94,7 @@ void postProcessingWaves::getTimeDirs
         timeDirs[timei] = timeWord[timei].second;
     }
 }
+
 
 void postProcessingWaves::writeNameDict
 (
@@ -130,6 +134,7 @@ void postProcessingWaves::writeNameDict
     // Write the dictionary
     xyz.regIOobject::write();
 }
+
 
 void postProcessingWaves::writeXYZDict
 (
@@ -177,6 +182,7 @@ void postProcessingWaves::writeXYZDict
     xyz.regIOobject::write();
 }
 
+
 void postProcessingWaves::writeIOScalarField
 (
     const scalarField& field,
@@ -198,6 +204,7 @@ void postProcessingWaves::writeIOScalarField
     );
     output.write();
 }
+
 
 void postProcessingWaves::writeIOVectorField
 (
@@ -221,6 +228,7 @@ void postProcessingWaves::writeIOVectorField
     output.write();
 }
 
+
 scalarField postProcessingWaves::readIOScalarField
 (
     const word& name
@@ -241,6 +249,7 @@ scalarField postProcessingWaves::readIOScalarField
 
     return field;
 }
+
 
 vectorField postProcessingWaves::readIOVectorField
 (
@@ -263,6 +272,7 @@ vectorField postProcessingWaves::readIOVectorField
     return field;
 }
 
+
 word postProcessingWaves::dataType()
 {
     std::stringstream ss;
@@ -279,16 +289,16 @@ word postProcessingWaves::dataType()
 
     // The inquiry to fileHeader.headerOk() is needed to update headerClassName() from IOobject.
     // This is weird but not looked into.
-    if ( !fileHeader.headerOk() )
+    if (!fileHeader.headerOk())
     {
 
     }
 
-    if ( fileHeader.headerClassName() == "scalarField" )
+    if (fileHeader.headerClassName() == "scalarField")
     {
         return "scalar";
     }
-    else if ( fileHeader.headerClassName() == "vectorField" )
+    else if (fileHeader.headerClassName() == "vectorField")
     {
         return "vector";
     }
@@ -298,6 +308,7 @@ word postProcessingWaves::dataType()
     }
 }
 
+
 scalar postProcessingWaves::readDeltaT
 (
     const dictionary& timeDict
@@ -306,7 +317,7 @@ scalar postProcessingWaves::readDeltaT
     scalar dt( readScalar(timeDict.lookup("deltaT")) );
 
     // Check for validity of the time step
-    if ( dt <= 0.0 )
+    if (dt <= 0.0)
     {
         FatalErrorIn("scalar postProcessingWaves::readDeltaT")
             << "The time step (deltaT) given in\n    " <<  timeDict.name() << endl
@@ -316,6 +327,7 @@ scalar postProcessingWaves::readDeltaT
     return dt;
 }
 
+
 void postProcessingWaves::readIndices
 (
     const dictionary& indexDict,
@@ -323,7 +335,7 @@ void postProcessingWaves::readIndices
 )
 {
     // Getting the labelList of data set indices
-    if ( actionProperties_.lookupOrDefault<Switch>("allDataSets", false) )
+    if (actionProperties_.lookupOrDefault<Switch>("allDataSets", false))
     {
         labelList tempList( indexDict.lookup("index") );
         indices.setSize( tempList.size() );
@@ -336,6 +348,7 @@ void postProcessingWaves::readIndices
         indices = tempList;
     }
 }
+
 
 List<scalarField> postProcessingWaves::readScalarFields
 (
@@ -357,6 +370,7 @@ List<scalarField> postProcessingWaves::readScalarFields
     return res;
 }
 
+
 List<vectorField> postProcessingWaves::readVectorFields
 (
     const labelList& indices
@@ -377,6 +391,7 @@ List<vectorField> postProcessingWaves::readVectorFields
     return res;
 }
 
+
 scalarField postProcessingWaves::equidistantTime
 (
     const List<std::pair<scalar, label > >& timeLabel,
@@ -389,17 +404,18 @@ scalarField postProcessingWaves::equidistantTime
 
     Info << "        - Interpolation range: [" << tmin << "; " << tmax << "]" << endl;
 
-    label N( static_cast<label>( ( tmax - tmin ) / dt ) );
+    label N( static_cast<label>( ( tmax - tmin )/dt ) );
 
     scalarField t(N, tmin);
 
     forAll (t, timei)
     {
-        t[timei] += timei * dt;
+        t[timei] += timei*dt;
     }
 
     return t;
 }
+
 
 void postProcessingWaves::interpolationWeights
 (
@@ -414,7 +430,7 @@ void postProcessingWaves::interpolationWeights
     first.setSize( t.size() );
     second.setSize( t.size() );
 
-    if ( t[0] < timeLabel[0].first || timeLabel[timeLabel.size() - 1].first < t[t.size() - 1] )
+    if (t[0] < timeLabel[0].first || timeLabel[timeLabel.size() - 1].first < t[t.size() - 1])
     {
         FatalErrorIn("void Foam::dataProcessingTools::interpolationWeights( ... )" )
                         << "The target times for interpolations are outside the bounds" << endl
@@ -425,18 +441,20 @@ void postProcessingWaves::interpolationWeights
 
     forAll (t, timei)
     {
-        while ( t[timei] >= timeLabel[count].first && t[timei] >= timeLabel[count+1].first )
+        while (t[timei] >= timeLabel[count].first && t[timei] >= timeLabel[count + 1].first)
             count++;
 
-        scalar w( (timeLabel[count+1].first - t[timei]) / (timeLabel[count+1].first - timeLabel[count].first) );
+        scalar w( (timeLabel[count + 1].first - t[timei])/(timeLabel[count + 1].first - timeLabel[count].first) );
 
         weights[timei] = w;
         first[timei]   = timeLabel[count].second;
-        second[timei]  = timeLabel[count+1].second;
+        second[timei]  = timeLabel[count + 1].second;
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 postProcessingWaves::postProcessingWaves
 (
@@ -463,6 +481,7 @@ postProcessingWaves::postProcessingWaves
 postProcessingWaves::~postProcessingWaves()
 {}
 
+
 autoPtr<postProcessingWaves> postProcessingWaves::New
 (
     const Time& rT,
@@ -487,9 +506,6 @@ autoPtr<postProcessingWaves> postProcessingWaves::New
 
     return autoPtr<postProcessingWaves>(cstrIter()( rT, actionProp, action));
 }
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

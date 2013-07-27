@@ -37,9 +37,15 @@ namespace relaxationShapes
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationShapeSemiCylindrical, 0);
-addToRunTimeSelectionTable(relaxationShape, relaxationShapeSemiCylindrical, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationShape,
+    relaxationShapeSemiCylindrical,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 (
@@ -57,21 +63,21 @@ relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
     angleEnd_( readScalar(coeffDict_.lookup("angleEnd")) )
 {
     width_   = Foam::mag(rOuter_ - rInner_);
-    centre_ -= ( centre_ & direction_ ) * direction_;
+    centre_ -= ( centre_ & direction_ )*direction_;
 
-    if ( angleEnd_ > 180 )
+    if (angleEnd_ > 180)
     {
         angleEnd_ -= 360;
     }
-    if ( angleEnd_ < -180 )
+    if (angleEnd_ < -180)
     {
         angleEnd_ += 360;
     }
-    if (angleStart_ > 180 )
+    if (angleStart_ > 180)
     {
         angleStart_ -= 360;
     }
-    if ( angleStart_ < -180 )
+    if (angleStart_ < -180)
     {
         angleStart_ += 360;
     }
@@ -87,6 +93,7 @@ relaxationShapeSemiCylindrical::relaxationShapeSemiCylindrical
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 void relaxationShapeSemiCylindrical::findComputationalCells()
 {
     const vectorField& cc = mesh_.C();
@@ -96,19 +103,20 @@ void relaxationShapeSemiCylindrical::findComputationalCells()
 
     forAll (cc, celli)
     {
-        if ( insideZone( celli ))
+        if (insideZone( celli ))
         {
             cells_[count++] = celli;
 
-            if ( count == cells_.size() )
+            if (count == cells_.size())
             {
-                cells_.setSize( static_cast<label>( count * 1.1 ) );
+                cells_.setSize( static_cast<label>( count*1.1 ) );
             }
         }
     }
 
     cells_.setSize(count);
 }
+
 
 void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
 {
@@ -118,18 +126,19 @@ void relaxationShapeSemiCylindrical::computeSigmaCoordinate()
     forAll (cells_, celli)
     {
         vector cc( C[cells_[celli]] );
-        cc -= ( ( cc & direction_ ) * direction_ );
+        cc -= ( ( cc & direction_ )*direction_ );
 
-        sigma_[celli]  = ( Foam::mag( cc - centre_ ) - rInner_ ) / width_;
+        sigma_[celli]  = ( Foam::mag( cc - centre_ ) - rInner_ )/width_;
     }
 }
+
 
 bool relaxationShapeSemiCylindrical::angleCheck
 (
     const scalar& angle
 ) const
 {
-    if ( angleStart_ < angleEnd_ )
+    if (angleStart_ < angleEnd_)
     {
         return ( angleStart_ <= angle && angle <= angleEnd_ );
     }
@@ -139,6 +148,7 @@ bool relaxationShapeSemiCylindrical::angleCheck
     }
 }
 
+
 bool relaxationShapeSemiCylindrical::insideZone
 (
     const label& celli
@@ -147,11 +157,15 @@ bool relaxationShapeSemiCylindrical::insideZone
     bool inside( false );
 
     vector cc( mesh_.C()[celli] );
-    cc -= ( direction_ & cc ) * direction_;
+    cc -= ( direction_ & cc )*direction_;
     cc -= centre_;
 
     scalar dist( Foam::mag( cc ) );
-    scalar angle( 180 / PI_ * Foam::atan2( cc & piHalfAngleDirection_, cc & zeroAngleDirection_ ) );
+    scalar angle = 180/PI_*Foam::atan2
+        (
+            cc & piHalfAngleDirection_,
+            cc & zeroAngleDirection_
+        );
 
     if (dist >= rInner_ && dist <= rOuter_ && angleCheck( angle ))
     {

@@ -105,7 +105,7 @@ public:
     // Member Functions
         Switch conflictTSoftInitialise() const
         {
-            if ( Tsoft_ > 0 )
+            if (Tsoft_ > 0)
             {
                 return true;
             }

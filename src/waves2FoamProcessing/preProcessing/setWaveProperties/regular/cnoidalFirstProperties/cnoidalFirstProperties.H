@@ -81,9 +81,9 @@ public:
             bool
         );
 
-        // Method
+    // Method
 
-        void set( Ostream&);
+        virtual void set( Ostream&);
 };
 
 struct cnoidalFirstParams
@@ -94,9 +94,9 @@ struct cnoidalFirstParams
     double g_;
 };
 
-double lowerMBound_f ( double m, void * params);
+double lowerMBound_f ( double m, void *params);
 
-double cnoidalFirst_f ( double m, void * params);
+double cnoidalFirst_f ( double m, void *params);
 
 }
 

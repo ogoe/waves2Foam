@@ -96,7 +96,7 @@ public:
 
         // Method
 
-        void set( Ostream& );
+        virtual void set( Ostream& );
 
         scalar linearWaveNumber() const;
 

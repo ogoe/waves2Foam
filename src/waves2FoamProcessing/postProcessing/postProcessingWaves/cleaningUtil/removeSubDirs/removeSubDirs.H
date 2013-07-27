@@ -88,7 +88,7 @@ public:
         virtual ~removeSubDirs();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

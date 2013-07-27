@@ -52,36 +52,38 @@ void spectralMethodsLeastSquaresBased::computePowerSpectrum
     bOut.setSize( input.size() );
     bOut = input;
 
-    List<scalarField> matrix( 2 * N + 1 );
+    List<scalarField> matrix( 2*N + 1 );
 
     // Set ones in the right most column
-    scalarField& m( matrix[2 * N] );
+    scalarField& m( matrix[2*N] );
     m.setSize( t.size(), 1.0 );
 
     // Set the cosine components - every second
     // column starting from column index 0
     for (int i = 0; i < N; i++)
     {
-        scalarField& m( matrix[ 2 * i] );
+        scalarField& m( matrix[ 2*i] );
         m.setSize( t.size(), 0.0);
 
-        m = Foam::cos( static_cast<scalar>(i+1) * 2 * M_PI * f * t );
+        m = Foam::cos( static_cast<scalar>(i + 1)*2 * M_PI*f * t );
     }
 
     // Set the sine components - every second
     // column starting from column index 0
     for (int i = 0; i < N; i++)
     {
-        scalarField& m( matrix[ 2 * i + 1] );
+        scalarField& m( matrix[ 2*i + 1] );
         m.setSize( t.size(), 0.0);
 
-        m = Foam::sin( static_cast<scalar>(i+1) * 2 * M_PI * f * t );
+        m = Foam::sin( static_cast<scalar>(i + 1)*2 * M_PI*f * t );
     }
 
     solve( matrix, bOut );
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 spectralMethodsLeastSquaresBased::spectralMethodsLeastSquaresBased
 (
@@ -91,10 +93,13 @@ spectralMethodsLeastSquaresBased::spectralMethodsLeastSquaresBased
 {
 }
 
+
 spectralMethodsLeastSquaresBased::~spectralMethodsLeastSquaresBased()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void spectralMethodsLeastSquaresBased::solve
 (
@@ -120,10 +125,10 @@ void spectralMethodsLeastSquaresBased::solve
         for (int j=0; j<N; j++)
         {
             const scalarField& aj( A[j] );
-            AtA[i][j] = Foam::sum( ai * aj );
+            AtA[i][j] = Foam::sum( ai*aj );
         }
 
-        Atb[i] = Foam::sum( ai * b );
+        Atb[i] = Foam::sum( ai*b );
     }
 
     // Solve the square system
@@ -137,21 +142,23 @@ void spectralMethodsLeastSquaresBased::solve
     b = Atb;
 }
 
+
 scalarField spectralMethodsLeastSquaresBased::frequencies
 (
     const label& N
 )
 {
-    scalarField res(2 * N + 1, 0);
+    scalarField res(2*N + 1, 0);
 
     for (int i=0; i<N; i++)
     {
-        res[ 2 * i    ] = i + 1;
-        res[ 2 * i + 1] = i + 1;
+        res[ 2*i    ] = i + 1;
+        res[ 2*i + 1] = i + 1;
     }
 
     return res;
 }
+
 
 scalarField spectralMethodsLeastSquaresBased::powerSpectra
 (
@@ -167,6 +174,7 @@ scalarField spectralMethodsLeastSquaresBased::powerSpectra
 
     return res;
 }
+
 
 List<scalarField> spectralMethodsLeastSquaresBased::powerSpectra
 (
@@ -189,6 +197,7 @@ List<scalarField> spectralMethodsLeastSquaresBased::powerSpectra
     return res;
 }
 
+
 List<vectorField> spectralMethodsLeastSquaresBased::powerSpectra
 (
     const scalarField& t,
@@ -203,7 +212,7 @@ List<vectorField> spectralMethodsLeastSquaresBased::powerSpectra
     {
         const vectorField i( input[inputi] );
         vectorField& r( res[inputi] );
-        r.setSize( 2 * N + 1);
+        r.setSize( 2*N + 1);
 
         for (int j = 0; j < 3; j++)
         {
@@ -213,6 +222,7 @@ List<vectorField> spectralMethodsLeastSquaresBased::powerSpectra
 
     return res;
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

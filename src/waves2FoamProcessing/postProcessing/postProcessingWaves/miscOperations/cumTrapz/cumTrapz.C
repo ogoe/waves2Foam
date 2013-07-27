@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, cumTrapz, postProcessingWaves);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void cumTrapz::evaluateScalar()
 {
     Info << "        - Cumulative trapezoidal integration" << endl;
@@ -56,12 +57,13 @@ void cumTrapz::evaluateScalar()
 
         for (int i=1; i < field.size(); i++)
         {
-            out[i] = out[i-1] + 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+            out[i] = out[i - 1] + 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
         }
     }
 
     writeScalar( ct );
 }
+
 
 void cumTrapz::writeScalar
 (
@@ -90,6 +92,7 @@ void cumTrapz::writeScalar
     }
 }
 
+
 void cumTrapz::evaluateVector()
 {
     Info << "        - Cumulative trapezoidal integration" << endl;
@@ -107,12 +110,13 @@ void cumTrapz::evaluateVector()
 
         for (int i=1; i < field.size(); i++)
         {
-            out[i] = out[i-1] + 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+            out[i] = out[i - 1] + 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
         }
     }
 
     writeVector( ct );
 }
+
 
 void cumTrapz::writeVector
 (
@@ -141,7 +145,9 @@ void cumTrapz::writeVector
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 cumTrapz::cumTrapz
 (
@@ -157,19 +163,22 @@ cumTrapz::cumTrapz
     readIndices( dataDict_, indices_ );
 }
 
+
 cumTrapz::~cumTrapz()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void cumTrapz::evaluate()
 {
-    if ( dataType() == "scalar" )
+    if (dataType() == "scalar")
     {
         evaluateScalar();
     }
-    else if ( dataType() == "vector" )
+    else if (dataType() == "vector")
     {
         evaluateVector();
     }
@@ -178,6 +187,7 @@ void cumTrapz::evaluate()
         notImplemented("Data types other than scalar and vector is not supported.");
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

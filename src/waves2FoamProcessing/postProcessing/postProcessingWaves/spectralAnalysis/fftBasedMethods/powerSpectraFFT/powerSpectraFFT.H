@@ -117,7 +117,7 @@ public:
         virtual ~powerSpectraFFT();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

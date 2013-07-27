@@ -37,9 +37,15 @@ namespace relaxationShapes
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationShapeRectangular, 0);
-addToRunTimeSelectionTable(relaxationShape, relaxationShapeRectangular, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationShape,
+    relaxationShapeRectangular,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationShapeRectangular::relaxationShapeRectangular
 (
@@ -57,7 +63,8 @@ relaxationShapeRectangular::relaxationShapeRectangular
 
     cornerNodes_[0] = vector(coeffDict_.lookup("startX"));
     cornerNodes_[2] = vector(coeffDict_.lookup("endX"));
-    cornerNodes_[3] = cornerNodes_[0] + ( orient_ & ( cornerNodes_[2] - cornerNodes_[0]) ) * orient_;
+    cornerNodes_[3] = cornerNodes_[0]
+        + (orient_ & (cornerNodes_[2] - cornerNodes_[0]))*orient_;
     cornerNodes_[1] = cornerNodes_[0] + (cornerNodes_[2] - cornerNodes_[3]);
 
     crossOrient_ = (cornerNodes_[1] - cornerNodes_[0]);
@@ -79,6 +86,7 @@ relaxationShapeRectangular::relaxationShapeRectangular
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 void relaxationShapeRectangular::findComputationalCells()
 {
     const vectorField& cc = mesh_.C();
@@ -88,13 +96,13 @@ void relaxationShapeRectangular::findComputationalCells()
 
     forAll (cc, celli)
     {
-        if ( insideZone( celli ))
+        if (insideZone( celli ))
         {
             cells_[count++] = celli;
 
-            if ( count == cells_.size() )
+            if (count == cells_.size())
             {
-                cells_.setSize( static_cast<label>( count * 1.1 ) );
+                cells_.setSize( static_cast<label>( count*1.1 ) );
             }
         }
     }
@@ -102,19 +110,19 @@ void relaxationShapeRectangular::findComputationalCells()
     cells_.setSize(count);
 }
 
+
 void relaxationShapeRectangular::computeSigmaCoordinate()
 {
     const vectorField& C = mesh_.C();
     sigma_.setSize(cells_.size(), 0);
 
-//    Info << xAxis_ << " " << width_ << " "<< direction_ <<   endl;
-
     forAll (cells_, celli)
     {
         vector cc( C[cells_[celli]] );
-        cc -= ( ( cc & direction_ ) * direction_ );
+        cc -= ( ( cc & direction_ )*direction_ );
 
-        sigma_[celli]  = Foam::mag( ( ( xAxis_ & cc ) - (xAxis_ & cornerNodes_[0]) ) ) / ( Foam::mag(xAxis_) * width_ );
+        sigma_[celli] = Foam::mag(((xAxis_ & cc) - (xAxis_ & cornerNodes_[0])))
+            /( Foam::mag(xAxis_)*width_ );
 
         if (relaxType_ == "INLET")
         {
@@ -140,13 +148,15 @@ bool relaxationShapeRectangular::insideZone
     scalarField nX(cornerNodes_ & xAxis_);
     scalarField nY(cornerNodes_ & yAxis_);
 
-    // Uses method 3 on http://local.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/
+    // Uses method 3 on
+    // http://local.wasp.uwa.edu.au/~pbourke/geometry/insidepoly/
     // to consider whether or not the point is inside the relaxation zone
     forAll (nX, pointi)
     {
         scalar temp(0);
         label pointj((pointi == nX.size()-1) ? 0 : pointi + 1);
-        temp = (pY - nY[pointi]) * (nX[pointj] - nX[pointi]) - (pX - nX[pointi]) * (nY[pointj] - nY[pointi]);
+        temp = (pY - nY[pointi])*(nX[pointj] - nX[pointi])
+            - (pX - nX[pointi])*(nY[pointj] - nY[pointi]);
 
         if (temp > 0)
         {
@@ -158,7 +168,7 @@ bool relaxationShapeRectangular::insideZone
         }
     }
 
-    if ( positive == 0 || negative == 0 )
+    if (positive == 0 || negative == 0)
     {
         inside = true;
     }

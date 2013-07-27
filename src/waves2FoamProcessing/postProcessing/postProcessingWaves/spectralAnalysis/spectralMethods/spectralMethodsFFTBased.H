@@ -70,8 +70,8 @@ private:
         label sweepCount_;
 
         // Initialise and allocate GSL-FFT
-        gsl_fft_real_wavetable * real;
-        gsl_fft_real_workspace * work;
+        gsl_fft_real_wavetable *real;
+        gsl_fft_real_workspace *work;
 
     // Private Member Functions
         void checkBins();

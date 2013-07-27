@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, stokesFirstStanding, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 stokesFirstStanding::stokesFirstStanding
 (
     const word& subDictName,
@@ -51,7 +52,7 @@ stokesFirstStanding::stokesFirstStanding
     H_(readScalar(coeffDict_.lookup("height"))),
     h_(readScalar(coeffDict_.lookup("depth"))),
     omega_(readScalar(coeffDict_.lookup("omega"))),
-    period_(2 * PI_ / omega_),
+    period_(2*PI_/omega_),
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
@@ -65,18 +66,21 @@ void stokesFirstStanding::printCoeffs()
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 scalar stokesFirstStanding::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
     {
-        factor = Foam::sin(omega_ / 4.0 * Foam::min(Tsoft_, time));
+        factor = Foam::sin(omega_/4.0*Foam::min(Tsoft_, time));
     }
 
     return factor;
 }
+
 
 scalar stokesFirstStanding::eta
 (
@@ -84,9 +88,10 @@ scalar stokesFirstStanding::eta
     const scalar& time
 ) const
 {
-    scalar eta = (H_ / 2.0 * Foam::cos(omega_ * time - (k_ & x) + phi_) + H_ / 2.0 * Foam::cos(omega_ * time + (k_ & x) + phi_)) * factor(time) + seaLevel_;
+    scalar eta = (H_/2.0*Foam::cos(omega_*time - (k_ & x) + phi_) + H_/2.0*Foam::cos(omega_*time + (k_ & x) + phi_))*factor(time) + seaLevel_;
     return eta;
 }
+
 
 scalar stokesFirstStanding::ddxPd
 (
@@ -97,18 +102,19 @@ scalar stokesFirstStanding::ddxPd
 {
 
     scalar Z(returnZ(x));
-    scalar arg1(omega_ * time - (k_ & x) + phi_);
-    scalar arg2(omega_ * time + (k_ & x) + phi_);
+    scalar arg1(omega_*time - (k_ & x) + phi_);
+    scalar arg2(omega_*time + (k_ & x) + phi_);
 
     scalar ddxPd(0);
 
     ddxPd = (
-                rhoWater_ * mag(g_) * K_ * H_ / 2.0 * Foam::cosh(K_ * (Z + h_)) / Foam::cosh(K_ * h_) * Foam::sin(arg1)
-              - rhoWater_ * mag(g_) * K_ * H_ / 2.0 * Foam::cosh(K_ * (Z + h_)) / Foam::cosh(K_ * h_) * Foam::sin(arg2)
-            ) * factor(time);
+                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))/Foam::cosh(K_*h_)*Foam::sin(arg1)
+              - rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))/Foam::cosh(K_*h_)*Foam::sin(arg2)
+            )*factor(time);
 
     return ddxPd;
 }
+
 
 vector stokesFirstStanding::U
 (
@@ -118,27 +124,28 @@ vector stokesFirstStanding::U
 {
     scalar Z(returnZ(x));
 
-    scalar Uhorz = PI_ * H_ / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
-                   Foam::cos(omega_ * time - (k_ & x) + phi_)
-                 - PI_ * H_ / period_ *
-                   Foam::cosh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
-                   Foam::cos(omega_ * time + (k_ & x) + phi_);
+    scalar Uhorz = PI_*H_/period_ *
+                   Foam::cosh(K_*(Z + h_))/Foam::sinh(K_*h_) *
+                   Foam::cos(omega_*time - (k_ & x) + phi_)
+                 - PI_*H_/period_ *
+                   Foam::cosh(K_*(Z + h_))/Foam::sinh(K_*h_) *
+                   Foam::cos(omega_*time + (k_ & x) + phi_);
 
     Uhorz *= factor(time);
 
-    scalar Uvert = - PI_ * H_ / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
-                   Foam::sin(omega_ * time - (k_ & x) + phi_)
-                 - PI_ * H_ / period_ *
-                   Foam::sinh(K_ * (Z + h_)) / Foam::sinh(K_ * h_) *
-                   Foam::sin(omega_ * time + (k_ & x) + phi_);
+    scalar Uvert = - PI_*H_/period_ *
+                   Foam::sinh(K_*(Z + h_))/Foam::sinh(K_*h_) *
+                   Foam::sin(omega_*time - (k_ & x) + phi_)
+                 - PI_*H_/period_ *
+                   Foam::sinh(K_*(Z + h_))/Foam::sinh(K_*h_) *
+                   Foam::sin(omega_*time + (k_ & x) + phi_);
 
     Uvert *= factor(time);
 
 
-    return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
+    return Uhorz*k_/K_ - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

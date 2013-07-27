@@ -32,8 +32,8 @@ Description
 
     - Polygon (face) and surface              => another polygon
     - Polyhedral (cell) and surface           => another polyhedral
-    - Polygon (face) and polygon (face)       => edge / face
-    - Polyhedral (cell) and polyhedral (cell) => face / cell
+    - Polygon (face) and polygon (face)       => edge/face
+    - Polyhedral (cell) and polyhedral (cell) => face/cell
 
     Requirement to the cell: All faces must consist of co-planar points!
 
@@ -77,7 +77,7 @@ private:
     // Private member functions
         inline void setPoint( const point& p ) { pointOnPlane_ = p; };
 
-        inline void setNormal( const vector& n ) { normalToPlane_ = n / Foam::mag(n); };
+        inline void setNormal( const vector& n ) { normalToPlane_ = n/Foam::mag(n); };
 
         labelList edgeCutLabel
         (

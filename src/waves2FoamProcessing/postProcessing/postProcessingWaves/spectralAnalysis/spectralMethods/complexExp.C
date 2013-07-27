@@ -32,8 +32,8 @@ Foam::complex Foam::exp( const Foam::complex& C )
 {
     Foam::complex res( Foam::complex::zero );
 
-    res.Re() = Foam::exp( C.Re() ) * Foam::cos( C.Im() );
-    res.Im() = Foam::exp( C.Re() ) * Foam::sin( C.Im() );
+    res.Re() = Foam::exp( C.Re() )*Foam::cos( C.Im() );
+    res.Im() = Foam::exp( C.Re() )*Foam::sin( C.Im() );
 
     return res;
 }

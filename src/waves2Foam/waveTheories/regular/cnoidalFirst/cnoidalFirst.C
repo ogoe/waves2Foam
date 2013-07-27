@@ -44,6 +44,7 @@ addToRunTimeSelectionTable(waveTheory, cnoidalFirst, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 cnoidalFirst::cnoidalFirst
 (
     const word& subDictName,
@@ -62,10 +63,10 @@ cnoidalFirst::cnoidalFirst
 {
     scalar Eelliptic = gsl_sf_ellint_Ecomp( Foam::sqrt(m_), GSL_PREC_DOUBLE);
 
-    period_    = 2.0 * PI_ / omega_;
+    period_    = 2.0*PI_/omega_;
 
     Kelliptic_ = gsl_sf_ellint_Kcomp( Foam::sqrt(m_), GSL_PREC_DOUBLE);
-    etaMin_    = ((1.0 - Eelliptic / Kelliptic_) / m_ - 1.0) * H_;
+    etaMin_    = ((1.0 - Eelliptic/Kelliptic_)/m_ - 1.0)*H_;
 
     propagationDirection_ /= Foam::mag(propagationDirection_);
 
@@ -78,18 +79,21 @@ void cnoidalFirst::printCoeffs()
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * * * //
+
 
 scalar cnoidalFirst::factor(const scalar& time) const
 {
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
     {
-        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+        factor = Foam::sin(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time));
     }
 
     return factor;
 }
+
 
 scalar cnoidalFirst::argument
 (
@@ -97,10 +101,11 @@ scalar cnoidalFirst::argument
     const scalar& time
 ) const
 {
-    scalar arg = 2.0 * Kelliptic_ * (time / period_ - (propagationDirection_ & x) / length_);
+    scalar arg = 2.0*Kelliptic_*(time/period_ - (propagationDirection_ & x)/length_);
 
     return arg;
 }
+
 
 scalar cnoidalFirst::eta_x
 (
@@ -109,9 +114,10 @@ scalar cnoidalFirst::eta_x
     const scalar& dn
 ) const
 {
-    scalar val( 4.0 * H_ * Kelliptic_ / length_ * ( cn * dn * sn ));
+    scalar val( 4.0*H_*Kelliptic_/length_*( cn*dn*sn ));
     return val;
 }
+
 
 scalar cnoidalFirst::eta_xx
 (
@@ -121,17 +127,18 @@ scalar cnoidalFirst::eta_xx
 ) const
 {
     scalar val(
-                Foam::pow(dn, 2.0) * Foam::pow(sn, 2.0)
+                Foam::pow(dn, 2.0)*Foam::pow(sn, 2.0)
               + Foam::pow(cn, 2.0)
               * (
-                    - Foam::pow(dn, 2.0) + m_ * Foam::pow(sn, 2.0)
+                    - Foam::pow(dn, 2.0) + m_*Foam::pow(sn, 2.0)
                 )
               );
 
-    val *= 8.0 * H_ * Foam::pow(Kelliptic_ / length_, 2.0);
+    val *= 8.0*H_*Foam::pow(Kelliptic_/length_, 2.0);
 
     return val;
 }
+
 
 scalar cnoidalFirst::eta_xxx
 (
@@ -141,17 +148,18 @@ scalar cnoidalFirst::eta_xxx
 ) const
 {
     scalar val(
-                - cn * dn * sn
+                - cn*dn*sn
                 * (
                       Foam::pow(dn, 2.0)
-                    + m_ * (Foam::pow(cn, 2.0) - Foam::pow(sn, 2.0))
+                    + m_*(Foam::pow(cn, 2.0) - Foam::pow(sn, 2.0))
                   )
               );
 
-    val *= 64.0 * H_ * Foam::pow(Kelliptic_ / length_, 3.0);
+    val *= 64.0*H_*Foam::pow(Kelliptic_/length_, 3.0);
 
     return val;
 }
+
 
 // * * * * * * * * * * * * * Public Member Functions  * * * * * * * * * * * * * //
 
@@ -167,10 +175,11 @@ scalar cnoidalFirst::eta
     gsl_sf_elljac_e( arg, m_, &snn, &cnn, &dnn);
 
 
-    scalar eta = ( etaMin_ + H_ * Foam::pow(cnn,2.0) ) * factor(time) + seaLevel_;
+    scalar eta = ( etaMin_ + H_*Foam::pow(cnn,2.0) )*factor(time) + seaLevel_;
 
     return eta;
 }
+
 
 scalar cnoidalFirst::ddxPd
 (
@@ -188,9 +197,9 @@ scalar cnoidalFirst::ddxPd
 
     scalar ddxPd(0);
 
-    ddxPd  =   rhoWater_ * Foam::mag(g_)
+    ddxPd  =   rhoWater_*Foam::mag(g_)
              * (
-                 eta_x(snn, cnn, dnn) + 1.0 / 2.0 * Foam::pow(h_, 2.0) * (1 - Foam::pow((Z + h_) / h_, 2.0)) * eta_xxx(snn, cnn, dnn)
+                 eta_x(snn, cnn, dnn) + 1.0/2.0*Foam::pow(h_, 2.0)*(1 - Foam::pow((Z + h_)/h_, 2.0))*eta_xxx(snn, cnn, dnn)
                );
 
     ddxPd *= factor(time);
@@ -216,30 +225,30 @@ vector cnoidalFirst::U
 
     scalar Uhorz =   celerity_
                    * (
-                         etaVal / h_
-                       - Foam::pow(etaVal / h_, 2.0)
-                       + 1.0 / 2.0 *
+                         etaVal/h_
+                       - Foam::pow(etaVal/h_, 2.0)
+                       + 1.0/2.0 *
                          (
-                            1.0 / 3.0
-                          - Foam::pow((Z + h_) / h_, 2.0)
+                            1.0/3.0
+                          - Foam::pow((Z + h_)/h_, 2.0)
                          )
-                       * h_ * eta_xx(snn, cnn, dnn)
+                       * h_*eta_xx(snn, cnn, dnn)
                      );
 
     Uhorz       *= factor(time);
 
-    scalar Uvert = - celerity_ * (Z + h_)
+    scalar Uvert = - celerity_*(Z + h_)
                    * (
-                        eta_x(snn, cnn, dnn) / h_ * (1 - 2.0 * etaVal / h_)
-                      + 1.0 / 6.0 * h_ * eta_xxx(snn, cnn, dnn)
-                      * (1 - Foam::pow((Z + h_) / h_, 2.0))
+                        eta_x(snn, cnn, dnn)/h_*(1 - 2.0*etaVal/h_)
+                      + 1.0/6.0*h_*eta_xxx(snn, cnn, dnn)
+                      * (1 - Foam::pow((Z + h_)/h_, 2.0))
                      );
 
     Uvert       *= factor(time);
 
-    return Uhorz * propagationDirection_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
-
+    return Uhorz*propagationDirection_ - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

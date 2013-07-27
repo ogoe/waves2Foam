@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, reflectionAnalysis2DLS, postProc
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void reflectionAnalysis2DLS::write
 (
     const scalarField& frequencies,
@@ -60,10 +61,10 @@ void reflectionAnalysis2DLS::write
 
         for (int i = 0; i < N_; i++)
         {
-            spectrumPtr_() << frequencies[ 2 * i ] << tab << spectra[ 4 * i ] << endl;
-            spectrumPtr_() << frequencies[ 2 * i + 1] << tab << spectra[ 4 * i + 1] << endl;
+            spectrumPtr_() << frequencies[ 2*i ] << tab << spectra[ 4*i ] << endl;
+            spectrumPtr_() << frequencies[ 2*i + 1] << tab << spectra[ 4*i + 1] << endl;
         }
-        spectrumPtr_() << frequencies[ 2 * N_ ] << tab << spectra[ 4 * N_ ] << endl;
+        spectrumPtr_() << frequencies[ 2*N_ ] << tab << spectra[ 4*N_ ] << endl;
     }
 
     // Write the right going amplitudes
@@ -75,14 +76,16 @@ void reflectionAnalysis2DLS::write
 
         for (int i = 0; i < N_; i++)
         {
-            spectrumPtr_() << frequencies[ 2 * i ] << tab << spectra[ 4 * i + 2] << endl;
-            spectrumPtr_() << frequencies[ 2 * i + 1] << tab << spectra[ 4 * i + 3] << endl;
+            spectrumPtr_() << frequencies[ 2*i ] << tab << spectra[ 4*i + 2] << endl;
+            spectrumPtr_() << frequencies[ 2*i + 1] << tab << spectra[ 4*i + 3] << endl;
         }
-        spectrumPtr_() << frequencies[ 2 * N_ ] << tab << spectra[ 4 * N_ ] << endl;
+        spectrumPtr_() << frequencies[ 2*N_ ] << tab << spectra[ 4*N_ ] << endl;
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 reflectionAnalysis2DLS::reflectionAnalysis2DLS
 (
@@ -116,26 +119,29 @@ reflectionAnalysis2DLS::reflectionAnalysis2DLS
     }
 }
 
+
 reflectionAnalysis2DLS::~reflectionAnalysis2DLS()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void reflectionAnalysis2DLS::evaluate()
 {
-    if ( dataType() == "scalar" )
+    if (dataType() == "scalar")
     {
         Info << "        - Computing left and right going spectra (2D)" << endl;
 
-        scalar omega = 2 * M_PI / period_;
+        scalar omega = 2*M_PI/period_;
 
         List<scalarField> input = readScalarFields( indices_ );
 
         scalarField time = readIOScalarField( callName_ + "_time" );
 
         // Creating right hand side of the over-determined system
-        scalarField b( input.size() * input[0].size() );
+        scalarField b( input.size()*input[0].size() );
 
         label count(0);
 
@@ -150,7 +156,7 @@ void reflectionAnalysis2DLS::evaluate()
         }
 
         // Creating left hand side of the over-determined system
-        List<scalarField> A( 4 * N_ + 1);
+        List<scalarField> A( 4*N_ + 1);
 
         forAll (A, Ai)
         {
@@ -166,10 +172,10 @@ void reflectionAnalysis2DLS::evaluate()
             scalar J( nf + 1.0 );
             count = 0;
 
-            scalarField& a0( A[ 4 * nf ] );
-            scalarField& a1( A[ 4 * nf + 1 ] );
-            scalarField& a2( A[ 4 * nf + 2 ] );
-            scalarField& a3( A[ 4 * nf + 3 ] );
+            scalarField& a0( A[ 4*nf ] );
+            scalarField& a1( A[ 4*nf + 1 ] );
+            scalarField& a2( A[ 4*nf + 2 ] );
+            scalarField& a3( A[ 4*nf + 3 ] );
 
             forAll (x_, xi)
             {
@@ -177,10 +183,10 @@ void reflectionAnalysis2DLS::evaluate()
 
                 for (int n=0; n<Nin; n++)
                 {
-                    a0[count] = Foam::cos( J * ( omega * time[n] - ( waveNumber_ & X) ) );
-                    a1[count] = Foam::sin( J * ( omega * time[n] - ( waveNumber_ & X) ) );
-                    a2[count] = Foam::cos( J * ( omega * time[n] + ( waveNumber_ & X) ) );
-                    a3[count] = Foam::sin( J * ( omega * time[n] + ( waveNumber_ & X) ) );
+                    a0[count] = Foam::cos( J*( omega*time[n] - ( waveNumber_ & X) ) );
+                    a1[count] = Foam::sin( J*( omega*time[n] - ( waveNumber_ & X) ) );
+                    a2[count] = Foam::cos( J*( omega*time[n] + ( waveNumber_ & X) ) );
+                    a3[count] = Foam::sin( J*( omega*time[n] + ( waveNumber_ & X) ) );
 
                     count++;
                 }
@@ -203,7 +209,6 @@ void reflectionAnalysis2DLS::evaluate()
         )   << "Only supports input of scalar quantities (surface elevation) "
             << exit(FatalError);
     }
-
 }
 
 

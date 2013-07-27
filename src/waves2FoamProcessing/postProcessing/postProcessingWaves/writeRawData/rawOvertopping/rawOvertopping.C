@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, rawOvertopping, postProcessingWa
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 void rawOvertopping::resizeFields
 (
     List<std::pair<scalar, label> >& timeLabel,
@@ -55,6 +56,7 @@ void rawOvertopping::resizeFields
         U.setSize(N);
     }
 }
+
 
 void rawOvertopping::writeRawData
 (
@@ -100,11 +102,9 @@ void rawOvertopping::writeRawData
     }
 }
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 rawOvertopping::rawOvertopping
 (
@@ -124,10 +124,13 @@ rawOvertopping::rawOvertopping
     getTimeDirs(inputDir_, timeDirs_);
 }
 
+
 rawOvertopping::~rawOvertopping()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void rawOvertopping::evaluate()
 {
@@ -139,6 +142,7 @@ void rawOvertopping::evaluate()
 
     writeRawData(timeLabel, OTnames, OTs);
 }
+
 
 void rawOvertopping::readOvertoppingData
 (
@@ -156,7 +160,7 @@ void rawOvertopping::readOvertoppingData
     {
         scalar truncateReading(0);
 
-        if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        if (removeDuplicate_ && timeI < timeDirs_.size() -1)
         {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
         }
@@ -173,7 +177,7 @@ void rawOvertopping::readOvertoppingData
 
         std::string line;
 
-        if ( timeI == 0 )
+        if (timeI == 0)
         {
             std::getline( input, line);
 
@@ -182,9 +186,9 @@ void rawOvertopping::readOvertoppingData
             // Discard first string
             iss >> dummy;
 
-            while ( iss >> dummy )
+            while (iss >> dummy)
             {
-                OTnames.setSize( Nprobes+1 );
+                OTnames.setSize( Nprobes + 1 );
                 OTnames[Nprobes++] = dummy;
             }
 
@@ -199,14 +203,14 @@ void rawOvertopping::readOvertoppingData
         }
 
         // Extracting time and overtopping flux vector
-        while ( std::getline( input, line ) )
+        while (std::getline( input, line ))
         {
             std::istringstream iss(line);
 
             // Reading the time instance
             iss >> val;
 
-            if ( truncateReading <= val )
+            if (truncateReading <= val)
             {
                 break;
             }
@@ -232,14 +236,14 @@ void rawOvertopping::readOvertoppingData
 
                 vectorField& OT( OTs[ OTI ] );
 
-                OT[Nentries] = scaleFlux_ * temp;
+                OT[Nentries] = scaleFlux_*temp;
             }
 
             Nentries++;
 
-            if ( Nentries == timeLabel.size() )
+            if (Nentries == timeLabel.size())
             {
-                resizeFields( timeLabel, OTs, 2 * Nentries );
+                resizeFields( timeLabel, OTs, 2*Nentries );
             }
         }
 
@@ -250,6 +254,7 @@ void rawOvertopping::readOvertoppingData
 
     std::sort( timeLabel.begin(), timeLabel.end(), pairSortA );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

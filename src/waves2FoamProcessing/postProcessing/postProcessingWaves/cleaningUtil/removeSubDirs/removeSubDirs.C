@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, removeSubDirs, postProcessingWav
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 removeSubDirs::removeSubDirs
 (
     const Time& rT,
@@ -50,10 +51,12 @@ removeSubDirs::removeSubDirs
 {
 }
 
+
 removeSubDirs::~removeSubDirs()
 {}
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void removeSubDirs::evaluate()
 {
@@ -66,6 +69,7 @@ void removeSubDirs::evaluate()
         Foam::rmDir( fn + fnl[i] );
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

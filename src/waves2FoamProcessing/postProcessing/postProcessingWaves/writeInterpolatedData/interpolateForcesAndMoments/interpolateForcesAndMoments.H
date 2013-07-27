@@ -101,7 +101,7 @@ public:
         virtual ~interpolateForcesAndMoments();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

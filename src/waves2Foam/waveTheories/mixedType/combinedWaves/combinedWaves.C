@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, combinedWaves, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 combinedWaves::combinedWaves
 (
     const word& subDictName,
@@ -75,6 +76,7 @@ void combinedWaves::printCoeffs()
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 scalar combinedWaves::factor(const scalar& time) const
@@ -84,6 +86,7 @@ scalar combinedWaves::factor(const scalar& time) const
     // Needed to be here, as it is an abstract part of waveTheories::waveTheory
     return 1;
 }
+
 
 scalar combinedWaves::eta
 (
@@ -99,10 +102,11 @@ scalar combinedWaves::eta
     }
 
     // There must only be corrected for the seaLevel_ once.
-    eta -= ( (combinedWavesNames_.size() - 1.0) * seaLevel_ );
+    eta -= ( (combinedWavesNames_.size() - 1.0)*seaLevel_ );
 
     return eta;
 }
+
 
 scalar combinedWaves::ddxPd
 (
@@ -121,6 +125,7 @@ scalar combinedWaves::ddxPd
     return ddxPd;
 }
 
+
 vector combinedWaves::U
 (
     const point& x,
@@ -137,6 +142,7 @@ vector combinedWaves::U
 
     return U;
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

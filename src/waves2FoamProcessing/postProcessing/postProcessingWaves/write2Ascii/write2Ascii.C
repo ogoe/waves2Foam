@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(write2Ascii, 0);
 addToRunTimeSelectionTable(postProcessingWaves, write2Ascii, postProcessingWaves);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 write2Ascii::write2Ascii
 (
@@ -53,10 +51,13 @@ write2Ascii::write2Ascii
 {
 }
 
+
 write2Ascii::~write2Ascii()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void write2Ascii::evaluate()
 {
@@ -84,7 +85,7 @@ void write2Ascii::evaluate()
     // Writing the data fields
     label count(0);
 
-    while ( true )
+    while (true)
     {
         std::stringstream ss;
         ss << callName_ << "_" << count;
@@ -98,14 +99,14 @@ void write2Ascii::evaluate()
             IOobject::MUST_READ
         );
 
-        if ( !fileHeader.headerOk() )
+        if (!fileHeader.headerOk())
         {
             break;
         }
 
         asciiPtr_.reset(new OFstream( directDir_ + "/" + ss.str() + ".txt" ) );
 
-        if ( fileHeader.headerClassName() == "scalarField" )
+        if (fileHeader.headerClassName() == "scalarField")
         {
             IOField<scalar> field( fileHeader );
 
@@ -114,7 +115,7 @@ void write2Ascii::evaluate()
                 asciiPtr_() << field[datai] << endl;
             }
         }
-        else if ( fileHeader.headerClassName() == "vectorField" )
+        else if (fileHeader.headerClassName() == "vectorField")
         {
             IOField<vector> field( fileHeader );
 
@@ -158,7 +159,7 @@ void write2Ascii::evaluate()
     labelList indices( dict.lookup("index") );
 
     // Either locations or names are stated in the dictionary
-    if ( dict.found("x") )
+    if (dict.found("x"))
     {
         scalarField x( dict.lookup("x") );
         scalarField y( dict.lookup("y") );

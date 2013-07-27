@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(potentialCurrentProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, potentialCurrentProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 potentialCurrentProperties::potentialCurrentProperties
 (
@@ -54,7 +52,9 @@ potentialCurrentProperties::potentialCurrentProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void potentialCurrentProperties::set(Ostream& os)
 {
@@ -66,11 +66,10 @@ void potentialCurrentProperties::set(Ostream& os)
     writeGiven( os, "U");
     writeGiven( os, "Tsoft" );
 
-    if ( dict_.found( "localSeaLevel" ) )
+    if (dict_.found( "localSeaLevel" ))
     {
         writeGiven( os, "localSeaLevel");
     }
-
 
     // This is where type specific data can be written
     // Nothing to be done for potentialCurrent
@@ -81,7 +80,6 @@ void potentialCurrentProperties::set(Ostream& os)
     // Write the closing bracket
     writeEnding( os );
 }
-
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

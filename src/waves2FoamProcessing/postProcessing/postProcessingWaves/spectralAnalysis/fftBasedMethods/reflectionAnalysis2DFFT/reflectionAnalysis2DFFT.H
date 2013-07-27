@@ -129,7 +129,7 @@ public:
         virtual ~reflectionAnalysis2DFFT();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

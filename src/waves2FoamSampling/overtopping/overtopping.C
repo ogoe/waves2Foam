@@ -41,13 +41,8 @@ namespace Foam
 defineTypeNameAndDebug(overtopping, 0);
 }
 
-
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
-
-
-
-
 // * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * //
+
 
 void Foam::overtopping::updateMesh(const mapPolyMesh&)
 {
@@ -81,6 +76,7 @@ void Foam::overtopping::movePoints(const polyMesh&)
 #endif
 
 #endif
+
 
 void Foam::overtopping::makeFile()
 {
@@ -125,9 +121,10 @@ void Foam::overtopping::makeFile()
     }
 }
 
+
 void Foam::overtopping::writeFileHeader()
 {
-    if ( outputFilePtr_.valid() )
+    if (outputFilePtr_.valid())
     {
         outputFilePtr_() << "Time:";
 
@@ -135,7 +132,7 @@ void Foam::overtopping::writeFileHeader()
 
         forAll (faceZones, fzi)
         {
-            if ( operateOnZone( faceZones[fzi] ) )
+            if (operateOnZone( faceZones[fzi] ))
             {
                 outputFilePtr_() << "\t" << faceZones[fzi].name();
             }
@@ -144,7 +141,7 @@ void Foam::overtopping::writeFileHeader()
         outputFilePtr_() << endl;
     }
 
-    if ( outputFileForcePtr_.valid() )
+    if (outputFileForcePtr_.valid())
     {
         outputFileForcePtr_() << "Time:";
 
@@ -152,7 +149,7 @@ void Foam::overtopping::writeFileHeader()
 
         forAll (faceZones, fzi)
         {
-            if ( operateOnZone( faceZones[fzi] ) )
+            if (operateOnZone( faceZones[fzi] ))
             {
                 outputFileForcePtr_() << "\t" << faceZones[fzi].name();
             }
@@ -163,8 +160,8 @@ void Foam::overtopping::writeFileHeader()
 }
 
 
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 Foam::overtopping::overtopping
 (
@@ -178,7 +175,7 @@ Foam::overtopping::overtopping
     rhoPhiName_( dict.lookupOrDefault<word>("rhoPhiName","rho*phi") ),
     rho1_( dimensionedScalar( obr.lookupObject<dictionary>("transportProperties").subDict("phase1").lookup("rho")).value() ),
     rho2_( dimensionedScalar( obr.lookupObject<dictionary>("transportProperties").subDict("phase2").lookup("rho")).value() ),
-    invRhoDiff_( 1.0 / ( rho1_ - rho2_ ) ),
+    invRhoDiff_( 1.0/( rho1_ - rho2_ ) ),
 
     mesh_( refCast<const fvMesh>( obr ) ),
 
@@ -186,12 +183,16 @@ Foam::overtopping::overtopping
 {
 }
 
+
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
+
 
 Foam::overtopping::~overtopping()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 bool Foam::overtopping::operateOnZone( const faceZone& fz ) const
 {
@@ -199,7 +200,7 @@ bool Foam::overtopping::operateOnZone( const faceZone& fz ) const
     const string& ownName( this->type() );
     const label N = ownName.size();
 
-    if ( !zoneName.compare(0, N, ownName) )
+    if (!zoneName.compare(0, N, ownName))
     {
         return true;
     }
@@ -209,6 +210,7 @@ bool Foam::overtopping::operateOnZone( const faceZone& fz ) const
     }
 }
 
+
 void Foam::overtopping::read(const dictionary& dict)
 {
     //    if (active_)
@@ -216,6 +218,7 @@ void Foam::overtopping::read(const dictionary& dict)
     //        initialise(dict);
     //    }
 }
+
 
 void Foam::overtopping::computeAndWriteBoundary
 (
@@ -270,18 +273,19 @@ void Foam::overtopping::computeAndWriteBoundary
         facePatchId = -1;
     }
 
-    if ( faceId > -1 )
+    if (faceId > -1)
     {
         const scalarField& phiw( phi.boundaryField()[facePatchId] );
         const scalarField& rhoPhiw( rhoPhi.boundaryField()[facePatchId] );
         const scalarField& magSfw( magSf.boundaryField()[facePatchId] );
         const vectorField& Sfw( Sf.boundaryField()[facePatchId] );
 
-        q = ( (rhoPhiw[ faceId ] - phiw[ faceId ] * rho2_) * invRhoDiff_ ) * Sfw[ faceId ] / magSfw[ faceId ];
-        f = rho1_ * q * Foam::mag( q / magSfw[ faceId ] );
+        q = ( (rhoPhiw[ faceId ] - phiw[ faceId ]*rho2_)*invRhoDiff_ )*Sfw[ faceId ]/magSfw[ faceId ];
+        f = rho1_*q * Foam::mag( q/magSfw[ faceId ] );
     }
 
 }
+
 
 void Foam::overtopping::computeAndWrite
 (
@@ -300,10 +304,10 @@ void Foam::overtopping::computeAndWrite
     {
         label faceI( fz[facei] );
 
-        if ( mesh_.isInternalFace( faceI ) )
+        if (mesh_.isInternalFace( faceI ))
         {
-            q[facei] = ( (rhoPhi[ faceI ] - phi[ faceI ] * rho2_) * invRhoDiff_ ) * Sf[ faceI ] / magSf[ faceI ];
-            f[facei] = rho1_ * q[facei] * Foam::mag( q[facei] / magSf[facei] );
+            q[facei] = ( (rhoPhi[ faceI ] - phi[ faceI ]*rho2_)*invRhoDiff_ )*Sf[ faceI ]/magSf[ faceI ];
+            f[facei] = rho1_*q[facei]*Foam::mag( q[facei]/magSf[facei] );
         }
         else
         {
@@ -314,7 +318,7 @@ void Foam::overtopping::computeAndWrite
     vector OT( Foam::gSum(q) );
     vector F ( Foam::gSum(f) );
 
-    if ( Pstream::master() )
+    if (Pstream::master())
     {
         outputFilePtr_() << "\t" << OT;
 
@@ -323,13 +327,14 @@ void Foam::overtopping::computeAndWrite
 
 }
 
+
 void Foam::overtopping::write()
 {
     makeFile();
 
     const faceZoneMesh& faceZones( mesh_.faceZones() );
 
-    if ( Pstream::master() )
+    if (Pstream::master())
     {
         outputFilePtr_() << mesh_.time().timeName();
 
@@ -341,13 +346,13 @@ void Foam::overtopping::write()
 
     forAll (faceZones, fzi)
     {
-        if ( operateOnZone( faceZones[fzi] ) )
+        if (operateOnZone( faceZones[fzi] ))
         {
             computeAndWrite( faceZones[fzi], phi, rhoPhi );
         }
     }
 
-    if ( Pstream::master() )
+    if (Pstream::master())
     {
         outputFilePtr_() << endl;
 

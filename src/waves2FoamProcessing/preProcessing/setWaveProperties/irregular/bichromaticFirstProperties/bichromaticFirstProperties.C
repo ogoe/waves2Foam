@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(bichromaticFirstProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, bichromaticFirstProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 bichromaticFirstProperties::bichromaticFirstProperties
 (
@@ -56,7 +54,9 @@ bichromaticFirstProperties::bichromaticFirstProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void bichromaticFirstProperties::set(Ostream& os)
 {
@@ -69,7 +69,7 @@ void bichromaticFirstProperties::set(Ostream& os)
     // Write the already given parameters
     writeGiven( os, "waveType" );
 
-    if ( dict_.found( "Tsoft" ) )
+    if (dict_.found( "Tsoft" ))
     {
         writeGiven( os, "Tsoft");
     }
@@ -88,7 +88,7 @@ void bichromaticFirstProperties::set(Ostream& os)
     writeGiven( os, "phi1" );
     writeGiven( os, "phi2" );
 
-    if ( write_ )
+    if (write_)
     {
         vector direction1( vector(dict_.lookup("direction1")));
         vector direction2( vector(dict_.lookup("direction2")));
@@ -112,6 +112,7 @@ void bichromaticFirstProperties::set(Ostream& os)
     // Write the closing bracket
     writeEnding( os );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

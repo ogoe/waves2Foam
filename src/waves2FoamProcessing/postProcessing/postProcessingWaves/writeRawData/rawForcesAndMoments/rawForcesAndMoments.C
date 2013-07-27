@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, rawForcesAndMoments, postProcess
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 void rawForcesAndMoments::resizeFields
 (
     List<std::pair<scalar, label> >& timeLabel,
@@ -54,6 +55,7 @@ void rawForcesAndMoments::resizeFields
 
     field1.setSize(N);
 }
+
 
 void rawForcesAndMoments::writeRawData
 (
@@ -112,11 +114,9 @@ void rawForcesAndMoments::writeRawData
     }
 }
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 rawForcesAndMoments::rawForcesAndMoments
 (
@@ -134,10 +134,13 @@ rawForcesAndMoments::rawForcesAndMoments
     getTimeDirs( inputDir_, timeDirs_ );
 }
 
+
 rawForcesAndMoments::~rawForcesAndMoments()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void rawForcesAndMoments::evaluate()
 {
@@ -148,6 +151,7 @@ void rawForcesAndMoments::evaluate()
 
     writeRawData(timeLabel, forces, moments);
 }
+
 
 void rawForcesAndMoments::readForceAndMomentData
 (
@@ -166,7 +170,7 @@ void rawForcesAndMoments::readForceAndMomentData
     {
         scalar truncateReading(0);
 
-        if ( removeDuplicate_ && timeI < timeDirs_.size() -1 )
+        if (removeDuplicate_ && timeI < timeDirs_.size() -1)
         {
             truncateReading = std::atof( timeDirs_[timeI + 1].c_str() );
         }
@@ -187,14 +191,14 @@ void rawForcesAndMoments::readForceAndMomentData
         std::getline( input, line);
 
         // Extracting time and overtopping flux vector
-        while ( std::getline( input, line ) )
+        while (std::getline( input, line ))
         {
             std::istringstream iss(line);
 
             // Reading the time instance
             iss >> val;
 
-            if ( truncateReading <= val )
+            if (truncateReading <= val)
             {
                 break;
             }
@@ -237,9 +241,9 @@ void rawForcesAndMoments::readForceAndMomentData
 
             Nentries++;
 
-            if ( Nentries == timeLabel.size() )
+            if (Nentries == timeLabel.size())
             {
-                resizeFields( timeLabel, forces, moments, 2 * Nentries );
+                resizeFields( timeLabel, forces, moments, 2*Nentries );
             }
         }
 
@@ -250,6 +254,7 @@ void rawForcesAndMoments::readForceAndMomentData
 
     std::sort( timeLabel.begin(), timeLabel.end(), pairSortA );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

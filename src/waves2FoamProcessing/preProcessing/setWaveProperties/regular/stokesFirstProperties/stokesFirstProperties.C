@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(stokesFirstProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, stokesFirstProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 stokesFirstProperties::stokesFirstProperties
 (
@@ -57,6 +55,7 @@ stokesFirstProperties::stokesFirstProperties
     omega_  = 0.0;
 }
 
+
 stokesFirstProperties::stokesFirstProperties
 (
     const Time& rT,
@@ -70,8 +69,9 @@ stokesFirstProperties::stokesFirstProperties
 
     period_ = readScalar( dict.lookup("period") );
     depth_  = readScalar( dict.lookup("depth") );
-    omega_  = 2.0 * PI_ / period_ ;
+    omega_  = 2.0*PI_/period_ ;
 }
+
 
 stokesFirstProperties::stokesFirstProperties
 (
@@ -87,10 +87,12 @@ stokesFirstProperties::stokesFirstProperties
 
     period_ = readScalar( dict.lookup("period"+string) );
     depth_  = readScalar( dict.lookup("depth") );
-    omega_  = 2.0 * PI_ / period_;
+    omega_  = 2.0*PI_/period_;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void stokesFirstProperties::set( Ostream& os )
 {
@@ -102,7 +104,7 @@ void stokesFirstProperties::set( Ostream& os )
     // Write the already given parameters
     writeGiven( os, "waveType" );
 
-    if ( dict_.found( "Tsoft" ) )
+    if (dict_.found( "Tsoft" ))
     {
         writeGiven( os, "Tsoft");
     }
@@ -113,7 +115,7 @@ void stokesFirstProperties::set( Ostream& os )
     writeGiven( os, "phi");
     writeGiven( os, "height");
 
-    if ( write_ )
+    if (write_)
     {
         vector direction( vector(dict_.lookup("direction")));
         direction /= Foam::mag(direction);
@@ -128,27 +130,27 @@ void stokesFirstProperties::set( Ostream& os )
 
     // Write the closing bracket
     writeEnding( os );
-
 }
+
 
 scalar stokesFirstProperties::linearWaveNumber() const
 {
     scalar lower(0.0);
 
-    scalar upper = Foam::max( 4.0 * PI_ / ( period_ * Foam::sqrt( Foam::mag(G_) * depth_)),
-                              2.0 * PI_ / ( Foam::pow( period_, 2.0) ) );
+    scalar upper = Foam::max( 4.0*PI_/( period_*Foam::sqrt( Foam::mag(G_)*depth_)),
+                              2.0*PI_/( Foam::pow( period_, 2.0) ) );
 
-    scalar middle(0.5 * (lower + upper) );
+    scalar middle(0.5*(lower + upper) );
 
     scalar tanhMax(100);
 
-    scalar valLower( Foam::pow(omega_, 2.0) - Foam::mag(G_) * lower * Foam::tanh( Foam::min(lower * depth_, tanhMax) ) ),
-           valUpper( Foam::pow(omega_, 2.0) - Foam::mag(G_) * upper * Foam::tanh( Foam::min(upper * depth_, tanhMax) ) ),
-           valMiddle( Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( Foam::min(middle * depth_, tanhMax) ) );
+    scalar valLower( Foam::pow(omega_, 2.0) - Foam::mag(G_)*lower*Foam::tanh( Foam::min(lower*depth_, tanhMax) ) ),
+           valUpper( Foam::pow(omega_, 2.0) - Foam::mag(G_)*upper*Foam::tanh( Foam::min(upper*depth_, tanhMax) ) ),
+           valMiddle( Foam::pow(omega_, 2.0) - Foam::mag(G_)*middle*Foam::tanh( Foam::min(middle*depth_, tanhMax) ) );
 
-    while ( true )
+    while (true)
     {
-        if ( Foam::sign( valLower ) == Foam::sign( valMiddle ) )
+        if (Foam::sign( valLower ) == Foam::sign( valMiddle ))
         {
             lower    = middle;
             valLower = valMiddle;
@@ -159,11 +161,11 @@ scalar stokesFirstProperties::linearWaveNumber() const
             valUpper = valMiddle;
         }
 
-        middle = 0.5 * ( lower + upper );
+        middle = 0.5*( lower + upper );
 
-        valMiddle = Foam::pow(omega_, 2.0) - Foam::mag(G_) * middle * Foam::tanh( Foam::min(middle * depth_, tanhMax) );
+        valMiddle = Foam::pow(omega_, 2.0) - Foam::mag(G_)*middle*Foam::tanh( Foam::min(middle*depth_, tanhMax) );
 
-        if ( Foam::mag(valMiddle) < 1.0e-13 || Foam::mag(valLower - valUpper) / middle < 1.0e-13 )
+        if (Foam::mag(valMiddle) < 1.0e-13 || Foam::mag(valLower - valUpper)/middle < 1.0e-13)
         {
             break;
         }
@@ -171,6 +173,7 @@ scalar stokesFirstProperties::linearWaveNumber() const
 
     return middle;
 }
+
 
 // Note that the frequency is NOT the cyclic frequency
 scalar stokesFirstProperties::linearWaveNumber
@@ -180,12 +183,11 @@ scalar stokesFirstProperties::linearWaveNumber
 )
 {
     depth_ = depth;
-    omega_ = 2.0 * PI_ * frequency;
-    period_ = 1.0 / frequency;
+    omega_ = 2.0*PI_*frequency;
+    period_ = 1.0/frequency;
 
     return linearWaveNumber();
 }
-
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

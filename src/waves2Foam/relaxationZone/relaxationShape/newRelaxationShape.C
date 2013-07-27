@@ -60,15 +60,18 @@ autoPtr<relaxationShape> relaxationShape::New
     }
 
     dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find("relaxationShape"+relaxationShapeTypeName);
+        dictionaryConstructorTablePtr_->find
+        (
+            "relaxationShape"+relaxationShapeTypeName
+        );
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {
         FatalErrorIn
         (
             "relaxationShape::New(const word&, const fvMesh&)"
-        )   << "Unknown relaxation shape type 'relaxationShape" << relaxationShapeTypeName << "'"
-            << endl << endl
+        )   << "Unknown relaxation shape type 'relaxationShape"
+            << relaxationShapeTypeName << "'" << endl << endl
             << "Valid relaxation shape types are :" << endl
             << dictionaryConstructorTablePtr_->toc()
             << exit(FatalError);

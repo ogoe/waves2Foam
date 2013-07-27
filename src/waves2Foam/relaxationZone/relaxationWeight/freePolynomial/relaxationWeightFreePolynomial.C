@@ -37,9 +37,15 @@ namespace relaxationWeights
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationWeightFreePolynomial, 0);
-addToRunTimeSelectionTable(relaxationWeight, relaxationWeightFreePolynomial, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationWeight,
+    relaxationWeightFreePolynomial,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationWeightFreePolynomial::relaxationWeightFreePolynomial
 (
@@ -55,7 +61,9 @@ relaxationWeightFreePolynomial::relaxationWeightFreePolynomial
     exponent_ = static_cast<scalar>( static_cast<label>(exponent_) );
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void relaxationWeightFreePolynomial::computeWeights
 (
@@ -69,6 +77,7 @@ void relaxationWeightFreePolynomial::computeWeights
         weight[celli] = 1.0 - Foam::pow( sigma[celli], exponent_ );
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

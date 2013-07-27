@@ -38,10 +38,8 @@ namespace waveTheories
 defineTypeNameAndDebug(waveTheory, 0);
 defineRunTimeSelectionTable(waveTheory, dictionary);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 waveTheory::waveTheory
 (
@@ -59,7 +57,7 @@ waveTheory::waveTheory
 // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
     g_( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() ),
 
-    direction_( g_ / mag(g_) ),
+    direction_( g_/mag(g_) ),
 
     coeffDict_(subDict(subDictName + "Coeffs")),
 
@@ -91,6 +89,7 @@ waveTheory::~waveTheory()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 scalarField waveTheory::eta
 (
     const pointField& x,
@@ -106,6 +105,7 @@ scalarField waveTheory::eta
 
     return temp;
 }
+
 
 scalarField waveTheory::ddxPd
 (
@@ -124,6 +124,7 @@ scalarField waveTheory::ddxPd
     return temp;
 }
 
+
 vectorField waveTheory::U
 (
     const pointField& x,
@@ -139,6 +140,7 @@ vectorField waveTheory::U
 
     return temp;
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

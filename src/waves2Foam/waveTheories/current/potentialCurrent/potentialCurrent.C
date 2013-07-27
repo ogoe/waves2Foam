@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, potentialCurrent, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 potentialCurrent::potentialCurrent
 (
     const word& subDictName,
@@ -59,18 +60,21 @@ void potentialCurrent::printCoeffs()
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 scalar potentialCurrent::factor(const scalar& time) const
 {
     scalar factor(1);
     if (Tsoft_ > 0.0)
     {
-        factor = Foam::sin(PI_ / 2.0 / Tsoft_ * Foam::min(Tsoft_, time));
+        factor = Foam::sin(PI_/2.0/Tsoft_*Foam::min(Tsoft_, time));
     }
 
     return factor;
 }
+
 
 scalar potentialCurrent::eta
 (
@@ -83,6 +87,7 @@ scalar potentialCurrent::eta
     return eta;
 }
 
+
 scalar potentialCurrent::ddxPd
 (
     const point& x,
@@ -93,16 +98,18 @@ scalar potentialCurrent::ddxPd
     return 0.0;
 }
 
+
 scalar potentialCurrent::p
 (
     const point& x,
     const scalar& time
 ) const
 {
-    scalar result = rhoWater_ * Foam::mag(g_) * localSeaLevel_;
+    scalar result = rhoWater_*Foam::mag(g_)*localSeaLevel_;
 
     return result;
 }
+
 
 vector potentialCurrent::U
 (
@@ -110,8 +117,9 @@ vector potentialCurrent::U
     const scalar& time
 ) const
 {
-    return (U_ * factor(time));
+    return (U_*factor(time));
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

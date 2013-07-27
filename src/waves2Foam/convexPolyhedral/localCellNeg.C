@@ -40,6 +40,7 @@ namespace Foam
 {
 // * * * * * * * * * * * * * * * Constructurs  * * * * * * * * * * * * * * * //
 
+
 localCellNeg::localCellNeg
 (
     const fvMesh& mesh,
@@ -52,6 +53,7 @@ localCellNeg::localCellNeg
 {
     localizeCell(mesh, cellI);
 }
+
 
 localCellNeg::localCellNeg
 (
@@ -70,11 +72,12 @@ localCellNeg::localCellNeg
 {
     cellConnectivity();
 
-    if ( checkCell )
+    if (checkCell)
     {
         notImplemented("Check cell in localCell");
     }
 }
+
 
 localCellNeg::localCellNeg()
 :
@@ -86,10 +89,11 @@ localCellNeg::localCellNeg()
 
 // * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * * * //
 
+
 void localCellNeg::localizeCell
 (
-        const fvMesh& mesh,
-        const label& cellI
+    const fvMesh& mesh,
+    const label& cellI
 )
 {
     // Reference to some global mesh data
@@ -115,7 +119,7 @@ void localCellNeg::localizeCell
         label nFace( cc_[facei] );
 
         // If the other holds, the normal points outward per definition
-        if ( nFace < nFaces && own[nFace] != cellI )
+        if (nFace < nFaces && own[nFace] != cellI)
         {
             face& f( fL_[facei] );
             f = f.reverseFace();
@@ -176,9 +180,9 @@ void localCellNeg::localizeCell
         {
             label count(0);
 
-            while ( true )
+            while (true)
             {
-                if ( eLf[edgei] == eL_[count] )
+                if (eLf[edgei] == eL_[count])
                 {
                     fE[edgei] = count;
 
@@ -193,8 +197,8 @@ void localCellNeg::localizeCell
     }
 
     cellConnectivity();
-
 }
+
 
 void localCellNeg::cellConnectivity()
 {
@@ -224,9 +228,9 @@ void localCellNeg::cellConnectivity()
         {
             label count(0);
 
-            while ( true )
+            while (true)
             {
-                if ( eLf[edgei] == eL_[count] )
+                if (eLf[edgei] == eL_[count])
                 {
                     fE[edgei] = count;
 
@@ -241,12 +245,8 @@ void localCellNeg::cellConnectivity()
     }
 }
 
-
-// * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * Public Member Functions  * * * * * * * * * * * * * //
+
 
 void localCellNeg::localizeCell
 (
@@ -254,7 +254,7 @@ void localCellNeg::localizeCell
 )
 {
     // Set the cell to the negative or positive intersected cell
-    if ( cellSide == "neg" )
+    if (cellSide == "neg")
     {
         this->cc_ = this->ccNeg_;
     }
@@ -310,10 +310,12 @@ void localCellNeg::localizeCell
     nextFace_ = cc_.size();
 }
 
+
 void localCellNeg::initCell( const fvMesh& mesh, const label& cellI)
 {
     localizeCell(mesh, cellI);
 }
+
 
 void localCellNeg::emptyCell()
 {

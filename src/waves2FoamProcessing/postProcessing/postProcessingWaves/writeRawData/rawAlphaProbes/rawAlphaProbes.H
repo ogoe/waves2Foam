@@ -115,7 +115,7 @@ public:
         virtual ~rawAlphaProbes();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 
         void readAlphaProbesData
         (

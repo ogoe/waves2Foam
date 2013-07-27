@@ -37,14 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(interpolateOvertopping, 0);
 addToRunTimeSelectionTable(postProcessingWaves, interpolateOvertopping, postProcessingWaves);
 
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
-
-
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 interpolateOvertopping::interpolateOvertopping
 (
@@ -57,10 +51,13 @@ interpolateOvertopping::interpolateOvertopping
 {
 }
 
+
 interpolateOvertopping::~interpolateOvertopping()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void interpolateOvertopping::evaluate()
 {
@@ -88,7 +85,7 @@ void interpolateOvertopping::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii] * OT[leftData[ii]] + (1.0 - weights[ii] ) * OT[rightData[ii]];
+            output[ii] = weights[ii]*OT[leftData[ii]] + (1.0 - weights[ii] )*OT[rightData[ii]];
         }
 
         std::stringstream ss;
@@ -104,6 +101,7 @@ void interpolateOvertopping::evaluate()
 
     writeNameDict( readScalar(actionProperties_.lookup("deltaT")), OTnames);
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

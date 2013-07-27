@@ -116,7 +116,7 @@ public:
         virtual ~rawForcesAndMoments();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 
         void readForceAndMomentData
         (

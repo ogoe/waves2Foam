@@ -94,7 +94,7 @@ public:
         virtual ~circularDistribution();
 
     // Member Functions
-        pointField evaluate();
+        virtual pointField evaluate();
 };
 
 

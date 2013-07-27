@@ -111,7 +111,7 @@ public:
         virtual ~trapz();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

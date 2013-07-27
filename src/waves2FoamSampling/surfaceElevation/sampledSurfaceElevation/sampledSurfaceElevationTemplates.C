@@ -30,6 +30,7 @@ License
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
+
 template <class Type>
 Foam::sampledSurfaceElevation::volFieldSampler<Type>::volFieldSampler
 (
@@ -132,6 +133,7 @@ Foam::label Foam::sampledSurfaceElevation::grep
 
     return nFields;
 }
+
 
 template<class T>
 void Foam::sampledSurfaceElevation::combineSampledValues

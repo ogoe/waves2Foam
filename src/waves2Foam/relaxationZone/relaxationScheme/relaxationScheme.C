@@ -39,10 +39,6 @@ namespace relaxationSchemes
 defineTypeNameAndDebug(relaxationScheme, 0);
 defineRunTimeSelectionTable(relaxationScheme, dictionary);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 relaxationScheme::relaxationScheme
@@ -64,10 +60,12 @@ relaxationScheme::relaxationScheme
     coeffDict_(subDict(subDictName + "Coeffs").subDict("relaxationZone"))
 {
     relaxShape_  = relaxationShapes::relaxationShape::New(subDictName, mesh_);
-    relaxWeight_ = relaxationWeights::relaxationWeight::New(subDictName, mesh_);
+    relaxWeight_ = relaxationWeights::relaxationWeight::
+        New(subDictName, mesh_);
     waveProps_   = waveTheories::waveTheory::New(subDictName, mesh_);
     numBeach_    = numericalBeaches::numericalBeach::New(subDictName, mesh_ );
 }
+
 
 relaxationScheme::~relaxationScheme()
 {}
@@ -88,6 +86,7 @@ void relaxationScheme::signedPointToSurfaceDistance
     }
 }
 
+
 scalar relaxationScheme::signedPointToSurfaceDistance
 (
     const point& pp
@@ -99,6 +98,7 @@ scalar relaxationScheme::signedPointToSurfaceDistance
 
     return temp;
 }
+
 
 void relaxationScheme::numericalBeach
 (

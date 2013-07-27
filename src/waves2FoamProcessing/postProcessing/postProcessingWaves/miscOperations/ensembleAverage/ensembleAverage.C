@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, ensembleAverage, postProcessingW
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void ensembleAverage::evaluateScalar()
 {
     Info << "        - Ensemble average of scalar quantities (N = dt/T = "
@@ -74,6 +75,7 @@ void ensembleAverage::evaluateScalar()
     writeScalar( ensAverage );
 }
 
+
 void ensembleAverage::writeScalar
 (
     const List<scalarField>& ensAv
@@ -96,12 +98,13 @@ void ensembleAverage::writeScalar
 
         for (int i=0; i < N_; i++)
         {
-            spectrumPtr_() << static_cast<scalar>(i) * deltaT_ << tab << data[i] << endl;
+            spectrumPtr_() << static_cast<scalar>(i)*deltaT_ << tab << data[i] << endl;
         }
 
-        spectrumPtr_() << static_cast<scalar>(N_) * deltaT_ << tab << data[0] << endl;
+        spectrumPtr_() << static_cast<scalar>(N_)*deltaT_ << tab << data[0] << endl;
     }
 }
+
 
 void ensembleAverage::evaluateVector()
 {
@@ -138,6 +141,7 @@ void ensembleAverage::evaluateVector()
     writeVector( ensAverage );
 }
 
+
 void ensembleAverage::writeVector
 (
     const List<vectorField>& ensAv
@@ -160,20 +164,22 @@ void ensembleAverage::writeVector
 
         for (int i=0; i < N_; i++)
         {
-            spectrumPtr_() << static_cast<scalar>(i) * deltaT_
+            spectrumPtr_() << static_cast<scalar>(i)*deltaT_
                            << tab << data[i].x()
                            << tab << data[i].y()
                            << tab << data[i].z() << endl;
         }
 
-        spectrumPtr_() << static_cast<scalar>(N_) * deltaT_
+        spectrumPtr_() << static_cast<scalar>(N_)*deltaT_
                        << tab << data[0].x()
                        << tab << data[0].y()
                        << tab << data[0].z() << endl;
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 ensembleAverage::ensembleAverage
 (
@@ -192,33 +198,36 @@ ensembleAverage::ensembleAverage
 
     period_ = readScalar( actionProperties_.lookup("period") );
 
-    if ( Foam::mag( static_cast<label>( period_ / deltaT_ ) * deltaT_ - period_ ) < 10 * SMALL )
+    if (Foam::mag( static_cast<label>( period_/deltaT_ )*deltaT_ - period_ ) < 10*SMALL)
     {
-        N_ = static_cast<label>( period_ / deltaT_ );
+        N_ = static_cast<label>( period_/deltaT_ );
     }
     else
     {
         FatalErrorIn("ensembleAverage::ensembleAverage(const fvMesh& mesh, const dictionary& actionProp, const word& action)")
                     << "    There is not an integer number of time steps per period.\n"
                     << "    T = " << period_ << " s and " << "dt = " << deltaT_ << " s.\n"
-                    << "    Yielding a total of " << period_ / deltaT_ << " dt per period, which is non-integer."
+                    << "    Yielding a total of " << period_/deltaT_ << " dt per period, which is non-integer."
                     << exit(FatalError);
     }
 }
+
 
 ensembleAverage::~ensembleAverage()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void ensembleAverage::evaluate()
 {
-    if ( dataType() == "scalar" )
+    if (dataType() == "scalar")
     {
         evaluateScalar();
     }
-    else if ( dataType() == "vector" )
+    else if (dataType() == "vector")
     {
         evaluateVector();
     }
@@ -227,7 +236,6 @@ void ensembleAverage::evaluate()
         notImplemented("Data types other than scalar and vector is not supported.");
     }
 }
-
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

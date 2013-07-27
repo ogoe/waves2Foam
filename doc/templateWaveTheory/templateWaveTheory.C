@@ -67,7 +67,7 @@ scalar templateWaveTheory::factor(const scalar& time) const
     scalar factor(1.0);
     if (Tsoft_ > 0.0)
     {
-        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time));
+        factor = Foam::sin(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time));
     }
 
     return factor;
@@ -123,7 +123,7 @@ vector templateWaveTheory::U
     // Cast into a directed vector. Look into any of the existing waves
     // theories to test how this is done correctly. Without the definitions
     // of the variables, it looks something like:
-    //  return Uhorz * k_ / K_ - Uvert * direction_;
+    //  return Uhorz*k_/K_ - Uvert*direction_;
     // Note "-" because of "g" working in the opposite direction
 
     return vector::zero;

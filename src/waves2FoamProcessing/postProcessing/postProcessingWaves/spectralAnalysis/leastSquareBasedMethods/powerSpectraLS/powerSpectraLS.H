@@ -33,10 +33,10 @@ Description
     contributions, which make up the signal. The output is given in the following
     format
 
-        1    <value> // amplitude of cos( 1 * omega * t)
-        1    <value> // amplitude of sin( 1 * omega * t)
-        2    <value> // amplitude of cos( 2 * omega * t)
-        2    <value> // amplitude of sin( 2 * omega * t)
+        1    <value> // amplitude of cos( 1*omega*t)
+        1    <value> // amplitude of sin( 1*omega*t)
+        2    <value> // amplitude of cos( 2*omega*t)
+        2    <value> // amplitude of sin( 2*omega*t)
         ..... etc .....
         0    <value> // average value
 
@@ -133,7 +133,7 @@ public:
         virtual ~powerSpectraLS();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

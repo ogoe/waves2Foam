@@ -185,8 +185,7 @@ public:
             postProcessingWaves,
             postProcessingWaves,
             (
-//                   const fvMesh& mesh,
-                   const Time& rT,
+                const Time& rT,
                 const dictionary& actionProp,
                 const word& action
             ),

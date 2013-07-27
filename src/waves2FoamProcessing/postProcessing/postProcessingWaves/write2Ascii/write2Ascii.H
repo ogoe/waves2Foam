@@ -97,7 +97,7 @@ public:
         virtual ~write2Ascii();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

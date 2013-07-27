@@ -99,7 +99,7 @@ public:
         virtual ~interpolateSurfaceElevation();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

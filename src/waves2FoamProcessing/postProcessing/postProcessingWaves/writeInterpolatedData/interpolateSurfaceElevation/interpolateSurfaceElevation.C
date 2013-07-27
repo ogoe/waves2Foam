@@ -37,14 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(interpolateSurfaceElevation, 0);
 addToRunTimeSelectionTable(postProcessingWaves, interpolateSurfaceElevation, postProcessingWaves);
 
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
-
-
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 interpolateSurfaceElevation::interpolateSurfaceElevation
 (
@@ -57,10 +51,13 @@ interpolateSurfaceElevation::interpolateSurfaceElevation
 {
 }
 
+
 interpolateSurfaceElevation::~interpolateSurfaceElevation()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void interpolateSurfaceElevation::evaluate()
 {
@@ -88,7 +85,7 @@ void interpolateSurfaceElevation::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii] * eta[leftData[ii]] + (1.0 - weights[ii] ) * eta[rightData[ii]];
+            output[ii] = weights[ii]*eta[leftData[ii]] + (1.0 - weights[ii] )*eta[rightData[ii]];
         }
 
         std::stringstream ss;
@@ -104,6 +101,7 @@ void interpolateSurfaceElevation::evaluate()
 
     writeXYZDict( readScalar(actionProperties_.lookup("deltaT")), x, y, z);
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

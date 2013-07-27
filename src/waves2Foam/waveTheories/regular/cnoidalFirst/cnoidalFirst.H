@@ -147,9 +147,9 @@ public:
 
 
     // Member Functions
-        Switch conflictTSoftInitialise() const
+        virtual Switch conflictTSoftInitialise() const
         {
-            if ( Tsoft_ > 0 )
+            if (Tsoft_ > 0)
             {
                 return true;
             }
@@ -161,20 +161,20 @@ public:
 
         void printCoeffs();
 
-        scalar eta
+        virtual scalar eta
         (
             const point&,
             const scalar&
         ) const;
 
-        scalar ddxPd
+        virtual scalar ddxPd
         (
             const point&,
             const scalar&,
             const vector&
         ) const;
 
-        vector U
+        virtual vector U
         (
             const point&,
             const scalar&

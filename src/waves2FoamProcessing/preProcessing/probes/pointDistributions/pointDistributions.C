@@ -36,10 +36,8 @@ namespace Foam
 defineTypeNameAndDebug(pointDistributions, 0);
 defineRunTimeSelectionTable(pointDistributions, pointDistributions);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 pointDistributions::pointDistributions
 (
@@ -52,6 +50,7 @@ pointDistributions::pointDistributions
     pointDict_( dict )
 {
 }
+
 
 autoPtr<pointDistributions> pointDistributions::New
 (
@@ -78,9 +77,6 @@ autoPtr<pointDistributions> pointDistributions::New
 
     return autoPtr<pointDistributions>(cstrIter()( mesh, dict));
 }
-
-// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
-
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

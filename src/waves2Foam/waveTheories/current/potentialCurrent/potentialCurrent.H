@@ -104,9 +104,9 @@ public:
 
 
     // Member Functions
-        Switch conflictTSoftInitialise() const
+        virtual Switch conflictTSoftInitialise() const
         {
-            if ( Foam::mag(U_) > SMALL && Tsoft_ > 0 )
+            if (Foam::mag(U_) > SMALL && Tsoft_ > 0)
             {
                 return true;
             }
@@ -118,26 +118,26 @@ public:
 
         void printCoeffs();
 
-        scalar eta
+        virtual scalar eta
         (
             const point&,
             const scalar&
         ) const;
 
-        scalar ddxPd
+        virtual scalar ddxPd
         (
             const point&,
             const scalar&,
             const vector&
         ) const;
 
-        scalar p
+        virtual scalar p
         (
             const point&,
             const scalar&
         ) const;
 
-        vector U
+        virtual vector U
         (
             const point&,
             const scalar&

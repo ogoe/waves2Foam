@@ -115,7 +115,7 @@ public:
         virtual ~rawSurfaceElevation();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 
         void readSurfaceElevationData
         (

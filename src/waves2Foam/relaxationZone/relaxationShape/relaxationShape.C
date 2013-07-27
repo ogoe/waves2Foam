@@ -40,10 +40,6 @@ namespace relaxationShapes
 defineTypeNameAndDebug(relaxationShape, 0);
 defineRunTimeSelectionTable(relaxationShape, dictionary);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 relaxationShape::relaxationShape
@@ -65,10 +61,13 @@ relaxationShape::relaxationShape
 
     refreshIndexSigma_(-1)
 {
-    // Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-    vector g( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() );
+    vector g( uniformDimensionedVectorField
+        (
+            mesh_.thisDb()
+            .lookupObject<uniformDimensionedVectorField>("g")).value()
+        );
 
-    direction_ = g / mag(g);
+    direction_ = g/mag(g);
 }
 
 
@@ -78,9 +77,10 @@ relaxationShape::~relaxationShape()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 void relaxationShape::refreshCells()
 {
-    if ( refreshIndexCells_ != mesh_.time().timeIndex() && mesh_.changing() )
+    if (refreshIndexCells_ != mesh_.time().timeIndex() && mesh_.changing())
     {
         findComputationalCells();
     }
@@ -88,11 +88,12 @@ void relaxationShape::refreshCells()
     refreshIndexCells_ = mesh_.time().timeIndex();
 }
 
+
 void relaxationShape::refreshSigma()
 {
     refreshCells();
 
-    if ( refreshIndexSigma_ != mesh_.time().timeIndex() )
+    if (refreshIndexSigma_ != mesh_.time().timeIndex())
     {
         computeSigmaCoordinate();
     }

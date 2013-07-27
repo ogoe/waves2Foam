@@ -125,11 +125,13 @@ int main(int argc, char *argv[])
     // Read the relaxation names from waveProperties
     wordList relaxNames( waveProperties.lookup("relaxationNames") );
 
-    // Create the relaxation shape function and add the data to the above generated fields
+    // Create the relaxation shape function and add the data to the above
+    // generated fields
     forAll (relaxNames, relaxi)
     {
         // Get relaxation zone cells and coorsponding sigma coordinates
-        autoPtr<relaxationShapes::relaxationShape> relaxShape = relaxationShapes::relaxationShape::New(relaxNames[relaxi], mesh);
+        autoPtr<relaxationShapes::relaxationShape> relaxShape
+            = relaxationShapes::relaxationShape::New(relaxNames[relaxi], mesh);
 
         const labelList& cells( relaxShape->cells());
 
@@ -141,10 +143,13 @@ int main(int argc, char *argv[])
             srzl[cells[celli]] = sigma[celli];
         }
 
-        Info << relaxNames[relaxi] << " has " << cells.size() << " cells\n" << endl;
+        Info << relaxNames[relaxi] << " has "
+             << cells.size() << " cells\n" << endl;
 
         // Compute relaxation zone weights
-        autoPtr<relaxationWeights::relaxationWeight> relaxWeight = relaxationWeights::relaxationWeight::New(relaxNames[relaxi], mesh);
+        autoPtr<relaxationWeights::relaxationWeight> relaxWeight
+            = relaxationWeights::relaxationWeight::
+              New(relaxNames[relaxi], mesh);
 
         scalarField weights(sigma.size(), 1.0);
 

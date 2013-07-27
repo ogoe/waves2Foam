@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(lineDistribution, 0);
 addToRunTimeSelectionTable(pointDistributions, lineDistribution, pointDistributions);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 lineDistribution::lineDistribution
 (
@@ -52,10 +50,13 @@ lineDistribution::lineDistribution
 {
 }
 
+
 lineDistribution::~lineDistribution()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 pointField lineDistribution::evaluate()
 {
@@ -76,11 +77,11 @@ pointField lineDistribution::evaluate()
         factor += Foam::pow( stretch, static_cast<scalar>(i) );
     }
 
-    point dx( (xe - xs) / factor );
+    point dx( (xe - xs)/factor );
 
     for (int i=1; i < N; i++)
     {
-        res[i] = res[i-1] + Foam::pow( stretch, static_cast<scalar>(i) ) * dx;
+        res[i] = res[i - 1] + Foam::pow( stretch, static_cast<scalar>(i) )*dx;
     }
 
     return res;

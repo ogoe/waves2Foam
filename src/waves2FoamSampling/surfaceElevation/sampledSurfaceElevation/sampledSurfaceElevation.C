@@ -44,6 +44,7 @@ bool Foam::sampledSurfaceElevation::verbose_ = false;
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
+
 bool Foam::sampledSurfaceElevation::checkFieldTypes()
 {
     wordList fieldTypes(fieldNames_.size());
@@ -286,11 +287,13 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
 
 // * * * * * * * * * * * * * * * * Destructor  * * * * * * * * * * * * * * * //
 
+
 Foam::sampledSurfaceElevation::~sampledSurfaceElevation()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void Foam::sampledSurfaceElevation::verbose(const bool verbosity)
 {
@@ -320,7 +323,7 @@ void Foam::sampledSurfaceElevation::write()
 
 bool Foam::sampledSurfaceElevation::performAction()
 {
-    if ( surfaceSampleDeltaT_ <= 10 * SMALL )
+    if (surfaceSampleDeltaT_ <= 10*SMALL)
     {
         return mesh_.time().value() >= startTime_;
     }
@@ -342,17 +345,18 @@ bool Foam::sampledSurfaceElevation::performAction()
     }
 }
 
+
 void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
 (
     fieldGroup<scalar>& fields
 )
 {
-    if ( fields.size() && performAction() )
+    if (fields.size() && performAction())
     {
         scalarField result(0);
         sampleAndIntegrate( scalarFields_, result );
 
-        if ( Pstream::master() )
+        if (Pstream::master())
         {
             // create file if not already there, notice: this shall be done on master node only
             if (surfaceElevationFilePtr_.empty())
@@ -405,6 +409,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
         }
     }
 }
+
 
 void Foam::sampledSurfaceElevation::sampleAndIntegrate
 (
@@ -529,11 +534,11 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
                 const Field<scalar>& alpha = *columns[0];
                 scalar tolerance(0.0001);
 
-                if ( alpha.size() < 2 )
+                if (alpha.size() < 2)
                 {
                     result[seti] = -GREAT;
                 }
-                else if (    ( alpha[0] < tolerance && alpha[alpha.size()-1] < tolerance )
+                else if (   ( alpha[0] < tolerance && alpha[alpha.size()-1] < tolerance)
                           || ( alpha[0] > 1.0 - tolerance && alpha[alpha.size()-1] > 1.0 - tolerance ) )
                 {
                     result[seti] = -GREAT;
@@ -545,7 +550,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
 
                     for (int pointi=0; pointi < alpha.size() - 1; pointi++)
                     {
-                        value += (cs.scalarCoord(pointi+1) - cs.scalarCoord(pointi)) * ( alpha[pointi+1] + alpha[pointi] );
+                        value += (cs.scalarCoord(pointi + 1) - cs.scalarCoord(pointi))*( alpha[pointi + 1] + alpha[pointi] );
 
                         minScalarCoord = Foam::min( minScalarCoord, cs.scalarCoord(pointi + 1) );
                     }

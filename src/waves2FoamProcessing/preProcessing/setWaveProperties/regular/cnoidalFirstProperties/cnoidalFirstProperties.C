@@ -45,9 +45,10 @@ addToRunTimeSelectionTable(setWaveProperties, cnoidalFirstProperties, setWavePro
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 double lowerMBound_f ( double m, void *params )
 {
-    // Solves to find the value of m at which Foam::sqrt(1.0 + H / d * A) == 0.0
+    // Solves to find the value of m at which Foam::sqrt(1.0 + H/d*A) == 0.0
     struct cnoidalFirstParams *p = (struct cnoidalFirstParams * ) params;
 
     double d = p->depth_;
@@ -56,12 +57,13 @@ double lowerMBound_f ( double m, void *params )
     double K = gsl_sf_ellint_Kcomp( Foam::sqrt(m), GSL_PREC_DOUBLE );
     double E = gsl_sf_ellint_Ecomp( Foam::sqrt(m), GSL_PREC_DOUBLE );
 
-    double A = 2.0 / m - 1.0 - 3.0 / m * E / K;
+    double A = 2.0/m - 1.0 - 3.0/m*E/K;
 
-    return 1.0 - 1.0e-8 + H / d * A; // The value of 1.0e-8 is added to ensure strictly larger than 0!
+    return 1.0 - 1.0e-8 + H/d*A; // The value of 1.0e-8 is added to ensure strictly larger than 0!
 }
 
-double cnoidalFirst_f ( double m, void * params)
+
+double cnoidalFirst_f ( double m, void *params)
 {
     struct cnoidalFirstParams *p = (struct cnoidalFirstParams * ) params;
 
@@ -73,10 +75,11 @@ double cnoidalFirst_f ( double m, void * params)
     double K = gsl_sf_ellint_Kcomp( Foam::sqrt(m), GSL_PREC_DOUBLE );
     double E = gsl_sf_ellint_Ecomp( Foam::sqrt(m), GSL_PREC_DOUBLE );
 
-    double A = 2.0 / m - 1.0 - 3.0 / m * E / K;
+    double A = 2.0/m - 1.0 - 3.0/m*E/K;
 
-    return T * Foam::sqrt(G / d) * Foam::sqrt(1.0 + H / d * A) - Foam::sqrt( 16.0 * d / (3.0 * H) * m * Foam::pow(K, 2.0) );
+    return T*Foam::sqrt(G/d)*Foam::sqrt(1.0 + H/d*A) - Foam::sqrt( 16.0*d/(3.0*H)*m * Foam::pow(K, 2.0) );
 }
+
 
 double cnoidalFirstProperties::solve()
 {
@@ -107,7 +110,7 @@ double cnoidalFirstProperties::solve()
 
         status = gsl_root_test_residual( lowerMBound_f(m, &params), eps );
 
-        if ( status == 0 )
+        if (status == 0)
         {
             break;
         }
@@ -115,12 +118,12 @@ double cnoidalFirstProperties::solve()
 
     mLower = m;
 
-    while ( true )
+    while (true)
     {
         if (( cnoidalFirst_f(mLower, &params) < 0.0 && cnoidalFirst_f(mUpper, &params) < 0.0 ) ||
              ( cnoidalFirst_f(mLower, &params) > 0.0 && cnoidalFirst_f(mUpper, &params)    > 0.0 ))
         {
-            mLower = 0.999 * mLower + 0.001 * mUpper;
+            mLower = 0.999*mLower + 0.001*mUpper;
         }
         else
         {
@@ -145,7 +148,7 @@ double cnoidalFirstProperties::solve()
 
         status = gsl_root_test_residual( cnoidalFirst_f(m, &params), eps );
 
-        if ( status == 0 )
+        if (status == 0)
         {
             break;
         }
@@ -157,7 +160,9 @@ double cnoidalFirstProperties::solve()
     return m;
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 cnoidalFirstProperties::cnoidalFirstProperties
 (
@@ -174,7 +179,9 @@ cnoidalFirstProperties::cnoidalFirstProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void cnoidalFirstProperties::set( Ostream& os)
 {
@@ -186,7 +193,7 @@ void cnoidalFirstProperties::set( Ostream& os)
     // Write the already given parameters
     writeGiven( os, "waveType" );
 
-    if ( dict_.found( "Tsoft" ) )
+    if (dict_.found( "Tsoft" ))
     {
         writeGiven( os, "Tsoft");
     }
@@ -195,7 +202,7 @@ void cnoidalFirstProperties::set( Ostream& os)
     writeGiven( os, "period");
     writeGiven( os, "height");
 
-    if ( m < 0.0 )
+    if (m < 0.0)
     {
         Info << "\nPARAMETERS NOT SET\nNo cnoidal wave solution exists for given input\n" << endl;
     }
@@ -204,13 +211,13 @@ void cnoidalFirstProperties::set( Ostream& os)
         double K = gsl_sf_ellint_Kcomp( Foam::sqrt(m), GSL_PREC_DOUBLE );
         double E = gsl_sf_ellint_Ecomp( Foam::sqrt(m), GSL_PREC_DOUBLE );
 
-        double A = 2.0 / m - 1.0 - 3.0 / m * E / K;
+        double A = 2.0/m - 1.0 - 3.0/m*E/K;
 
-        double L = Foam::sqrt( 16.0 * m * Foam::pow(K, 2.0) * Foam::pow(d_, 3.0) / (3.0 * H_));
-        double c = Foam::sqrt( G_ * d_ * (1 + A * H_ / d_));
-        double omega = 2 * PI_ / T_;
+        double L = Foam::sqrt( 16.0*m * Foam::pow(K, 2.0)*Foam::pow(d_, 3.0)/(3.0*H_));
+        double c = Foam::sqrt( G_*d_*(1 + A*H_/d_));
+        double omega = 2*PI_/T_;
 
-        if ( write_ )
+        if (write_)
         {
             writeDerived(os, "omega", omega);
             writeDerived(os, "length", L);
@@ -233,6 +240,7 @@ void cnoidalFirstProperties::set( Ostream& os)
     // Write the closing bracket
     writeEnding( os );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

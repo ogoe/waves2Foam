@@ -37,9 +37,15 @@ namespace relaxationShapes
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationShapeCylindrical, 0);
-addToRunTimeSelectionTable(relaxationShape, relaxationShapeCylindrical, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationShape,
+    relaxationShapeCylindrical,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationShapeCylindrical::relaxationShapeCylindrical
 (
@@ -55,7 +61,7 @@ relaxationShapeCylindrical::relaxationShapeCylindrical
 
 {
     width_   = Foam::mag(rOuter_ - rInner_);
-    centre_ -= ( centre_ & direction_ ) * direction_;
+    centre_ -= ( centre_ & direction_ )*direction_;
 
     // Find computational cells inside the relaxation-shape
     findComputationalCells();
@@ -66,6 +72,7 @@ relaxationShapeCylindrical::relaxationShapeCylindrical
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 void relaxationShapeCylindrical::findComputationalCells()
 {
     const vectorField& cc = mesh_.C();
@@ -75,19 +82,20 @@ void relaxationShapeCylindrical::findComputationalCells()
 
     forAll (cc, celli)
     {
-        if ( insideZone( celli ))
+        if (insideZone( celli ))
         {
             cells_[count++] = celli;
 
-            if ( count == cells_.size() )
+            if (count == cells_.size())
             {
-                cells_.setSize( static_cast<label>( count * 1.1 ) );
+                cells_.setSize( static_cast<label>( count*1.1 ) );
             }
         }
     }
 
     cells_.setSize(count);
 }
+
 
 void relaxationShapeCylindrical::computeSigmaCoordinate()
 {
@@ -97,9 +105,9 @@ void relaxationShapeCylindrical::computeSigmaCoordinate()
     forAll (cells_, celli)
     {
         vector cc( C[cells_[celli]] );
-        cc -= ( ( cc & direction_ ) * direction_ );
+        cc -= ( ( cc & direction_ )*direction_ );
 
-        sigma_[celli]  = ( Foam::mag( cc - centre_ ) - rInner_ ) / width_;
+        sigma_[celli]  = ( Foam::mag( cc - centre_ ) - rInner_ )/width_;
     }
 }
 
@@ -112,7 +120,7 @@ bool relaxationShapeCylindrical::insideZone
     bool inside( false );
 
     vector cc( mesh_.C()[celli] );
-    cc -= ( direction_ & cc ) * direction_;
+    cc -= ( direction_ & cc )*direction_;
 
     scalar dist( Foam::mag( cc - centre_ ) );
 

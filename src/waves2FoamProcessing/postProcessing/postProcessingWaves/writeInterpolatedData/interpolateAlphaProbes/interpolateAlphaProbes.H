@@ -99,7 +99,7 @@ public:
         virtual ~interpolateAlphaProbes();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

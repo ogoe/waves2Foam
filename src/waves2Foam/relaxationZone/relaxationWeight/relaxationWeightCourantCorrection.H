@@ -83,7 +83,10 @@ private:
         ) const;
 
         //- Disallow default bitwise copy construct
-        relaxationWeightCourantCorrection(const relaxationWeightCourantCorrection&);
+        relaxationWeightCourantCorrection
+        (
+            const relaxationWeightCourantCorrection&
+        );
 
         //- Disallow default bitwise assignment
         void operator=(const relaxationWeightCourantCorrection&);
@@ -120,7 +123,7 @@ public:
 } // End namespace relaxationWeights
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

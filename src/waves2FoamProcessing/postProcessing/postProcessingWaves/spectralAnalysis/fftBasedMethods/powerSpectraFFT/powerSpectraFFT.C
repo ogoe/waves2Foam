@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, powerSpectraFFT, postProcessingW
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void powerSpectraFFT::evaluateScalar()
 {
     Info << "        - Power spectra computed for scalar quantities" << endl;
@@ -53,6 +54,7 @@ void powerSpectraFFT::evaluateScalar()
 
     writeScalar( frequencies, spectra);
 }
+
 
 void powerSpectraFFT::writeScalar
 (
@@ -82,6 +84,7 @@ void powerSpectraFFT::writeScalar
     }
 }
 
+
 void powerSpectraFFT::evaluateVector()
 {
     Info << "        - Power spectra computed for vector quantities" << endl;
@@ -96,6 +99,7 @@ void powerSpectraFFT::evaluateVector()
 
     writeVector( frequencies, spectra);
 }
+
 
 void powerSpectraFFT::writeVector
 (
@@ -128,7 +132,9 @@ void powerSpectraFFT::writeVector
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 powerSpectraFFT::powerSpectraFFT
 (
@@ -146,19 +152,22 @@ powerSpectraFFT::powerSpectraFFT
     deltaT_ = readDeltaT( dataDict_ );
 }
 
+
 powerSpectraFFT::~powerSpectraFFT()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void powerSpectraFFT::evaluate()
 {
-    if ( dataType() == "scalar" )
+    if (dataType() == "scalar")
     {
         evaluateScalar();
     }
-    else if ( dataType() == "vector" )
+    else if (dataType() == "vector")
     {
         evaluateVector();
     }

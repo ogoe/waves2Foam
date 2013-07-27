@@ -96,7 +96,7 @@ public:
         void initCut()
         {
             ccNeg_.setSize(cc_.size() + 2);
-            fL_.setSize( 3 * cc_.size() );
+            fL_.setSize( 3*cc_.size() );
             nextFace_ = cc_.size();
             negCount_ = 0;
         }
@@ -112,7 +112,7 @@ public:
             ccNeg_[negCount_++] = nextFace_;
             fL_[ nextFace_++] = f;
 
-            if ( nextFace_ == fL_.size() )
+            if (nextFace_ == fL_.size())
             {
                 fL_.setSize( nextFace_ + cc_.size() );
             }

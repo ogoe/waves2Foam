@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, streamFunction, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 streamFunction::streamFunction
 (
     const word& subDictName,
@@ -50,7 +51,7 @@ streamFunction::streamFunction
     waveTheory(subDictName, mesh_),
     h_(readScalar(coeffDict_.lookup("depth"))),
     omega_(readScalar(coeffDict_.lookup("omega"))),
-    period_(2 * PI_ / omega_),
+    period_(2*PI_/omega_),
     phi_(readScalar(coeffDict_.lookup("phi"))),
     k_(vector(coeffDict_.lookup("waveNumber"))),
     K_(mag(k_)),
@@ -72,27 +73,30 @@ void streamFunction::printCoeffs()
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 scalar streamFunction::factor(const scalar& time) const
 {
     scalar factor(1.0);
-    if ( time < Tstart_ )
+    if (time < Tstart_)
     {
         factor = 0.0;
     }
-    else if ( Tsoft_ > 0.0)
+    else if (Tsoft_ > 0.0)
     {
-        factor = Foam::sin(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tstart_));
+        factor = Foam::sin(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time - Tstart_));
     }
 
-    if ( time > Tend_)
+    if (time > Tend_)
     {
-        factor = Foam::cos(2 * PI_ / (4.0 * Tsoft_) * Foam::min(Tsoft_, time - Tend_));
+        factor = Foam::cos(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time - Tend_));
     }
 
     return factor;
 }
+
 
 scalar streamFunction::eta
 (
@@ -101,16 +105,17 @@ scalar streamFunction::eta
 ) const
 {
     scalar eta(0);
-    scalar arg = (k_ & x) - omega_ * time + phi_;
+    scalar arg = (k_ & x) - omega_*time + phi_;
 
     forAll (A_,ii)
     {
-        eta += A_[ii] * Foam::cos((ii+1) * arg);
+        eta += A_[ii]*Foam::cos((ii + 1)*arg);
     }
     eta *= factor(time);
     eta += seaLevel_;
     return eta;
 }
+
 
 scalar streamFunction::ddxPd
 (
@@ -121,7 +126,7 @@ scalar streamFunction::ddxPd
 {
     // PAS PAA, DETTE FOELGER IKKE KONVENTIONEN MED ARBITRAER BOELGETALSVEKTOR!!!!!!!!!!!!!
     scalar Z(returnZ(x));
-    scalar arg = (k_ & x) - omega_ * time + phi_;
+    scalar arg = (k_ & x) - omega_*time + phi_;
 
     scalar ddxPd(0);
     vector uu(U(x,time));
@@ -133,24 +138,25 @@ scalar streamFunction::ddxPd
     scalar j(0);
     forAll (B_,ii)
     {
-        j = ii+1;
-        dUx += - j * K_ * B_[ii] * Foam::cosh(j * K_ * (Z + h_)) / Foam::cosh(j * K_ * h_) * Foam::sin(j * arg);
-        dUy +=   j * K_ * B_[ii] * Foam::sinh(j * K_ * (Z + h_)) / Foam::cosh(j * K_ * h_) * Foam::cos(j * arg);
+        j = ii + 1;
+        dUx += - j*K_*B_[ii]*Foam::cosh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)*Foam::sin(j*arg);
+        dUy +=   j*K_*B_[ii]*Foam::sinh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)*Foam::cos(j*arg);
     }
     dUx *= factor(time);
     dUy *= factor(time);
 
-    ddxPd =  rhoWater_ * (omega_ / K_ * dUx - Ux * dUx - Uy * dUy) * factor(time);
+    ddxPd =  rhoWater_*(omega_/K_*dUx - Ux*dUx - Uy*dUy)*factor(time);
 
 //     vector temp(uu);
-//     uu = (uu - (uu & direction_) * direction_);
+//     uu = (uu - (uu & direction_)*direction_);
 
 
-//     ddxPd += rhoWater * Foam::mag(G) * k_ * height_ / 2 * Foam::cosh(k_ * (c[cI].component(1) - seaLevel_ + depth_))
-//                                     / Foam::cosh(k_ * depth_) * Foam::sin(omega_ * db().time().value() + mathematicalConstant::pi / 2) * factor;
+//     ddxPd += rhoWater*Foam::mag(G)*k_*height_/2*Foam::cosh(k_*(c[cI].component(1) - seaLevel_ + depth_))
+//                                    /Foam::cosh(k_*depth_)*Foam::sin(omega_*db().time().value() + mathematicalConstant::pi/2)*factor;
 //     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
     return ddxPd;
 }
+
 
 vector streamFunction::U
 (
@@ -159,22 +165,23 @@ vector streamFunction::U
 ) const
 {
     scalar Z(returnZ(x));
-    scalar Uhorz(omega_ / K_ - uBar_);
+    scalar Uhorz(omega_/K_ - uBar_);
     scalar Uvert(0);
-    scalar arg = (k_ & x) - omega_ * time + phi_;
+    scalar arg = (k_ & x) - omega_*time + phi_;
     scalar j(0);
 
     forAll (B_,ii)
     {
         j = ii + 1;
-        Uhorz += B_[ii] * Foam::cosh(j * K_ * (Z + h_)) / Foam::cosh(j * K_ * h_) * Foam::cos(j * arg);
-        Uvert += B_[ii] * Foam::sinh(j * K_ * (Z + h_)) / Foam::cosh(j * K_ * h_) * Foam::sin(j * arg);
+        Uhorz += B_[ii]*Foam::cosh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)*Foam::cos(j*arg);
+        Uvert += B_[ii]*Foam::sinh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)*Foam::sin(j*arg);
     }
     Uhorz *= factor(time);
     Uvert *= factor(time);
 
-    return Uhorz * k_ / K_ - Uvert * direction_; // Note "-" because of "g" working in the opposite direction
+    return Uhorz*k_/K_ - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

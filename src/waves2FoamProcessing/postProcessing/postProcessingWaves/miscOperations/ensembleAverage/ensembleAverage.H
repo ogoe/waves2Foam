@@ -116,7 +116,7 @@ public:
         virtual ~ensembleAverage();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 

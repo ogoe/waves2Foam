@@ -120,33 +120,33 @@ public:
 
 
     // Member Functions
-        Switch conflictTSoftInitialise() const
+        virtual Switch conflictTSoftInitialise() const
         {
             return false;
         };
 
         void printCoeffs();
 
-        scalar eta
+        virtual scalar eta
         (
             const point&,
             const scalar&
         ) const;
 
-        scalar ddxPd
+        virtual scalar ddxPd
         (
             const point&,
             const scalar&,
             const vector&
         ) const;
 
-        vector U
+        virtual vector U
         (
             const point&,
             const scalar&
         ) const;
 
-        scalar p
+        virtual scalar p
         (
             const point&,
             const scalar&

@@ -115,7 +115,7 @@ public:
         virtual ~rawOvertopping();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 
         void readOvertoppingData
         (

@@ -59,7 +59,7 @@ setWaveField::setWaveField
 
     waveProps_(waveTheories::waveTheory::New(name_, mesh_))
 {
-    if ( waveProps_->conflictTSoftInitialise() )
+    if (waveProps_->conflictTSoftInitialise())
     {
         WarningIn
         (
@@ -76,6 +76,7 @@ setWaveField::setWaveField
     }
 
 }
+
 
 setWaveField::setWaveField
 (
@@ -106,6 +107,7 @@ setWaveField::setWaveField
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 void setWaveField::signedPointToSurfaceDistance
 (
     const pointField& pp,
@@ -118,6 +120,7 @@ void setWaveField::signedPointToSurfaceDistance
     }
 }
 
+
 scalar setWaveField::signedPointToSurfaceDistance
 (
     const point& pp
@@ -129,6 +132,7 @@ scalar setWaveField::signedPointToSurfaceDistance
 
     return temp;
 }
+
 
 void setWaveField::correct()
 {
@@ -145,17 +149,16 @@ void setWaveField::correct()
 
         // If size is less than 4, then one cannot evaluate centre/magnitude without getting
         // an floating point exception error
-        if ( lc.ccNeg().size() >= 4 )
+        if (lc.ccNeg().size() >= 4)
         {
             UTarget = waveProps_->U( lc.centreNeg(), U_.db().time().value() );
             pTarget = waveProps_->p( lc.centreNeg(), U_.db().time().value() );
-            alphaTarget = lc.magNeg() / V[celli];
+            alphaTarget = lc.magNeg()/V[celli];
         }
 
         U_[celli] = UTarget;
         alpha_[celli] = alphaTarget;
         p_[celli] = pTarget;
-
     }
 }
 

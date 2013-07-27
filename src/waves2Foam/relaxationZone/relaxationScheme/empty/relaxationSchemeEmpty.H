@@ -31,7 +31,7 @@ Description
     any explicit relaxation.
 
     This could be in connection with the implementation of a numerical beach,
-    where the source term weight * U is added to the momentum equation.
+    where the source term weight*U is added to the momentum equation.
 
 SourceFiles
     relaxationSchemeEmpty.C
@@ -86,7 +86,7 @@ public:
 
     // Destructor
 
-        ~relaxationSchemeEmpty()
+        virtual ~relaxationSchemeEmpty()
         {}
 
     // Member Functions

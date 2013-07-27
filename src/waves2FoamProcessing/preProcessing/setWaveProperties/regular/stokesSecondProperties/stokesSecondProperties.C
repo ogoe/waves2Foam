@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(stokesSecondProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, stokesSecondProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 stokesSecondProperties::stokesSecondProperties
 (
@@ -56,10 +54,12 @@ stokesSecondProperties::stokesSecondProperties
 
     period_ = readScalar( dict.lookup("period") );
     depth_  = readScalar( dict.lookup("depth") );
-    omega_  = 2.0 * PI_ / period_ ;
+    omega_  = 2.0*PI_/period_ ;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void stokesSecondProperties::set(Ostream& os)
 {
@@ -71,7 +71,7 @@ void stokesSecondProperties::set(Ostream& os)
     // Write the already given parameters
     writeGiven( os, "waveType" );
 
-    if ( dict_.found( "Tsoft" ) )
+    if (dict_.found( "Tsoft" ))
     {
         writeGiven( os, "Tsoft");
     }
@@ -82,7 +82,7 @@ void stokesSecondProperties::set(Ostream& os)
     writeGiven( os, "phi");
     writeGiven( os, "height");
 
-    if ( write_ )
+    if (write_)
     {
         vector direction( vector(dict_.lookup("direction")));
         direction /= Foam::mag(direction);
@@ -103,20 +103,20 @@ void stokesSecondProperties::set(Ostream& os)
     scalar H = readScalar( dict_.lookup("height") );
     scalar h = readScalar( dict_.lookup("depth")  );
 
-    scalar a1 = H / 2.0;
-    scalar a2 = 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h));
+    scalar a1 = H/2.0;
+    scalar a2 = 1.0/16.0*k * sqr(H)*(3.0/Foam::pow(Foam::tanh(k*h),3.0) - 1.0/Foam::tanh(k*h));
 
-    if ( Switch( dict_.lookup("debug") ) )
+    if (Switch( dict_.lookup("debug") ))
     {
         Info << nl << "The wave amplitudes are:\n" << tab << "  a1 = " << tab << a1
              << nl << tab << "  a2 = " << tab << a2
-             << nl << tab << "4 a2 = " << tab << 4.0 * a2 << " (Validity criterion) " << endl;
+             << nl << tab << "4 a2 = " << tab << 4.0*a2 << " (Validity criterion) " << endl;
     }
 
-//    if ( H / 2.0 - 4.0 * 1.0 / 16.0 * k * sqr(H) * (3.0 / Foam::pow(Foam::tanh(k * h),3.0) - 1.0 / Foam::tanh(k * h)) < 0)
-    if ( a1 < 4.0 * a2)
+//    if (H/2.0 - 4.0*1.0/16.0*k * sqr(H)*(3.0/Foam::pow(Foam::tanh(k*h),3.0) - 1.0/Foam::tanh(k*h)) < 0)
+    if (a1 < 4.0*a2)
     {
-        Info << a1 << tab << 4.0 * a2 << endl;
+        Info << a1 << tab << 4.0*a2 << endl;
 
         WarningIn
         (
@@ -125,6 +125,7 @@ void stokesSecondProperties::set(Ostream& os)
           << endl;
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

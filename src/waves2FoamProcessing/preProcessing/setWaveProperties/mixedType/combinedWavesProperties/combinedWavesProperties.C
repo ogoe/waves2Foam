@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(combinedWavesProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, combinedWavesProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 combinedWavesProperties::combinedWavesProperties
 (
@@ -54,7 +52,9 @@ combinedWavesProperties::combinedWavesProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void combinedWavesProperties::set( Ostream& os )
 {
@@ -72,7 +72,6 @@ void combinedWavesProperties::set( Ostream& os )
     // Write the closing bracket
     writeEnding( os );
 }
-
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

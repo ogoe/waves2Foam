@@ -26,8 +26,8 @@ Class
     Foam::relaxationSchemes::relaxationSchemeSpatial
 
 Description
-    An object which results in relaxation, which is only dependent on the spatial
-    location within a relaxationShape.
+    An object which results in relaxation, which is only dependent on the
+    spatial location within a relaxationShape.
 
 SourceFiles
     relaxationSchemeSpatial.C
@@ -85,7 +85,7 @@ public:
 
     // Destructor
 
-        ~relaxationSchemeSpatial()
+        virtual ~relaxationSchemeSpatial()
         {}
 
     // Member Functions

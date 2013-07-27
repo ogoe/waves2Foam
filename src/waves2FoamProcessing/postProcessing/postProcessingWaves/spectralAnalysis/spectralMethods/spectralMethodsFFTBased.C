@@ -38,6 +38,7 @@ defineTypeNameAndDebug(spectralMethodsFFTBased, 0);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 void Foam::spectralMethodsFFTBased::checkBins()
 {
     if ((bins_ % 2) == 1)
@@ -48,34 +49,36 @@ void Foam::spectralMethodsFFTBased::checkBins()
     }
 }
 
+
 Field<complex> spectralMethodsFFTBased::computeFourierTransform
 (
     const scalarField& input
 )
 {
-    Field<complex> res( bins_ / 2 );
+    Field<complex> res( bins_/2 );
 
     // Prepare data for sweep i
     double data[bins_];
 
     for (int m = 0; m < bins_; m++)
     {
-        data[m] = input[ sweepCount_ * step_ + m ];
+        data[m] = input[ sweepCount_*step_ + m ];
     }
 
     // Compute the FFT
     gsl_fft_real_transform (data, 1, bins_, real, work);
 
-    for (int m = 1; m < bins_ / 2; m++ )
+    for (int m = 1; m < bins_/2; m++ )
     {
-        res[m-1].Re() = data[2 * m - 1];
-        res[m-1].Im() = data[2 * m];
+        res[m - 1].Re() = data[2*m - 1];
+        res[m - 1].Im() = data[2*m];
     }
 
     res[bins_/2 - 1] = data[ bins_ - 1];
 
     return res;
 }
+
 
 void Foam::spectralMethodsFFTBased::powerSpectrum
 (
@@ -89,18 +92,19 @@ void Foam::spectralMethodsFFTBased::powerSpectrum
     initSweep( input );
 
     // GSL-FFT data
-    scalar factor( 2.0 * deltaT / static_cast<scalar>( sweeps_ * bins_ ) );
+    scalar factor( 2.0*deltaT/static_cast<scalar>( sweeps_*bins_ ) );
 
     for (sweepCount_ = 0; sweepCount_ < sweeps_; sweepCount_++)
     {
         Field<complex> transform( computeFourierTransform( input ) );
 
-        for (int m=0; m < bins_ / 2; m++)
+        for (int m=0; m < bins_/2; m++)
         {
-            spectrum[m] += ( factor * transform[m] * transform[m].conjugate() ).Re();
+            spectrum[m] += ( factor*transform[m]*transform[m].conjugate() ).Re();
         }
     }
 }
+
 
 void spectralMethodsFFTBased::powerSpectrum
 (
@@ -121,7 +125,9 @@ void spectralMethodsFFTBased::powerSpectrum
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 spectralMethodsFFTBased::spectralMethodsFFTBased
 (
@@ -141,9 +147,9 @@ spectralMethodsFFTBased::spectralMethodsFFTBased
 
     scalar overlap( readScalar( dict_.lookup("windowShiftFraction") ) );
 
-    step_ = static_cast<label>( bins_ * overlap );
+    step_ = static_cast<label>( bins_*overlap );
 
-    if ( overlap <= 0 || step_ == 0 )
+    if (overlap <= 0 || step_ == 0)
     {
         FatalErrorIn("void Foam::spectralMethodsFFTBased::spectralMethodsFFTBased( const fvMesh&, const dictionary& )" )
                         << "The overlap-factor is negative or the overlap is so small that the resulting step" << endl
@@ -155,6 +161,7 @@ spectralMethodsFFTBased::spectralMethodsFFTBased
     work = gsl_fft_real_workspace_alloc(bins_);
 }
 
+
 spectralMethodsFFTBased::~spectralMethodsFFTBased()
 {
     // Free GSL-FFT
@@ -162,7 +169,9 @@ spectralMethodsFFTBased::~spectralMethodsFFTBased()
     gsl_fft_real_workspace_free (work);
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 List<scalarField> spectralMethodsFFTBased::powerSpectra
 (
@@ -175,7 +184,7 @@ List<scalarField> spectralMethodsFFTBased::powerSpectra
     forAll (spectra, speci)
     {
         scalarField& spectrum( spectra[speci] );
-        spectrum.setSize( bins_ / 2, 0.0 );
+        spectrum.setSize( bins_/2, 0.0 );
 
         const scalarField& input( inputData[ speci ] );
 
@@ -184,6 +193,7 @@ List<scalarField> spectralMethodsFFTBased::powerSpectra
 
     return spectra;
 }
+
 
 List<vectorField> spectralMethodsFFTBased::powerSpectra
 (
@@ -196,7 +206,7 @@ List<vectorField> spectralMethodsFFTBased::powerSpectra
     forAll (spectra, speci)
     {
         vectorField& spectrum( spectra[speci] );
-        spectrum.setSize( bins_ / 2, vector::zero );
+        spectrum.setSize( bins_/2, vector::zero );
 
         const vectorField& input( inputData[ speci ] );
 
@@ -205,6 +215,7 @@ List<vectorField> spectralMethodsFFTBased::powerSpectra
 
     return spectra;
 }
+
 
 scalarField spectralMethodsFFTBased::frequencies
 (
@@ -220,6 +231,7 @@ scalarField spectralMethodsFFTBased::frequencies
 
     return res;
 }
+
 
 Field<complex> spectralMethodsFFTBased::fft
 (
@@ -240,6 +252,7 @@ Field<complex> spectralMethodsFFTBased::fft
     return res;
 }
 
+
 List<Field<complex> > spectralMethodsFFTBased::fft
 (
     const List<scalarField>& input
@@ -247,7 +260,7 @@ List<Field<complex> > spectralMethodsFFTBased::fft
 {
     List<Field<complex> > res(0);
 
-    if ( sweepCount_ < sweeps_ )
+    if (sweepCount_ < sweeps_)
     {
         res.setSize( input.size() );
 
@@ -273,6 +286,7 @@ void spectralMethodsFFTBased::resetSweep()
     sweepCount_ = 0;
 }
 
+
 void spectralMethodsFFTBased::initSweep
 (
     const scalarField& input
@@ -280,14 +294,15 @@ void spectralMethodsFFTBased::initSweep
 {
     resetSweep();
 
-    sweeps_ = ( input.size() - bins_ ) / step_ + 1;
+    sweeps_ = ( input.size() - bins_ )/step_ + 1;
 
-    if ( sweeps_ <= 0 )
+    if (sweeps_ <= 0)
     {
         FatalErrorIn("void spectralMethodsFFTBased::initSweep( const scalarField& input)" )
                             << "The input data set is too short relative to the window size" << exit(FatalError);
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

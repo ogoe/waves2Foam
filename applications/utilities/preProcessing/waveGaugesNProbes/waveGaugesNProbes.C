@@ -79,11 +79,11 @@ int main(int argc, char *argv[])
     {
         word name( toc[item] );
 
-        if ( probeDefs.isDict(name) )
+        if (probeDefs.isDict(name))
         {
             const dictionary& dict( probeDefs.subDict(name) );
 
-            if ( word(dict.lookup("type")) == "waveGauge" )
+            if (word(dict.lookup("type")) == "waveGauge")
             {
                 waveGauges wg( mesh, dict );
 
@@ -91,7 +91,9 @@ int main(int argc, char *argv[])
             }
             else
             {
-                Info << "Probe-type: '" << word(dict.lookup("type")) << "' not yet implemented" << endl;
+                Info << "Probe-type: '"
+                     << word(dict.lookup("type"))
+                     << "' not yet implemented" << endl;
             }
         }
     }

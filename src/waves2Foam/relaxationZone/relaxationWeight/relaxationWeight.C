@@ -41,11 +41,8 @@ namespace relaxationWeights
 defineTypeNameAndDebug(relaxationWeight, 0);
 defineRunTimeSelectionTable(relaxationWeight, dictionary);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationWeight::relaxationWeight
 (
@@ -72,6 +69,7 @@ relaxationWeight::~relaxationWeight()
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+
 autoPtr<relaxationWeight> relaxationWeight::New
 (
     const word& subDictName,
@@ -91,20 +89,27 @@ autoPtr<relaxationWeight> relaxationWeight::New
              .subDict("relaxationZone")
         );
 
-        relaxationWeightTypeName = coeffDict_.lookupOrDefault<word>("relaxationWeight","Exponential");
+        relaxationWeightTypeName = coeffDict_.lookupOrDefault<word>
+            (
+                "relaxationWeight",
+                "Exponential"
+            );
 
     }
 
     dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find("relaxationWeight"+relaxationWeightTypeName);
+        dictionaryConstructorTablePtr_->find
+        (
+            "relaxationWeight"+relaxationWeightTypeName
+        );
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {
         FatalErrorIn
         (
             "relaxationWeight::New(const word&, const fvMesh&)"
-        )   << "Unknown relaxation weight type 'relaxationWeight" << relaxationWeightTypeName << "'"
-            << endl << endl
+        )   << "Unknown relaxation weight type 'relaxationWeight"
+            << relaxationWeightTypeName << "'"<< endl << endl
             << "Valid relaxation weight types are :" << endl
             << dictionaryConstructorTablePtr_->toc()
             << exit(FatalError);
@@ -115,6 +120,7 @@ autoPtr<relaxationWeight> relaxationWeight::New
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void relaxationWeight::weights
 (
@@ -129,6 +135,7 @@ void relaxationWeight::weights
     // Perform the courant number dependent weight correction
     rwcc_.courantCorrection(cells, weights);
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

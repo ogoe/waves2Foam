@@ -129,6 +129,7 @@ void wavePressureFvPatchScalarField::signedPointToSurfaceDistance
     }
 }
 
+
 scalar wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 (
     const point& pp
@@ -140,6 +141,7 @@ scalar wavePressureFvPatchScalarField::signedPointToSurfaceDistance
 
     return temp;
 }
+
 
 // Update the coefficients associated with the patch field
 void wavePressureFvPatchScalarField::updateCoeffs()
@@ -163,10 +165,10 @@ void wavePressureFvPatchScalarField::updateCoeffs()
     {
         localFace lf = this->divideFace(facei + start);
 
-        if ( lf.isNegFace() )
+        if (lf.isNegFace())
         {
             centre = lf.negCentre();
-            normal = Sf[facei] / magSf[facei];
+            normal = Sf[facei]/magSf[facei];
             this->refGrad()[facei]   = waveProps_->ddxPd( centre, db().time().value(), normal);
         }
         else
@@ -180,6 +182,7 @@ void wavePressureFvPatchScalarField::updateCoeffs()
 
     mixedFvPatchField<scalar>::updateCoeffs();
 }
+
 
 // Evaluate the field on the patch
 void wavePressureFvPatchScalarField::evaluate()

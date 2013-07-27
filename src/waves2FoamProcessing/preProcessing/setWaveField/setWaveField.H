@@ -73,11 +73,6 @@ class setWaveField
 :
     public convexPolyhedral
 {
-
-protected:
-
-    // Protected data
-
 private:
 
     // Private data
@@ -100,7 +95,6 @@ private:
                 const pointField&,
                 scalarField&
             );
-
 
         //- Returns a scalar of the signed distance to an arbitrary surface
             virtual scalar signedPointToSurfaceDistance
@@ -132,11 +126,6 @@ public:
             volScalarField& alpha,
             volScalarField& p
         );
-
-    // Destructor
-//
-//        ~setWaveField()
-//        {}
 
     // Member Functions
 

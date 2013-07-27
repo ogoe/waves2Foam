@@ -41,6 +41,7 @@ addToRunTimeSelectionTable(waveTheory, solitaryFirst, dictionary);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 solitaryFirst::solitaryFirst
 (
     const word& subDictName,
@@ -54,7 +55,7 @@ solitaryFirst::solitaryFirst
     x0_( vector(coeffDict_.lookup("x0")))
 {
     G_ = Foam::mag(g_);
-    c_     = Foam::sqrt( G_ * (H_ + h_) );
+    c_     = Foam::sqrt( G_*(H_ + h_) );
 
     propagationDirection_ /= Foam::mag( propagationDirection_ );
 
@@ -66,7 +67,9 @@ void solitaryFirst::printCoeffs()
     Info << "Loading wave theory: " << typeName << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 scalar solitaryFirst::factor( const scalar& time) const
 {
@@ -75,15 +78,17 @@ scalar solitaryFirst::factor( const scalar& time) const
     return 0.0;
 }
 
+
 scalar solitaryFirst::eta
 (
     const point& x,
     const scalar& time
 ) const
 {
-    scalar eta = H_ * 1.0 / Foam::pow( cosh( Foam::sqrt( 3.0 * H_ / ( 4.0 * Foam::pow(h_, 3.0))) * (c_ * time - ((x - x0_) & propagationDirection_))) ,2.0 ) + seaLevel_;
+    scalar eta = H_*1.0/Foam::pow( cosh( Foam::sqrt( 3.0*H_/( 4.0*Foam::pow(h_, 3.0)))*(c_*time - ((x - x0_) & propagationDirection_))) ,2.0 ) + seaLevel_;
     return eta;
 }
+
 
 scalar solitaryFirst::ddxPd
 (
@@ -97,6 +102,7 @@ scalar solitaryFirst::ddxPd
     return 0.0;
 }
 
+
 scalar solitaryFirst::p
 (
     const point& x,
@@ -105,22 +111,23 @@ scalar solitaryFirst::p
 {
     scalar Z(returnZ(x));
 
-    scalar result( G_ * H_ * rhoWater_ );
+    scalar result( G_*H_*rhoWater_ );
 
-    result /= (Foam::pow( Foam::cosh( Foam::sqrt( 3 * H_ / ( 4.0 * Foam::pow(h_, 3.0)))
-                        * ( Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_) )), 4.0 ));
+    result /= (Foam::pow( Foam::cosh( Foam::sqrt( 3*H_/( 4.0*Foam::pow(h_, 3.0)))
+                        * ( Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_) )), 4.0 ));
 
-    result *= ( 2.0 * ( Foam::pow(h_, 3.0) + 6.0 * h_ * H_ * Z + 3.0 * H_ * Foam::pow(Z, 2.0))
-                    + ( 2.0 * Foam::pow(h_, 3.0) - 6.0 * h_ * H_ * Z - 3.0 * H_ * Foam::pow(Z, 2.0))
-                    * Foam::cosh( Foam::sqrt( 3.0 * H_ / Foam::pow(h_, 3.0)) * (Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_)))
+    result *= ( 2.0*( Foam::pow(h_, 3.0) + 6.0*h_*H_*Z + 3.0*H_*Foam::pow(Z, 2.0))
+                    + ( 2.0*Foam::pow(h_, 3.0) - 6.0*h_*H_*Z - 3.0*H_*Foam::pow(Z, 2.0))
+                    * Foam::cosh( Foam::sqrt( 3.0*H_/Foam::pow(h_, 3.0))*(Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_)))
               );
 
-    result /= ( 4.0 * Foam::pow(h_, 3.0) );
+    result /= ( 4.0*Foam::pow(h_, 3.0) );
 
-    result += rhoWater_ * G_ * seaLevel_;
+    result += rhoWater_*G_*seaLevel_;
 
     return result;
 }
+
 
 vector solitaryFirst::U
 (
@@ -132,36 +139,33 @@ vector solitaryFirst::U
 
     scalar Uhorz(0.0);
 
-    Uhorz =   1.0 / (4.0 * Foam::pow(h_, 4.0) ) * Foam::sqrt(G_ * h_) * H_
+    Uhorz =   1.0/(4.0*Foam::pow(h_, 4.0) )*Foam::sqrt(G_*h_)*H_
             * (
-                  2 * Foam::pow(h_, 3.0) + Foam::pow(h_, 2.0) * H_ + 12.0 * h_ * H_ * Z + 6.0 * H_ * Foam::pow(Z, 2.0)
-                + ( 2 * Foam::pow(h_, 3.0) - Foam::pow(h_, 2.0) * H_ - 6.0 * h_ * H_ * Z - 3.0 * H_ * Foam::pow(Z, 2.0) )
-                * Foam::cosh( Foam::sqrt( 3 * H_ / Foam::pow(h_, 3.0)) * ( Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_) ) )
+                  2*Foam::pow(h_, 3.0) + Foam::pow(h_, 2.0)*H_ + 12.0*h_*H_*Z + 6.0*H_*Foam::pow(Z, 2.0)
+                + ( 2*Foam::pow(h_, 3.0) - Foam::pow(h_, 2.0)*H_ - 6.0*h_*H_*Z - 3.0*H_*Foam::pow(Z, 2.0) )
+                * Foam::cosh( Foam::sqrt( 3*H_/Foam::pow(h_, 3.0))*( Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_) ) )
               )
-            / Foam::pow(
-                           Foam::cosh(   Foam::sqrt( 3 * H_ / ( 4.0 * Foam::pow(h_, 3.0)))
-                                       * ( Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_) )
+           /Foam::pow(
+                           Foam::cosh(   Foam::sqrt( 3*H_/( 4.0*Foam::pow(h_, 3.0)))
+                                       * ( Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_) )
                                      ), 4.0
                        );
 
     scalar Uvert(0.0);
 
-    Uvert =   1.0 / ( 4.0 * Foam::sqrt( G_ * h_) ) * Foam::sqrt(3.0) * G_ * Foam::pow( H_ / Foam::pow(h_,3.0), 1.5 ) * (h_ + Z)
+    Uvert =   1.0/( 4.0*Foam::sqrt( G_*h_) )*Foam::sqrt(3.0)*G_*Foam::pow( H_/Foam::pow(h_,3.0), 1.5 )*(h_ + Z)
             * (
-                    2 * Foam::pow(h_, 3.0) - 7.0 * Foam::pow(h_, 2.0) * H_ + 10.0 * h_ * H_ * Z + 5.0 * H_ * Foam::pow(Z, 2.0)
-                                    + ( 2 * Foam::pow(h_, 3.0) + Foam::pow(h_, 2.0) * H_ - 2.0 * h_ * H_ * Z - H_ * Foam::pow(Z, 2.0) )
-                                    * Foam::cosh( Foam::sqrt( 3 * H_ / Foam::pow(h_, 3.0)) * ( Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_) ) )
+                    2*Foam::pow(h_, 3.0) - 7.0*Foam::pow(h_, 2.0)*H_ + 10.0*h_*H_*Z + 5.0*H_*Foam::pow(Z, 2.0)
+                                    + ( 2*Foam::pow(h_, 3.0) + Foam::pow(h_, 2.0)*H_ - 2.0*h_*H_*Z - H_*Foam::pow(Z, 2.0) )
+                                    * Foam::cosh( Foam::sqrt( 3*H_/Foam::pow(h_, 3.0))*( Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_) ) )
               )
-              / Foam::pow(   Foam::cosh(   Foam::sqrt( 3 * H_ / ( 4.0 * Foam::pow(h_, 3.0)))
-                             * ( Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_) )
+             /Foam::pow(   Foam::cosh(   Foam::sqrt( 3*H_/( 4.0*Foam::pow(h_, 3.0)))
+                             * ( Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_) )
                             ), 4.0 )
-            * Foam::tanh( Foam::sqrt( 3 * H_ / ( 4.0 * Foam::pow(h_, 3.0)))
-      * ( Foam::sqrt( G_ * (h_ + H_)) * time - ((x - x0_) & propagationDirection_) ) );
+            * Foam::tanh( Foam::sqrt( 3*H_/( 4.0*Foam::pow(h_, 3.0)))
+      * ( Foam::sqrt( G_*(h_ + H_))*time - ((x - x0_) & propagationDirection_) ) );
 
-
-
-
-    return Uhorz * propagationDirection_ - Uvert * direction_;
+    return Uhorz*propagationDirection_ - Uvert*direction_;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

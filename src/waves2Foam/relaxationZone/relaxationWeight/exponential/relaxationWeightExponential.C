@@ -37,9 +37,15 @@ namespace relaxationWeights
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(relaxationWeightExponential, 0);
-addToRunTimeSelectionTable(relaxationWeight, relaxationWeightExponential, dictionary);
+addToRunTimeSelectionTable
+(
+    relaxationWeight,
+    relaxationWeightExponential,
+    dictionary
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 relaxationWeightExponential::relaxationWeightExponential
 (
@@ -54,7 +60,9 @@ relaxationWeightExponential::relaxationWeightExponential
 
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void relaxationWeightExponential::computeWeights
 (
@@ -65,9 +73,13 @@ void relaxationWeightExponential::computeWeights
 {
     forAll (weight, celli)
     {
-        weight[celli] = 1.0 - (Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0) / (Foam::exp(1.0) - 1.0);
+        weight[celli] = 1.0 -
+            (
+                Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0
+            )/(Foam::exp(1.0) - 1.0);
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

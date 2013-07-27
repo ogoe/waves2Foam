@@ -61,7 +61,10 @@ autoPtr<relaxationScheme> relaxationScheme::New
     }
 
     dictionaryConstructorTable::iterator cstrIter =
-        dictionaryConstructorTablePtr_->find("relaxationScheme"+relaxationSchemeTypeName);
+        dictionaryConstructorTablePtr_->find
+        (
+            "relaxationScheme"+relaxationSchemeTypeName
+        );
 
     if (cstrIter == dictionaryConstructorTablePtr_->end())
     {

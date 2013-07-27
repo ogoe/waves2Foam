@@ -129,7 +129,8 @@ int main(int argc, char *argv[])
     // using wOut.writeHeader( os ); hence manual entries
     os << "FoamFile" << nl;
     os << token::BEGIN_BLOCK << incrIndent << nl;
-    os << indent << "version" << tab << IOstream::currentVersion << token::END_STATEMENT << nl;
+    os << indent << "version" << tab << IOstream::currentVersion
+       << token::END_STATEMENT << nl;
     os << indent << "format" << tab << "ascii;" << nl;
     os << indent << "class" << tab << "dictionary;" << nl;
     os << indent << "object" << tab << "waveProperties;" << nl;
@@ -146,11 +147,14 @@ int main(int argc, char *argv[])
     forAll (toc, item)
     {
         // If a sub-dictionary, then compute parameters and write the subdict
-        if ( waveProperties.isDict(toc[item]) )
+        if (waveProperties.isDict(toc[item]))
         {
             dictionary& sd = waveProperties.subDict(toc[item]);
 
-            autoPtr<setWaveProperties> props( setWaveProperties::New(runTime, sd, true) );
+            autoPtr<setWaveProperties> props
+                (
+                    setWaveProperties::New(runTime, sd, true)
+                );
 
             props->set( os );
         }

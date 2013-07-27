@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, rawVelocityProbes, postProcessin
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 void rawVelocityProbes::resizeFields
 (
     List<std::pair<scalar, label> >& timeLabel,
@@ -55,6 +56,7 @@ void rawVelocityProbes::resizeFields
         U.setSize(N);
     }
 }
+
 
 void rawVelocityProbes::writeRawData
 (
@@ -101,11 +103,9 @@ void rawVelocityProbes::writeRawData
     }
 }
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 rawVelocityProbes::rawVelocityProbes
 (
@@ -134,10 +134,13 @@ rawVelocityProbes::rawVelocityProbes
     Info << "       - Uses the rotation vector: " << R_ << endl;
 }
 
+
 rawVelocityProbes::~rawVelocityProbes()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void rawVelocityProbes::evaluate()
 {
@@ -149,6 +152,7 @@ void rawVelocityProbes::evaluate()
 
     writeRawData(timeLabel, x, y, z, Us);
 }
+
 
 void rawVelocityProbes::readVelocityProbeData
 (
@@ -185,7 +189,7 @@ void rawVelocityProbes::readVelocityProbeData
 
         std::string line;
 
-        if ( timeI == 0 )
+        if (timeI == 0)
         {
             // Reading the x-coordinates
             {
@@ -199,7 +203,7 @@ void rawVelocityProbes::readVelocityProbeData
 
                 while (iss >> val)
                 {
-                    x.setSize( Nprobes+1 );
+                    x.setSize( Nprobes + 1 );
                     x[Nprobes++] = val;
                 }
 
@@ -293,7 +297,7 @@ void rawVelocityProbes::readVelocityProbeData
 
             if (Nentries == timeLabel.size())
             {
-                resizeFields( timeLabel, Us, 2 * Nentries );
+                resizeFields( timeLabel, Us, 2*Nentries );
             }
         }
 
@@ -304,6 +308,7 @@ void rawVelocityProbes::readVelocityProbeData
 
     std::sort( timeLabel.begin(), timeLabel.end(), pairSortA );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

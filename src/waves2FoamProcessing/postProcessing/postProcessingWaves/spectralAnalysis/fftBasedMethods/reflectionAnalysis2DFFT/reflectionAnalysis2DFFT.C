@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, reflectionAnalysis2DFFT, postPro
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 scalarField reflectionAnalysis2DFFT::linearWaveNumbers
 (
     const scalarField& frequencies
@@ -58,6 +59,7 @@ scalarField reflectionAnalysis2DFFT::linearWaveNumbers
 
     return res;
 }
+
 
 void reflectionAnalysis2DFFT::writeReflectionIncident
 (
@@ -112,6 +114,7 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
     }
 }
 
+
 void reflectionAnalysis2DFFT::decomposeAmplitudes
 (
     const scalarField& k,
@@ -149,8 +152,8 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         {
             for (int q = 0; q < P; q++)
             {
-                scalar delta( kj * ( X_[p] - X_[q] ));
-                Wj[p] += Foam::sqr( Foam::sin( delta ) ) / ( 1 + Foam::sqr( delta / M_PI ));
+                scalar delta( kj*( X_[p] - X_[q] ));
+                Wj[p] += Foam::sqr( Foam::sin( delta ) )/( 1 + Foam::sqr( delta/M_PI ));
             }
         }
 
@@ -160,7 +163,7 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         {
             for (int q=0; q < p; q++)
             {
-                D += ( 4.0 * Wj[p] * Wj[q] * Foam::sqr( Foam::sin( kj * ( X_[p] - X_[q] ) )) );
+                D += ( 4.0*Wj[p]*Wj[q]*Foam::sqr( Foam::sin( kj*( X_[p] - X_[q] ) )) );
             }
         }
 
@@ -173,10 +176,10 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
 
             for (int q=0; q < P; q++)
             {
-                C[p] += ( Wj[q] * Foam::sin( kj * ( X_[p] - X_[q] )) * exp( ii * kj * (X_[q] - X_[0])) );
+                C[p] += ( Wj[q]*Foam::sin( kj*( X_[p] - X_[q] ))*exp( ii*kj*(X_[q] - X_[0])) );
             }
 
-            C[p] *= ( 2.0 * ii * Wj[p] * exp( ii * kj * X_[0] ) / D );
+            C[p]*= ( 2.0*ii*Wj[p]*exp( ii*kj*X_[0] )/D );
         }
 
         // Compute the left and right going discrete fourier coefficients. (Eq. 14a and 14b)
@@ -184,13 +187,15 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         {
             const Field<complex>& amp( amps[p] );
 
-            ampLeft[freqi]  += ( (C[p].conjugate()) * amp[freqi] );
-            ampRight[freqi] += ( C[p] * amp[freqi] );
+            ampLeft[freqi]  += ( (C[p].conjugate())*amp[freqi] );
+            ampRight[freqi] += ( C[p]*amp[freqi] );
         }
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 reflectionAnalysis2DFFT::reflectionAnalysis2DFFT
 (
@@ -221,11 +226,14 @@ reflectionAnalysis2DFFT::reflectionAnalysis2DFFT
     }
 }
 
+
 reflectionAnalysis2DFFT::~reflectionAnalysis2DFFT()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void reflectionAnalysis2DFFT::evaluate()
 {
@@ -245,7 +253,7 @@ void reflectionAnalysis2DFFT::evaluate()
 
         scalarField specLeft( k.size(), 0.0 ), specRight( k.size(), 0.0 );
 
-        scalar factor( 2.0 * deltaT_ / static_cast<scalar>( smfft.nSweeps() * smfft.nBins() ) );
+        scalar factor( 2.0*deltaT_/static_cast<scalar>( smfft.nSweeps()*smfft.nBins() ) );
 
         while (true)
         {
@@ -269,8 +277,8 @@ void reflectionAnalysis2DFFT::evaluate()
             // Add the decomposed DFTs to the left and right going power spectra
             forAll (ampRight, freqi)
             {
-                specRight[freqi] += ( factor * (ampRight[freqi] * ampRight[freqi].conjugate()).Re() );
-                specLeft[freqi]  += ( factor * (ampLeft[freqi] * ampLeft[freqi].conjugate()).Re() );
+                specRight[freqi] += ( factor*(ampRight[freqi]*ampRight[freqi].conjugate()).Re() );
+                specLeft[freqi]  += ( factor*(ampLeft[freqi]*ampLeft[freqi].conjugate()).Re() );
             }
         }
 
@@ -285,6 +293,7 @@ void reflectionAnalysis2DFFT::evaluate()
             << exit(FatalError);
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

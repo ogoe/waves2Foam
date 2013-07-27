@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, powerSpectraLS, postProcessingWa
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void powerSpectraLS::evaluateScalar()
 {
     Info << "        - Power spectra computed for scalar quantities" << endl;
@@ -55,6 +56,7 @@ void powerSpectraLS::evaluateScalar()
 
     writeScalar( frequencies, spectra);
 }
+
 
 void powerSpectraLS::writeScalar
 (
@@ -84,6 +86,7 @@ void powerSpectraLS::writeScalar
     }
 }
 
+
 void powerSpectraLS::evaluateVector()
 {
     Info << "        - Power spectra computed for vector quantities" << endl;
@@ -94,12 +97,13 @@ void powerSpectraLS::evaluateVector()
 
     scalarField time = readIOScalarField( callName_ + "_time" );
 
-    List<vectorField> spectra = smls.powerSpectra( time, input, N_, 1.0 / period_ );
+    List<vectorField> spectra = smls.powerSpectra( time, input, N_, 1.0/period_ );
 
     scalarField frequencies = smls.frequencies( N_ );
 
     writeVector( frequencies, spectra);
 }
+
 
 void powerSpectraLS::writeVector
 (
@@ -132,7 +136,9 @@ void powerSpectraLS::writeVector
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 powerSpectraLS::powerSpectraLS
 (
@@ -153,19 +159,22 @@ powerSpectraLS::powerSpectraLS
     readIndices( dataDict_, indices_ );
 }
 
+
 powerSpectraLS::~powerSpectraLS()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void powerSpectraLS::evaluate()
 {
-    if ( dataType() == "scalar" )
+    if (dataType() == "scalar")
     {
         evaluateScalar();
     }
-    else if ( dataType() == "vector" )
+    else if (dataType() == "vector")
     {
         evaluateVector();
     }

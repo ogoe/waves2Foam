@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, removeData, postProcessingWaves)
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 removeData::removeData
 (
     const Time& rT,
@@ -54,10 +55,13 @@ removeData::removeData
 {
 }
 
+
 removeData::~removeData()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void removeData::evaluate()
 {
@@ -65,18 +69,18 @@ void removeData::evaluate()
 
     // Remove the files with a OF-data format
     // Removal of OF-data formats are done as default
-    if ( removeOF_ )
+    if (removeOF_)
     {
         Info << "        - Removing data in OF-data format" << endl;
 
         // Remove the time instances
-        if ( exists( fn + callName_ + "_time" ) )
+        if (exists( fn + callName_ + "_time" ))
         {
             Foam::rm( fn + callName_ + "_time" );
         }
 
         // Remove the dictionary file
-        if ( exists( fn + callName_ + "_dict" ) )
+        if (exists( fn + callName_ + "_dict" ))
         {
             Foam::rm( fn + callName_ + "_dict" );
         }
@@ -88,19 +92,19 @@ void removeData::evaluate()
             std::stringstream ss;
             ss << callName_ << "_" << count++;
 
-            if ( !exists( fn + ss.str() ) )
+            if (!exists( fn + ss.str() ))
             {
                 break;
             }
 
             Foam::rm( fn + ss.str() );
         }
-        while ( true );
+        while (true );
     }
 
     // Removal of ascii formatted data is only done per request.
     // The Switch "removeAscii_" is by default set to "false".
-    if ( removeAscii_ )
+    if (removeAscii_)
     {
         Info << "        - Removing data in ascii format" << endl;
 
@@ -109,13 +113,14 @@ void removeData::evaluate()
         forAll (fnl, fi)
         {
             label N = fnl[fi].size();
-            if ( fnl[fi].substr(N-3,N) == "txt" )
+            if (fnl[fi].substr(N - 3,N) == "txt")
             {
                 Foam::rm( fn + fnl[fi] );
             }
         }
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

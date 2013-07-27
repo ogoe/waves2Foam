@@ -37,14 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(interpolateForcesAndMoments, 0);
 addToRunTimeSelectionTable(postProcessingWaves, interpolateForcesAndMoments, postProcessingWaves);
 
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
-
-
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 interpolateForcesAndMoments::interpolateForcesAndMoments
 (
@@ -57,10 +51,13 @@ interpolateForcesAndMoments::interpolateForcesAndMoments
 {
 }
 
+
 interpolateForcesAndMoments::~interpolateForcesAndMoments()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void interpolateForcesAndMoments::evaluate()
 {
@@ -85,7 +82,7 @@ void interpolateForcesAndMoments::evaluate()
     {
         forAll (weights, ii)
         {
-            output[ii] = weights[ii] * forces[leftData[ii]] + (1.0 - weights[ii] ) * forces[rightData[ii]];
+            output[ii] = weights[ii]*forces[leftData[ii]] + (1.0 - weights[ii] )*forces[rightData[ii]];
         }
 
         std::stringstream ss;
@@ -98,7 +95,7 @@ void interpolateForcesAndMoments::evaluate()
     {
         forAll (weights, ii)
         {
-            output[ii] = weights[ii] * moments[leftData[ii]] + (1.0 - weights[ii] ) * moments[rightData[ii]];
+            output[ii] = weights[ii]*moments[leftData[ii]] + (1.0 - weights[ii] )*moments[rightData[ii]];
         }
 
         std::stringstream ss;
@@ -120,6 +117,7 @@ void interpolateForcesAndMoments::evaluate()
 
     writeNameDict( readScalar(actionProperties_.lookup("deltaT")), wl);
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

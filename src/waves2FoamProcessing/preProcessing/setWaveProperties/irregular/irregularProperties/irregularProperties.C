@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(irregularProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, irregularProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 irregularProperties::irregularProperties
 (
@@ -55,7 +53,9 @@ irregularProperties::irregularProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void irregularProperties::set( Ostream& os )
 {
@@ -71,7 +71,7 @@ void irregularProperties::set( Ostream& os )
 
     writeGiven( os, "Tsoft");
 
-    if ( dict_.found("writeSpectrum" ) )
+    if (dict_.found("writeSpectrum" ))
     {
         writeGiven( os, "writeSpectrum");
     }
@@ -95,7 +95,7 @@ void irregularProperties::set( Ostream& os )
     // Computing the spectral quantities
     spectra->set( os );
 
-    if ( write_ )
+    if (write_)
     {
         writeDerived( os, "amplitude", amp);
         writeDerived( os, "frequency", frequency);
@@ -109,6 +109,7 @@ void irregularProperties::set( Ostream& os )
     // Write the closing bracket
     writeEnding( os );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

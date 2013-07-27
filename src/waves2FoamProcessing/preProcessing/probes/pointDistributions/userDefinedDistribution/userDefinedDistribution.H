@@ -95,7 +95,7 @@ public:
         virtual ~userDefinedDistribution();
 
     // Member Functions
-        pointField evaluate();
+        virtual pointField evaluate();
 };
 
 

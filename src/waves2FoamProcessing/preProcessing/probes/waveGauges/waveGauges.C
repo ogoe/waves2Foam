@@ -37,6 +37,7 @@ defineTypeNameAndDebug(waveGauges, 0);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
+
 void waveGauges::writeVTKFormat
 (
     const word& name,
@@ -73,10 +74,11 @@ void waveGauges::writeVTKFormat
     {
         vtk() << "2 " << pointi << " " << pointi + pp.size() << endl;
     }
-
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 waveGauges::waveGauges
 (
@@ -90,7 +92,9 @@ waveGauges::waveGauges
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void waveGauges::evaluate( const word& name )
 {
@@ -166,11 +170,12 @@ void waveGauges::evaluate( const word& name )
 
     mesh_.writeEndDivider( gauges() );
 
-    if ( gaugeDict_.lookupOrDefault<Switch>("writeVTK", true ) )
+    if (gaugeDict_.lookupOrDefault<Switch>("writeVTK", true ))
     {
         writeVTKFormat( name, pp, addPoint );
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

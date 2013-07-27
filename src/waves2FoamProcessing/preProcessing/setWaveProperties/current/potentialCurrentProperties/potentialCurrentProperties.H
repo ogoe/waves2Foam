@@ -79,7 +79,7 @@ public:
 
         // Method
 
-        void set(Ostream&);
+        virtual void set(Ostream&);
 };
 
 }

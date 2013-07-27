@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, trapz, postProcessingWaves);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
+
 void trapz::evaluateScalar()
 {
     Info << "        - Trapezoidal integration" << endl;
@@ -54,12 +55,13 @@ void trapz::evaluateScalar()
 
         for (int i=1; i < field.size(); i++)
         {
-            trapezoidal[I] += 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+            trapezoidal[I] += 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
         }
     }
 
     writeScalar( trapezoidal );
 }
+
 
 void trapz::writeScalar
 (
@@ -80,6 +82,7 @@ void trapz::writeScalar
     }
 }
 
+
 void trapz::evaluateVector()
 {
     Info << "        - Trapezoidal integration" << endl;
@@ -95,12 +98,13 @@ void trapz::evaluateVector()
 
         for (int i=1; i < field.size(); i++)
         {
-            trapezoidal[I] += 0.5 * ( time[i] - time[i-1] ) * ( field[i] + field[i-1]);
+            trapezoidal[I] += 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
         }
     }
 
     writeVector( trapezoidal );
 }
+
 
 void trapz::writeVector
 (
@@ -124,7 +128,9 @@ void trapz::writeVector
     }
 }
 
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 trapz::trapz
 (
@@ -140,19 +146,22 @@ trapz::trapz
     readIndices( dataDict_, indices_ );
 }
 
+
 trapz::~trapz()
 {
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void trapz::evaluate()
 {
-    if ( dataType() == "scalar" )
+    if (dataType() == "scalar")
     {
         evaluateScalar();
     }
-    else if ( dataType() == "vector" )
+    else if (dataType() == "vector")
     {
         evaluateVector();
     }
@@ -161,6 +170,7 @@ void trapz::evaluate()
         notImplemented("Data types other than scalar and vector is not supported.");
     }
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

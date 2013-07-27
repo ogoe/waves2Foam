@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(circularDistribution, 0);
 addToRunTimeSelectionTable(pointDistributions, circularDistribution, pointDistributions);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 circularDistribution::circularDistribution
 (
@@ -52,10 +50,13 @@ circularDistribution::circularDistribution
 {
 }
 
+
 circularDistribution::~circularDistribution()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 pointField circularDistribution::evaluate()
 {
@@ -94,8 +95,8 @@ pointField circularDistribution::evaluate()
 
     for (int i = 0; i < N; i++)
     {
-        res[i].component(c0) += R * Foam::cos( (2.0 * M_PI / static_cast<scalar>(N)) * static_cast<scalar>(i));
-        res[i].component(c1) += R * Foam::sin( (2.0 * M_PI / static_cast<scalar>(N)) * static_cast<scalar>(i));
+        res[i].component(c0) += R*Foam::cos( (2.0*M_PI/static_cast<scalar>(N))*static_cast<scalar>(i));
+        res[i].component(c1) += R*Foam::sin( (2.0*M_PI/static_cast<scalar>(N))*static_cast<scalar>(i));
     }
 
     return res;

@@ -39,6 +39,7 @@ defineTypeNameAndDebug(relaxationWeightCourantCorrection, 0);
 
 // * * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 scalar relaxationWeightCourantCorrection::courantNumber
 (
     const surfaceScalarField& phi,
@@ -52,9 +53,14 @@ scalar relaxationWeightCourantCorrection::courantNumber
 
     forAll (cc, facei)
     {
-        if ( cc[facei] < mesh_.nInternalFaces() )
+        if (cc[facei] < mesh_.nInternalFaces())
         {
-            res = Foam::max( res, Foam::mag(phi[cc[facei]]) / magSf[cc[facei]] * deltaCoeffs[cc[facei]] * dt );
+            res = Foam::max
+                (
+                    res,
+                    Foam::mag(phi[cc[facei]])/magSf[cc[facei]]
+                   *deltaCoeffs[cc[facei]]*dt
+                );
         }
     }
 
@@ -63,6 +69,7 @@ scalar relaxationWeightCourantCorrection::courantNumber
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
+
 relaxationWeightCourantCorrection::relaxationWeightCourantCorrection
 (
     const fvMesh& mesh,
@@ -70,7 +77,10 @@ relaxationWeightCourantCorrection::relaxationWeightCourantCorrection
 )
 :
     mesh_(mesh),
-    courantCorrection_( coeffDict.lookupOrDefault<Switch>("courantCorrection",false) )
+    courantCorrection_
+    (
+        coeffDict.lookupOrDefault<Switch>("courantCorrection",false)
+    )
 {
 }
 
@@ -81,17 +91,21 @@ relaxationWeightCourantCorrection::~relaxationWeightCourantCorrection()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 void relaxationWeightCourantCorrection::courantCorrection
 (
     const labelList& cells,
     scalarField& weights
 )
 {
-    if ( courantCorrection_ )
+    if (courantCorrection_)
     {
         scalar maxCo( readScalar(mesh_.time().controlDict().lookup("maxCo")) );
 
-        const surfaceScalarField& phi( mesh_.thisDb().lookupObject<surfaceScalarField>("phi"));
+        const surfaceScalarField& phi
+            (
+                mesh_.thisDb().lookupObject<surfaceScalarField>("phi")
+            );
         const surfaceScalarField& magSf( mesh_.magSf() );
         const surfaceScalarField& delta( mesh_.deltaCoeffs() );
         const cellList& cellFaces( mesh_.cells() );
@@ -101,12 +115,13 @@ void relaxationWeightCourantCorrection::courantCorrection
             label cellI( cells[celli] );
 
             scalar cn = courantNumber( phi, magSf, delta, cellFaces[cellI] );
-            // Make a change in format to fit with the definition by Sopheak Seng (SOSE)
+            // Make a change in format to fit with the definition by
+            // Sopheak Seng (SOSE)
             scalar w  = 1.0 - weights[celli];
 
-            // The "1.0 - " from SOSE in front of Foam::pow is omitted to correct for the
-            // local format change just above
-            weights[celli] = Foam::pow( 1.0 - w, cn / maxCo );
+            // The "1.0 - " from SOSE in front of Foam::pow is omitted to
+            // correct for the local format change just above
+            weights[celli] = Foam::pow( 1.0 - w, cn/maxCo );
         }
     }
 }

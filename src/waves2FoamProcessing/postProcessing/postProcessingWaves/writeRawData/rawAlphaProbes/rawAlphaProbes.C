@@ -39,6 +39,7 @@ addToRunTimeSelectionTable(postProcessingWaves, rawAlphaProbes, postProcessingWa
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
+
 void rawAlphaProbes::resizeFields
 (
     List<std::pair<scalar, label> >& timeLabel,
@@ -55,6 +56,7 @@ void rawAlphaProbes::resizeFields
         alpha.setSize(N);
     }
 }
+
 
 void rawAlphaProbes::writeRawData
 (
@@ -100,11 +102,9 @@ void rawAlphaProbes::writeRawData
     }
 }
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 rawAlphaProbes::rawAlphaProbes
 (
@@ -122,10 +122,13 @@ rawAlphaProbes::rawAlphaProbes
     getTimeDirs(inputDir_, timeDirs_);
 }
 
+
 rawAlphaProbes::~rawAlphaProbes()
 {}
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void rawAlphaProbes::evaluate()
 {
@@ -137,6 +140,7 @@ void rawAlphaProbes::evaluate()
 
     writeRawData(timeLabel, x, y, z, alphas);
 }
+
 
 void rawAlphaProbes::readAlphaProbesData
 (
@@ -189,7 +193,7 @@ void rawAlphaProbes::readAlphaProbesData
 
                 while (iss >> val)
                 {
-                    x.setSize( Nprobes+1 );
+                    x.setSize( Nprobes + 1 );
                     x[Nprobes++] = val;
                 }
 
@@ -269,7 +273,7 @@ void rawAlphaProbes::readAlphaProbesData
 
             if (Nentries == timeLabel.size())
             {
-                resizeFields( timeLabel, alphas, 2 * Nentries );
+                resizeFields( timeLabel, alphas, 2*Nentries );
             }
         }
 
@@ -280,6 +284,7 @@ void rawAlphaProbes::readAlphaProbesData
 
     std::sort( timeLabel.begin(), timeLabel.end(), pairSortA );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

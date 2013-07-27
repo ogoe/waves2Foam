@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(waveSpectra, 0);
 defineRunTimeSelectionTable(waveSpectra, waveSpectra);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 waveSpectra::waveSpectra
 (
@@ -66,16 +64,19 @@ waveSpectra::waveSpectra
 {
 }
 
+
 waveSpectra::~waveSpectra()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+
 scalar waveSpectra::randomPhaselag()
 {
-    return ( 2.0 * PI_ * static_cast<scalar>(rand()) / static_cast<scalar>(RAND_MAX) );
+    return ( 2.0*PI_*static_cast<scalar>(rand())/static_cast<scalar>(RAND_MAX) );
 }
+
 
 autoPtr<waveSpectra> waveSpectra::New
 (
@@ -107,6 +108,7 @@ autoPtr<waveSpectra> waveSpectra::New
 
     return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

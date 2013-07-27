@@ -89,15 +89,24 @@ int main(int argc, char *argv[])
             triFaceList tfl(0);
             label count(0);
 
-            if (stlDefs.subDict(toc[item]).lookupOrDefault<Switch>("extrude", false ))
+            if (
+                   stlDefs.subDict(toc[item])
+                   .lookupOrDefault<Switch>("extrude", false )
+               )
             {
                 if (faces.size() <= 1)
                 {
-                    extrudeFacesAndPoints( stlDefs.subDict(toc[item]), faces, pp);
+                    extrudeFacesAndPoints
+                        (
+                            stlDefs.subDict(toc[item]),
+                            faces,
+                            pp
+                        );
                 }
                 else
                 {
-                    Info << "\nWARNING: Using extrude, but multiple faces are defined\n" << endl;
+                    Info << "\nWARNING: Using extrude, but"
+                         << " multiple faces are defined\n" << endl;
                 }
             }
 
@@ -134,11 +143,11 @@ void extrudeFacesAndPoints
     vector extrude( dict.lookup("extrudeVector") );
 
     label N = pp.size();
-    pp.setSize( 2 * N );
+    pp.setSize( 2*N );
 
     for (int i=0; i < N; i++)
     {
-        pp[N+i] = pp[i] + extrude;
+        pp[N + i] = pp[i] + extrude;
     }
 
     label M = fL[0].size();
@@ -157,12 +166,12 @@ void extrudeFacesAndPoints
 
     for (int i = 0; i < M ; i++)
     {
-        face& f( fL[i+2] );
+        face& f( fL[i + 2] );
         f.setSize(4);
 
         f[0] = fOrg[i];
-        f[1] = fOrg[(i+1)%M];
-        f[2] = fExt[(i+1)%M];
+        f[1] = fOrg[(i + 1)%M];
+        f[2] = fExt[(i + 1)%M];
         f[3] = fExt[i];
     }
 }

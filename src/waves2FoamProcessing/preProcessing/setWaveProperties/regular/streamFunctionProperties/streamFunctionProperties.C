@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(streamFunctionProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, streamFunctionProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 streamFunctionProperties::streamFunctionProperties
 (
@@ -55,7 +53,9 @@ streamFunctionProperties::streamFunctionProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void streamFunctionProperties::set( Ostream& os)
 {
@@ -71,14 +71,14 @@ void streamFunctionProperties::set( Ostream& os)
     // Write the already given parameters
     writeGiven( os, "waveType" );
 
-    if ( dict_.found( "Tsoft" ) )
+    if (dict_.found( "Tsoft" ))
     {
         writeGiven( os, "Tsoft");
     }
 
     // This part should compute the properties for stream function wave theory
 
-    if ( write_ )
+    if (write_)
     {
         vector direction( vector(dict_.lookup("direction")));
         direction /= Foam::mag(direction);
@@ -92,6 +92,7 @@ void streamFunctionProperties::set( Ostream& os)
     // Write the closing bracket
     writeEnding( os );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

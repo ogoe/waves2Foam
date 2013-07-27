@@ -130,6 +130,7 @@ void waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
     }
 }
 
+
 scalar waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 (
     const point& pp
@@ -141,6 +142,7 @@ scalar waveVelocityFvPatchVectorField::signedPointToSurfaceDistance
 
     return temp;
 }
+
 
 // Update the coefficients associated with the patch field
 void waveVelocityFvPatchVectorField::updateCoeffs()
@@ -160,7 +162,7 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
     {
         localFace lf = this->divideFace(facei + start);
 
-        if ( lf.isNegFace() )
+        if (lf.isNegFace())
         {
             this->refValue()[facei]  = waveProps_->U( lf.negCentre(), db().time().value() );
         }
@@ -175,6 +177,7 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
 
     mixedFvPatchField<vector>::updateCoeffs();
 }
+
 
 // Evaluate the field on the patch
 void waveVelocityFvPatchVectorField::evaluate()

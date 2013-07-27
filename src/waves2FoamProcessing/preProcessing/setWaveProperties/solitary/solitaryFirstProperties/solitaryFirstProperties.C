@@ -37,10 +37,8 @@ namespace Foam
 defineTypeNameAndDebug(solitaryFirstProperties, 0);
 addToRunTimeSelectionTable(setWaveProperties, solitaryFirstProperties, setWaveProperties);
 
-// * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
-
-
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
 
 solitaryFirstProperties::solitaryFirstProperties
 (
@@ -54,7 +52,9 @@ solitaryFirstProperties::solitaryFirstProperties
     Info << "\nConstructing: " << this->type() << endl;
 }
 
+
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
 
 void solitaryFirstProperties::set(Ostream& os)
 {
@@ -75,6 +75,7 @@ void solitaryFirstProperties::set(Ostream& os)
     // Write the closing bracket
     writeEnding( os );
 }
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

@@ -103,7 +103,7 @@ public:
         virtual ~removeData();
 
     // Member Functions
-        void evaluate();
+        virtual void evaluate();
 };
 
 
