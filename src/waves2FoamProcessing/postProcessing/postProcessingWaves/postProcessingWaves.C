@@ -66,7 +66,8 @@ void postProcessingWaves::getTimeDirs
     else
     {
         // Get the time directories
-        fileNameList fnl = Foam::readDir( inputDir, Foam::fileName::DIRECTORY );
+        fileNameList fnl =
+            Foam::readDir( inputDir, Foam::fileName::DIRECTORY );
 
         timeDirs.setSize( fnl.size() );
 
@@ -287,8 +288,8 @@ word postProcessingWaves::dataType()
         IOobject::MUST_READ
     );
 
-    // The inquiry to fileHeader.headerOk() is needed to update headerClassName() from IOobject.
-    // This is weird but not looked into.
+    // The inquiry to fileHeader.headerOk() is needed to update
+    // headerClassName() from IOobject. This is weird but not looked into.
     if (!fileHeader.headerOk())
     {
 
@@ -320,7 +321,8 @@ scalar postProcessingWaves::readDeltaT
     if (dt <= 0.0)
     {
         FatalErrorIn("scalar postProcessingWaves::readDeltaT")
-            << "The time step (deltaT) given in\n    " <<  timeDict.name() << endl
+            << "The time step (deltaT) given in\n    "
+            <<  timeDict.name() << endl
             << "is less than or equal to zero." << endl << exit(FatalError);
     }
 
@@ -399,10 +401,18 @@ scalarField postProcessingWaves::equidistantTime
 )
 {
     scalar tmin( dict.lookupOrDefault<scalar>("tMin", timeLabel[0].first ) );
-    scalar tmax( dict.lookupOrDefault<scalar>("tMax", timeLabel[timeLabel.size() - 1].first ) );
+    scalar tmax
+    (
+        dict.lookupOrDefault<scalar>
+        (
+            "tMax",
+            timeLabel[timeLabel.size() - 1].first
+        )
+    );
     scalar dt( readScalar( dict.lookup("deltaT" ) )  );
 
-    Info << "        - Interpolation range: [" << tmin << "; " << tmax << "]" << endl;
+    Info << "        - Interpolation range: [" << tmin << "; " << tmax << "]"
+         << endl;
 
     label N( static_cast<label>( ( tmax - tmin )/dt ) );
 
@@ -430,21 +440,38 @@ void postProcessingWaves::interpolationWeights
     first.setSize( t.size() );
     second.setSize( t.size() );
 
-    if (t[0] < timeLabel[0].first || timeLabel[timeLabel.size() - 1].first < t[t.size() - 1])
+    if
+    (
+        t[0] < timeLabel[0].first ||
+        timeLabel[timeLabel.size() - 1].first < t[t.size() - 1]
+    )
     {
-        FatalErrorIn("void Foam::dataProcessingTools::interpolationWeights( ... )" )
-                        << "The target times for interpolations are outside the bounds" << endl
-                        << "of the sampled data set." << endl << exit(FatalError);
+        FatalErrorIn
+        (
+            "void Foam::dataProcessingTools::interpolationWeights( ... )"
+        )
+        << "The target times for interpolations are outside the bounds" << endl
+        << "of the sampled data set." << endl << exit(FatalError);
     }
 
     label count(0);
 
     forAll (t, timei)
     {
-        while (t[timei] >= timeLabel[count].first && t[timei] >= timeLabel[count + 1].first)
+        while
+        (
+            t[timei] >= timeLabel[count].first &&
+            t[timei] >= timeLabel[count + 1].first
+        )
+        {
             count++;
+        }
 
-        scalar w( (timeLabel[count + 1].first - t[timei])/(timeLabel[count + 1].first - timeLabel[count].first) );
+        scalar w
+        (
+            (timeLabel[count + 1].first - t[timei])
+           /(timeLabel[count + 1].first - timeLabel[count].first)
+        );
 
         weights[timei] = w;
         first[timei]   = timeLabel[count].second;

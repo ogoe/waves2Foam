@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(powerSpectraFFT, 0);
-addToRunTimeSelectionTable(postProcessingWaves, powerSpectraFFT, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    powerSpectraFFT,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
@@ -62,7 +67,8 @@ void powerSpectraFFT::writeScalar
     const List<scalarField>& spectra
 )
 {
-    Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing computed spectra to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -73,13 +79,21 @@ void powerSpectraFFT::writeScalar
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         const scalarField& spectrum( spectra[indexi] );
 
         forAll (frequencies, freqi)
         {
-            spectrumPtr_() << frequencies[freqi] << tab << spectrum[freqi] << endl;
+            spectrumPtr_() << frequencies[freqi] << tab
+                           << spectrum[freqi] << endl;
         }
     }
 }
@@ -107,7 +121,8 @@ void powerSpectraFFT::writeVector
     const List<vectorField>& spectra
 )
 {
-    Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing computed spectra to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -118,7 +133,14 @@ void powerSpectraFFT::writeVector
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         const vectorField& spectrum( spectra[indexi] );
 
@@ -173,7 +195,7 @@ void powerSpectraFFT::evaluate()
     }
     else
     {
-        notImplemented("Data types other than scalar and vector is not supported.");
+        notImplemented("Only scalars and vectors are supported.");
     }
 }
 

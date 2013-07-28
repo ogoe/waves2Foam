@@ -26,8 +26,8 @@ Class
     reflectionAnalysis2DLS
 
 Description
-    Performs a reflection analysis for a regular signal. It is based on a least-
-    squares approach and the wave number is given by the user.
+    Performs a reflection analysis for a regular signal. It is based on a
+    least-squares approach and the wave number is given by the user.
 
 SourceFiles
     reflectionAnalysis2DLS.C
@@ -122,7 +122,7 @@ public:
 
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

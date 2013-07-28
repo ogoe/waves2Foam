@@ -58,15 +58,16 @@ combinedWaves::combinedWaves
         FatalErrorIn
             (
              "Foam::waveTheories::combinedWaves(const word& subDictName, const fvMesh& mesh_)"
-            )   << "The size of the combining waves is " << combinedWavesNames_.size()
-            << endl << endl
+            )   << "The size of the combining waves is "
+            << combinedWavesNames_.size() << endl << endl
             << "There should be at least one (1) wave type." << endl
             << exit(FatalError);
     }
 
     forAll (combinedWavesPtr_, cI)
     {
-        combinedWavesPtr_[cI] = waveTheories::waveTheory::New(combinedWavesNames_[cI], mesh_);
+        combinedWavesPtr_[cI] = waveTheories::waveTheory::
+            New(combinedWavesNames_[cI], mesh_);
     }
 }
 

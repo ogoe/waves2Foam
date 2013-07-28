@@ -88,7 +88,8 @@ scalar stokesFirst::eta
     const scalar& time
 ) const
 {
-    scalar eta = H_/2.0*Foam::cos(omega_*time - (k_ & x) + phi_)*factor(time) + seaLevel_;
+    scalar eta = H_/2.0*Foam::cos(omega_*time - (k_ & x) + phi_)
+        *factor(time) + seaLevel_;
     return eta;
 }
 
@@ -107,12 +108,10 @@ scalar stokesFirst::ddxPd
     scalar ddxPd(0);
 
     ddxPd = (
-                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))/Foam::cosh(K_*h_)*Foam::sin(arg)
+                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+               /Foam::cosh(K_*h_)*Foam::sin(arg)
             )*factor(time);
 
-//     ddxPd += rhoWater*Foam::mag(G)*k_*height_/2*Foam::cosh(k_*(c[cI].component(1) - seaLevel_ + depth_))
-//                                    /Foam::cosh(k_*depth_)*Foam::sin(omega_*db().time().value() + mathematicalConstant::pi/2)*factor;
-//     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
     return ddxPd;
 }
 
@@ -135,7 +134,8 @@ vector stokesFirst::U
                    Foam::sin(omega_*time - (k_ & x) + phi_);
     Uvert *= factor(time);
 
-    return Uhorz*k_/K_ - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
+    // Note "-" because of "g" working in the opposite direction
+    return Uhorz*k_/K_ - Uvert*direction_;
 }
 
 

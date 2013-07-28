@@ -61,7 +61,14 @@ bichromaticSecond::bichromaticSecond
     kn_(vector(coeffDict_.lookup("waveNumber1"))),
     km_(vector(coeffDict_.lookup("waveNumber2"))),
 
-    Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",Foam::max(periodn_,periodm_)))
+    Tsoft_
+    (
+        coeffDict_.lookupOrDefault<scalar>
+        (
+            "Tsoft",
+            Foam::max(periodn_,periodm_)
+        )
+    )
 {
     setCoeffs();
     printCoeffs();
@@ -132,15 +139,34 @@ void bichromaticSecond::setCoeffs()
     G2m_ /= ( Foam::tanh(h_*kappam_)*Foam::sqr( Foam::sinh(h_*kappam_) ));
 
     Gnmp_ = Lambda2(omega1n_, kn_, kappan_, omega1m_, km_, kappam_, kappanmp_);
-    Gnmm_ = Lambda2(omega1n_, kn_, kappan_, -omega1m_, -km_, kappam_, kappanmm_);
+    Gnmm_ = Lambda2
+        (
+            omega1n_,
+            kn_,
+            kappan_,
+            -omega1m_,
+            -km_,
+            kappam_,
+            kappanmm_
+        );
 
     F2n_  = - 3.0/4.0*h_*omega1n_/Foam::pow( Foam::sinh(h_*kappan_) , 4.0);
     F2m_  = - 3.0/4.0*h_*omega1m_/Foam::pow( Foam::sinh(h_*kappam_) , 4.0);
 
     Fnmp_ = Gamma2(omega1n_, kn_, kappan_, omega1m_, km_, kappam_, kappanmp_);
-    Fnmm_ = Gamma2(omega1n_, kn_, kappan_, -omega1m_, -km_, kappam_, kappanmm_);
+    Fnmm_ = Gamma2
+        (
+            omega1n_,
+            kn_,
+            kappan_,
+            -omega1m_,
+            -km_,
+            kappam_,
+            kappanmm_
+        );
 
-    // Velocity direction for the different interactions. dirn_ == dir2n_ so not defined!
+    // Velocity direction for the different interactions.
+    // dirn_ == dir2n_ so not defined!
     dirn_   = kn_/kappan_;
     dirm_   = km_/kappam_;
     dirnmp_ = (kn_ + km_)/kappanmp_;
@@ -178,13 +204,16 @@ scalar bichromaticSecond::Lambda2
 {
     scalar res0 = 0, res1 = 0;
 
-    res0 += omega0*( Foam::sqr(kappa1) + (k0 & k1) ) + omega1*( Foam::sqr(kappa0) + (k0 & k1) );
-    res0 *= Foam::mag(g_)*h_/betanm(omega0, omega1, kappa01)*( omega0 + omega1 )*Foam::cosh( h_*kappa01 );
+    res0 += omega0*( Foam::sqr(kappa1) + (k0 & k1) )
+        + omega1*( Foam::sqr(kappa0) + (k0 & k1) );
+    res0 *= Foam::mag(g_)*h_/betanm(omega0, omega1, kappa01)*(omega0 + omega1)
+        *Foam::cosh( h_*kappa01 );
 
     res1 += Foam::sqr( Foam::mag(g_) )*( k0 & k1 );
     res1 += Foam::sqr( omega0 )*Foam::sqr( omega1 );
     res1 -= omega0*omega1*Foam::sqr( omega0 + omega1 );
-    res1 *= ( h_*kappa01 )/betanm(omega0, omega1, kappa01)*Foam::sinh( h_*kappa01 );
+    res1 *= ( h_*kappa01 )/betanm(omega0, omega1, kappa01)
+        *Foam::sinh( h_*kappa01 );
 
     return res0 + res1;
 }
@@ -263,8 +292,10 @@ scalar bichromaticSecond::eta
     // First order contribution
     eta += an_*Foam::cos( thetan ) + am_*Foam::cos( thetam );
 
-    eta +=   Gnmm_*Anm_*Foam::cos( thetan - thetam ) + Gnmp_*Anm_*Foam::cos( thetan - thetam )
-           + G2n_*A2n_*Foam::cos( 2*thetan ) + G2m_*A2m_*Foam::cos( 2*thetam );
+    eta += Gnmm_*Anm_*Foam::cos(thetan - thetam)
+        + Gnmp_*Anm_*Foam::cos(thetan - thetam)
+        + G2n_*A2n_*Foam::cos(2*thetan)
+        + G2m_*A2m_*Foam::cos(2*thetam);
 
     return eta*factor(time) + seaLevel_;
 }
@@ -296,33 +327,50 @@ vector bichromaticSecond::U
     vector res = vector::zero;
 
     // HORIZONTAL VELOCITY CONTRIBUTIONS
-    // The horizontal velocity is thought of being derived from the velocity potential independently
-    // for each interaction, so a differentiation along a local coordinate system pointing in e.g.
-    // dirnmp_ gives a scalar velocity, which is subsequently given the correct direction by
-    // multiplication with dirnmp_. This avoids the need to check which direction is the vertical one
-    // when evaluating the derivative of the velocity potential.
+    // The horizontal velocity is thought of being derived from the velocity
+    // potential independently for each interaction, so a differentiation along
+    // a local coordinate system pointing in e.g. dirnmp_ gives a scalar
+    // velocity, which is subsequently given the correct direction by
+    // multiplication with dirnmp_. This avoids the need to check which
+    // direction is the vertical one when evaluating the derivative of the
+    // velocity potential.
 
     // First order contributions
-    res += - dirn_*Fn_*Foam::cosh(kappan_*(Z + h_))*an_*kappan_*Foam::cos( thetan )
-           - dirm_*Fm_*Foam::cosh(kappam_*(Z + h_))*am_*kappam_*Foam::cos( thetam );
+    res += - dirn_*Fn_*Foam::cosh(kappan_*(Z + h_))*an_*kappan_
+        *Foam::cos( thetan )
+        - dirm_*Fm_*Foam::cosh(kappam_*(Z + h_))*am_*kappam_
+        *Foam::cos( thetam );
 
     // Second order self-interactions
-    res += - dirn_*F2n_*Foam::cosh(2.0*kappan_*(Z + h_))*A2n_*2.0*kappan_*Foam::cos( 2.0*thetan )
-           - dirn_*F2m_*Foam::cosh(2.0*kappam_*(Z + h_))*A2m_*2.0*kappam_*Foam::cos( 2.0*thetam );
+    res += - dirn_*F2n_*Foam::cosh(2.0*kappan_*(Z + h_))*A2n_*2.0*kappan_
+        *Foam::cos( 2.0*thetan )
+        - dirn_*F2m_*Foam::cosh(2.0*kappam_*(Z + h_))*A2m_*2.0*kappam_
+        *Foam::cos( 2.0*thetam );
 
     // Second order super- and sub-harmonics
-    res += - dirnmp_*Fnmp_*Foam::cosh(kappanmp_*(Z + h_))*Anm_*kappanmp_*Foam::cos(thetan + thetam)
-           - dirnmm_*Fnmm_*Foam::cosh(kappanmm_*(Z + h_))*Anm_*kappanmm_*Foam::cos(thetan - thetam);
+    res += - dirnmp_*Fnmp_*Foam::cosh(kappanmp_*(Z + h_))*Anm_*kappanmp_
+        *Foam::cos(thetan + thetam)
+        - dirnmm_*Fnmm_*Foam::cosh(kappanmm_*(Z + h_))*Anm_*kappanmm_
+        *Foam::cos(thetan - thetam);
 
     // VERTICAL VELOCITY CONTRIBUTIONS
     // Note "-=" to correct to the sign on direction_!
-    res -= (   Fn_        * kappan_   * Foam::sinh(kappan_*(Z + h_))        * an_  * Foam::sin( thetan ) // First order
-             + Fm_        * kappam_   * Foam::sinh(kappam_*(Z + h_))        * am_  * Foam::sin( thetam ) // First order
-             + F2n_*2.0*kappan_   * Foam::sinh( 2.0*kappan_*(Z + h_))*A2n_*Foam::sin(2.0*thetan ) // Second order self-interaction
-             + F2m_*2.0*kappam_   * Foam::sinh( 2.0*kappam_*(Z + h_))*A2m_*Foam::sin(2.0*thetam ) // Second order self-interaction
-             + Fnmm_      * kappanmm_*Foam::sinh( kappanmm_*(Z + h_))     * Anm_*Foam::sin( thetan - thetam) // Second order sub-harmonic
-             + Fnmp_      * kappanmp_*Foam::sinh( kappanmp_*(Z + h_))     * Anm_*Foam::sin( thetan + thetam) // Second order super-harmonic
-           )*direction_;
+    res -= ( Fn_*kappan_*Foam::sinh(kappan_*(Z + h_))*an_*Foam::sin(thetan)
+        // First order
+        + Fm_*kappam_*Foam::sinh(kappam_*(Z + h_))*am_*Foam::sin(thetam)
+        // Second order self-interaction
+        + F2n_*2.0*kappan_*Foam::sinh(2.0*kappan_*(Z + h_))
+        *A2n_*Foam::sin(2.0*thetan)
+        // Second order self-interaction
+        + F2m_*2.0*kappam_*Foam::sinh(2.0*kappam_*(Z + h_))
+        *A2m_*Foam::sin(2.0*thetam)
+        // Second order sub-harmonic
+        + Fnmm_*kappanmm_*Foam::sinh( kappanmm_*(Z + h_))
+        *Anm_*Foam::sin(thetan - thetam)
+        // Second order super-harmonic
+        + Fnmp_*kappanmp_*Foam::sinh( kappanmp_*(Z + h_))
+        *Anm_*Foam::sin(thetan + thetam)
+        )*direction_;
 
     return res*factor(time);
 }

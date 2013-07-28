@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(userDefinedDistribution, 0);
-addToRunTimeSelectionTable(pointDistributions, userDefinedDistribution, pointDistributions);
+addToRunTimeSelectionTable
+(
+    pointDistributions,
+    userDefinedDistribution,
+    pointDistributions
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 

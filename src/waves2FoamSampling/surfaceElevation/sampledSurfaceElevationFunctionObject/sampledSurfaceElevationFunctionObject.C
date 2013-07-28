@@ -30,7 +30,10 @@ License
 
 namespace Foam
 {
-    defineNamedTemplateTypeNameAndDebug(sampledSurfaceElevationFunctionObject, 0);
+    defineNamedTemplateTypeNameAndDebug
+    (
+        sampledSurfaceElevationFunctionObject, 0
+    );
 
     addToRunTimeSelectionTable
     (

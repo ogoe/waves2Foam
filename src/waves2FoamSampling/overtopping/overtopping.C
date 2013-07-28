@@ -113,7 +113,10 @@ void Foam::overtopping::makeFile()
             // Open new file at start up
             outputFilePtr_.reset(new OFstream(outputDir/(type() + ".dat")));
 
-            outputFileForcePtr_.reset(new OFstream(outputDir/(type() + "_rhoU2A.dat")));
+            outputFileForcePtr_.reset
+            (
+                new OFstream(outputDir/(type() + "_rhoU2A.dat"))
+            );
 
             // Add headers to output data
             writeFileHeader();
@@ -173,8 +176,22 @@ Foam::overtopping::overtopping
 :
     phiName_( dict.lookupOrDefault<word>("phiName","phi") ),
     rhoPhiName_( dict.lookupOrDefault<word>("rhoPhiName","rho*phi") ),
-    rho1_( dimensionedScalar( obr.lookupObject<dictionary>("transportProperties").subDict("phase1").lookup("rho")).value() ),
-    rho2_( dimensionedScalar( obr.lookupObject<dictionary>("transportProperties").subDict("phase2").lookup("rho")).value() ),
+    rho1_
+    (
+        dimensionedScalar
+        (
+            obr.lookupObject<dictionary>("transportProperties")
+           .subDict("phase1").lookup("rho")
+        ).value()
+    ),
+    rho2_
+    (
+        dimensionedScalar
+        (
+            obr.lookupObject<dictionary>("transportProperties")
+           .subDict("phase2").lookup("rho")
+        ).value()
+    ),
     invRhoDiff_( 1.0/( rho1_ - rho2_ ) ),
 
     mesh_( refCast<const fvMesh>( obr ) ),
@@ -250,7 +267,8 @@ void Foam::overtopping::computeAndWriteBoundary
             faceId = -1;
         }
     }
-    // Overtopping will not be defined on both ends of a cyclic patch, so redundant
+    // Overtopping will not be defined on both ends of a cyclic patch,
+    // so redundant
 //    else if (isA<cyclicPolyPatch>(pp))
 //    {
 //        label patchFaceI = faceI - pp.start();
@@ -280,7 +298,8 @@ void Foam::overtopping::computeAndWriteBoundary
         const scalarField& magSfw( magSf.boundaryField()[facePatchId] );
         const vectorField& Sfw( Sf.boundaryField()[facePatchId] );
 
-        q = ( (rhoPhiw[ faceId ] - phiw[ faceId ]*rho2_)*invRhoDiff_ )*Sfw[ faceId ]/magSfw[ faceId ];
+        q = ( (rhoPhiw[ faceId ] - phiw[ faceId ]*rho2_)*invRhoDiff_ )
+            *Sfw[ faceId ]/magSfw[ faceId ];
         f = rho1_*q * Foam::mag( q/magSfw[ faceId ] );
     }
 
@@ -306,12 +325,23 @@ void Foam::overtopping::computeAndWrite
 
         if (mesh_.isInternalFace( faceI ))
         {
-            q[facei] = ( (rhoPhi[ faceI ] - phi[ faceI ]*rho2_)*invRhoDiff_ )*Sf[ faceI ]/magSf[ faceI ];
-            f[facei] = rho1_*q[facei]*Foam::mag( q[facei]/magSf[facei] );
+            q[facei] = ((rhoPhi[ faceI ] - phi[ faceI ]*rho2_)*invRhoDiff_)
+                *Sf[ faceI ]/magSf[ faceI ];
+            f[facei] = rho1_*q[facei]
+                *Foam::mag( q[facei]/magSf[facei] );
         }
         else
         {
-            computeAndWriteBoundary( faceI, phi, rhoPhi, magSf, Sf, q[facei], f[facei] );
+            computeAndWriteBoundary
+            (
+                faceI,
+                phi,
+                rhoPhi,
+                magSf,
+                Sf,
+                q[facei],
+                f[facei]
+            );
         }
     }
 
@@ -341,8 +371,10 @@ void Foam::overtopping::write()
         outputFileForcePtr_() << mesh_.time().timeName();
     }
 
-    const surfaceScalarField phi   ( mesh_.lookupObject<surfaceScalarField>(phiName_)    );
-    const surfaceScalarField rhoPhi( mesh_.lookupObject<surfaceScalarField>(rhoPhiName_) );
+    const surfaceScalarField& phi =
+        mesh_.lookupObject<surfaceScalarField>(phiName_);
+    const surfaceScalarField& rhoPhi =
+        mesh_.lookupObject<surfaceScalarField>(rhoPhiName_);
 
     forAll (faceZones, fzi)
     {

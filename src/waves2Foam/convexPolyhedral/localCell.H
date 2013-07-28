@@ -78,7 +78,13 @@ public:
 
         localCell(const fvMesh&, const label&);
 
-        localCell(const cell, const faceList, const pointField, bool checkCell = false);
+        localCell
+        (
+            const cell,
+            const faceList,
+            const pointField,
+            bool checkCell = false
+        );
 
         void initCell( const fvMesh&, const label&);
 
@@ -192,8 +198,14 @@ public:
     // Access functions used for testing
 
         scalar fmag(const label faceI) const {return fL_[faceI].mag(pp_); };
-        vector fcentre(const label faceI) const { return fL_[faceI].centre(pp_); };
-        vector fnormal(const label faceI) const {return fL_[faceI].normal(pp_); };
+        vector fcentre(const label faceI) const
+        {
+            return fL_[faceI].centre(pp_);
+        };
+        vector fnormal(const label faceI) const
+        {
+            return fL_[faceI].normal(pp_);
+        };
 
     // Write
         void write( const fvMesh& , const List<localCell>& );

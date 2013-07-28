@@ -51,7 +51,10 @@ potentialCurrent::potentialCurrent
     waveTheory(subDictName, mesh_),
     U_(vector(coeffDict_.lookup("U"))),
     Tsoft_(readScalar(coeffDict_.lookup("Tsoft"))),
-    localSeaLevel_( coeffDict_.lookupOrDefault<scalar>("localSeaLevel", seaLevel_ ) )
+    localSeaLevel_
+    (
+        coeffDict_.lookupOrDefault<scalar>("localSeaLevel", seaLevel_)
+    )
 {}
 
 

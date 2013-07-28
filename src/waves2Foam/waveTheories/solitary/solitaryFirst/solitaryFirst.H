@@ -28,7 +28,8 @@ Class
 Description
     Implementation of a solitary wave theory, based on the limit solution for
     infinite wave length in the KdV equation, which is also the one describing
-    the solution for regular cnoidal waves. Implemented following the description by
+    the solution for regular cnoidal waves. Implemented following the
+    description by
 
         Hydrodynamics of Coastal Regions
         Ib A. Svendsen and Ivar G. Jonsson

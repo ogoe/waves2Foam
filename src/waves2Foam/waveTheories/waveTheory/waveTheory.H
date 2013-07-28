@@ -161,7 +161,10 @@ public:
         //-
         virtual Switch conflictTSoftInitialise() const = 0;
 
-        const vector windVelocity( const scalar& time ) const { return factor( time )*wind_; };
+        const vector windVelocity( const scalar& time ) const
+        {
+            return factor( time )*wind_;
+        };
 
         // Access - single value
         virtual scalar eta
@@ -219,7 +222,7 @@ public:
 } // End namespace waveTheories
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(bichromaticSecondProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, bichromaticSecondProperties, setWaveProperties);
+addToRunTimeSelectionTable
+(
+    setWaveProperties,
+    bichromaticSecondProperties,
+    setWaveProperties
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 

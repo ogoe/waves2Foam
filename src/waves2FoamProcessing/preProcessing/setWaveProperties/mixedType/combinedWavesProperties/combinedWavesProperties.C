@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(combinedWavesProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, combinedWavesProperties, setWaveProperties);
+addToRunTimeSelectionTable
+(
+    setWaveProperties,
+    combinedWavesProperties,
+    setWaveProperties
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 

@@ -54,8 +54,10 @@ waveTheory::waveTheory
 
     seaLevel_(readScalar(lookup("seaLevel"))),
 
-// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-    g_( uniformDimensionedVectorField( mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")).value() ),
+    g_( uniformDimensionedVectorField
+        (
+            mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+        ).value() ),
 
     direction_( g_/mag(g_) ),
 

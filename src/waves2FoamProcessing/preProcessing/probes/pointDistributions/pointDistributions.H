@@ -114,7 +114,11 @@ public:
     // Selectors
 
         //- Return a reference to the selected turbulence model
-        static autoPtr<pointDistributions> New( const fvMesh&, const dictionary&);
+        static autoPtr<pointDistributions> New
+        (
+            const fvMesh&,
+            const dictionary&
+        );
 
     // Destructor
 
@@ -131,7 +135,7 @@ public:
 
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

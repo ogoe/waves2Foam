@@ -55,7 +55,11 @@ setWaveField::setWaveField
 
     p_(p),
 
-    name_((U.db().lookupObject<IOdictionary>("waveProperties")).lookup("initializationName")),
+    name_
+    (
+       (U.db().lookupObject<IOdictionary>("waveProperties"))
+      .lookup("initializationName")
+    ),
 
     waveProps_(waveTheories::waveTheory::New(name_, mesh_))
 {
@@ -70,9 +74,12 @@ setWaveField::setWaveField
             " volScalarField& alpha,"
             " volScalarField& p"
             ")"
-        ) << "\n    The specified value of Tsoft is non-zero in the waveType: `" << waveProps_->type() << "'" << nl
-          << "    specified in the sub-dictionary waveProperties::" << name_ << "Coeffs"
-          << "\n\n    Consequently, the initialised `wave field' is set to a horizontal free surface with zero velocity." << nl << endl;
+        ) << "\n    The specified value of Tsoft is non-zero in the waveType:"
+          << " `" << waveProps_->type() << "'" << nl
+          << "    specified in the sub-dictionary waveProperties::"
+          << name_ << "Coeffs"
+          << "\n\n    Consequently, the initialised `wave field' is set to a"
+          << " horizontal free surface with zero velocity." << nl << endl;
     }
 
 }
@@ -147,8 +154,8 @@ void setWaveField::correct()
         scalar pTarget(0.0);
         scalar alphaTarget( 0.0 );
 
-        // If size is less than 4, then one cannot evaluate centre/magnitude without getting
-        // an floating point exception error
+        // If size is less than 4, then one cannot evaluate centre/magnitude
+        // without getting an floating point exception error
         if (lc.ccNeg().size() >= 4)
         {
             UTarget = waveProps_->U( lc.centreNeg(), U_.db().time().value() );

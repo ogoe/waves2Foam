@@ -88,7 +88,11 @@ scalar stokesFirstStanding::eta
     const scalar& time
 ) const
 {
-    scalar eta = (H_/2.0*Foam::cos(omega_*time - (k_ & x) + phi_) + H_/2.0*Foam::cos(omega_*time + (k_ & x) + phi_))*factor(time) + seaLevel_;
+    scalar eta =
+        (
+            H_/2.0*Foam::cos(omega_*time - (k_ & x) + phi_)
+          + H_/2.0*Foam::cos(omega_*time + (k_ & x) + phi_)
+        )*factor(time) + seaLevel_;
     return eta;
 }
 
@@ -108,8 +112,10 @@ scalar stokesFirstStanding::ddxPd
     scalar ddxPd(0);
 
     ddxPd = (
-                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))/Foam::cosh(K_*h_)*Foam::sin(arg1)
-              - rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))/Foam::cosh(K_*h_)*Foam::sin(arg2)
+                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+               /Foam::cosh(K_*h_)*Foam::sin(arg1)
+              - rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+               /Foam::cosh(K_*h_)*Foam::sin(arg2)
             )*factor(time);
 
     return ddxPd;
@@ -142,8 +148,8 @@ vector stokesFirstStanding::U
 
     Uvert *= factor(time);
 
-
-    return Uhorz*k_/K_ - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
+    // Note "-" because of "g" working in the opposite direction
+    return Uhorz*k_/K_ - Uvert*direction_;
 }
 
 

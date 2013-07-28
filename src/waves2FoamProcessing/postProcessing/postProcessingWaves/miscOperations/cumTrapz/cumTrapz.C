@@ -57,7 +57,8 @@ void cumTrapz::evaluateScalar()
 
         for (int i=1; i < field.size(); i++)
         {
-            out[i] = out[i - 1] + 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
+            out[i] = out[i - 1]
+                + 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
         }
     }
 
@@ -70,7 +71,8 @@ void cumTrapz::writeScalar
     const List<scalarField>& ct
 )
 {
-    Info << "        - Writing cumulative trapezoidal integral: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing cumulative trapezoidal integral: "
+         << directDir_.c_str() << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -81,7 +83,14 @@ void cumTrapz::writeScalar
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset( new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_cumTrapz.dat" ));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_cumTrapz.dat"
+            )
+        );
 
         const scalarField& data( ct[indexi] );
 
@@ -110,7 +119,8 @@ void cumTrapz::evaluateVector()
 
         for (int i=1; i < field.size(); i++)
         {
-            out[i] = out[i - 1] + 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
+            out[i] = out[i - 1]
+                + 0.5*(time[i] - time[i - 1])*(field[i] + field[i - 1]);
         }
     }
 
@@ -123,7 +133,8 @@ void cumTrapz::writeVector
     const List<vectorField>& ct
 )
 {
-    Info << "        - Writing cumulative trapezoidal integral: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing cumulative trapezoidal integral: "
+         << directDir_.c_str() << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -134,13 +145,21 @@ void cumTrapz::writeVector
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset( new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_cumTrapz.dat" ));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_cumTrapz.dat"
+            )
+        );
 
         const vectorField& data( ct[indexi] );
 
         forAll (data, ii)
         {
-            spectrumPtr_() << data[ii].x() << tab << data[ii].y() << tab << data[ii].z() << endl;
+            spectrumPtr_() << data[ii].x() << tab << data[ii].y() << tab
+                           << data[ii].z() << endl;
         }
     }
 }
@@ -184,7 +203,7 @@ void cumTrapz::evaluate()
     }
     else
     {
-        notImplemented("Data types other than scalar and vector is not supported.");
+        notImplemented("Only scalars and vectors are not supported.");
     }
 }
 

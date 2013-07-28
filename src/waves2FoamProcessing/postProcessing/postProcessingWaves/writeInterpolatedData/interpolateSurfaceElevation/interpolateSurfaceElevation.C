@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(interpolateSurfaceElevation, 0);
-addToRunTimeSelectionTable(postProcessingWaves, interpolateSurfaceElevation, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    interpolateSurfaceElevation,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -85,7 +90,8 @@ void interpolateSurfaceElevation::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii]*eta[leftData[ii]] + (1.0 - weights[ii] )*eta[rightData[ii]];
+            output[ii] = weights[ii]*eta[leftData[ii]]
+                + (1.0 - weights[ii] )*eta[rightData[ii]];
         }
 
         std::stringstream ss;

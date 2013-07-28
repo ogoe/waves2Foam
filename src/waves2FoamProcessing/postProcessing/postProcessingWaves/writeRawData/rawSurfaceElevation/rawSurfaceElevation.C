@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(rawSurfaceElevation, 0);
-addToRunTimeSelectionTable(postProcessingWaves, rawSurfaceElevation, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    rawSurfaceElevation,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
@@ -81,7 +86,8 @@ void rawSurfaceElevation::writeRawData
         writeIOScalarField(output, ss.str() );
     }
 
-    // Write the XYZ, indexing and dt (= -1 because of raw data format) information
+    // Write the XYZ, indexing and dt (= -1 because of raw data format)
+    // information
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
@@ -115,7 +121,10 @@ rawSurfaceElevation::rawSurfaceElevation
 :
     postProcessingWaves( rT, actionProp, action ),
 
-    inputDir_( actionProperties_.lookupOrDefault<word>("inputDir", "surfaceElevation") ),
+    inputDir_
+    (
+        actionProperties_.lookupOrDefault<word>("inputDir", "surfaceElevation")
+    ),
 
     removeDuplicate_( Switch(actionProperties_.lookup("removeDuplicate")) )
 {

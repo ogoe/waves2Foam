@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(removeData, 0);
-addToRunTimeSelectionTable(postProcessingWaves, removeData, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    removeData,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -51,7 +56,10 @@ removeData::removeData
 
     removeOF_( actionProperties_.lookupOrDefault<Switch>("removeOF", true ) ),
 
-    removeAscii_( actionProperties_.lookupOrDefault<Switch>("removeAscii", false) )
+    removeAscii_
+    (
+        actionProperties_.lookupOrDefault<Switch>("removeAscii", false)
+    )
 {
 }
 

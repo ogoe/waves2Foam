@@ -26,8 +26,8 @@ Typedef
     Foam::sampledSurfaceElevationFunctionObject
 
 Description
-    FunctionObject wrapper around SurfaceElevation to allow them to be created via the
-    functions list within controlDict.
+    FunctionObject wrapper around SurfaceElevation to allow them to be created
+    via the functions list within controlDict.
 
 SourceFiles
     sampledSurfaceElevationFunctionObject.C

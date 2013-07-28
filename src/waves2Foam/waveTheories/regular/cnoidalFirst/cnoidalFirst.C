@@ -80,7 +80,7 @@ void cnoidalFirst::printCoeffs()
 }
 
 
-// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * //
 
 
 scalar cnoidalFirst::factor(const scalar& time) const
@@ -101,7 +101,8 @@ scalar cnoidalFirst::argument
     const scalar& time
 ) const
 {
-    scalar arg = 2.0*Kelliptic_*(time/period_ - (propagationDirection_ & x)/length_);
+    scalar arg = 2.0*Kelliptic_
+        *(time/period_ - (propagationDirection_ & x)/length_);
 
     return arg;
 }
@@ -161,7 +162,7 @@ scalar cnoidalFirst::eta_xxx
 }
 
 
-// * * * * * * * * * * * * * Public Member Functions  * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * Public Member Functions * * * * * * * * * * * * //
 
 scalar cnoidalFirst::eta
 (
@@ -199,12 +200,12 @@ scalar cnoidalFirst::ddxPd
 
     ddxPd  =   rhoWater_*Foam::mag(g_)
              * (
-                 eta_x(snn, cnn, dnn) + 1.0/2.0*Foam::pow(h_, 2.0)*(1 - Foam::pow((Z + h_)/h_, 2.0))*eta_xxx(snn, cnn, dnn)
+                 eta_x(snn, cnn, dnn) + 1.0/2.0*Foam::pow(h_, 2.0)
+                *(1 - Foam::pow((Z + h_)/h_, 2.0))*eta_xxx(snn, cnn, dnn)
                );
 
     ddxPd *= factor(time);
 
-//     Info << "ddxPd still isn't implemented. Need to think about the gradient on arbitrary directed mesh with arbitrary wave number vector! and arbitrary g-direction!!!" << endl;
     return ddxPd;
 }
 
@@ -246,7 +247,8 @@ vector cnoidalFirst::U
 
     Uvert       *= factor(time);
 
-    return Uhorz*propagationDirection_ - Uvert*direction_; // Note "-" because of "g" working in the opposite direction
+    // Note "-" because of "g" working in the opposite direction
+    return Uhorz*propagationDirection_ - Uvert*direction_;
 }
 
 

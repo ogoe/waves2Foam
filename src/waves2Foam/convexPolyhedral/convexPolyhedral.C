@@ -69,14 +69,16 @@ labelList convexPolyhedral::edgeCutLabel
             {
                 label start(e.start()), end(e.end());
 
-                newP = pf[start] + d[start]/( d[start] + d[end] )*(pf[end] - pf[start]);
+                newP = pf[start] + d[start]/( d[start] + d[end] )
+                    *(pf[end] - pf[start]);
             }
             else
             {
                 point p0( pf[e.start()]), p1( pf[e.end()] );
                 scalar d0( sD[e.start()]), d1( sD[e.end()]);
 
-                newP = p0 + Foam::mag(d0)/( Foam::mag(d0) + Foam::mag(d1) )*( p1 - p0 );
+                newP = p0 + Foam::mag(d0)/(Foam::mag(d0) + Foam::mag(d1))
+                    *( p1 - p0 );
 
                 scalar dist( signedPointToSurfaceDistance(newP));
                 label count(0);
@@ -94,7 +96,8 @@ labelList convexPolyhedral::edgeCutLabel
                         p1 = newP;
                     }
 
-                    newP =  p0 + Foam::mag(d0)/( Foam::mag(d0) + Foam::mag(d1) )*( p1 - p0 );
+                    newP = p0 + Foam::mag(d0)/(Foam::mag(d0) + Foam::mag(d1))
+                        *( p1 - p0 );
                     dist = signedPointToSurfaceDistance( newP );
 
                     if (count++ > 100)
@@ -416,7 +419,8 @@ void convexPolyhedral::faceCut
 
                 if (noi < 2)
                 {
-                    noi == 0 ? cutted.start() = edgeCut[edgei] : cutted.end() = edgeCut[edgei];
+                    noi == 0 ? cutted.start() = edgeCut[edgei] :
+                         cutted.end() = edgeCut[edgei];
                 }
 
                 noi++;
@@ -507,9 +511,10 @@ scalar convexPolyhedral::signedPointToSurfaceDistance
 }
 
 
-// This avoids having to work with very small numbers, hence if a given distance is
-// less than 5.0e-14, it is assumed that the point is lying on the surface and its
-// labelList attribute is 0. Else the attribute is the sign of the distance.
+// This avoids having to work with very small numbers, hence if a given
+// distance is less than 5.0e-14, it is assumed that the point is lying
+// on the surface and its labelList attribute is 0. Else the attribute
+// is the sign of the distance.
 void convexPolyhedral::floatingPointToLabel
 (
     const scalarField& s,

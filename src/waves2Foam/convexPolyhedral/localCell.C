@@ -149,7 +149,8 @@ void localCell::localizeCell
         pointMap[pLabels[pointi]] = pointi;
     }
 
-    // Change point labels in the faces to be consistent with local point numbering
+    // Change point labels in the faces to be consistent with local
+    // point numbering
     forAll (fL_, facei)
     {
         face& f(fL_[facei]);
@@ -303,7 +304,8 @@ void localCell::localizeCell
 
     this->pp_ = pp;
 
-    // Change point labels in the faces to be consistent with local point numbering
+    // Change point labels in the faces to be consistent with local
+    // point numbering
     forAll (this->fL_, facei)
     {
         face& f(this->fL_[facei]);
@@ -375,7 +377,8 @@ void localCell::write(const fvMesh& mesh, const List<localCell>& lcs)
             pp[pointi + pCount] = p[pointi];
         }
 
-        // Add interface-face to the face list. Correct for the new point numbering
+        // Add interface-face to the face list. Correct for the new
+        // point numbering
         face& f( fL[celli]);
 
         f = lc.iface();
@@ -427,7 +430,3 @@ void localCell::write(const fvMesh& mesh, const List<localCell>& lcs)
 
 
 } // End namespace
-
-
-
-

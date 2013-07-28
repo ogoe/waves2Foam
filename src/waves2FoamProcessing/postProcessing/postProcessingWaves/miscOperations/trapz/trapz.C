@@ -55,7 +55,8 @@ void trapz::evaluateScalar()
 
         for (int i=1; i < field.size(); i++)
         {
-            trapezoidal[I] += 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
+            trapezoidal[I] += 0.5*(time[i] - time[i - 1])
+                *(field[i] + field[i - 1]);
         }
     }
 
@@ -68,17 +69,25 @@ void trapz::writeScalar
     const scalarField& trapezoidal
 )
 {
-    Info << "        - Writing trapezoidal integral: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing trapezoidal integral: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
     autoPtr<OFstream> spectrumPtr_;
 
-    spectrumPtr_.reset( new OFstream( directDir_ + "/" + this->type() + "/" + callName_ + "_trapz.dat" ));
+    spectrumPtr_.reset
+    (
+        new OFstream
+        (
+            directDir_ + "/" + this->type() + "/" + callName_ + "_trapz.dat"
+        )
+    );
 
     forAll (indices_, indexi)
     {
-        spectrumPtr_() << indices_[indexi] << tab << trapezoidal[indexi] << endl;
+        spectrumPtr_() << indices_[indexi] << tab << trapezoidal[indexi]
+                       << endl;
     }
 }
 
@@ -98,7 +107,8 @@ void trapz::evaluateVector()
 
         for (int i=1; i < field.size(); i++)
         {
-            trapezoidal[I] += 0.5*( time[i] - time[i - 1] )*( field[i] + field[i - 1]);
+            trapezoidal[I] += 0.5*(time[i] - time[i - 1])
+                *( field[i] + field[i - 1]);
         }
     }
 
@@ -111,13 +121,20 @@ void trapz::writeVector
     const vectorField& trapezoidal
 )
 {
-    Info << "        - Writing trapezoidal integral: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing trapezoidal integral: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
     autoPtr<OFstream> spectrumPtr_;
 
-    spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + callName_ + "_trapz.dat"));
+    spectrumPtr_.reset
+    (
+        new OFstream
+        (
+            directDir_ + "/" + this->type() + "/" + callName_ + "_trapz.dat"
+        )
+    );
 
     forAll (indices_, indexi)
     {
@@ -167,7 +184,7 @@ void trapz::evaluate()
     }
     else
     {
-        notImplemented("Data types other than scalar and vector is not supported.");
+        notImplemented("Only scalars and vectors are supported.");
     }
 }
 

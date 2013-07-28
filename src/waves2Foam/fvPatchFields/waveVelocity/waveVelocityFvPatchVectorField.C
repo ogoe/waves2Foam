@@ -153,7 +153,8 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
     }
 
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
-    const label patchID = mesh.boundaryMesh().findPatchID(this->patch().name());
+    const word patchName = this->patch().name();
+    const label patchID = mesh.boundaryMesh().findPatchID(patchName);
     const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
 
     const label start = patch().patch().start();
@@ -164,11 +165,13 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
 
         if (lf.isNegFace())
         {
-            this->refValue()[facei]  = waveProps_->U( lf.negCentre(), db().time().value() );
+            this->refValue()[facei]
+                = waveProps_->U( lf.negCentre(), db().time().value() );
         }
         else
         {
-            this->refValue()[facei]  = waveProps_->windVelocity( db().time().value() );
+            this->refValue()[facei]
+                = waveProps_->windVelocity( db().time().value() );
         }
 
         this->refGrad()[facei]       = vector::zero;

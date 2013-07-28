@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(rawAlphaProbes, 0);
-addToRunTimeSelectionTable(postProcessingWaves, rawAlphaProbes, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    rawAlphaProbes,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
@@ -81,7 +86,8 @@ void rawAlphaProbes::writeRawData
         writeIOScalarField(output, ss.str() );
     }
 
-    // Write the XYZ, indexing and dt (= -1 because of raw data format) information
+    // Write the XYZ, indexing and dt (= -1 because of raw data format)
+    // information
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields

@@ -152,7 +152,8 @@ void wavePressureFvPatchScalarField::updateCoeffs()
     }
 
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
-    const label patchID = mesh.boundaryMesh().findPatchID(this->patch().name());
+    const word patchName = this->patch().name();
+    const label patchID = mesh.boundaryMesh().findPatchID(patchName);
     const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
     const vectorField& Sf ( mesh.Sf().boundaryField()[patchID] );
 
@@ -169,7 +170,8 @@ void wavePressureFvPatchScalarField::updateCoeffs()
         {
             centre = lf.negCentre();
             normal = Sf[facei]/magSf[facei];
-            this->refGrad()[facei]   = waveProps_->ddxPd( centre, db().time().value(), normal);
+            this->refGrad()[facei]
+                = waveProps_->ddxPd( centre, db().time().value(), normal);
         }
         else
         {

@@ -227,12 +227,13 @@ public:
 
 } // End namespace Foam
 
-// The GCC compiler do not allow these to be overloaded for some reason, hence A and B
+// The GCC compiler do not allow these to be overloaded for some reason,
+// hence A and B
 bool pairSortA( std::pair<scalar, label>, std::pair<scalar, label>);
 
 bool paitSortB( std::pair<scalar, word>, std::pair<scalar, word>);
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

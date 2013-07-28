@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(powerSpectraLS, 0);
-addToRunTimeSelectionTable(postProcessingWaves, powerSpectraLS, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    powerSpectraLS,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
@@ -50,7 +55,8 @@ void powerSpectraLS::evaluateScalar()
 
     scalarField time = readIOScalarField( callName_ + "_time" );
 
-    List<scalarField> spectra = smls.powerSpectra( time, input, N_, 1.0 /period_ );
+    List<scalarField> spectra =
+        smls.powerSpectra(time, input, N_, 1.0 /period_);
 
     scalarField frequencies = smls.frequencies( N_ );
 
@@ -64,7 +70,8 @@ void powerSpectraLS::writeScalar
     const List<scalarField>& spectra
 )
 {
-    Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing computed spectra to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -75,13 +82,21 @@ void powerSpectraLS::writeScalar
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         const scalarField& spectrum( spectra[indexi] );
 
         forAll (frequencies, freqi)
         {
-            spectrumPtr_() << frequencies[freqi] << tab << spectrum[freqi] << endl;
+            spectrumPtr_() << frequencies[freqi] << tab << spectrum[freqi]
+                           << endl;
         }
     }
 }
@@ -97,7 +112,8 @@ void powerSpectraLS::evaluateVector()
 
     scalarField time = readIOScalarField( callName_ + "_time" );
 
-    List<vectorField> spectra = smls.powerSpectra( time, input, N_, 1.0/period_ );
+    List<vectorField> spectra =
+        smls.powerSpectra(time, input, N_, 1.0/period_);
 
     scalarField frequencies = smls.frequencies( N_ );
 
@@ -111,7 +127,8 @@ void powerSpectraLS::writeVector
     const List<vectorField>& spectra
 )
 {
-    Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing computed spectra to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -122,7 +139,14 @@ void powerSpectraLS::writeVector
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         const vectorField& spectrum( spectra[indexi] );
 
@@ -180,7 +204,7 @@ void powerSpectraLS::evaluate()
     }
     else
     {
-        notImplemented("Data types other than scalar and vector is not supported.");
+        notImplemented("Only scalars and vectors are supported.");
     }
 }
 

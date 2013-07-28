@@ -109,7 +109,8 @@ void JONSWAP::set(Ostream& os)
 
     for (int i=0; i<=Nhigh; i++)
     {
-        f[Nlow - 1 + i] = (fhigh - fp)*( - Foam::cos( 2*PI_/( 4*Nhigh)*i ) + 1) + fp;
+        f[Nlow - 1 + i] =
+            (fhigh - fp)*(- Foam::cos(2*PI_/(4*Nhigh)*i) + 1) + fp;
     }
 
     forAll (sigma, ii)
@@ -120,10 +121,12 @@ void JONSWAP::set(Ostream& os)
         }
     }
 
-    beta = Foam::exp( - Foam::pow( f - fp, 2.0 )/( 2*Foam::pow(sigma, 2.0)*Foam::pow(fp, 2.0)) );
+    beta = Foam::exp(- Foam::pow(f - fp, 2.0)
+        /(2*Foam::pow(sigma, 2.0)*Foam::pow(fp, 2.0)));
 
     // Compute spectrum
-    scalarField S = alpha*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)*Foam::pow(f,-5.0)*Foam::pow(gamma,beta)*Foam::exp( - 5.0/4.0*Foam::pow( fp/f, 4.0 ) );
+    scalarField S = alpha*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)*Foam::pow(f,-5.0)
+        *Foam::pow(gamma,beta)*Foam::exp( - 5.0/4.0*Foam::pow( fp/f, 4.0 ) );
 
     Foam::stokesFirstProperties stp( rT_, dict_ );
 

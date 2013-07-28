@@ -118,7 +118,8 @@ public:
             const dictionary&
         );
 
-        //- Construct by mapping given surfaceWaveVelocityFvPatchVectorField onto a new patch
+        //- Construct by mapping given surfaceWaveVelocityFvPatchVectorField
+        //  onto a new patch
         waveVelocityFvPatchVectorField
         (
             const waveVelocityFvPatchVectorField&,
@@ -144,7 +145,11 @@ public:
         );
 
         //- Construct and return a clone setting internal field reference
-        virtual tmp<fvPatchField<vector> > clone(const DimensionedField<vector, volMesh>& iF) const
+        virtual tmp<fvPatchField<vector> > clone
+        (
+            const DimensionedField<vector,
+            volMesh>& iF
+        ) const
         {
             return tmp<fvPatchField<vector> >
             (

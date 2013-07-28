@@ -57,8 +57,16 @@ waveSpectra::waveSpectra
     phi_(phi),
     k_(k),
 
-// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-    G_( Foam::mag(uniformDimensionedVectorField( rT_.db().lookupObject<uniformDimensionedVectorField>("g")).value()) ),
+    G_
+    (
+        Foam::mag
+        (
+            uniformDimensionedVectorField
+            (
+                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
+            ).value()
+        )
+    ),
 
     PI_( M_PI )
 {
@@ -74,7 +82,7 @@ waveSpectra::~waveSpectra()
 
 scalar waveSpectra::randomPhaselag()
 {
-    return ( 2.0*PI_*static_cast<scalar>(rand())/static_cast<scalar>(RAND_MAX) );
+    return (2.0*PI_*static_cast<scalar>(rand())/static_cast<scalar>(RAND_MAX));
 }
 
 

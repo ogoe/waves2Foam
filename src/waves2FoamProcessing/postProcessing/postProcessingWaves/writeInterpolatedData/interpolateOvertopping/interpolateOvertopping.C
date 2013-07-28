@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(interpolateOvertopping, 0);
-addToRunTimeSelectionTable(postProcessingWaves, interpolateOvertopping, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    interpolateOvertopping,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -85,7 +90,8 @@ void interpolateOvertopping::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii]*OT[leftData[ii]] + (1.0 - weights[ii] )*OT[rightData[ii]];
+            output[ii] = weights[ii]*OT[leftData[ii]]
+                + (1.0 - weights[ii] )*OT[rightData[ii]];
         }
 
         std::stringstream ss;

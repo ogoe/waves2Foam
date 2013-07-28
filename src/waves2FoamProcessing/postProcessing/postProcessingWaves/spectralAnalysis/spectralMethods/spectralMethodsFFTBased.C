@@ -44,7 +44,8 @@ void Foam::spectralMethodsFFTBased::checkBins()
     if ((bins_ % 2) == 1)
     {
         FatalErrorIn("void Foam::spectralMethodsFFTBased::checkBins()")
-                << "The number of frequency bins (" << bins_ << ") given in the dictionary" << endl
+                << "The number of frequency bins (" << bins_
+                << ") given in the dictionary" << endl
                 << "is not an even number" << endl << exit(FatalError);
     }
 }
@@ -100,7 +101,7 @@ void Foam::spectralMethodsFFTBased::powerSpectrum
 
         for (int m=0; m < bins_/2; m++)
         {
-            spectrum[m] += ( factor*transform[m]*transform[m].conjugate() ).Re();
+            spectrum[m] += (factor*transform[m]*transform[m].conjugate()).Re();
         }
     }
 }
@@ -151,9 +152,13 @@ spectralMethodsFFTBased::spectralMethodsFFTBased
 
     if (overlap <= 0 || step_ == 0)
     {
-        FatalErrorIn("void Foam::spectralMethodsFFTBased::spectralMethodsFFTBased( const fvMesh&, const dictionary& )" )
-                        << "The overlap-factor is negative or the overlap is so small that the resulting step" << endl
-                        << "in window size is 0" << endl << exit(FatalError);
+        FatalErrorIn
+        (
+            "void Foam::spectralMethodsFFTBased::spectralMethodsFFTBased(const fvMesh&, const dictionary&)"
+        )
+        << "The overlap-factor is negative or the overlap is so small"
+        << " that the resulting step" << endl
+        << "in window size is 0" << endl << exit(FatalError);
     }
 
     // Allocation memory for FFT
@@ -298,8 +303,12 @@ void spectralMethodsFFTBased::initSweep
 
     if (sweeps_ <= 0)
     {
-        FatalErrorIn("void spectralMethodsFFTBased::initSweep( const scalarField& input)" )
-                            << "The input data set is too short relative to the window size" << exit(FatalError);
+        FatalErrorIn
+        (
+            "void spectralMethodsFFTBased::initSweep( const scalarField& input)"
+        )
+        << "The input data set is too short relative to the window size"
+        << exit(FatalError);
     }
 }
 

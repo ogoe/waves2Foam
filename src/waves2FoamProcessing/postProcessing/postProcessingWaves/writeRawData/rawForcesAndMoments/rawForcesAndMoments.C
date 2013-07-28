@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(rawForcesAndMoments, 0);
-addToRunTimeSelectionTable(postProcessingWaves, rawForcesAndMoments, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    rawForcesAndMoments,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 

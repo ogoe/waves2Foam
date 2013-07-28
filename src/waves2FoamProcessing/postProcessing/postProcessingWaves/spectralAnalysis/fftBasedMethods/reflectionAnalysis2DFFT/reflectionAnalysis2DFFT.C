@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(reflectionAnalysis2DFFT, 0);
-addToRunTimeSelectionTable(postProcessingWaves, reflectionAnalysis2DFFT, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    reflectionAnalysis2DFFT,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
@@ -68,7 +73,8 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
     const scalarField& spectrumLeft
 )
 {
-    Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing computed spectra to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -79,11 +85,19 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
         std::stringstream ss;
         ss << callName_ << "_leftGoing";
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         forAll (frequencies, freqi)
         {
-            spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi] << endl;
+            spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi]
+                           << endl;
         }
     }
 
@@ -92,11 +106,19 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
         std::stringstream ss;
         ss << callName_ << "_rightGoing";
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         forAll (frequencies, freqi)
         {
-            spectrumPtr_() << frequencies[freqi] << tab << spectrumRight[freqi] << endl;
+            spectrumPtr_() << frequencies[freqi] << tab << spectrumRight[freqi]
+                           << endl;
         }
     }
 
@@ -105,11 +127,19 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
         std::stringstream ss;
         ss << callName_ << "_leftGoing";
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/" + ss.str()
+              + "_spectrum.dat"
+            )
+        );
 
         forAll (frequencies, freqi)
         {
-            spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi] << endl;
+            spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi]
+                           << endl;
         }
     }
 }
@@ -145,7 +175,8 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
     {
         scalar kj( k[freqi] );
 
-        // Compute the weight (heuristic suggestion in article) (Eq. 21 and eq. 22)
+        // Compute the weight (heuristic suggestion in article)
+        // (Eq. 21 and eq. 22)
         scalarField Wj( X_.size(), 0.0);
 
         for (int p = 0; p < P; p++)
@@ -153,7 +184,8 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
             for (int q = 0; q < P; q++)
             {
                 scalar delta( kj*( X_[p] - X_[q] ));
-                Wj[p] += Foam::sqr( Foam::sin( delta ) )/( 1 + Foam::sqr( delta/M_PI ));
+                Wj[p] += Foam::sqr(Foam::sin(delta))
+                    /(1 + Foam::sqr(delta/M_PI));
             }
         }
 
@@ -163,7 +195,11 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         {
             for (int q=0; q < p; q++)
             {
-                D += ( 4.0*Wj[p]*Wj[q]*Foam::sqr( Foam::sin( kj*( X_[p] - X_[q] ) )) );
+                D +=
+                    (
+                        4.0*Wj[p]*Wj[q]
+                       *Foam::sqr( Foam::sin(kj*(X_[p] - X_[q])))
+                    );
             }
         }
 
@@ -176,13 +212,18 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
 
             for (int q=0; q < P; q++)
             {
-                C[p] += ( Wj[q]*Foam::sin( kj*( X_[p] - X_[q] ))*exp( ii*kj*(X_[q] - X_[0])) );
+                C[p] +=
+                     (
+                         Wj[q]*Foam::sin( kj*( X_[p] - X_[q] ))
+                        *exp( ii*kj*(X_[q] - X_[0]))
+                     );
             }
 
             C[p]*= ( 2.0*ii*Wj[p]*exp( ii*kj*X_[0] )/D );
         }
 
-        // Compute the left and right going discrete fourier coefficients. (Eq. 14a and 14b)
+        // Compute the left and right going discrete fourier coefficients.
+        // (Eq. 14a and 14b)
         for (int p = 0; p < P; p++)
         {
             const Field<complex>& amp( amps[p] );
@@ -239,7 +280,8 @@ void reflectionAnalysis2DFFT::evaluate()
 {
     if (dataType() == "scalar")
     {
-        Info << "        - Computing left and right going spectra (2D)" << endl;
+        Info << "        - Computing left and right going spectra (2D)"
+             << endl;
 
         spectralMethodsFFTBased smfft( rT_, actionProperties_ );
 
@@ -253,7 +295,8 @@ void reflectionAnalysis2DFFT::evaluate()
 
         scalarField specLeft( k.size(), 0.0 ), specRight( k.size(), 0.0 );
 
-        scalar factor( 2.0*deltaT_/static_cast<scalar>( smfft.nSweeps()*smfft.nBins() ) );
+        scalar factor = 2.0*deltaT_
+            /static_cast<scalar>( smfft.nSweeps()*smfft.nBins() );
 
         while (true)
         {
@@ -274,11 +317,17 @@ void reflectionAnalysis2DFFT::evaluate()
             // Decompose amplitudes
             decomposeAmplitudes( k, transforms, ampRight, ampLeft);
 
-            // Add the decomposed DFTs to the left and right going power spectra
+            // Add the decomposed DFTs to the left and right going power
+            // spectra
             forAll (ampRight, freqi)
             {
-                specRight[freqi] += ( factor*(ampRight[freqi]*ampRight[freqi].conjugate()).Re() );
-                specLeft[freqi]  += ( factor*(ampLeft[freqi]*ampLeft[freqi].conjugate()).Re() );
+                specRight[freqi] +=
+                    (
+                        factor
+                       *(ampRight[freqi]*ampRight[freqi].conjugate()).Re()
+                    );
+                specLeft[freqi]  +=
+                    (factor*(ampLeft[freqi]*ampLeft[freqi].conjugate()).Re());
             }
         }
 

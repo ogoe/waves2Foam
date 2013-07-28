@@ -26,7 +26,8 @@ Class
     Foam::circularDistribution
 
 Description
-    Defines a circular point distribution around one of the three axes x, y or z.
+    Defines a circular point distribution around one of the three axes x, y
+    or z.
 
 SourceFiles
     circularDistribution.C
@@ -102,7 +103,7 @@ public:
 
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

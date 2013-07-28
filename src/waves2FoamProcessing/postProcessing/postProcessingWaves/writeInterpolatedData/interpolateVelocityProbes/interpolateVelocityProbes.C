@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(interpolateVelocityProbes, 0);
-addToRunTimeSelectionTable(postProcessingWaves, interpolateVelocityProbes, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    interpolateVelocityProbes,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -85,7 +90,8 @@ void interpolateVelocityProbes::evaluate()
 
         forAll (weights, ii)
         {
-            output[ii] = weights[ii]*U[leftData[ii]] + (1.0 - weights[ii] )*U[rightData[ii]];
+            output[ii] = weights[ii]*U[leftData[ii]]
+                + (1.0 - weights[ii] )*U[rightData[ii]];
         }
 
         std::stringstream ss;

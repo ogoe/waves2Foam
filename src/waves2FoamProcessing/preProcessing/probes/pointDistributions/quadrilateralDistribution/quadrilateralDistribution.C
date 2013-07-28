@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(quadrilateralDistribution, 0);
-addToRunTimeSelectionTable(pointDistributions, quadrilateralDistribution, pointDistributions);
+addToRunTimeSelectionTable
+(
+    pointDistributions,
+    quadrilateralDistribution,
+    pointDistributions
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -96,12 +101,14 @@ pointField quadrilateralDistribution::evaluate()
     {
         if (j != 0)
         {
-            res[j*N0] = res[(j - 1)*N0] + Foam::pow( stretch1, static_cast<scalar>(j))*dx1;
+            res[j*N0] = res[(j - 1)*N0]
+                + Foam::pow( stretch1, static_cast<scalar>(j))*dx1;
         }
 
         for (int i=1; i < N0; i++)
         {
-            res[i + j*N0] = res[i - 1 + j*N0] + Foam::pow( stretch0, static_cast<scalar>(i) )*dx0;
+            res[i + j*N0] = res[i - 1 + j*N0]
+                + Foam::pow( stretch0, static_cast<scalar>(i) )*dx0;
         }
     }
 

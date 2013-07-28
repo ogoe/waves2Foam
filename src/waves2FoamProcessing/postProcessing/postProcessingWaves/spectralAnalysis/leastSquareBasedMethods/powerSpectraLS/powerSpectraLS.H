@@ -27,11 +27,12 @@ Class
 
 Description
     This naming could be a bit misleading, however, to have the same naming
-    independently from irregular and regular signal, both are called powerSpectra*.
+    independently from irregular and regular signal, both are called
+    powerSpectra*.
 
     This function, however, returns the amplitudes of the cosine and sine
-    contributions, which make up the signal. The output is given in the following
-    format
+    contributions, which make up the signal. The output is given in the
+    following format:
 
         1    <value> // amplitude of cos( 1*omega*t)
         1    <value> // amplitude of sin( 1*omega*t)
@@ -141,7 +142,7 @@ public:
 
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

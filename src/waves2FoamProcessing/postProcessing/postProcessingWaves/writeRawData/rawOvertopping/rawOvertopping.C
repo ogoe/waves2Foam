@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(rawOvertopping, 0);
-addToRunTimeSelectionTable(postProcessingWaves, rawOvertopping, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    rawOvertopping,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
@@ -80,8 +85,8 @@ void rawOvertopping::writeRawData
         writeIOScalarField(output0, ss.str() );
     }
 
-    // Write the names, indexing and dt (= -1 because of raw data format) information
-    // Open a dictionary used for outputting data
+    // Write the names, indexing and dt (= -1 because of raw data format)
+    // information. Open a dictionary used for outputting data
     writeNameDict(-1, OTnames);
 
     // Write the surface elevation fields
@@ -115,9 +120,15 @@ rawOvertopping::rawOvertopping
 :
     postProcessingWaves( rT, actionProp, action ),
 
-    inputDir_( actionProperties_.lookupOrDefault<word>("inputDir", "overtopping") ),
+    inputDir_
+    (
+        actionProperties_.lookupOrDefault<word>("inputDir", "overtopping")
+    ),
 
-    scaleFlux_( actionProperties_.lookupOrDefault<scalar>("overtoppingScaling",1.0) ),
+    scaleFlux_
+    (
+        actionProperties_.lookupOrDefault<scalar>("overtoppingScaling",1.0)
+    ),
 
     removeDuplicate_( Switch(actionProperties_.lookup("removeDuplicate")) )
 {
@@ -224,7 +235,7 @@ void rawOvertopping::readOvertoppingData
 
                 // Reading the first vector component with starting parenteres
                 iss >> dummy;
-                temp.x() = std::atof( (dummy.substr(1,dummy.size()-1)).c_str() );
+                temp.x() = std::atof((dummy.substr(1,dummy.size()-1)).c_str());
 
                 // Reading the second vector component. Simple scalar
                 iss >> val;
@@ -232,7 +243,7 @@ void rawOvertopping::readOvertoppingData
 
                 // Reading the third vector component with ending parenteres
                 iss >> dummy;
-                temp.z() = std::atof( (dummy.substr(0,dummy.size()-1)).c_str() );
+                temp.z() = std::atof((dummy.substr(0,dummy.size()-1)).c_str());
 
                 vectorField& OT( OTs[ OTI ] );
 

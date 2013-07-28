@@ -50,7 +50,12 @@ void setWaveProperties::lineFormatting( Ostream& os, const word& key)
 }
 
 
-void setWaveProperties::addITstream( Ostream& os, const word& key, const ITstream& it )
+void setWaveProperties::addITstream
+(
+    Ostream& os,
+    const word& key,
+    const ITstream& it
+)
 {
     lineFormatting(os, key);
 
@@ -134,31 +139,35 @@ void setWaveProperties::writeDerived( Ostream& os, word name, scalarField val)
 
     os << "nonuniform List<scalar>" << nl;
 
-    os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
+    os << indent << val.size() << nl << indent
+       << token::BEGIN_LIST << incrIndent << nl;
 
     forAll (val, vali)
     {
         os << indent << val[vali] << nl;
     }
 
-    os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
+    os << decrIndent << indent << token::END_LIST
+       << token::END_STATEMENT << nl;
 }
 
 
-void setWaveProperties::writeDerived( Ostream& os, word name, vectorField val)
+void setWaveProperties::writeDerived(Ostream& os, word name, vectorField val)
 {
     lineFormatting(os, name);
 
     os << "nonuniform List<vector>" << nl;
 
-    os << indent << val.size() << nl << indent << token::BEGIN_LIST << incrIndent << nl;
+    os << indent << val.size() << nl << indent << token::BEGIN_LIST
+       << incrIndent << nl;
 
     forAll (val, vali)
     {
         os << indent << val[vali] << nl;
     }
 
-    os << decrIndent << indent << token::END_LIST << token::END_STATEMENT << nl;
+    os << decrIndent << indent << token::END_LIST
+       << token::END_STATEMENT << nl;
 }
 
 
@@ -168,7 +177,8 @@ void setWaveProperties::writeRelaxationZone( Ostream& os )
 
     if (dict_.found( rl ))
     {
-        os << nl << indent << rl << nl << indent << token::BEGIN_BLOCK << incrIndent << nl;
+        os << nl << indent << rl << nl << indent << token::BEGIN_BLOCK
+           << incrIndent << nl;
 
         dictionary sd( dict_.subDict(rl) );
 
@@ -205,8 +215,13 @@ setWaveProperties::setWaveProperties
     write_(write),
     dict_(dict),
 
-// Takes care of the fact that the gravity vector is defined differently between OF1.5 and OF1.6+
-    g_( uniformDimensionedVectorField( rT.db().lookupObject<uniformDimensionedVectorField>("g")).value() )
+    g_
+    (
+        uniformDimensionedVectorField
+        (
+            rT.db().lookupObject<uniformDimensionedVectorField>("g")
+        ).value()
+    )
 {
     G_  = Foam::mag(g_);
     PI_ = M_PI;
@@ -233,18 +248,22 @@ autoPtr<setWaveProperties> setWaveProperties::New
     dict.lookup("waveType") >> waveTheoryTypeName;
 
     setWavePropertiesConstructorTable::iterator cstrIter =
-            setWavePropertiesConstructorTablePtr_->find(waveTheoryTypeName+"Properties");
+        setWavePropertiesConstructorTablePtr_->find
+        (
+            waveTheoryTypeName+"Properties"
+        );
 
     if (cstrIter == setWavePropertiesConstructorTablePtr_->end())
     {
         FatalErrorIn
         (
-            "setWaveProperties::New(const fvMesh&, const Time&, dictionary&, bool)"
-        )   << "Unknown wave property type " << waveTheoryTypeName << "Properties"
-            << endl << endl
-            << "Valid wave property types are :" << endl
-            << setWavePropertiesConstructorTablePtr_->toc()
-            << exit(FatalError);
+            "setWaveProperties::New(const fvMesh&, const Time&, ...)"
+        )
+        << "Unknown wave property type " << waveTheoryTypeName << "Properties"
+        << endl << endl
+        << "Valid wave property types are :" << endl
+        << setWavePropertiesConstructorTablePtr_->toc()
+        << exit(FatalError);
     }
 
     return autoPtr<setWaveProperties>(cstrIter()(rT, dict, write));

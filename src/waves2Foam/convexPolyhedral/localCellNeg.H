@@ -78,7 +78,13 @@ public:
 
         localCellNeg(const fvMesh&, const label&);
 
-        localCellNeg(const cell, const faceList, const pointField, bool checkCell = false);
+        localCellNeg
+        (
+            const cell,
+            const faceList,
+            const pointField,
+            bool checkCell = false
+        );
 
         void initCell( const fvMesh&, const label&);
 
@@ -153,19 +159,6 @@ public:
 
         const faceList& faces() const { return fL_; };
         faceList&       faces()       { return fL_; };
-
-//        const face& faces( const label faceI ) const { return fL_[faceI]; };
-//
-//        const face iface() const { return fL_[ccNeg_[ ccNeg_.size() - 1]]; };
-//
-//    // Access functions used for testing
-//
-//        scalar fmag(const label faceI) const {return fL_[faceI].mag(pp_); };
-//        vector fcentre(const label faceI) const { return fL_[faceI].centre(pp_); };
-//        vector fnormal(const label faceI) const {return fL_[faceI].normal(pp_); };
-//
-//    // Write
-//        void write( const fvMesh& , const List<localCellNeg>& );
 };
 
 

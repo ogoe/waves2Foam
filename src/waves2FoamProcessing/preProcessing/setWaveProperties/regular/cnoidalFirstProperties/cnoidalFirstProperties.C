@@ -41,7 +41,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(cnoidalFirstProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, cnoidalFirstProperties, setWaveProperties);
+addToRunTimeSelectionTable
+(
+    setWaveProperties,
+    cnoidalFirstProperties,
+    setWaveProperties
+);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
@@ -59,7 +64,8 @@ double lowerMBound_f ( double m, void *params )
 
     double A = 2.0/m - 1.0 - 3.0/m*E/K;
 
-    return 1.0 - 1.0e-8 + H/d*A; // The value of 1.0e-8 is added to ensure strictly larger than 0!
+    // The value of 1.0e-8 is added to ensure strictly larger than 0!
+    return 1.0 - 1.0e-8 + H/d*A;
 }
 
 
@@ -77,7 +83,8 @@ double cnoidalFirst_f ( double m, void *params)
 
     double A = 2.0/m - 1.0 - 3.0/m*E/K;
 
-    return T*Foam::sqrt(G/d)*Foam::sqrt(1.0 + H/d*A) - Foam::sqrt( 16.0*d/(3.0*H)*m * Foam::pow(K, 2.0) );
+    return T*Foam::sqrt(G/d)*Foam::sqrt(1.0 + H/d*A)
+        - Foam::sqrt( 16.0*d/(3.0*H)*m * Foam::pow(K, 2.0) );
 }
 
 
@@ -120,8 +127,14 @@ double cnoidalFirstProperties::solve()
 
     while (true)
     {
-        if (( cnoidalFirst_f(mLower, &params) < 0.0 && cnoidalFirst_f(mUpper, &params) < 0.0 ) ||
-             ( cnoidalFirst_f(mLower, &params) > 0.0 && cnoidalFirst_f(mUpper, &params)    > 0.0 ))
+        if
+        (
+            ( cnoidalFirst_f(mLower, &params) < 0.0 &&
+              cnoidalFirst_f(mUpper, &params) < 0.0 )
+            ||
+            ( cnoidalFirst_f(mLower, &params) > 0.0 &&
+              cnoidalFirst_f(mUpper, &params)    > 0.0 )
+        )
         {
             mLower = 0.999*mLower + 0.001*mUpper;
         }
@@ -204,7 +217,8 @@ void cnoidalFirstProperties::set( Ostream& os)
 
     if (m < 0.0)
     {
-        Info << "\nPARAMETERS NOT SET\nNo cnoidal wave solution exists for given input\n" << endl;
+        Info << "\nPARAMETERS NOT SET\nNo cnoidal wave solution"
+             << " exists for given input\n" << endl;
     }
     else
     {
@@ -213,7 +227,8 @@ void cnoidalFirstProperties::set( Ostream& os)
 
         double A = 2.0/m - 1.0 - 3.0/m*E/K;
 
-        double L = Foam::sqrt( 16.0*m * Foam::pow(K, 2.0)*Foam::pow(d_, 3.0)/(3.0*H_));
+        double L =
+            Foam::sqrt(16.0*m * Foam::pow(K, 2.0)*Foam::pow(d_, 3.0)/(3.0*H_));
         double c = Foam::sqrt( G_*d_*(1 + A*H_/d_));
         double omega = 2*PI_/T_;
 
@@ -223,9 +238,9 @@ void cnoidalFirstProperties::set( Ostream& os)
             writeDerived(os, "length", L);
             writeDerived(os, "celerity", c);
 
-            // Locally change the write precision for m to avoid it being written
-            // as 1 instead of 0.9999999999 which makes elliptic integrals to
-            // to infinity.
+            // Locally change the write precision for m to avoid it being
+            // written as 1 instead of 0.9999999999 which makes elliptic
+            // integrals to infinity.
             unsigned int pre = os.precision( 14 );
             writeDerived(os, "m", m);
             os.precision( pre );

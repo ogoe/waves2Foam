@@ -26,7 +26,8 @@ Class
     Foam::interpolateVelocityProbes
 
 Description
-    Reads velocity probes and writes each of them into an OF-formatted data file.
+    Reads velocity probes and writes each of them into an OF-formatted
+    data file.
 
     The data is interpolated onto an equidistant time axis.
 
@@ -106,7 +107,7 @@ public:
 
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 

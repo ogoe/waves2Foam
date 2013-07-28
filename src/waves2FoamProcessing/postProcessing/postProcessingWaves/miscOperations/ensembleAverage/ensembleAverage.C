@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(ensembleAverage, 0);
-addToRunTimeSelectionTable(postProcessingWaves, ensembleAverage, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    ensembleAverage,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
@@ -81,7 +86,8 @@ void ensembleAverage::writeScalar
     const List<scalarField>& ensAv
 )
 {
-    Info << "        - Writing ensemble average to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing ensemble average to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -92,16 +98,24 @@ void ensembleAverage::writeScalar
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_ensAv.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/" + ss.str() + "_ensAv.dat"
+            )
+        );
 
         const scalarField& data( ensAv[indexi] );
 
         for (int i=0; i < N_; i++)
         {
-            spectrumPtr_() << static_cast<scalar>(i)*deltaT_ << tab << data[i] << endl;
+            spectrumPtr_() << static_cast<scalar>(i)*deltaT_ << tab << data[i]
+                           << endl;
         }
 
-        spectrumPtr_() << static_cast<scalar>(N_)*deltaT_ << tab << data[0] << endl;
+        spectrumPtr_() << static_cast<scalar>(N_)*deltaT_ << tab
+                       << data[0] << endl;
     }
 }
 
@@ -147,7 +161,8 @@ void ensembleAverage::writeVector
     const List<vectorField>& ensAv
 )
 {
-    Info << "        - Writing ensemble average to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing ensemble average to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -158,7 +173,13 @@ void ensembleAverage::writeVector
         std::stringstream ss;
         ss << callName_ << "_" << indices_[indexi];
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_ensAv.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/" + ss.str() + "_ensAv.dat"
+            )
+        );
 
         const vectorField& data( ensAv[indexi] );
 
@@ -198,17 +219,25 @@ ensembleAverage::ensembleAverage
 
     period_ = readScalar( actionProperties_.lookup("period") );
 
-    if (Foam::mag( static_cast<label>( period_/deltaT_ )*deltaT_ - period_ ) < 10*SMALL)
+    if
+    (
+        Foam::mag(static_cast<label>(period_/deltaT_)*deltaT_ - period_)
+        < 10*SMALL
+    )
     {
         N_ = static_cast<label>( period_/deltaT_ );
     }
     else
     {
-        FatalErrorIn("ensembleAverage::ensembleAverage(const fvMesh& mesh, const dictionary& actionProp, const word& action)")
-                    << "    There is not an integer number of time steps per period.\n"
-                    << "    T = " << period_ << " s and " << "dt = " << deltaT_ << " s.\n"
-                    << "    Yielding a total of " << period_/deltaT_ << " dt per period, which is non-integer."
-                    << exit(FatalError);
+        FatalErrorIn
+        (
+            "ensembleAverage::ensembleAverage(const fvMesh& mesh, ...)"
+        )
+        << "    There is not an integer number of time steps per period.\n"
+        << "    T = " << period_ << " s and " << "dt = " << deltaT_ << " s.\n"
+        << "    Yielding a total of " << period_/deltaT_
+        << " dt per period, which is non-integer."
+        << exit(FatalError);
     }
 }
 
@@ -233,7 +262,7 @@ void ensembleAverage::evaluate()
     }
     else
     {
-        notImplemented("Data types other than scalar and vector is not supported.");
+        notImplemented("Only scalars and vectors are supported.");
     }
 }
 

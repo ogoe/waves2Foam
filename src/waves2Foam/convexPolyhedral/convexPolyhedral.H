@@ -77,7 +77,10 @@ private:
     // Private member functions
         inline void setPoint( const point& p ) { pointOnPlane_ = p; };
 
-        inline void setNormal( const vector& n ) { normalToPlane_ = n/Foam::mag(n); };
+        inline void setNormal( const vector& n )
+        {
+            normalToPlane_ = n/Foam::mag(n);
+        };
 
         labelList edgeCutLabel
         (
@@ -122,7 +125,8 @@ protected:
 
     // Protected member functions
 
-        //- Returns a scalarField of the signed distance to an arbitrary surface
+        //- Returns a scalarField of the signed distance to
+        //  an arbitrary surface
         virtual void signedPointToSurfaceDistance
         (
             const pointField&,
@@ -150,9 +154,14 @@ protected:
 
 public:
 
-    // Constructur - only switch on iterateDistance, if not using the signedPointToSurfaceDistance
-    // computation in convecPolyhedral AND if the surfaces are non-planar.
-        convexPolyhedral( const fvMesh& mesh, const bool iterateDistance = false )
+    //- Constructur - only switch on iterateDistance, if not using the
+    //  signedPointToSurfaceDistance computation in convecPolyhedral AND
+    //  if the surfaces are non-planar.
+        convexPolyhedral
+        (
+            const fvMesh& mesh,
+            const bool iterateDistance = false
+        )
         :
             iterateDistance_(iterateDistance),
             mesh_(mesh)
@@ -211,9 +220,7 @@ public:
             const localCellNeg&,
             localCellNeg&
         );
-
 };
-
 
 } // End namespace
 

@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(write2Ascii, 0);
-addToRunTimeSelectionTable(postProcessingWaves, write2Ascii, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    write2Ascii,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -75,7 +80,10 @@ void write2Ascii::evaluate()
     );
 
     autoPtr<OFstream> asciiPtr_;
-    asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_time.txt" ) );
+    asciiPtr_.reset
+    (
+        new OFstream(directDir_ + "/" + callName_ + "_time.txt")
+    );
 
     forAll (time, timei)
     {
@@ -121,7 +129,8 @@ void write2Ascii::evaluate()
 
             forAll (field, datai)
             {
-                asciiPtr_() << field[datai].x() << tab << field[datai].y() << tab << field[datai].z() << endl;
+                asciiPtr_() << field[datai].x() << tab << field[datai].y()
+                            << tab << field[datai].z() << endl;
             }
         }
         else
@@ -151,7 +160,10 @@ void write2Ascii::evaluate()
     // Writing time step
     scalar dt = readScalar( dict.lookup("deltaT") );
 
-    asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_deltaT.txt" ) );
+    asciiPtr_.reset
+    (
+        new OFstream(directDir_ + "/" + callName_ + "_deltaT.txt")
+    );
 
     asciiPtr_() << dt << endl;
 
@@ -165,18 +177,25 @@ void write2Ascii::evaluate()
         scalarField y( dict.lookup("y") );
         scalarField z( dict.lookup("z") );
 
-        asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_indexXYZ.txt" ) );
+        asciiPtr_.reset
+        (
+            new OFstream(directDir_ + "/" + callName_ + "_indexXYZ.txt")
+        );
 
         forAll (indices, indexi)
         {
-            asciiPtr_() << indices[indexi] << tab << x[indexi] << tab << y[indexi] << tab << z[indexi] << endl;
+            asciiPtr_() << indices[indexi] << tab << x[indexi] << tab
+                        << y[indexi] << tab << z[indexi] << endl;
         }
     }
     else
     {
         wordList names( dict.lookup("names") );
 
-        asciiPtr_.reset( new OFstream( directDir_ + "/" + callName_ + "_indexNames.txt" ) );
+        asciiPtr_.reset
+        (
+            new OFstream(directDir_ + "/" + callName_ + "_indexNames.txt")
+        );
 
         forAll (indices, indexi)
         {

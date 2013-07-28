@@ -152,7 +152,8 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
     }
 
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
-    const label patchID = mesh.boundaryMesh().findPatchID(this->patch().name());
+    const word patchName = this->patch().name();
+    const label patchID = mesh.boundaryMesh().findPatchID(patchName);
     const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
 
     const label start = patch().patch().start();

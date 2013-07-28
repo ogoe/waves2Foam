@@ -34,7 +34,7 @@ Description
         Journal of Fluid Mechanics, 557, 369-397
 
     Implemented without the presence of a net current and the amplitudes for
-    COS and SIN are put together into one amplitude and a phase shift. This also
+    COS and SIN are put together into one amplitude and a phase shift. This
     impacts some of the coefficients, which become identical, e.g. Anm+ = Anm-
 
     A description of the general wave framework is given in

@@ -92,9 +92,15 @@ public:
         };
 
     // Demand driven data
-        inline bool isPosFace() const { return posF_.size() > 2 ? true : false; };
+        inline bool isPosFace() const
+        {
+            return posF_.size() > 2 ? true : false;
+        };
 
-        inline bool isNegFace() const { return negF_.size() > 2 ? true : false; };
+        inline bool isNegFace() const
+        {
+            return negF_.size() > 2 ? true : false;
+        };
 
         const face negFace() const {return negF_; };
 
@@ -109,18 +115,22 @@ public:
 
         inline point posCentre() const { return posF_.centre(pp_); };
 
-        inline point negCentre() const { return ( isNegFace() ? negF_.centre(pp_) : vector::zero ); };
+        inline point negCentre() const
+        {
+            return ( isNegFace() ? negF_.centre(pp_) : vector::zero );
+        };
 
         inline scalar posMag()   const { return posF_.mag(pp_);    };
 
-        inline scalar negMag()   const { return ( isNegFace() ? negF_.mag(pp_) : 0.0 );    };
+        inline scalar negMag() const
+        {
+            return ( isNegFace() ? negF_.mag(pp_) : 0.0 );
+        };
 
         inline label noi() const { return numberOfIntersections_; };
         void noi(label noi) { numberOfIntersections_ = noi;};
 
 };
-
-
 
 }
 

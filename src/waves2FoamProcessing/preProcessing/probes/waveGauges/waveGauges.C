@@ -51,7 +51,8 @@ void waveGauges::writeVTKFormat
     vtk.reset( new OFstream( "waveGaugesNProbes/" + name + ".vtk" ));
 
     // Writing header
-    vtk() << "# vtk DataFile Version 3.0" << nl << "vtk output" << nl << "ASCII" << nl << "DATASET POLYDATA" << endl;
+    vtk() << "# vtk DataFile Version 3.0" << nl << "vtk output" << nl
+          << "ASCII" << nl << "DATASET POLYDATA" << endl;
 
     // Writing points
     vtk() << "POINTS " << 2*pp.size() << " float" << endl;
@@ -101,7 +102,10 @@ void waveGauges::evaluate( const word& name )
     point addPoint( gaugeDict_.lookup("add") );
     word  vertAxis( word(gaugeDict_.lookup("axis")) );
 
-    autoPtr<Foam::pointDistributions> pd( Foam::pointDistributions::New( mesh_, gaugeDict_ ) );
+    autoPtr<Foam::pointDistributions> pd
+    (
+        Foam::pointDistributions::New( mesh_, gaugeDict_ )
+    );
 
     pointField pp( pd->evaluate() );
 
@@ -114,11 +118,16 @@ void waveGauges::evaluate( const word& name )
 
     forAll (pp, pointi)
     {
-        gauges() << indent << "gauge_" << pointi << nl << indent << token::BEGIN_BLOCK << incrIndent << nl;
-        gauges() << indent << "type         face" << token::END_STATEMENT << nl;
-        gauges() << indent << "axis         " << vertAxis << token::END_STATEMENT << nl;
-        gauges() << indent << "start        " << pp[pointi] << token::END_STATEMENT << nl;
-        gauges() << indent << "end          " << pp[pointi]+addPoint<< token::END_STATEMENT << nl;
+        gauges() << indent << "gauge_" << pointi << nl << indent
+                 << token::BEGIN_BLOCK << incrIndent << nl;
+        gauges() << indent << "type         face"
+                 << token::END_STATEMENT << nl;
+        gauges() << indent << "axis         " << vertAxis
+                 << token::END_STATEMENT << nl;
+        gauges() << indent << "start        " << pp[pointi]
+                 << token::END_STATEMENT << nl;
+        gauges() << indent << "end          " << pp[pointi] + addPoint
+                 << token::END_STATEMENT << nl;
         gauges() << indent << "nPoints      100" << token::END_STATEMENT << nl;
         gauges() << decrIndent << indent << token::END_BLOCK << nl << nl;
     }
@@ -126,13 +135,15 @@ void waveGauges::evaluate( const word& name )
     gauges() << decrIndent << token::END_LIST << token::END_STATEMENT << nl;
 
     // Writing the file to be included in controlDict
-    gauges.reset( new OFstream( "waveGaugesNProbes/" + name + "_controlDict" ));
+    gauges.reset(new OFstream( "waveGaugesNProbes/" + name + "_controlDict" ));
 
-    gauges() << incrIndent << indent << name << nl << indent << token::BEGIN_BLOCK << nl << incrIndent;
+    gauges() << incrIndent << indent << name << nl << indent
+             << token::BEGIN_BLOCK << nl << incrIndent;
     gauges() << indent << "type               surfaceElevation;" << nl;
     gauges() << indent << "functionObjectLibs ( \"libwaves2Foam.so\" );" << nl;
     gauges() << nl;
-    gauges() << indent << "outputControl      timeStep; // Alternative: outputTime" << nl;
+    gauges() << indent << "outputControl      timeStep;"
+             << " // Alternative: outputTime" << nl;
     gauges() << indent << "outputInterval     20;" << nl << nl;
     gauges() << indent << "//Additional output controls in waves2Foam" << nl;
     gauges() << indent << "//samplingStartTime  -1;" << nl;
@@ -141,11 +152,15 @@ void waveGauges::evaluate( const word& name )
     gauges() << indent << "setFormat          raw;" << nl;
     gauges() << indent << "interpolationScheme cellPointFace;" << nl;
     gauges() << indent << "fields (alpha1);" << nl << nl;
-    gauges() << indent << "#includeIfPresent \"../waveGaugesNProbes/" << name << "_sets\";" << nl << nl;
+    gauges() << indent << "#includeIfPresent \"../waveGaugesNProbes/" << name
+             << "_sets\";" << nl << nl;
     gauges() << decrIndent << indent << token::END_BLOCK << decrIndent << nl;
 
     // Writing the surfaceElevationDict
-    gauges.reset( new OFstream( "waveGaugesNProbes/" + name + "surfaceElevationDict" ));
+    gauges.reset
+    (
+        new OFstream( "waveGaugesNProbes/" + name + "surfaceElevationDict" )
+    );
 
     mesh_.writeBanner( gauges() );
 
@@ -153,7 +168,8 @@ void waveGauges::evaluate( const word& name )
     // using wOut.writeHeader( os ); hence manual entries
     gauges() << "FoamFile" << nl;
     gauges() << token::BEGIN_BLOCK << incrIndent << nl;
-    gauges() << indent << "version" << tab << IOstream::currentVersion << token::END_STATEMENT << nl;
+    gauges() << indent << "version" << tab << IOstream::currentVersion
+             << token::END_STATEMENT << nl;
     gauges() << indent << "format" << tab << "ascii;" << nl;
     gauges() << indent << "class" << tab << "dictionary;" << nl;
     gauges() << indent << "object" << tab << "surfaceElevationDict;" << nl;
@@ -166,7 +182,8 @@ void waveGauges::evaluate( const word& name )
     gauges() << "setFormat           raw;" << nl;
     gauges() << "interpolationScheme cellPointFace;" << nl;
     gauges() << "fields              (alpha1);" << nl << nl;
-    gauges() << "#includeIfPresent  \"../probesNGauges/" << name << "_sets\";" << nl;
+    gauges() << "#includeIfPresent  \"../probesNGauges/" << name
+             << "_sets\";" << nl;
 
     mesh_.writeEndDivider( gauges() );
 

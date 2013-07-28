@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(removeSubDirs, 0);
-addToRunTimeSelectionTable(postProcessingWaves, removeSubDirs, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    removeSubDirs,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 

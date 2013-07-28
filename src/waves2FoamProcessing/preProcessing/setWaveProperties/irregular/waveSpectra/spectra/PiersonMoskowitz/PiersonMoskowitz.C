@@ -106,11 +106,13 @@ void PiersonMoskowitz::set( Ostream& os )
 
     for (int i=0; i<=Nhigh; i++)
     {
-        f[Nlow - 1 + i] = (fhigh - fp)*( - Foam::cos( 2*PI_/( 4*Nhigh)*i ) + 1) + fp;
+        f[Nlow - 1 + i] =
+            (fhigh - fp)*(- Foam::cos(2*PI_/(4*Nhigh)*i) + 1) + fp;
     }
 
     // Compute spectrum
-    scalarField S = 5.0/16.0*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)*Foam::pow(f,-5.0)*Foam::exp( - 5.0/4.0*Foam::pow( fp/f, 4.0 ) );
+    scalarField S = 5.0/16.0*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)
+        *Foam::pow(f,-5.0)*Foam::exp( - 5.0/4.0*Foam::pow( fp/f, 4.0 ) );
 
     Foam::stokesFirstProperties stp( rT_, dict_ );
 

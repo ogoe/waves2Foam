@@ -89,7 +89,8 @@ private:
 
     // Private member functions
 
-        //- Returns a scalarField of the signed distance to an arbitrary surface
+        //- Returns a scalarField of the signed distance to an arbitrary
+        //  surface
             virtual void signedPointToSurfaceDistance
             (
                 const pointField&,

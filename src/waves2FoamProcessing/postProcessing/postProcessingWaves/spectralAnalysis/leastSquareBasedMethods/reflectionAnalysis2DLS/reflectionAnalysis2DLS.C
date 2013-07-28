@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(reflectionAnalysis2DLS, 0);
-addToRunTimeSelectionTable(postProcessingWaves, reflectionAnalysis2DLS, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    reflectionAnalysis2DLS,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Protected Member Functions  * * * * * * * * * * //
 
@@ -46,7 +51,8 @@ void reflectionAnalysis2DLS::write
     const scalarField& spectra
 )
 {
-    Info << "        - Writing computed spectra to: " << directDir_.c_str() << this->type() << endl;
+    Info << "        - Writing computed spectra to: " << directDir_.c_str()
+         << this->type() << endl;
 
     mkDir( directDir_ + this->type() );
 
@@ -57,14 +63,24 @@ void reflectionAnalysis2DLS::write
         std::stringstream ss;
         ss << callName_ << "_rightGoing";
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         for (int i = 0; i < N_; i++)
         {
-            spectrumPtr_() << frequencies[ 2*i ] << tab << spectra[ 4*i ] << endl;
-            spectrumPtr_() << frequencies[ 2*i + 1] << tab << spectra[ 4*i + 1] << endl;
+            spectrumPtr_() << frequencies[2*i] << tab << spectra[4*i]
+                           << endl;
+            spectrumPtr_() << frequencies[2*i + 1] << tab << spectra[4*i + 1]
+                           << endl;
         }
-        spectrumPtr_() << frequencies[ 2*N_ ] << tab << spectra[ 4*N_ ] << endl;
+        spectrumPtr_() << frequencies[ 2*N_ ] << tab << spectra[ 4*N_ ]
+                       << endl;
     }
 
     // Write the right going amplitudes
@@ -72,14 +88,24 @@ void reflectionAnalysis2DLS::write
         std::stringstream ss;
         ss << callName_ << "_leftGoing";
 
-        spectrumPtr_.reset(new OFstream( directDir_ + "/" + this->type() + "/" + ss.str() + "_spectrum.dat"));
+        spectrumPtr_.reset
+        (
+            new OFstream
+            (
+                directDir_ + "/" + this->type() + "/"
+              + ss.str() + "_spectrum.dat"
+            )
+        );
 
         for (int i = 0; i < N_; i++)
         {
-            spectrumPtr_() << frequencies[ 2*i ] << tab << spectra[ 4*i + 2] << endl;
-            spectrumPtr_() << frequencies[ 2*i + 1] << tab << spectra[ 4*i + 3] << endl;
+            spectrumPtr_() << frequencies[2*i] << tab << spectra[4*i + 2]
+                           << endl;
+            spectrumPtr_() << frequencies[2*i + 1] << tab << spectra[4*i + 3]
+                           << endl;
         }
-        spectrumPtr_() << frequencies[ 2*N_ ] << tab << spectra[ 4*N_ ] << endl;
+        spectrumPtr_() << frequencies[ 2*N_ ] << tab << spectra[ 4*N_ ]
+                       << endl;
     }
 }
 
@@ -115,7 +141,13 @@ reflectionAnalysis2DLS::reflectionAnalysis2DLS
 
     forAll (indices_ , indexi)
     {
-        x_[indexi] = vector( x[indices_[indexi]], y[indices_[indexi]], z[indices_[indexi]] );
+        x_[indexi] =
+            vector
+            (
+                x[indices_[indexi]],
+                y[indices_[indexi]],
+                z[indices_[indexi]]
+            );
     }
 }
 
@@ -132,7 +164,8 @@ void reflectionAnalysis2DLS::evaluate()
 {
     if (dataType() == "scalar")
     {
-        Info << "        - Computing left and right going spectra (2D)" << endl;
+        Info << "        - Computing left and right going spectra (2D)"
+             << endl;
 
         scalar omega = 2*M_PI/period_;
 
@@ -183,10 +216,14 @@ void reflectionAnalysis2DLS::evaluate()
 
                 for (int n=0; n<Nin; n++)
                 {
-                    a0[count] = Foam::cos( J*( omega*time[n] - ( waveNumber_ & X) ) );
-                    a1[count] = Foam::sin( J*( omega*time[n] - ( waveNumber_ & X) ) );
-                    a2[count] = Foam::cos( J*( omega*time[n] + ( waveNumber_ & X) ) );
-                    a3[count] = Foam::sin( J*( omega*time[n] + ( waveNumber_ & X) ) );
+                    a0[count] =
+                        Foam::cos(J*(omega*time[n] - (waveNumber_ & X)));
+                    a1[count] =
+                        Foam::sin(J*(omega*time[n] - (waveNumber_ & X)));
+                    a2[count] =
+                        Foam::cos(J*(omega*time[n] + (waveNumber_ & X)));
+                    a3[count] =
+                        Foam::sin(J*(omega*time[n] + (waveNumber_ & X)));
 
                     count++;
                 }

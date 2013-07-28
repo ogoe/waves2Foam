@@ -26,10 +26,11 @@ Class
     Foam::sampledSurfaceElevation
 
 Description
-    Integrate along sampling lines (ought to be vertical), and output the surface
-    elevation into the root case.
+    Integrate along sampling lines (ought to be vertical), and output the
+    surface elevation into the root case.
 
-    Based on sampledSets.C. Modified to be compatible to the following versions:
+    Based on sampledSets.C. Modified to be compatible to the following
+    versions:
 
     OF-1.6
     OF-1.7

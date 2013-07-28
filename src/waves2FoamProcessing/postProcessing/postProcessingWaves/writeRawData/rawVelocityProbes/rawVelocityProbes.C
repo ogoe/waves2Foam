@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(rawVelocityProbes, 0);
-addToRunTimeSelectionTable(postProcessingWaves, rawVelocityProbes, postProcessingWaves);
+addToRunTimeSelectionTable
+(
+    postProcessingWaves,
+    rawVelocityProbes,
+    postProcessingWaves
+);
 
 // * * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * //
 
@@ -82,7 +87,8 @@ void rawVelocityProbes::writeRawData
         writeIOScalarField(output0, ss.str() );
     }
 
-    // Write the XYZ, indexing and dt (= -1 because of raw data format) information
+    // Write the XYZ, indexing and dt (= -1 because of raw data format)
+    // information
     writeXYZDict(-1.0, x, y, z);
 
     // Write the surface elevation fields
@@ -277,7 +283,7 @@ void rawVelocityProbes::readVelocityProbeData
 
                 // Reading the first vector component with starting parenteres
                 iss >> dummy;
-                temp.x() = std::atof( (dummy.substr(1,dummy.size()-1)).c_str() );
+                temp.x() = std::atof((dummy.substr(1,dummy.size()-1)).c_str());
 
                 // Reading the second vector component. Simple scalar
                 iss >> val;
@@ -285,7 +291,7 @@ void rawVelocityProbes::readVelocityProbeData
 
                 // Reading the third vector component with ending parenteres
                 iss >> dummy;
-                temp.z() = std::atof( (dummy.substr(0,dummy.size()-1)).c_str() );
+                temp.z() = std::atof((dummy.substr(0,dummy.size()-1)).c_str());
 
                 vectorField& U( Us[ UI ] );
 

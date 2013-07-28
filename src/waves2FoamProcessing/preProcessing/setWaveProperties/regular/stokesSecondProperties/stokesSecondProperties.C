@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(stokesSecondProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, stokesSecondProperties, setWaveProperties);
+addToRunTimeSelectionTable
+(
+    setWaveProperties,
+    stokesSecondProperties,
+    setWaveProperties
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -104,16 +109,18 @@ void stokesSecondProperties::set(Ostream& os)
     scalar h = readScalar( dict_.lookup("depth")  );
 
     scalar a1 = H/2.0;
-    scalar a2 = 1.0/16.0*k * sqr(H)*(3.0/Foam::pow(Foam::tanh(k*h),3.0) - 1.0/Foam::tanh(k*h));
+    scalar a2 = 1.0/16.0*k * sqr(H)
+        *(3.0/Foam::pow(Foam::tanh(k*h),3.0) - 1.0/Foam::tanh(k*h));
 
     if (Switch( dict_.lookup("debug") ))
     {
-        Info << nl << "The wave amplitudes are:\n" << tab << "  a1 = " << tab << a1
+        Info << nl << "The wave amplitudes are:\n" << tab << "  a1 = "
+             << tab << a1
              << nl << tab << "  a2 = " << tab << a2
-             << nl << tab << "4 a2 = " << tab << 4.0*a2 << " (Validity criterion) " << endl;
+             << nl << tab << "4 a2 = " << tab << 4.0*a2
+             << " (Validity criterion) " << endl;
     }
 
-//    if (H/2.0 - 4.0*1.0/16.0*k * sqr(H)*(3.0/Foam::pow(Foam::tanh(k*h),3.0) - 1.0/Foam::tanh(k*h)) < 0)
     if (a1 < 4.0*a2)
     {
         Info << a1 << tab << 4.0*a2 << endl;

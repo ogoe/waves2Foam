@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(streamFunctionProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, streamFunctionProperties, setWaveProperties);
+addToRunTimeSelectionTable
+(
+    setWaveProperties,
+    streamFunctionProperties,
+    setWaveProperties
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -60,7 +65,8 @@ streamFunctionProperties::streamFunctionProperties
 void streamFunctionProperties::set( Ostream& os)
 {
     Info << "\n--------------------- NB! ---------------------" << endl;
-    Info << "The setWaveProperties for\n\n\t" << this->type() << "\n\nis not implemented" << endl;
+    Info << "The setWaveProperties for\n\n\t" << this->type()
+         << "\n\nis not implemented" << endl;
     Info << "--------------------- NB! ---------------------" << endl;
 
     scalar k0 = sfp_.linearWaveNumber();
@@ -83,7 +89,8 @@ void streamFunctionProperties::set( Ostream& os)
         vector direction( vector(dict_.lookup("direction")));
         direction /= Foam::mag(direction);
 
-        // This part should write the needed information to the waveProperties-file
+        // This part should write the needed information to the
+        // waveProperties-file
     }
 
     // Write the relaxation zone

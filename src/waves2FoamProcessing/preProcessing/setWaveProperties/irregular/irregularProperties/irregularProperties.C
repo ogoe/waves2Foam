@@ -35,7 +35,12 @@ namespace Foam
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 defineTypeNameAndDebug(irregularProperties, 0);
-addToRunTimeSelectionTable(setWaveProperties, irregularProperties, setWaveProperties);
+addToRunTimeSelectionTable
+(
+    setWaveProperties,
+    irregularProperties,
+    setWaveProperties
+);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
@@ -82,7 +87,10 @@ void irregularProperties::set( Ostream& os )
     scalarField phaselag(0);
     vectorField waveNumber(0);
 
-    autoPtr<waveSpectra> spectra( waveSpectra::New(rT_, dict_, amp, frequency, phaselag, waveNumber) );
+    autoPtr<waveSpectra> spectra
+    (
+        waveSpectra::New(rT_, dict_, amp, frequency, phaselag, waveNumber)
+    );
 
     // Write properties specific to chosen spectral theory
     wordList specificInput( spectra->list() );

@@ -26,7 +26,8 @@ Class
     Foam::spectralMethodsLeastSquaresBased
 
 Description
-    Helper functions for spectral analysis using a least-squares based approach.
+    Helper functions for spectral analysis using a least-squares based
+    approach.
 
 SourceFiles
     spectralMethodsLeastSquaresBased.C
@@ -75,7 +76,10 @@ private:
         );
 
         //- Disallow default bitwise copy construct
-        spectralMethodsLeastSquaresBased(const spectralMethodsLeastSquaresBased&);
+        spectralMethodsLeastSquaresBased
+        (
+            const spectralMethodsLeastSquaresBased&
+        );
 
         //- Disallow default bitwise assignment
         void operator=(const spectralMethodsLeastSquaresBased&);
@@ -146,7 +150,7 @@ public:
 
 } // End namespace Foam
 
-// // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 #endif
 
