@@ -81,10 +81,11 @@ void relaxationSchemeSpatial::correct()
 
     // Compute the relaxation weights - only changes for moving/changing meshes
     if (weight_.size() != sigma.size())
+    {
         weight_.setSize( sigma.size(), 0.0 );
+    }
 
     relaxWeight_->weights(cells, sigma, weight_);
-
 
     // Perform the correction
     const scalarField& V ( mesh_.V() );
@@ -109,7 +110,6 @@ void relaxationSchemeSpatial::correct()
 
         // Target variables
         scalar alphaTarget( 0.0 );
-//        vector UTarget( vector::zero );
         vector UTarget( waveProps_->windVelocity( mesh_.time().value() ) );
 
         // Only do cutting, if surface is close by

@@ -176,6 +176,23 @@ bool relaxationShapeRectangular::insideZone
     return inside;
 }
 
+
+const pointField& relaxationShapeRectangular::pointSet()
+{
+    notImplemented("pointSet is not implemented for this shape");
+}
+
+
+scalar relaxationShapeRectangular::interpolation
+(
+    const scalarField& source,
+    const point& p0
+)
+{
+    notImplemented("interpolation is not implemented for this shape");
+}
+
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 } // End namespace relaxationShapes

@@ -175,6 +175,23 @@ bool relaxationShapeSemiCylindrical::insideZone
     return inside;
 }
 
+
+const pointField& relaxationShapeSemiCylindrical::pointSet()
+{
+    notImplemented("pointSet is not implemented for this shape");
+}
+
+
+scalar relaxationShapeSemiCylindrical::interpolation
+(
+    const scalarField& source,
+    const point& p0
+)
+{
+    notImplemented("interpolation is not implemented for this shape");
+}
+
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 } // End namespace relaxationShapes

@@ -160,7 +160,13 @@ public:
 
         // Access
         inline const labelList& cells() { refreshCells(); return cells_; };
+
         inline const scalarField& sigma() { refreshSigma(); return sigma_; };
+
+        virtual const pointField& pointSet() = 0;
+
+        virtual scalar interpolation(const scalarField&, const point&) = 0;
+
 };
 
 

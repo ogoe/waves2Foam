@@ -70,7 +70,8 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
 (
     const scalarField& frequencies,
     const scalarField& spectrumRight,
-    const scalarField& spectrumLeft
+    const scalarField& spectrumLeft,
+    const scalarField& determinant
 )
 {
     Info << "        - Writing computed spectra to: " << directDir_.c_str()
@@ -83,7 +84,7 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
     // Write left going spectra
     {
         std::stringstream ss;
-        ss << callName_ << "_leftGoing";
+        ss << callName_ << "_" << writeIndex_ << "_leftGoing";
 
         spectrumPtr_.reset
         (
@@ -101,10 +102,10 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
         }
     }
 
-    // Write left going spectra
+    // Write right going spectra
     {
         std::stringstream ss;
-        ss << callName_ << "_rightGoing";
+        ss << callName_ << "_" << writeIndex_ << "_rightGoing";
 
         spectrumPtr_.reset
         (
@@ -122,10 +123,10 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
         }
     }
 
-    // Write left going spectra
+    // Write determinant
     {
         std::stringstream ss;
-        ss << callName_ << "_leftGoing";
+        ss << callName_ << "_" << writeIndex_ << "_determinant";
 
         spectrumPtr_.reset
         (
@@ -138,7 +139,7 @@ void reflectionAnalysis2DFFT::writeReflectionIncident
 
         forAll (frequencies, freqi)
         {
-            spectrumPtr_() << frequencies[freqi] << tab << spectrumLeft[freqi]
+            spectrumPtr_() << frequencies[freqi] << tab << determinant[freqi]
                            << endl;
         }
     }
@@ -150,7 +151,8 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
     const scalarField& k,
     const List<Field<complex> >& amps,
     Field<complex>& ampRight,
-    Field<complex>& ampLeft
+    Field<complex>& ampLeft,
+    scalarField& determinant
 )
 {
     // Number of wave gauges
@@ -168,6 +170,11 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
     if (ampLeft.size() != k.size())
     {
         ampLeft.setSize(k.size(), complex::zero);
+    }
+
+    if (determinant.size() != k.size())
+    {
+        determinant.setSize(k.size(), 0.0);
     }
 
     // Loop over all frequencies (wave numbers)
@@ -203,6 +210,8 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
             }
         }
 
+        determinant[freqi] = D;
+
         // Compute the complex coefficients C (Eq. 15)
         Field<complex> C( X_.size(), complex::zero );
 
@@ -219,7 +228,7 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
                      );
             }
 
-            C[p]*= ( 2.0*ii*Wj[p]*exp( ii*kj*X_[0] )/D );
+            C[p] *= (2.0*ii*Wj[p]*exp( ii*kj*X_[0] )/D);
         }
 
         // Compute the left and right going discrete fourier coefficients.
@@ -257,6 +266,8 @@ reflectionAnalysis2DFFT::reflectionAnalysis2DFFT
 
     coordName_ = word(actionProperties_.lookup("coordName"));
 
+    writeIndex_ = actionProperties_.lookupOrDefault<label>("writeIndex", 0);
+
     X_.setSize( indices_.size() );
 
     scalarField allX = dataDict_.lookup( coordName_ );
@@ -283,17 +294,18 @@ void reflectionAnalysis2DFFT::evaluate()
         Info << "        - Computing left and right going spectra (2D)"
              << endl;
 
-        spectralMethodsFFTBased smfft( rT_, actionProperties_ );
+        spectralMethodsFFTBased smfft(rT_, actionProperties_);
 
-        List<scalarField> input = readScalarFields( indices_ );
+        List<scalarField> input = readScalarFields(indices_);
 
-        smfft.initSweep( input[0] );
+        smfft.initSweep(input[0]);
 
-        scalarField frequencies = smfft.frequencies( deltaT_ );
+        scalarField frequencies = smfft.frequencies(deltaT_);
 
-        scalarField k = linearWaveNumbers( frequencies );
+        scalarField k = linearWaveNumbers(frequencies);
 
-        scalarField specLeft( k.size(), 0.0 ), specRight( k.size(), 0.0 );
+        scalarField specLeft(k.size(), 0.0), specRight(k.size(), 0.0);
+        scalarField determinant(k.size(), 0.0);
 
         scalar factor = 2.0*deltaT_
             /static_cast<scalar>( smfft.nSweeps()*smfft.nBins() );
@@ -315,7 +327,7 @@ void reflectionAnalysis2DFFT::evaluate()
             Field<complex> ampLeft;
 
             // Decompose amplitudes
-            decomposeAmplitudes( k, transforms, ampRight, ampLeft);
+            decomposeAmplitudes(k, transforms, ampRight, ampLeft, determinant);
 
             // Add the decomposed DFTs to the left and right going power
             // spectra
@@ -331,7 +343,7 @@ void reflectionAnalysis2DFFT::evaluate()
             }
         }
 
-        writeReflectionIncident(frequencies, specRight, specLeft);
+        writeReflectionIncident(frequencies, specRight, specLeft, determinant);
     }
     else
     {

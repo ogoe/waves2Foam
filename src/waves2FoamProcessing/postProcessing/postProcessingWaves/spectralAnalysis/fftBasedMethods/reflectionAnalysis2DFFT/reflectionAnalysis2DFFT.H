@@ -73,6 +73,7 @@ protected:
         scalar depth_;
 
         word coordName_;
+        label writeIndex_;
 
         scalarField X_;
 
@@ -90,6 +91,7 @@ private:
         (
             const scalarField&,
             const scalarField&,
+            const scalarField&,
             const scalarField&
         );
 
@@ -98,7 +100,8 @@ private:
             const scalarField&,
             const List<Field<complex> >&,
             Field<complex>&,
-            Field<complex>&
+            Field<complex>&,
+            scalarField&
         );
 
         //- Disallow default bitwise copy construct

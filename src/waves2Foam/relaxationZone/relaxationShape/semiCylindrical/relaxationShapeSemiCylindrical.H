@@ -119,6 +119,9 @@ public:
 
 
     // Member Functions
+        virtual const pointField& pointSet();
+
+        virtual scalar interpolation(const scalarField&, const point&);
 
 };
 
