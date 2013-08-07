@@ -186,7 +186,7 @@ scalar relaxationShapeSemiCylindrical::interpolation
 (
     const scalarField& source,
     const point& p0
-)
+) const
 {
     notImplemented("interpolation is not implemented for this shape");
 }

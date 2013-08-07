@@ -165,7 +165,7 @@ public:
 
         virtual const pointField& pointSet() = 0;
 
-        virtual scalar interpolation(const scalarField&, const point&) = 0;
+        virtual scalar interpolation(const scalarField&, const point&) const = 0;
 
 };
 

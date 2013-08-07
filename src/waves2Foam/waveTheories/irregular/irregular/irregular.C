@@ -56,6 +56,9 @@ irregular::irregular
     phi_("phaselag", coeffDict_, N_),
     k_("waveNumber", coeffDict_, N_),
     K_(N_),
+    compDir_(N_),
+    period_(N_, 0),
+    velAmp_(N_, 0),
 
     Tsoft_( readScalar(coeffDict_.lookup("Tsoft")))
 {
@@ -63,6 +66,21 @@ irregular::irregular
 
     // Compute the length of k_
     K_ = Foam::mag(k_);
+
+    compDir_ = k_ / K_;
+
+    // Compute the period
+    forAll (period_, index)
+    {
+        period_[index] = 2.0*PI_;
+    }
+
+    // Compute the velocity amplitude
+    forAll (velAmp_, index)
+    {
+        velAmp_[index] = PI_*2.0*amp_[index]/period_[index]
+            /Foam::sinh(K_[index]*h_);
+    }
 }
 
 
@@ -78,7 +96,7 @@ void irregular::printCoeffs()
 scalar irregular::factor(const scalar& time) const
 {
     scalar factor(1.0);
-    if (Tsoft_ > 0.0)
+    if (0.0 < Tsoft_ && time < Tsoft_)
     {
         factor = Foam::sin(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time));
     }
@@ -97,11 +115,8 @@ scalar irregular::eta
 
     forAll (amp_, index)
     {
-        eta +=
-            (
-                amp_[index]
-               *Foam::cos( omega_[index]*time - (k_[index] & x) + phi_[index])
-            );
+        scalar arg = omega_[index]*time - (k_[index] & x) + phi_[index];
+        eta += amp_[index]*Foam::cos(arg);
     }
     eta *= factor(time);
     eta += seaLevel_;
@@ -128,29 +143,21 @@ vector irregular::U
 ) const
 {
     scalar Z(returnZ(x));
+    Z += h_;
 
-    scalar Uhorz(0), Uvert(0);
     vector U(vector::zero);
 
     forAll (amp_, index)
     {
-        scalar period = 2*PI_/omega_[index];
-        Uhorz =
-            (
-                PI_*2.0*amp_[index]/period*
-                Foam::cosh(K_[index]*(Z + h_))/Foam::sinh(K_[index]*h_)*
-                Foam::cos(omega_[index]*time - (k_[index] & x) + phi_[index])
-             );
+        scalar arg0 = omega_[index]*time - (k_[index] & x) + phi_[index];
+        scalar arg1 = K_[index]*Z;
 
-        Uvert =
-            (
-               - PI_*2.0*amp_[index]/period *
-                 Foam::sinh(K_[index]*(Z + h_))/Foam::sinh(K_[index]*h_)*
-                 Foam::sin(omega_[index]*time - (k_[index] & x) + phi_[index])
-            );
+        scalar Uhorz = velAmp_[index]*Foam::cosh(arg1)*Foam::cos(arg0);
+
+        scalar Uvert = - velAmp_[index]*Foam::sinh(arg1)*Foam::sin(arg0);
 
         // Note "-" because of "g" working in the opposite direction
-        U += Uhorz*k_[index]/K_[index] - Uvert*direction_;
+        U += Uhorz*compDir_[index] - Uvert*direction_;
     }
 
     U *= factor(time);

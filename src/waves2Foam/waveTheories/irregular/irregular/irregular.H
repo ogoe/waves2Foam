@@ -87,6 +87,9 @@ protected:
         scalarField phi_;
         vectorField k_;
         scalarField K_;
+        vectorField compDir_;
+        scalarField period_;
+        scalarField velAmp_;
         scalar Tsoft_;
 
     // Protected member functions
