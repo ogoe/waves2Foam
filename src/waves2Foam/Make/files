@@ -1,0 +1,101 @@
+/* METHODS FOR CUTTING OF CONVEX FACES AND CELLS */
+convex=convexPolyhedral
+$(convex)/convexPolyhedral.C
+$(convex)/localFace.C
+$(convex)/localCell.C
+$(convex)/localCellNeg.C
+
+/* ABSTRACT BASE CLASS FOR IMPLEMENTATION OF WAVE THEORIES */
+waveTheories=waveTheories
+waveTheory=waveTheory
+
+$(waveTheories)/$(waveTheory)/waveTheory.C
+$(waveTheories)/$(waveTheory)/newWaveTheory.C
+
+/* WAVE THEORIES */
+
+/* Current type */
+current=current
+$(waveTheories)/$(current)/potentialCurrent/potentialCurrent.C
+
+/* Solitary type */
+solitary=solitary
+$(waveTheories)/$(solitary)/solitaryFirst/solitaryFirst.C
+
+/* Regular wave theories */
+regular=regular
+
+/* Stokes Theory */
+$(waveTheories)/$(regular)/stokesFirst/stokesFirst.C
+$(waveTheories)/$(regular)/stokesFirstStanding/stokesFirstStanding.C
+$(waveTheories)/$(regular)/stokesSecond/stokesSecond.C
+$(waveTheories)/$(regular)/stokesSecondModulation/stokesSecondModulation.C
+$(waveTheories)/$(regular)/stokesFifth/stokesFifth.C
+
+/* Cnoidal Theory */
+$(waveTheories)/$(regular)/cnoidalFirst/cnoidalFirst.C
+
+/* Streamfunction Theory */
+$(waveTheories)/$(regular)/streamFunction/streamFunction.C
+
+/* Irregular wave theories */
+irregular=irregular
+$(waveTheories)/$(irregular)/irregular/irregular.C
+$(waveTheories)/$(irregular)/bichromaticFirst/bichromaticFirst.C
+$(waveTheories)/$(irregular)/bichromaticSecond/bichromaticSecond.C
+
+/* Mixed type wave theories */
+mixedType=mixedType
+$(waveTheories)/$(mixedType)/combinedWaves/combinedWaves.C
+
+/* WAVE BOUNDARY CONDITIONS */ 
+fvPatchFields=fvPatchFields
+$(fvPatchFields)/waveAlpha/waveAlphaFvPatchScalarField.C
+$(fvPatchFields)/wavePressure/wavePressureFvPatchScalarField.C
+$(fvPatchFields)/waveVelocity/waveVelocityFvPatchVectorField.C
+
+/* RELAXATION METHOD */
+relaxMethod=relaxationZone
+
+/* Relaxation Shapes */
+relaxShape=relaxationShape
+
+$(relaxMethod)/$(relaxShape)/relaxationShape.C
+$(relaxMethod)/$(relaxShape)/newRelaxationShape.C
+
+$(relaxMethod)/$(relaxShape)/rectangular/relaxationShapeRectangular.C
+$(relaxMethod)/$(relaxShape)/cylindrical/relaxationShapeCylindrical.C
+$(relaxMethod)/$(relaxShape)/semiCylindrical/relaxationShapeSemiCylindrical.C
+
+/* Relaxation Weights */
+relaxWeight=relaxationWeight
+
+$(relaxMethod)/$(relaxWeight)/relaxationWeight.C
+$(relaxMethod)/$(relaxWeight)/relaxationWeightCourantCorrection.C
+
+$(relaxMethod)/$(relaxWeight)/exponential/relaxationWeightExponential.C
+$(relaxMethod)/$(relaxWeight)/freePolynomial/relaxationWeightFreePolynomial.C
+$(relaxMethod)/$(relaxWeight)/thirdOrderPolynomial/relaxationWeightThirdOrderPolynomial.C
+
+/* Relaxation Schemes */
+relaxScheme=relaxationScheme
+
+$(relaxMethod)/$(relaxScheme)/relaxationScheme.C
+$(relaxMethod)/$(relaxScheme)/newRelaxationScheme.C
+
+$(relaxMethod)/$(relaxScheme)/empty/relaxationSchemeEmpty.C
+$(relaxMethod)/$(relaxScheme)/spatial/relaxationSchemeSpatial.C
+
+/* Numerical Beaches */
+numericalBeach=numericalBeach
+
+$(relaxMethod)/$(numericalBeach)/numericalBeach.C
+$(relaxMethod)/$(numericalBeach)/newNumericalBeach.C
+
+$(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
+
+/* Relaxation Zone */
+$(relaxMethod)/relaxationZone.C
+
+/* OUTPUT */
+LIB = $(WAVES_LIBBIN)/libwaves2Foam

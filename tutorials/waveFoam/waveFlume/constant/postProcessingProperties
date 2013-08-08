@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      postProcessingProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+deleteParentOutputDirectory false;
+
+regularSpectrum
+{
+    callName surfaceElevation;
+
+    removeDuplicate true;
+    inputDir surfaceElevationAnyName;
+
+    deltaT 0.01;
+    tMin    10.0; // Default: minimum time
+    //tMax    11.0; // Default: maximum time
+
+    // The action list is a set of processes on the data
+    actionList ( interpolateSurfaceElevation powerSpectraLS write2Ascii removeData );
+
+    nFreq 4;
+    period 2.0;
+    allDataSets true;
+}
+
+// ************************************************************************* //

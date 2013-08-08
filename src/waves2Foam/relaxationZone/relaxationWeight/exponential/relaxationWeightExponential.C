@@ -1,0 +1,89 @@
+/*---------------------------------------------------------------------------*\
+  =========                 |
+  \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
+   \\    /   O peration     |
+    \\  /    A nd           | Copyright held by original author
+     \\/     M anipulation  |
+-------------------------------------------------------------------------------
+License
+    This file is part of OpenFOAM.
+
+    OpenFOAM is free software; you can redistribute it and/or modify it
+    under the terms of the GNU General Public License as published by the
+    Free Software Foundation; either version 2 of the License, or (at your
+    option) any later version.
+
+    OpenFOAM is distributed in the hope that it will be useful, but WITHOUT
+    ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+    FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
+    for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with OpenFOAM; if not, write to the Free Software Foundation,
+    Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+
+\*---------------------------------------------------------------------------*/
+
+#include "relaxationWeightExponential.H"
+#include "addToRunTimeSelectionTable.H"
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+namespace Foam
+{
+namespace relaxationWeights
+{
+
+// * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //
+
+defineTypeNameAndDebug(relaxationWeightExponential, 0);
+addToRunTimeSelectionTable
+(
+    relaxationWeight,
+    relaxationWeightExponential,
+    dictionary
+);
+
+// * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
+
+
+relaxationWeightExponential::relaxationWeightExponential
+(
+    const word& subDictName,
+    const fvMesh& mesh_
+)
+:
+    relaxationWeight(subDictName, mesh_),
+
+    exponent_( coeffDict_.lookupOrDefault<scalar>("exponent",3.5) )
+{
+
+}
+
+
+// * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
+
+
+void relaxationWeightExponential::computeWeights
+(
+    const labelList& cells,
+    const scalarField& sigma,
+    scalarField& weight
+)
+{
+    forAll (weight, celli)
+    {
+        weight[celli] = 1.0 -
+            (
+                Foam::exp(Foam::pow(sigma[celli],exponent_)) - 1.0
+            )/(Foam::exp(1.0) - 1.0);
+    }
+}
+
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+} // End namespace relaxationWeights
+} // End namespace Foam
+
+// ************************************************************************* //

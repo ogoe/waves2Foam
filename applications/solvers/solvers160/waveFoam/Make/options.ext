@@ -6,7 +6,8 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=160 \
     -DEXTBRANCH=1 \
-    -I$(WAVES_SRC)/lnInclude
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude
     
 EXE_LIBS = \
     -linterfaceProperties \
@@ -17,4 +18,5 @@ EXE_LIBS = \
     -lfiniteVolume \
     -llduSolvers \
     -L$(WAVES_LIBBIN) \
-    -lwaves2Foam
+    -lwaves2Foam \
+    -lwaves2FoamSampling

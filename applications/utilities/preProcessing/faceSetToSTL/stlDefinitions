@@ -1,0 +1,49 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      stlDefinitions;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+/*
+    This file should be placed in constant/triSurface.
+
+    Running stlConverter on this file creates 2 stl-surfaces in
+    constant/triSurface, which are named surface0.stl and surface1.stl.
+*/
+
+surface0
+{
+    // Defines all points and all faces
+    points 6( (0 0 0) (1 1 0) (1 2 0) (0.1 1.7 0) (0.3 1.2 0) (0 0 1) );
+    faces 6( (0 1 2 3 4) (0 4 5) (4 3 5) (3 2 5) (2 1 5) ( 1 0 5));
+}
+
+surface1
+{
+    // Defines all points and all faces
+    points 8( (0 0 0) (1 0 0) (1 1 0) (0 1 0) (0 0 1) (1 0 1) (1 1 1) (0 1 1));
+    faces 6( (0 1 2 3) (4 5 6 7) (0 1 5 4) (0 4 7 3) (1 2 6 5) (3 2 6 7 ) );
+}
+
+surface1A
+{
+    // Same as surface1, however, only one face and corresponding points are defined.
+    // The face is then extruded along "extrudeVector".
+    points 4( (0 0 0) (1 0 0) (1 1 0) (0 1 0) );
+    faces 1( (0 1 2 3) );
+    
+    extrude true;
+    extrudeVector (0 0 2);
+}
+
+// ************************************************************************* //

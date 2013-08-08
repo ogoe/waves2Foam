@@ -23,7 +23,7 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Application
-    interFoam / waveFoam
+    interFoam/waveFoam
 
 Description
     Solver for 2 incompressible, isothermal immiscible fluids using a VOF

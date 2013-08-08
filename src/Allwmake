@@ -10,13 +10,22 @@ fi
 
 # Take care of the differences in the options, which arose between OF21 and OF22.
 rm -f $WAVES_SRC/Make/options
+dirList=`ls -d waves2Foam*`
 
 if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
 then
-    ln -s -f $WAVES_SRC/Make/options.210 $WAVES_SRC/Make/options
+    for i in $dirList
+    do
+        ln -s -f $WAVES_SRC/$i/Make/options.210 $WAVES_SRC/$i/Make/options
+    done
 else
-    ln -s -f $WAVES_SRC/Make/options.220 $WAVES_SRC/Make/options
+    for i in $dirList
+    do
+        ln -s -f $WAVES_SRC/$i/Make/options.220 $WAVES_SRC/$i/Make/options
+    done
 fi
 
 # Compile the library
-wmake libso
+(cd waves2Foam          ; wmake libso)
+(cd waves2FoamProcessing; wmake libso)
+(cd waves2FoamSampling  ; wmake libso)

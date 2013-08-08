@@ -6,7 +6,8 @@ EXE_INC = \
     -I$(LIB_SRC)/fileFormats/lnInclude \
     -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
     -DEXTBRANCH=$(EXTBRANCH) \
-    -I$(WAVES_SRC)/lnInclude
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude
 
 EXE_LIBS = \
     -lfiniteVolume \
@@ -16,4 +17,5 @@ EXE_LIBS = \
     -ltriSurface \
     -llagrangian \
     -L$(WAVES_LIBBIN) \
-    -lwaves2Foam
+    -lwaves2Foam \
+    -lwaves2FoamSampling

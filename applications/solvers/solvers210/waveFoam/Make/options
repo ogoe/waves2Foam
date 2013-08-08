@@ -6,7 +6,8 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=210 \
     -DEXTBRANCH=0 \
-    -I$(WAVES_SRC)/lnInclude
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude
 
 
 EXE_LIBS = \
@@ -17,5 +18,6 @@ EXE_LIBS = \
     -lincompressibleLESModels \
     -lfiniteVolume \
     -L$(WAVES_LIBBIN) \
-    -lwaves2Foam
+    -lwaves2Foam \
+    -lwaves2FoamSampling
 
