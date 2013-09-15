@@ -24,8 +24,8 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "waveSpectra.H"
-
+#include "focusingPhase.H"
+#include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -34,89 +34,34 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(waveSpectra, 0);
-defineRunTimeSelectionTable(waveSpectra, waveSpectra);
+defineTypeNameAndDebug(focusingPhase, 0);
+addToRunTimeSelectionTable(phases, focusingPhase, phases);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-waveSpectra::waveSpectra
+focusingPhase::focusingPhase
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 :
-    rT_(rT),
-    dict_(dict),
-    amp_(amp),
-    freq_(freq),
-    phi_(phi),
-    k_(k),
+    phases(rT, dict),
 
-    G_
-    (
-        Foam::mag
-        (
-            uniformDimensionedVectorField
-            (
-                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
-            ).value()
-        )
-    ),
+    focusTime_(readScalar(dict.lookup("focusTime"))),
 
-    PI_( M_PI ),
-
-    phases_(Foam::phases::New(rT_, dict_))
+    focusPoint_(dict.lookup("focusPoint"))
 {
+    Info << "\nConstructing: " << this->type() << endl;
 }
-
-
-waveSpectra::~waveSpectra()
-{}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-scalar waveSpectra::randomPhaselag()
+scalar focusingPhase::phase(const scalar& freq, const vector& k)
 {
-    return (2.0*PI_*static_cast<scalar>(rand())/static_cast<scalar>(RAND_MAX));
-}
-
-
-autoPtr<waveSpectra> waveSpectra::New
-(
-    const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
-)
-{
-    word spectrumName;
-    dict.lookup("spectrum") >> spectrumName;
-
-    waveSpectraConstructorTable::iterator cstrIter =
-            waveSpectraConstructorTablePtr_->find(spectrumName);
-
-    if (cstrIter == waveSpectraConstructorTablePtr_->end())
-    {
-        FatalErrorIn
-        (
-            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
-        )   << "Unknown wave spectrum '" << spectrumName << "'"
-            << endl << endl
-            << "Valid wave spectra are:" << endl
-            << waveSpectraConstructorTablePtr_->toc()
-            << exit(FatalError);
-    }
-
-    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
+    return (k & focusPoint_) - 2.0*M_PI*freq*focusTime_;
 }
 
 

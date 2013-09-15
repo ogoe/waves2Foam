@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "waveSpectra.H"
+#include "phases.H"
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -34,89 +34,55 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(waveSpectra, 0);
-defineRunTimeSelectionTable(waveSpectra, waveSpectra);
+defineTypeNameAndDebug(phases, 0);
+defineRunTimeSelectionTable(phases, phases);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-waveSpectra::waveSpectra
+phases::phases
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 :
     rT_(rT),
-    dict_(dict),
-    amp_(amp),
-    freq_(freq),
-    phi_(phi),
-    k_(k),
-
-    G_
-    (
-        Foam::mag
-        (
-            uniformDimensionedVectorField
-            (
-                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
-            ).value()
-        )
-    ),
-
-    PI_( M_PI ),
-
-    phases_(Foam::phases::New(rT_, dict_))
+    dict_(dict)
 {
 }
 
 
-waveSpectra::~waveSpectra()
+phases::~phases()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-scalar waveSpectra::randomPhaselag()
-{
-    return (2.0*PI_*static_cast<scalar>(rand())/static_cast<scalar>(RAND_MAX));
-}
-
-
-autoPtr<waveSpectra> waveSpectra::New
+autoPtr<phases> phases::New
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 {
-    word spectrumName;
-    dict.lookup("spectrum") >> spectrumName;
+    word phaseName = dict.lookupOrDefault<word>("phaseMethod","randomPhase");
 
-    waveSpectraConstructorTable::iterator cstrIter =
-            waveSpectraConstructorTablePtr_->find(spectrumName);
+    phasesConstructorTable::iterator cstrIter =
+            phasesConstructorTablePtr_->find(phaseName);
 
-    if (cstrIter == waveSpectraConstructorTablePtr_->end())
+    if (cstrIter == phasesConstructorTablePtr_->end())
     {
         FatalErrorIn
         (
-            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
-        )   << "Unknown wave spectrum '" << spectrumName << "'"
+            "phases::New(const Time&, dictionary&)"
+        )   << "Unknown phasing method '" << phaseName << "'"
             << endl << endl
-            << "Valid wave spectra are:" << endl
-            << waveSpectraConstructorTablePtr_->toc()
+            << "Valid phasing methods are:" << endl
+            << phasesConstructorTablePtr_->toc()
             << exit(FatalError);
     }
 
-    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
+    return autoPtr<phases>(cstrIter()(rT, dict));
 }
 
 

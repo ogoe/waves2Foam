@@ -108,14 +108,14 @@ void JONSWAP::set(Ostream& os)
         fhigh = readScalar(dict_.lookup("upperFrequencyCutoff"));
     }
 
-    label Nlow ( ceil( (fp - flow)/( fhigh - fp)*N ) );
-    label Nhigh( N - Nlow );
-
     scalarField f(N, 0.0), sigma(N, 0.07), beta(N, 0.0);
 
     if (!freqEqui)
     {
     	// Stretched frequency axis
+        label Nlow ( ceil( (fp - flow)/( fhigh - fp)*N ) );
+        label Nhigh( N - Nlow );
+
         for (int i=0; i < Nlow; i++)
         {
             f[i] = ( fp - flow )*Foam::sin( 2*PI_/( 4.0*Nlow )*i ) + flow;
@@ -159,8 +159,9 @@ void JONSWAP::set(Ostream& os)
     {
         freq_[i - 1] = 0.5*( f[i - 1] + f[i] );
         amp_[i - 1] = Foam::sqrt( ( S[i-1] + S[i] )*( f[i] - f[i - 1] ) );
-        phi_[i - 1] = randomPhaselag();
         k_[i - 1] = direction*stp.linearWaveNumber(depth, freq_[i-1]);
+
+        phi_[i - 1] = phases_->phase(freq_[i - 1], k_[i - 1]);
     }
 
     if (dict_.lookupOrDefault<Switch>("writeSpectrum",false))
