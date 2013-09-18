@@ -72,7 +72,7 @@ irregular::irregular
     // Compute the period
     forAll (period_, index)
     {
-        period_[index] = 2.0*PI_;
+        period_[index] = 2.0*PI_/omega_[index];
     }
 
     // Compute the velocity amplitude
@@ -143,17 +143,15 @@ vector irregular::U
 ) const
 {
     scalar Z(returnZ(x));
-    Z += h_;
 
     vector U(vector::zero);
 
     forAll (amp_, index)
     {
         scalar arg0 = omega_[index]*time - (k_[index] & x) + phi_[index];
-        scalar arg1 = K_[index]*Z;
+        scalar arg1 = K_[index]*(Z + h_);
 
         scalar Uhorz = velAmp_[index]*Foam::cosh(arg1)*Foam::cos(arg0);
-
         scalar Uvert = - velAmp_[index]*Foam::sinh(arg1)*Foam::sin(arg0);
 
         // Note "-" because of "g" working in the opposite direction

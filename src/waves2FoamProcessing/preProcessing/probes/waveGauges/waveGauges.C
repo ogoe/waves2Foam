@@ -182,7 +182,7 @@ void waveGauges::evaluate( const word& name )
     gauges() << "setFormat           raw;" << nl;
     gauges() << "interpolationScheme cellPointFace;" << nl;
     gauges() << "fields              (alpha1);" << nl << nl;
-    gauges() << "#includeIfPresent  \"../probesNGauges/" << name
+    gauges() << "#includeIfPresent  \"../waveGaugesNProbes/" << name
              << "_sets\";" << nl;
 
     mesh_.writeEndDivider( gauges() );

@@ -23,36 +23,22 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::waveSpectra
+    Foam::phases
 
 Description
-    An abstract base class for a pre-processing tool for setting the wave
-    properties in the dictionary waveProperties.
-
-    A description of the general wave framework is given in
-
-    @article { jacobsenFuhrmanFredsoe2011,
-        Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-        title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
-        Journal = {{Int. J. for Numer. Meth. Fluids}},
-        Year = {2012},
-        Volume = {70},
-        Number = {9},
-        Pages = {1073-1088},
-        DOI = {{10.1002/fld.2726}},
-    }
+    An abstract base class for setting the phases for irregular wave trains.
 
 SourceFiles
-    waveSpectra.C
+    phases.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjøl Jacobsen, Deltares.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef waveSpectra_H
-#define waveSpectra_H
+#ifndef phases_H
+#define phases_H
 
 #include "fvMesh.H"
 #include "volFields.H"
@@ -60,20 +46,20 @@ Author
 
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
-#include "uniformDimensionedFields.H"
 
 #include "setWaveProperties.H"
-#include "phases.H"
+
+#include "uniformDimensionedFields.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
 /*---------------------------------------------------------------------------*\
-                       Class waveSpectra Declaration
+                       Class phases Declaration
 \*---------------------------------------------------------------------------*/
 
-class waveSpectra
+class phases
 {
 
 protected:
@@ -83,90 +69,60 @@ protected:
 
         dictionary& dict_;
 
-        scalarField& amp_;
-        scalarField& freq_;
-        scalarField& phi_;
-        vectorField& k_;
-
-        scalar G_;
-
-        scalar PI_;
-
-        autoPtr<Foam::phases> phases_;
-
-
-    // Protected member functions
-
-        scalar randomPhaselag();
-
 private:
 
     // Private Member Functions
 
         //- Disallow default bitwise copy construct
-        waveSpectra(const waveSpectra&);
+        phases(const phases&);
 
         //- Disallow default bitwise assignment
-        void operator=(const waveSpectra&);
+        void operator=(const phases&);
 
 public:
 
     //- Runtime type information
-    TypeName("waveSpectra");
+    TypeName("phases");
 
     // Declare run-time constructor selection table
 
         declareRunTimeSelectionTable
         (
             autoPtr,
-            waveSpectra,
-            waveSpectra,
+            phases,
+            phases,
             (
                 const Time& rT,
-                dictionary& dict,
-                scalarField& amp,
-                scalarField& freq,
-                scalarField& phi,
-                vectorField& k
+                dictionary& dict
             ),
-            (rT, dict, amp, freq, phi, k)
+            (rT, dict)
         );
 
     // Constructors
 
         //- Construct from components
-        waveSpectra
+        phases
         (
             const Time&,
-            dictionary&,
-            scalarField&,
-            scalarField&,
-            scalarField&,
-            vectorField&
+            dictionary&
         );
 
     // Selectors
 
         //- Return a reference to the selected turbulence model
-        static autoPtr<waveSpectra> New
+        static autoPtr<phases> New
         (
             const Time&,
-            dictionary&,
-            scalarField&,
-            scalarField&,
-            scalarField&,
-            vectorField&
+            dictionary&
         );
 
     // Destructor
 
-        virtual ~waveSpectra();
+        virtual ~phases();
 
     // Member functions
 
-        virtual void set(Ostream&) = 0;
-
-        virtual wordList list() = 0;
+        virtual scalar phase(const scalar&, const vector&) = 0;
 };
 
 

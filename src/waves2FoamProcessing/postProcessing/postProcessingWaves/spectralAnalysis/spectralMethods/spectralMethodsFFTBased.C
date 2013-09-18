@@ -196,6 +196,8 @@ List<scalarField> spectralMethodsFFTBased::powerSpectra
         powerSpectrum( input, deltaT, spectrum );
     }
 
+    Info << "          (The power spectra is averaged over " << sweeps_ << " individual spectra)." << endl;
+
     return spectra;
 }
 
@@ -217,6 +219,8 @@ List<vectorField> spectralMethodsFFTBased::powerSpectra
 
         powerSpectrum( input, deltaT, spectrum );
     }
+
+    Info << "          (The power spectra is averaged over " << sweeps_ << " individual spectra)." << endl;
 
     return spectra;
 }

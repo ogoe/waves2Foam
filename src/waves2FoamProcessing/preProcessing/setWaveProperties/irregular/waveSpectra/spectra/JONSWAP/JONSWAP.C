@@ -81,6 +81,7 @@ void JONSWAP::set(Ostream& os)
     scalar gamma( readScalar(dict_.lookup("gamma")) );
     scalar depth( readScalar(dict_.lookup("depth")) );
     vector direction( vector( dict_.lookup("direction")));
+    Switch freqEqui(Switch(dict_.lookup("equidistantFrequencyAxis")));
 
     label  N( static_cast<label>(readScalar(dict_.lookup("N"))) );
 
@@ -97,20 +98,43 @@ void JONSWAP::set(Ostream& os)
 
     scalar flow( 0.3*fp ), fhigh( 3.0*fp );
 
-    label Nlow ( ceil( (fp - flow)/( fhigh - fp)*N ) );
-    label Nhigh( N - Nlow );
+    if (dict_.found("lowerFrequencyCutoff"))
+    {
+        flow = readScalar(dict_.lookup("lowerFrequencyCutoff"));
+    }
+
+    if (dict_.found("upperFrequencyCutoff"))
+    {
+        fhigh = readScalar(dict_.lookup("upperFrequencyCutoff"));
+    }
 
     scalarField f(N, 0.0), sigma(N, 0.07), beta(N, 0.0);
 
-    for (int i=0; i < Nlow; i++)
+    if (!freqEqui)
     {
-        f[i] = ( fp - flow )*Foam::sin( 2*PI_/( 4.0*Nlow )*i ) + flow;
-    }
+    	// Stretched frequency axis
+        label Nlow ( ceil( (fp - flow)/( fhigh - fp)*N ) );
+        label Nhigh( N - Nlow );
 
-    for (int i=0; i<=Nhigh; i++)
+        for (int i=0; i < Nlow; i++)
+        {
+            f[i] = ( fp - flow )*Foam::sin( 2*PI_/( 4.0*Nlow )*i ) + flow;
+        }
+
+        for (int i=0; i<=Nhigh; i++)
+        {
+            f[Nlow - 1 + i] =
+                (fhigh - fp)*(- Foam::cos(2*PI_/(4*Nhigh)*i) + 1) + fp;
+        }
+    }
+    else
     {
-        f[Nlow - 1 + i] =
-            (fhigh - fp)*(- Foam::cos(2*PI_/(4*Nhigh)*i) + 1) + fp;
+    	// Equidistant frequency axis
+    	scalar df = (fhigh - flow)/static_cast<scalar>(N-1);
+    	for (int i = 0; i < N; i++)
+    	{
+    		f[i] = static_cast<scalar>(i)*df + flow;
+    	}
     }
 
     forAll (sigma, ii)
@@ -135,8 +159,9 @@ void JONSWAP::set(Ostream& os)
     {
         freq_[i - 1] = 0.5*( f[i - 1] + f[i] );
         amp_[i - 1] = Foam::sqrt( ( S[i-1] + S[i] )*( f[i] - f[i - 1] ) );
-        phi_[i - 1] = randomPhaselag();
         k_[i - 1] = direction*stp.linearWaveNumber(depth, freq_[i-1]);
+
+        phi_[i - 1] = phases_->phase(freq_[i - 1], k_[i - 1]);
     }
 
     if (dict_.lookupOrDefault<Switch>("writeSpectrum",false))

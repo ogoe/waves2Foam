@@ -36,6 +36,11 @@ spectra=spectra
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/PiersonMoskowitz/PiersonMoskowitz.C
 
+phases=phases
+$(waveProp)/$(irregular)/$(dws)/$(phases)/phases.C
+$(waveProp)/$(irregular)/$(dws)/$(phases)/randomPhase/randomPhase.C
+$(waveProp)/$(irregular)/$(dws)/$(phases)/focusingPhase/focusingPhase.C
+
 $(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
 
 /* Mixed type wave theories */
