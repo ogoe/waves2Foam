@@ -66,6 +66,8 @@ relaxationZone::relaxationZone
 
 void relaxationZone::correct()
 {
+    scalar preTime = mesh_.time().elapsedCpuTime();
+
     forAll (relaxSchemePtr_, relaxi)
     {
         relaxSchemePtr_[relaxi]->correct();
@@ -73,6 +75,9 @@ void relaxationZone::correct()
 
     alpha_.correctBoundaryConditions();
     U_.correctBoundaryConditions();
+
+    Info << "Relaxing time: " << mesh_.time().elapsedCpuTime() - preTime
+         << " s" << endl;
 }
 
 
