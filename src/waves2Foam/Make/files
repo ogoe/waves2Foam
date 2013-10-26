@@ -67,6 +67,9 @@ $(relaxMethod)/$(relaxShape)/rectangular/relaxationShapeRectangular.C
 $(relaxMethod)/$(relaxShape)/cylindrical/relaxationShapeCylindrical.C
 $(relaxMethod)/$(relaxShape)/semiCylindrical/relaxationShapeSemiCylindrical.C
 
+/* Derived relaxation shapes */
+$(relaxMethod)/$(relaxShape)/line/relaxationShapeLine.C
+
 /* Relaxation Weights */
 relaxWeight=relaxationWeight
 
@@ -85,6 +88,7 @@ $(relaxMethod)/$(relaxScheme)/newRelaxationScheme.C
 
 $(relaxMethod)/$(relaxScheme)/empty/relaxationSchemeEmpty.C
 $(relaxMethod)/$(relaxScheme)/spatial/relaxationSchemeSpatial.C
+$(relaxMethod)/$(relaxScheme)/spatialInterpolation/relaxationSchemeSpatialInterpolation.C
 
 /* Numerical Beaches */
 numericalBeach=numericalBeach
