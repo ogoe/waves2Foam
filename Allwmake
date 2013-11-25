@@ -15,12 +15,17 @@ then
     echo "    The directory path "$WAVES_DIR "does not exist."
     echo "    Correct the path in bin/bashrc"
     echo ""
+    echo "    This means that you should correct the environmental variable \$WAVES_DIR"
+    echo "    such that it is pointed (in absolute sense) to the path, where waves2Foam"
+    echo "    is located."
+    echo ""
     echo "    Please note that once bin/bashrc is created, bin/bashrc.org is only an"
     echo "    inactive file. The latter is also the only of the two files, which is"
     echo "    updated through the SVN-repository."
     echo ""
     echo "EXITING"
     echo ""
+
     exit
 fi
 
