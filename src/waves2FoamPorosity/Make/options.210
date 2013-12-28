@@ -1,0 +1,10 @@
+EXE_INC = \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -DEXTBRANCH=$(EXTBRANCH) \
+    -DXVERSION=$(WAVES_XVERSION) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude
+    
+LIB_LIBS = \
+    -lfiniteVolume \
+    -lmeshTools

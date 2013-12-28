@@ -29,3 +29,4 @@ fi
 (cd waves2Foam          ; wmake libso)
 (cd waves2FoamProcessing; wmake libso)
 (cd waves2FoamSampling  ; wmake libso)
+(cd waves2FoamPorosity  ; wmake libso)

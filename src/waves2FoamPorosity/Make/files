@@ -1,0 +1,11 @@
+poroZones=porosityZones
+$(poroZones)/porosityZones.C
+$(poroZones)/porosityZone.C
+
+poroCoeffs=porosityCoefficients
+$(poroCoeffs)/porosityCoefficient.C
+$(poroCoeffs)/nativeOF/nativeOF.C
+$(poroCoeffs)/vanGent1995/vanGent1995.C
+$(poroCoeffs)/engelund1953/engelund1953.C
+
+LIB = $(FOAM_USER_LIBBIN)/libwaves2FoamPorosity

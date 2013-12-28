@@ -16,7 +16,7 @@
 The following paper describes the implementation of boundary conditions, the relaxation zones 
 and the framework for relaxationShapes:
 
-@article { jacobsenFuhrmanFredsoe2011,
+@article { jacobsenFuhrmanFredsoe2012,
     Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
     title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
     Journal = {{Int. J. for Numer. Meth. Fluids}},
@@ -27,8 +27,19 @@ and the framework for relaxationShapes:
     DOI = {{10.1002/fld.2726}},
 }
 
-Please make prober referencing to it, when using the toolbox. This part of the README will be
-updated as soon as DOI or full referencing is available.
+Please make prober referencing to it, when using the toolbox.
+
+The porosity module and the calibration of the resistance coefficients are described in
+
+@article{Jensen2014,
+    Author = {Jensen, Bjarne and Jacobsen, Niels Gj\o{}l and Christensen, Erik Damgaard},
+    Journal = {Coastal Engineering},
+    Pages = {56--72},
+    Publisher = {Elsevier B.V.},
+    Title = {{Investigations on the porous media equations and resistance coefficients for coastal structures}},
+    Volume = {84},
+    Year = {2014},
+}
 
 Furthermore, users are referred to:
 

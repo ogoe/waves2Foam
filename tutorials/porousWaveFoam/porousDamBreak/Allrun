@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+sh ./../../../bin/prepareCase.sh
+
+# Set application name
+application="porousWaveFoam"
+
+# Create the computational mesh
+runApplication blockMesh
+
+# Set the wave properties
+runApplication setWaveParameters
+
+# Set the initial condition
+runApplication setFields
+
+# Define the wave gauges/surface elevation probes
+runApplication waveGaugesNProbes
+
+# Run the application
+runApplication $application
