@@ -196,7 +196,7 @@ void Foam::sampledSurfaceElevation::combineSampledSets
 
         // The constructor for coordSet has changed as of version 2.0.
         // This is taken care of using these pre-processor statements.
-#if OFVERSION < 200
+#if OFVERSION < 200 || EXTBRANCH==1
         // Get reference point (note: only master has all points)
         point refPt;
 
@@ -658,7 +658,7 @@ void Foam::sampledSurfaceElevation::updateMesh(const mapPolyMesh&)
 }
 
 
-#if OFVERSION<220
+#if OFVERSION<220 || EXTBRANCH==1
 void Foam::sampledSurfaceElevation::movePoints(const pointField&)
 {
     correct();
@@ -669,13 +669,13 @@ void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
     correct();
 }
 
-#if OFVERSION > 220
+#if OFVERSION > 220 && EXTBRANCH==0
     bool Foam::sampledSurfaceElevation::timeSet()
     {
         // Do nothing
         return true;
     }
-#elif XVERSION
+#elif XVERSION && EXTBRANCH==0
     bool Foam::sampledSurfaceElevation::timeSet()
     {
         // Do nothing

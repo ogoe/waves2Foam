@@ -26,6 +26,14 @@ fi
 
 export WM_PROJECT_VERSION_NUMBER=$version
 
+## Easy navigation
+export WAVES_SRC=$WAVES_DIR/src
+export WAVES_TUT=$WAVES_DIR/tutorials
+export WAVES_SOL=$WAVES_DIR/applications/solvers/solvers$WM_PROJECT_VERSION_NUMBER
+export WAVES_UTIL=$WAVES_DIR/applications/utilities
+export WAVES_PRE=$WAVES_UTIL/preProcessing
+export WAVES_POST=$WAVES_UTIL/postProcessing
+
 ## Is this a D.D.x version of OpenFoam. Needed to distinguish 2.2.0 and 2.2.x
 truncatedVersion=${WM_PROJECT_VERSION%.x}
 
@@ -37,14 +45,6 @@ else
 fi
 
 export WAVES_XVERSION=$xVersion
-
-## Easy navigation
-export WAVES_SRC=$WAVES_DIR/src
-export WAVES_TUT=$WAVES_DIR/tutorials
-export WAVES_SOL=$WAVES_DIR/applications/solvers/solvers$WM_PROJECT_VERSION_NUMBER
-export WAVES_UTIL=$WAVES_DIR/applications/utilities
-export WAVES_PRE=$WAVES_UTIL/preProcessing
-export WAVES_POST=$WAVES_UTIL/postProcessing
 
 ## Extend branch or not
 EXTBRANCH=`echo $WM_PROJECT_VERSION | grep 'dev\|ext'`
@@ -58,6 +58,21 @@ fi
 
 export EXTBRANCH
 
+FOAMEXTENDPROJECT=0
+
+if [ $WM_PROJECT == "foam" ]
+then
+    FOAMEXTENDPROJECT=1
+fi
+
+export FOAMEXTENDPROJECT
+
+if [ "$FOAMEXTENDPROJECT" == "1" ]
+then
+    EXTBRANCH=$FOAMEXTENDPROJECT
+    export EXTBRANCH
+fi
+
 ### PRINT INFORMATION
 if [ "$printVariables" ]
 then
@@ -65,6 +80,6 @@ then
     echo "====================================="
     echo "    ENVIRONMENTAL VARIABLES"
     echo "====================================="
-    env | grep "WAVES\|EXTBRANCH\|WM_PROJECT_VERSION_NUMBER"
+    env | grep "WAVES\|EXTBRANCH\|WM_PROJECT_VERSION_NUMBER\|FOAMEXTEND" | sort
     echo ""
 fi

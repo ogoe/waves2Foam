@@ -51,8 +51,11 @@ do
     # Correct options file if extend branch or not
     if [ "$EXTBRANCH" -eq "1" ]
     then
-        rm -f $WAVES_SOL/$solverName/Make/options
-        ln -s -f $WAVES_SOL/$solverName/Make/options.ext $WAVES_SOL/$apps/$solverName/Make/options
+        if [ "$FOAMEXTPROJECT" == "0" ]
+        then
+            rm -f $WAVES_SOL/$solverName/Make/options
+            ln -s -f $WAVES_SOL/$solverName/Make/options.ext $WAVES_SOL/$apps/$solverName/Make/options
+        fi
     else
         if [ -f $WAVES_SOL/$solverName/Make/options.reg ]
         then
@@ -71,6 +74,20 @@ echo ""
 echo "====================================="
 echo "    COMPILE PRE-PROCESSING"
 echo "====================================="
+foamOpenFOAM="$WAVES_PRE/faceSetToSTL $WAVES_PRE/waveGaugesNProbes $WAVES_POST/postProcessWaves2Foam"
+
+for i in $foamOpenFOAM
+do
+    rm -f $i/Make/options
+
+    if [ "$FOAMEXTENDPROJECT" -eq "0" ]
+    then
+        ln -s -f $i/Make/options.OpenFOAM $i/Make/options
+    else
+        ln -s -f $i/Make/options.foam $i/Make/options
+    fi
+done
+
 ( cd $WAVES_PRE  && wmake all )
 
 # Post-processing utilities
@@ -80,7 +97,10 @@ echo "    COMPILE POST-PROCESSING"
 echo "====================================="
 rm -f $WAVES_POST/surfaceElevation/Make/options
 
-if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
+if [ "$EXTBRANCH" -eq "1" ]
+then
+    ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
+elif [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
 then
     ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
 else

@@ -114,7 +114,7 @@ int main(int argc, char *argv[])
     OFstream os
     (
         wOut.objectPath(),
-#if OFVERSION < 170
+#if OFVERSION < 170 || EXTBRANCH == 1
         ios_base::out|ios_base::trunc,
 #endif
         IOstream::ASCII,
