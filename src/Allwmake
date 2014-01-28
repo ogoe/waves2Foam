@@ -12,20 +12,29 @@ fi
 rm -f $WAVES_SRC/Make/options
 dirList=`ls -d waves2Foam*`
 
-if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
+if [ $FOAMEXTENDPROJECT -eq "1" ]
 then
     for i in $dirList
     do
         ln -s -f $WAVES_SRC/$i/Make/options.210 $WAVES_SRC/$i/Make/options
     done
 else
-    for i in $dirList
-    do
-        ln -s -f $WAVES_SRC/$i/Make/options.220 $WAVES_SRC/$i/Make/options
-    done
+    if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
+    then
+        for i in $dirList
+        do
+            ln -s -f $WAVES_SRC/$i/Make/options.210 $WAVES_SRC/$i/Make/options
+        done
+    else
+        for i in $dirList
+        do
+            ln -s -f $WAVES_SRC/$i/Make/options.220 $WAVES_SRC/$i/Make/options
+        done
+    fi
 fi
 
 # Compile the library
 (cd waves2Foam          ; wmake libso)
 (cd waves2FoamProcessing; wmake libso)
 (cd waves2FoamSampling  ; wmake libso)
+(cd waves2FoamPorosity  ; wmake libso)

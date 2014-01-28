@@ -1,12 +1,12 @@
-====== WAVEFRAMEWORK ======
+====== WAVE FRAME WORK ======
 
 This wave generation and absorption framework is initially developed by
 Niels G. Jacobsen from the Technical University of Denmark. The method
 and its validation has been published in
 
-@article { jacobsenFuhrmanFredsoe2011,
+@article { jacobsenFuhrmanFredsoe2012,
     Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-    title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
+    Title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
     Journal = {{Int. J. for Numer. Meth. Fluids}},
     Year = {2012},
     Volume = {70},
@@ -17,6 +17,25 @@ and its validation has been published in
 
 Please make proper reference to this article, when the work is used. Note that the pre-print year was
 2011, however, the paper was not published until 2012.
+
+====== POROSITY MODULE ======
+
+The porosity module was developed by Bjarne Jensen (TU Denmark) and
+Niels G. Jacobsen (TU Denmark/Deltares). The implementation is
+described and tested for coastal engineering problems in:
+
+@article{Jensen2014,
+    Author = {Jensen, Bjarne and Jacobsen, Niels Gj\o{}l and Christensen, Erik Damgaard},
+    Journal = {Coastal Engineering},
+    Pages = {56--72},
+    Publisher = {Elsevier B.V.},
+    Title = {{Investigations on the porous media equations and resistance coefficients for coastal structures}},
+    Volume = {84},
+    Year = {2014},
+}
+
+Note that a prober calibration of the resistance coefficients are
+also presented in this paper. Available at: http://www.sciencedirect.com/science/article/pii/S0378383913001816
 
 ---------------------------
 Other contributions are kindly accepted received from:

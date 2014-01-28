@@ -295,7 +295,7 @@ public:
         virtual void updateMesh(const mapPolyMesh&);
 
         //- Update for mesh point-motion
-#if OFVERSION<220
+#if OFVERSION<220 || EXTBRANCH == 1
         virtual void movePoints(const pointField&);
 #else
         virtual void movePoints(const polyMesh&);

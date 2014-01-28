@@ -109,7 +109,7 @@ protected:
         //- Write the output file header
         virtual void writeFileHeader();
 
-#if OFVERSION<220
+#if OFVERSION<220 || EXTBRANCH==1
         //- Update mesh
         virtual void updateMesh(const mapPolyMesh&);
 
@@ -148,7 +148,7 @@ public:
         //- Execute the at the final time-loop, currently does nothing
         virtual void end() {};
 
-#if OFVERSION>=220
+#if OFVERSION>=220 && EXTBRANCH==0
         //- Update mesh
         virtual void updateMesh(const mapPolyMesh&);
 

@@ -1,0 +1,78 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "system";
+    object      controlDict;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+application     waveFoam;
+
+startFrom       startTime;
+
+startTime       0;
+
+stopAt          endTime;
+
+endTime         4;
+
+deltaT          0.001;
+
+writeControl    adjustableRunTime;
+
+writeInterval   0.05;
+
+purgeWrite      0;
+
+writeFormat     ascii;
+
+writePrecision  6;
+
+writeCompression uncompressed;
+
+timeFormat      general;
+
+timePrecision   6;
+
+runTimeModifiable yes;
+
+adjustTimeStep  yes;
+
+maxCo           0.5;
+maxAlphaCo      0.5;
+
+maxDeltaT       1;
+
+functions
+{
+    surfaceElevation
+    {
+        type               surfaceElevation;
+        functionObjectLibs ( "libwaves2FoamSampling.so" );
+
+        outputControl      timeStep; // Alternative: outputTime
+        outputInterval     2;
+
+        //Additional output controls in waves2Foam
+        //samplingStartTime  -1;
+        //surfaceSampleDeltaT 0.025;
+
+        setFormat          raw;
+        interpolationScheme cellPointFace;
+        fields (alpha1);
+
+        #includeIfPresent "../waveGaugesNProbes/surfaceElevation_sets";
+
+    }
+}
+
+// ************************************************************************* //

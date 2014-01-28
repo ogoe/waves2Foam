@@ -50,7 +50,7 @@ void Foam::overtopping::updateMesh(const mapPolyMesh&)
 }
 
 
-#if OFVERSION<220
+#if OFVERSION<220 || EXTBRANCH==1
 void Foam::overtopping::movePoints(const pointField&)
 {
     // Do nothing
@@ -61,13 +61,13 @@ void Foam::overtopping::movePoints(const polyMesh&)
     // Do nothing
 }
 
-#if OFVERSION > 220
+#if OFVERSION > 220 && EXTBRANCH==0
     bool Foam::overtopping::timeSet()
     {
         // Do nothing
         return true;
     }
-#elif XVERSION
+#elif XVERSION && EXTBRANCH==0
     bool Foam::overtopping::timeSet()
     {
         // Do nothing

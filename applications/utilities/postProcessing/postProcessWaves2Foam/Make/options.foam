@@ -1,0 +1,18 @@
+EXE_INC = \
+    -I$(LIB_SRC)/foam/lnInclude \
+    -I$(LIB_SRC)/triSurface/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(WAVES_SRC)/waves2Foam/src/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamProcessing/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
+    
+EXE_LIBS = \
+    -lfoam \
+    -ltriSurface \
+    -lfiniteVolume \
+    -L$(FOAM_USER_LIBBIN) \
+    -lwaves2Foam \
+    -lwaves2FoamProcessing \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas
