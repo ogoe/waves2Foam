@@ -41,6 +41,7 @@ Author
 #define rawAlphaProbes_H
 
 #include "postProcessingWaves.H"
+#include "crossVersionCompatibility.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

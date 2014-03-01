@@ -20,8 +20,6 @@ relaxationNames ();
 
 initializationName cyclic1;
 
-pName pd;
-
 cyclic1Coeffs
 {
     waveType	solitaryFirst;

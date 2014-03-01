@@ -51,7 +51,7 @@ do
     # Correct options file if extend branch or not
     if [ "$EXTBRANCH" -eq "1" ]
     then
-        if [ "$FOAMEXTPROJECT" == "0" ]
+        if [ "$FOAMEXTENDPROJECT" -eq "0" ]
         then
             rm -f $WAVES_SOL/$solverName/Make/options
             ln -s -f $WAVES_SOL/$solverName/Make/options.ext $WAVES_SOL/$apps/$solverName/Make/options

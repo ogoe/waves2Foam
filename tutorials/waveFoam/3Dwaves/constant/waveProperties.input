@@ -14,8 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-timeShift       0.0;
-
 seaLevel	0.01;
 
 // A list of the relaxation zones in the simulation. The parameters are given
@@ -23,8 +21,6 @@ seaLevel	0.01;
 relaxationNames (inlet0 inlet1 inlet2 outlet);
 
 initializationName outlet;
-
-pName pd;
 
 inlet0Coeffs
 {

@@ -28,8 +28,6 @@ relaxationNames      (inlet);
 
 initializationName inlet;
 
-pName pd;
-
 inletCoeffs
 {
     waveType	potentialCurrent;

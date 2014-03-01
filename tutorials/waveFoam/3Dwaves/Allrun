@@ -17,8 +17,6 @@ runApplication setsToZones -noFlipMap
 runApplication createBaffles f0 internalWall -overwrite
 
 # Set wave parameters
-cp constant/waveProperties constant/waveProperties.input
-
 runApplication setWaveParameters
 
 # Set wave field

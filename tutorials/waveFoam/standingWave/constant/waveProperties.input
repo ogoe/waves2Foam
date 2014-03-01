@@ -14,8 +14,6 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-timeShift       0.0;
-
 seaLevel	0.00;
 
 // A list of the relaxation zones in the simulation. The parameters are given
@@ -24,29 +22,14 @@ relaxationNames (inlet);
 
 initializationName init;
 
-pName p_rgh;
-
 inletCoeffs
 {
-    // Wave type to be used at boundary "inlet" and in relaxation zone "inlet"
     waveType    stokesFirst;  
-    
-    // Ramp time of 2 s
     Tsoft       2;
-
-    // Water depth at the boundary and in the relaxation zone
+    period      2;
     depth       0.400000;
-
-    // Cyclic wave frequency
-    omega       3.141593;
-
-    // Phase shift in the wave
+    direction   (1.0 0 0);
     phi         0.000000;
-
-    // Wave number vector, k. 
-    waveNumber  (1.70048 0.0 0.0);
-
-    // Wave height
     height      0.075;
     
     // Specifications on the relaxation zone shape and relaxation scheme

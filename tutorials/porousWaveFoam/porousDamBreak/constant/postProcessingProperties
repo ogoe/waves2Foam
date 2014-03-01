@@ -1,29 +1,32 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  2.1.0                                 |
-|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
 {
-    version	2.0;
-    format	ascii;
-    class	dictionary;
-    object	waveProperties;
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      postProcessingProperties;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-timeShift           0;
+deleteParentOutputDirectory false;
 
-seaLevel            0;
+data
+{
+    callName surfaceElevation;
 
-relaxationNames     ( );
+    removeDuplicate true;
+    inputDir surfaceElevation;
 
-initializationName  ( );
+    deltaT 0.2;
 
-pName               p_rgh;
-
-
+    // action list is a set of processes on the data
+    actionList ( interpolateSurfaceElevation write2Ascii removeData);
+}
 
 // ************************************************************************* //

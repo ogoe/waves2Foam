@@ -2,7 +2,7 @@
   =========                 |
   \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox
    \\    /   O peration     |
-    \\  /    A nd           | Copyright held by original author
+    \\  /    A nd           | Copyright (C) 2011-2013 OpenFOAM Foundation
      \\/     M anipulation  |
 -------------------------------------------------------------------------------
 License
@@ -31,20 +31,22 @@ Description
     The momentum and other fluid properties are of the "mixture" and a single
     momentum equation is solved.
 
-    Turbulence modelling is generic, i.e.  laminar, RAS or LES may be selected.
+    Turbulence modelling is generic, i.e. laminar, RAS or LES may be selected.
 
     For a two-fluid approach see twoPhaseEulerFoam.
 
 \*---------------------------------------------------------------------------*/
 
 #include "fvCFD.H"
-#include "MULES.H"
+#include "CMULES.H"
 #include "subCycle.H"
 #include "interfaceProperties.H"
-#include "twoPhaseMixture.H"
+#include "incompressibleTwoPhaseMixture.H"
 #include "turbulenceModel.H"
-#include "interpolationTable.H"
+#include "pimpleControl.H"
+#include "fvIOoptionList.H"
 #include "relaxationZone.H"
+#include "fixedFluxPressureFvPatchScalarField.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -53,12 +55,15 @@ int main(int argc, char *argv[])
     #include "setRootCase.H"
     #include "createTime.H"
     #include "createMesh.H"
-    #include "readPISOControls.H"
+
+    pimpleControl pimple(mesh);
+
     #include "initContinuityErrs.H"
     #include "readGravitationalAcceleration.H"
-    #include "createFields.H"
     #include "readWaveProperties.H"
+    #include "createFields.H"
     #include "readTimeControls.H"
+    #include "createPrghCorrTypes.H"
     #include "correctPhi.H"
     #include "CourantNo.H"
     #include "setInitialDeltaT.H"
@@ -69,7 +74,6 @@ int main(int argc, char *argv[])
 
     while (runTime.run())
     {
-        #include "readPISOControls.H"
         #include "readTimeControls.H"
         #include "CourantNo.H"
         #include "alphaCourantNo.H"
@@ -79,21 +83,33 @@ int main(int argc, char *argv[])
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
-        twoPhaseProperties.correct();
-
-        #include "alphaEqnSubCycle.H"
-
-    relaxing.correct();
-
-        #include "UEqn.H"
-
-        // --- PISO loop
-        for (int corr=0; corr<nCorr; corr++)
+        // --- Pressure-velocity PIMPLE corrector loop
+        while (pimple.loop())
         {
-            #include "pEqn.H"
-        }
+            #include "alphaControls.H"
 
-        turbulence->correct();
+            if (pimple.firstIter() || alphaOuterCorrectors)
+            {
+                twoPhaseProperties.correct();
+
+                #include "alphaEqnSubCycle.H"
+                relaxing.correct();
+                interface.correct();
+            }
+
+            #include "UEqn.H"
+
+            // --- Pressure corrector loop
+            while (pimple.correct())
+            {
+                #include "pEqn.H"
+            }
+
+            if (pimple.turbCorr())
+            {
+                turbulence->correct();
+            }
+        }
 
         runTime.write();
 

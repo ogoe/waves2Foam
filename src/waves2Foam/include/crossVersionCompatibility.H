@@ -23,90 +23,40 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::waveGauges
+
 
 Description
-    Writing wave gauges depending on a given point distribution.
 
 SourceFiles
-    waveGauges.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
-
+    Niels Gjøl Jacobsen, Deltares.
+    All rights reserved.
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef waveGauges_H
-#define waveGauges_H
+#ifndef crossVersionCompatibility_H
+#define crossVersionCompatibility_H
 
-#include "fvMesh.H"
 #include "fvCFD.H"
-#include "volFields.H"
-#include "IOdictionary.H"
-#include "OFstream.H"
-#include "uniformDimensionedFields.H"
-
-#include "pointDistributions.H"
-#include "crossVersionCompatibility.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
 
-/*---------------------------------------------------------------------------*\
-                         Class porosityCoefficient Declaration
-\*---------------------------------------------------------------------------*/
-
-class waveGauges
+namespace waves2Foam
 {
-private:
 
-    // Private data
-        const fvMesh& mesh_;
-        const dictionary& gaugeDict_;
+word pName();
 
-    // Private Member Functions
-        void writeVTKFormat
-        (
-            const word&,
-            const pointField&,
-            const point&
-        );
+word aName();
 
-        //- Disallow default bitwise copy construct
-        waveGauges(const waveGauges&);
+word waterPhase();
 
-        //- Disallow default bitwise assignment
-        void operator=(const waveGauges&);
+word airPhase();
 
-public:
-
-    //- Runtime type information
-    TypeName("waveGauges");
-
-    // Constructors
-
-        //- Construct from components
-        waveGauges
-        (
-            const fvMesh&,
-            const dictionary&
-        );
-
-    // Destructor
-
-        virtual ~waveGauges() {};
-
-    // Member Functions
-
-        // Access
-        void evaluate( const word& );
-};
-
-// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
-
+} // End namespace waves2Foam
 } // End namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

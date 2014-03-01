@@ -43,6 +43,8 @@ SourceFiles
 #include "mapPolyMesh.H"
 #include "OFstream.H"
 
+#include "crossVersionCompatibility.H"
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam

@@ -12,20 +12,6 @@
         mesh
     );
 
-    Info<< "Reading field alpha1\n" << endl;
-    volScalarField alpha1
-    (
-        IOobject
-        (
-            "alpha1",
-            runTime.timeName(),
-            mesh,
-            IOobject::MUST_READ,
-            IOobject::AUTO_WRITE
-        ),
-        mesh
-    );
-
     Info<< "Reading field U\n" << endl;
     volVectorField U
     (
@@ -44,7 +30,10 @@
 
 
     Info<< "Reading transportProperties\n" << endl;
-    twoPhaseMixture twoPhaseProperties(U, phi);
+    incompressibleTwoPhaseMixture twoPhaseProperties(U, phi);
+
+    volScalarField& alpha1(twoPhaseProperties.alpha1());
+    volScalarField& alpha2(twoPhaseProperties.alpha2());
 
     const dimensionedScalar& rho1 = twoPhaseProperties.rho1();
     const dimensionedScalar& rho2 = twoPhaseProperties.rho2();
@@ -60,26 +49,24 @@
             mesh,
             IOobject::READ_IF_PRESENT
         ),
-        alpha1*rho1 + (scalar(1) - alpha1)*rho2,
+        alpha1*rho1 + alpha2*rho2,
         alpha1.boundaryField().types()
     );
     rho.oldTime();
 
 
     // Mass flux
-    // Initialisation does not matter because rhoPhi is reset after the
-    // alpha1 solution before it is used in the U equation.
     surfaceScalarField rhoPhi
     (
         IOobject
         (
-            "rho*phi",
+            "rhoPhi",
             runTime.timeName(),
             mesh,
             IOobject::NO_READ,
             IOobject::NO_WRITE
         ),
-        rho1*phi
+        fvc::interpolate(rho)*phi
     );
 
 
@@ -92,6 +79,8 @@
     (
         incompressible::turbulenceModel::New(U, phi, twoPhaseProperties)
     );
+
+//    #include "readGravitationalAcceleration.H"
 
     /*
     dimensionedVector g0(g);
@@ -126,7 +115,7 @@
     (
         p,
         p_rgh,
-        mesh.solutionDict().subDict("PISO"),
+        mesh.solutionDict().subDict("PIMPLE"),
         pRefCell,
         pRefValue
     );
@@ -142,4 +131,9 @@
         p_rgh = p - rho*gh;
     }
 
-//    relaxationZone relaxing(mesh, U, alpha1);
+    fv::IOoptionList fvOptions(mesh);
+
+
+    tmp<surfaceScalarField> tphiAlphaCorr0;
+
+    relaxationZone relaxing(mesh, U, alpha1);

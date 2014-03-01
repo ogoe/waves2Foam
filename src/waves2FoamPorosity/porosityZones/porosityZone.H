@@ -219,10 +219,12 @@ public:
             }
 
             //- Return axis
+#if OFVERSION<230 || EXTRANCH == 1
             vector axis() const
             {
                 return coordSys_.axis();
             }
+#endif
 
             //- Return porosity
             scalar porosity() const

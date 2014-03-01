@@ -14,14 +14,6 @@ else
     version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
 fi
 
-# The difference is the name of the pressure field from 1.6 to later versions
-if [ "$version" = "16" ]
-then
-    cp constant/waveProperties.org constant/waveProperties
-else
-    cp constant/waveProperties.17 constant/waveProperties
-fi
-
 # alpha1 and U have the same name in all versions
 cp 0/alpha1.org 0/alpha1
 cp 0/U.org 0/U

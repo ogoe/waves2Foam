@@ -14,6 +14,9 @@ runApplication blockMesh
 # Create the wave probes
 runApplication waveGaugesNProbes
 
+# Compute the wave parameters
+runApplication setWaveParameters
+
 # Set the wave field
 runApplication setWaveField
 

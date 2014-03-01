@@ -9,6 +9,7 @@ sh ../../../bin/prepareCase.sh
 application="waveFoam"
 
 runApplication blockMesh
+runApplication setWaveParameters
 runApplication setWaveField
 runApplication $application
 

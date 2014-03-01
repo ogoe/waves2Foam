@@ -132,9 +132,21 @@ rawVelocityProbes::rawVelocityProbes
 
     if (actionProperties_.lookupOrDefault<Switch>("rotateVelocity",false))
     {
+#if OFVERSION<230
         coordinateRotation cr( actionProperties_.subDict("rotate") );
 
         R_ = cr.R().T();
+#else
+        autoPtr<coordinateRotation> cr
+            (
+                Foam::coordinateRotation::New
+                (
+                    actionProperties_.subDict("rotate")
+                )
+            );
+
+        R_ = cr->R().T();
+#endif
     }
 
     Info << "       - Uses the rotation vector: " << R_ << endl;

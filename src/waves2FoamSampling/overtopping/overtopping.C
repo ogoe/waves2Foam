@@ -181,7 +181,7 @@ Foam::overtopping::overtopping
         dimensionedScalar
         (
             obr.lookupObject<dictionary>("transportProperties")
-           .subDict("phase1").lookup("rho")
+           .subDict(Foam::waves2Foam::waterPhase()).lookup("rho")
         ).value()
     ),
     rho2_
@@ -189,7 +189,7 @@ Foam::overtopping::overtopping
         dimensionedScalar
         (
             obr.lookupObject<dictionary>("transportProperties")
-           .subDict("phase2").lookup("rho")
+           .subDict(Foam::waves2Foam::airPhase()).lookup("rho")
         ).value()
     ),
     invRhoDiff_( 1.0/( rho1_ - rho2_ ) ),

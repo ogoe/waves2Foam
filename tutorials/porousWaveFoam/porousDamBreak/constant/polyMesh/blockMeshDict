@@ -65,46 +65,31 @@ edges
 (
 );
 
-boundary
+patches
 (
-    leftWall
-    {
-        type wall;
-        faces
-        (
-            (0 12 16 4)
-            (4 16 20 8)
-        );
-    }
-    rightWall
-    {
-        type wall;
-        faces
-        (
-            (3 15 19 7)
-            (7 19 23 11)
-        );
-    }
-    lowerWall
-    {
-        type wall;
-        faces
-        (
-            (0 1 13 12)
-            (1 2 14 13)
-            (2 3 15 14)
-        );
-    }
-    atmosphere
-    {
-        type patch;
-        faces
-        (
-            (8 9 21 20)
-            (9 10 22 21)
-            (10 11 23 22)
-        );
-    }
+    wall leftWall
+    (
+        (0 12 16 4)
+        (4 16 20 8)
+    )
+    wall rightWall
+    (
+        (3 15 19 7)
+        (7 19 23 11)
+    )
+    wall lowerWall
+    (
+        (0 1 13 12)
+        (1 2 14 13)
+        (2 3 15 14)
+    )
+    patch atmosphere
+    (
+        (8 9 21 20)
+        (9 10 22 21)
+        (10 11 23 22)
+    )
+
 );
 
 mergePatchPairs

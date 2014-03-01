@@ -4,7 +4,6 @@
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
 sh ../../../bin/prepareCase.sh
-mv constant/waveProperties constant/waveProperties.input
 
 # Make a clean polyMesh directory
 if [ ! -f log.blockMesh ]

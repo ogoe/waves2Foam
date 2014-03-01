@@ -14,15 +14,11 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-timeShift           0;
-
 seaLevel            0.0;
 
 relaxationNames     ( inlet outlet );
 
 initializationName  outlet;
-
-pName               p_rgh;
 
 inletCoeffs
 {

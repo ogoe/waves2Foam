@@ -178,7 +178,8 @@ void rawAlphaProbes::readAlphaProbesData
         }
 
         std::stringstream ss;
-        ss << inputDir_ << "/" << timeDirs_[timeI] << "/alpha1";
+        ss << inputDir_ << "/" << timeDirs_[timeI] << "/" 
+           << Foam::waves2Foam::aName();
 
         std::ifstream input;
         input.open( (ss.str()).c_str() );
