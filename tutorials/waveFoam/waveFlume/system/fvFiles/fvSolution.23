@@ -16,24 +16,21 @@ FoamFile
 
 solvers
 {
-/*    pcorr PCG
+    "alpha.water.*"
     {
-        preconditioner   DIC;
-        tolerance        1e-10;
-        relTol           0;
-    };
-    pd PCG
-    {
-        preconditioner   DIC;
-        tolerance        1e-7;
-        relTol           0.001;
-    };
-    pdFinal PCG
-    {
-        preconditioner   DIC;
-        tolerance        1e-7;
-        relTol           0;
-    };*/
+        nAlphaCorr      1;
+        nAlphaSubCycles 1;
+        alphaOuterCorrectors yes;
+        cAlpha          1;
+
+        MULESCorr       yes;
+        nLimiterIter    3;
+
+        solver          smoothSolver;
+        smoother        symGaussSeidel;
+        tolerance       1e-8;
+        relTol          0;
+    }
 
     pcorr GAMG
     {
@@ -51,7 +48,7 @@ solvers
         mergeLevels      1;
     };
 
-    pd GAMG
+    p_rgh GAMG
     {
         tolerance        1e-7;
         relTol           0.0;
@@ -67,7 +64,7 @@ solvers
         mergeLevels      1;
     };
 
-    pdFinal GAMG
+    p_rghFinal GAMG
     {
         tolerance        1e-8;
         relTol           0.0;
@@ -105,17 +102,25 @@ solvers
     };
 }
 
-PISO
-{
-    pdRefCell 0;
-    pdRefValue 0;
+
+PIMPLE 
+{ 
     momentumPredictor yes;
     nOuterCorrectors 1; 
     nCorrectors     3;
     nNonOrthogonalCorrectors 1;
-    nGammaCorr      1;
-    nGammaSubCycles 1;
-    cGamma          1;
 }
+
+relaxationFactors
+{
+    fields
+    {
+    }
+    equations
+    {
+        ".*" 1;
+    }
+}
+
 
 // ************************************************************************* //

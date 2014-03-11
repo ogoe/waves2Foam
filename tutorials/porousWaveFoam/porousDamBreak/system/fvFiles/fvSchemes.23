@@ -1,8 +1,8 @@
 /*--------------------------------*- C++ -*----------------------------------*\
 | =========                 |                                                 |
 | \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
-|  \\    /   O peration     | Version:  1.5                                   |
-|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|  \\    /   O peration     | Version:  2.1.0                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
 |    \\/     M anipulation  |                                                 |
 \*---------------------------------------------------------------------------*/
 FoamFile
@@ -10,33 +10,27 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
+    location    "system";
     object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 ddtSchemes
 {
-    default Euler;
+    default         Euler;
 }
 
 gradSchemes
 {
-//    default	cellLimited fourth 1;
     default         Gauss linear;
-    grad(U)         Gauss linear;
-    grad(alpha1)     Gauss linear;
 }
 
 divSchemes
 {
-//    default	    Gauss linear;
     div(rho*phi,U)  Gauss limitedLinearV 1;
-//    div(phi,gamma)  Gauss vanLeer;
-//    div(rho*phi,U)  Gauss MUSCL;
-    div((muEff*dev(T(grad(U))))) Gauss linear;
-    div(phi,alpha)  Gauss MUSCL;
+    div((rho*phi|interpolate(porosity)),U) Gauss limitedLinearV 1;
+    div(phi,alpha)  Gauss vanLeer;
     div(phirb,alpha) Gauss interfaceCompression;
-//    div(rhoPhi,U)   Gauss limitedLinearV 1;
 }
 
 laplacianSchemes
@@ -59,7 +53,8 @@ fluxRequired
     default         no;
     p_rgh;
     pcorr;
-    gamma;
+    alpha.water;
 }
+
 
 // ************************************************************************* //

@@ -3,7 +3,18 @@
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-sh ../../../bin/prepareCase.sh
+exec="../../../bin/prepareCase.sh"
+
+if [ -x "$exec" ]
+then
+    . $exec
+else
+    echo "The file $WAVES_DIR/bin/prepareCase.sh is not executable."
+    echo "Make the file executable before continuing."
+    echo
+    echo "Exiting tutorial case."
+    exit 1
+fi
 
 # Set application name
 application="waveFoam"
