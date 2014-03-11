@@ -61,6 +61,7 @@ Author
 #include "runTimeSelectionTables.H"
 
 #include "uniformDimensionedFields.H"
+#include "crossVersionCompatibility.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

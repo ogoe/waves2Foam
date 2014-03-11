@@ -55,6 +55,8 @@ Additional information
 
 #include "uniformDimensionedFields.H"
 
+#include "crossVersionCompatibility.H"
+
 using namespace Foam;
 
 int main(int argc, char *argv[])
@@ -75,7 +77,7 @@ int main(int argc, char *argv[])
     (
         IOobject
         (
-            "alpha1",
+            Foam::waves2Foam::aName(),
             runTime.timeName(),
             mesh,
             IOobject::MUST_READ,
@@ -103,7 +105,7 @@ int main(int argc, char *argv[])
     (
         IOobject
         (
-            word( waveProperties.lookup("pName") ),
+            Foam::waves2Foam::pName(),
             runTime.timeName(),
             mesh,
             IOobject::MUST_READ,

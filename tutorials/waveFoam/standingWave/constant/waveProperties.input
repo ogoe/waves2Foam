@@ -1,0 +1,58 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      environmentalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel	0.00;
+
+// A list of the relaxation zones in the simulation. The parameters are given
+// in <name>Coeffs below.
+relaxationNames (inlet);
+
+initializationName init;
+
+inletCoeffs
+{
+    waveType    stokesFirst;  
+    Tsoft       2;
+    period      2;
+    depth       0.400000;
+    direction   (1.0 0 0);
+    phi         0.000000;
+    height      0.075;
+    
+    // Specifications on the relaxation zone shape and relaxation scheme
+    relaxationZone
+    {
+        relaxationScheme Spatial;
+        relaxationShape  Rectangular;
+        beachType        Empty;
+    
+        relaxType   INLET;
+        startX      (0 0.0 -1);
+        endX        (3.695 0.0  1);
+        orientation      (1.0 0.0 0.0);
+    }
+};
+
+initCoeffs
+{
+    waveType    potentialCurrent;
+    U           (0 0 0);
+    Tsoft       2;
+};
+
+
+
+// ************************************************************************* //

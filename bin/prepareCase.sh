@@ -1,44 +1,68 @@
 #!/bin/bash
 
-# Remove the non-org files from the 0-directory
-rm -rf 0/alpha1.gz 0/gamma.gz 0/U.gz 0/pd.gz 0/p_rgh.gz 0/alpha1 0/pd 0/p_rgh 0/U
+### CLEAR THE 0 DIRECTORY
+(cd 0; rm -f *)
 
-# Remove the waveProperties file
-rm -f constant/waveProperties
+. $PWD/../../../bin/bashrc noPrint
 
-# Different syntax between Mac and Linux in determining the OF-version number
-if [ `uname` = "Darwin" ]
+### COPY RELEVANT FIELDS
+
+# Copy the void fraction field
+if [ $WM_PROJECT_VERSION_NUMBER -lt 230 ]
 then
-    version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
+    sed 's/object      alpha.org;/object      alpha1;/' < 0.org/alpha1.org > 0/alpha1
+elif [ $FOAMEXTENDPROJECT -eq 1 ]
+then
+    sed 's/object      alpha.org;/object      alpha1;/' < 0.org/alpha1.org > 0/alpha1
 else
-    version=`echo $WM_PROJECT_VERSION | sed -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -2 | tr -d '\n'`
+    sed 's/object      alpha.org;/object      alpha.water;/' < 0.org/alpha1.org > 0/alpha.water
 fi
 
-# The difference is the name of the pressure field from 1.6 to later versions
-if [ "$version" = "16" ]
+# Copy the pressure field
+if [ $WM_PROJECT_VERSION_NUMBER -lt 170 ]
 then
-    cp constant/waveProperties.org constant/waveProperties
+    sed 's/object      pd.org;/object      pd;/' < 0.org/pd.org > 0/pd
+elif [ $FOAMEXTENDPROJECT -eq 1 ]
+then
+    sed 's/object      pd.org;/object      pd;/' < 0.org/pd.org > 0/pd
 else
-    cp constant/waveProperties.17 constant/waveProperties
+    sed 's/object      pd.org;/object      p_rgh;/' < 0.org/pd.org > 0/p_rgh
 fi
 
-# alpha1 and U have the same name in all versions
-cp 0/alpha1.org 0/alpha1
-cp 0/U.org 0/U
+# Copy the velocity field
+cp 0.org/U.org 0/U
 
-# Copying fvSchemes, fvSolution and pressure fields
-if [ "$version" = "16" ]
+### COPY FVSOLUTION AND FVSCHEMES
+source="system/fvFiles"
+target="system"
+
+if [ $WM_PROJECT_VERSION_NUMBER -lt 170 ]
 then
-    cp system/fvSolution.16 system/fvSolution
-    cp system/fvSchemes.16 system/fvSchemes
-    cp 0/pd.org 0/pd
-elif [ "$version" = "17" ]
+    cp $source/fvSolution.16 $target/fvSolution
+    cp $source/fvSchemes.16 $target/fvSchemes
+elif [ $FOAMEXTENDPROJECT -eq 1 ]
 then
-    cp system/fvSolution.17 system/fvSolution
-    cp system/fvSchemes.17 system/fvSchemes
-    cp 0/p_rgh.org 0/p_rgh
+    cp $source/fvSolution.16 $target/fvSolution
+    cp $source/fvSchemes.16 $target/fvSchemes
+elif [ $WM_PROJECT_VERSION_NUMBER -lt 210 ]
+then
+    cp $source/fvSolution.17 $target/fvSolution
+    cp $source/fvSchemes.17 $target/fvSchemes
+elif [ $WM_PROJECT_VERSION_NUMBER -lt 230 ]
+then
+    cp $source/fvSolution.21 $target/fvSolution
+    cp $source/fvSchemes.21 $target/fvSchemes
 else
-    cp system/fvSolution.21 system/fvSolution
-    cp system/fvSchemes.21 system/fvSchemes
-    cp 0/p_rgh.org 0/p_rgh
+    cp $source/fvSolution.23 $target/fvSolution
+    cp $source/fvSchemes.23 $target/fvSchemes
 fi
+
+### COPY TRANSPORTPROPERTIES
+if [ $WM_PROJECT_VERSION_NUMBER -lt 230 ]
+then
+    cp ../../commonFiles/transportProperties.16 constant/transportProperties
+else
+    cp ../../commonFiles/transportProperties.23 constant/transportProperties
+fi
+
+

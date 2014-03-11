@@ -7,6 +7,7 @@ EXE_INC = \
     -I$(LIB_SRC)/sampling/lnInclude \
     -I$(LIB_SRC)/lagrangian/basic/lnInclude \
     -I$(LIB_SRC)/fileFormats/lnInclude \
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_GSL_INCLUDE)
     
 LIB_LIBS = \
@@ -14,6 +15,8 @@ LIB_LIBS = \
     -lmeshTools \
     -lsampling \
     -lfileFormats \
+    -L$(WAVES_LIBBIN) \
+    -lwaves2Foam \
     -L$(WAVES_GSL_LIB) \
     -lgsl \
     -lgslcblas

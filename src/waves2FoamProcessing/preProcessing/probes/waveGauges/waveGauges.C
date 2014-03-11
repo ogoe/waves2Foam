@@ -151,7 +151,8 @@ void waveGauges::evaluate( const word& name )
     gauges() << nl;
     gauges() << indent << "setFormat          raw;" << nl;
     gauges() << indent << "interpolationScheme cellPointFace;" << nl;
-    gauges() << indent << "fields (alpha1);" << nl << nl;
+    gauges() << indent << "fields (" << Foam::waves2Foam::aName() << ");" 
+             << nl << nl;
     gauges() << indent << "#includeIfPresent \"../waveGaugesNProbes/" << name
              << "_sets\";" << nl << nl;
     gauges() << decrIndent << indent << token::END_BLOCK << decrIndent << nl;
@@ -181,7 +182,8 @@ void waveGauges::evaluate( const word& name )
 
     gauges() << "setFormat           raw;" << nl;
     gauges() << "interpolationScheme cellPointFace;" << nl;
-    gauges() << "fields              (alpha1);" << nl << nl;
+    gauges() << indent << "fields (" << Foam::waves2Foam::aName() << ");" 
+             << nl << nl;
     gauges() << "#includeIfPresent  \"../waveGaugesNProbes/" << name
              << "_sets\";" << nl;
 

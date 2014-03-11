@@ -101,5 +101,8 @@ $(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
 /* Relaxation Zone */
 $(relaxMethod)/relaxationZone.C
 
+/* Helper functions for cross version compatibility */
+include/crossVersionCompatibility.C
+
 /* OUTPUT */
 LIB = $(WAVES_LIBBIN)/libwaves2Foam

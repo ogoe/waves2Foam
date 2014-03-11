@@ -79,7 +79,7 @@ waveTheory::waveTheory
                 IOobject::NO_WRITE
             )
         );
-        dictionary sD(transProp.subDict("phase1"));
+        dictionary sD(transProp.subDict(Foam::waves2Foam::waterPhase()));
         rhoWater_ = (dimensionedScalar(sD.lookup("rho"))).value();
     }
 }

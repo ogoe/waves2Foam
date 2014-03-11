@@ -142,4 +142,4 @@
         p_rgh = p - rho*gh;
     }
 
-    relaxationZone relaxing(mesh, U, alpha1);
+//    relaxationZone relaxing(mesh, U, alpha1);

@@ -48,6 +48,7 @@ Author
 #include "uniformDimensionedFields.H"
 
 #include "pointDistributions.H"
+#include "crossVersionCompatibility.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
