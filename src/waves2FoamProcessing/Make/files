@@ -72,6 +72,7 @@ $(ppw)/$(rawData)/rawForcesAndMoments/rawForcesAndMoments.C
 $(ppw)/$(rawData)/rawAlphaProbes/rawAlphaProbes.C
 $(ppw)/$(rawData)/rawOvertopping/rawOvertopping.C
 $(ppw)/write2Ascii/write2Ascii.C
+$(ppw)/writeIndexLocation/writeIndexLocation.C
 
 cleaning=cleaningUtil
 $(ppw)/$(cleaning)/removeData/removeData.C
