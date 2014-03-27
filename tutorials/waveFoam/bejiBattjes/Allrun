@@ -65,6 +65,20 @@ then
     done
 fi
 
+# Snappy does not have a consistent naming between 2.2.3. and 2.3.0, so this is
+# to take care of that issue.
+if [ "$WM_PROJECT_VERSION_NUMBER" -ge "230" ]
+then
+    cd 0
+    listFields=`ls alpha* p* U`
+    for i in $listFields
+    do
+        sed -i 's/_patch0//' $i
+    done
+
+    cd ..
+fi
+
 # Prepare fields
 runApplication setWaveParameters
 runApplication setWaveField

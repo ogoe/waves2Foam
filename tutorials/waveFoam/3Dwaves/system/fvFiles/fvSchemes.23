@@ -30,7 +30,7 @@ gradSchemes
 divSchemes
 {
 //    default	    Gauss linear;
-    div(rho*phi,U)  Gauss limitedLinearV 1;
+    div(rhoPhi,U)  Gauss limitedLinearV 1;
 //    div(phi,gamma)  Gauss vanLeer;
 //    div(rho*phi,U)  Gauss MUSCL;
     div(phi,alpha)  Gauss MUSCL;
@@ -59,7 +59,7 @@ fluxRequired
     default         no;
     p_rgh;
     pcorr;
-    gamma;
+    alpha.water;
 }
 
 // ************************************************************************* //

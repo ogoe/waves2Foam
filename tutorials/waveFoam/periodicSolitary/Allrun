@@ -23,3 +23,14 @@ runApplication blockMesh
 runApplication setWaveParameters
 runApplication setWaveField
 runApplication $application
+
+if [ -n `grep "Run foamUpdateCyclics to convert" log.$application` ]
+then
+    echo "Updating cyclic boundaries"
+    foamUpgradeCyclics > log.foamUpgradeCyclics
+    rm -f log.$application
+    echo "Re-executing "$application
+    runApplication $application
+fi
+
+
