@@ -27,7 +27,7 @@ gradSchemes
 
 divSchemes
 {
-    div(rho*phi,U)  Gauss limitedLinearV 1;
+    div(rhoPhi,U)  Gauss limitedLinearV 1;
     div((rho*phi|interpolate(porosity)),U) Gauss limitedLinearV 1;
     div(phi,alpha)  Gauss vanLeer;
     div(phirb,alpha) Gauss interfaceCompression;
