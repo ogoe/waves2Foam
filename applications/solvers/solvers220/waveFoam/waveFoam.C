@@ -49,7 +49,9 @@ Description
 #include "turbulenceModel.H"
 #include "pimpleControl.H"
 #include "fvIOoptionList.H"
+
 #include "relaxationZone.H"
+#include "externalWaveForcing.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -64,6 +66,7 @@ int main(int argc, char *argv[])
     #include "initContinuityErrs.H"
     #include "readGravitationalAcceleration.H"
     #include "readWaveProperties.H"
+    #include "createExternalWaveForcing.H"
     #include "createFields.H"
     #include "readTimeControls.H"
     #include "correctPhi.H"
@@ -85,6 +88,8 @@ int main(int argc, char *argv[])
         runTime++;
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
+
+        externalWave->step();
 
         twoPhaseProperties.correct();
 

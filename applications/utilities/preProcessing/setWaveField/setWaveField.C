@@ -45,6 +45,7 @@ Additional information
         Pages = {1073-1088},
         DOI = {{10.1002/fld.2726}},
     }
+
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"
@@ -115,7 +116,9 @@ int main(int argc, char *argv[])
     );
 
     Info << "Setting the wave field ...\n" << endl;
+
     setWaveField swf(mesh, U, alpha, pd);
+
     swf.correct();
 
     alpha.write();

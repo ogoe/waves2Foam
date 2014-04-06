@@ -44,7 +44,9 @@ Description
 #include "twoPhaseMixture.H"
 #include "turbulenceModel.H"
 #include "interpolationTable.H"
+
 #include "relaxationZone.H"
+#include "externalWaveForcing.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -56,8 +58,9 @@ int main(int argc, char *argv[])
     #include "readPISOControls.H"
     #include "initContinuityErrs.H"
     #include "readGravitationalAcceleration.H"
-    #include "createFields.H"
     #include "readWaveProperties.H"
+    #include "createExternalWaveForcing.H"
+    #include "createFields.H"
     #include "readTimeControls.H"
     #include "correctPhi.H"
     #include "CourantNo.H"
@@ -79,11 +82,13 @@ int main(int argc, char *argv[])
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
+        externalWave->step();
+
         twoPhaseProperties.correct();
 
         #include "alphaEqnSubCycle.H"
 
-    relaxing.correct();
+        relaxing.correct();
 
         #include "UEqn.H"
 
