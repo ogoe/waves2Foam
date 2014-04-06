@@ -47,6 +47,10 @@ $(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
 mixedType=mixedType
 $(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
 
+/* External wave forcing */
+external=externalWaveForcing
+$(waveProp)/$(external)/externalSourceProperties/externalSourceProperties.C
+
 /* INITIALIZATION */
 preProcessing/setWaveField/setWaveField.C
 

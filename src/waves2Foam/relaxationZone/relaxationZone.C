@@ -23,6 +23,7 @@
   Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 \*---------------------------------------------------------------------------*/
+
 #include "relaxationZone.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -48,6 +49,12 @@ relaxationZone::relaxationZone
     U_(U),
     alpha_(alpha),
 
+    relaxationWeights_(NULL),
+
+    targetAlpha_(NULL),
+
+    targetVelocity_(NULL),
+
     relaxNames_((mesh_.thisDb().lookupObject<IOdictionary>("waveProperties"))
         .lookup("relaxationNames")),
 
@@ -64,17 +71,60 @@ relaxationZone::relaxationZone
 // * * * * * * * * * * * * * * * Member functions  * * * * * * * * * * * * * //
 
 
+void relaxationZone::resetTargetFields()
+{
+    if (relaxationWeights_ != NULL)
+    {
+        (*relaxationWeights_).internalField() = 1.0;
+    }
+
+    if (targetAlpha_ != NULL)
+    {
+        (*targetAlpha_).internalField() = 0.0;
+    }
+
+    if (targetVelocity_ != NULL)
+    {
+        (*targetVelocity_).internalField() = vector::zero;
+    }
+}
+
+
+void relaxationZone::correctBoundaries()
+{
+    alpha_.correctBoundaryConditions();
+
+    U_.correctBoundaryConditions();
+
+    if (relaxationWeights_ != NULL)
+    {
+        (*relaxationWeights_).correctBoundaryConditions();
+    }
+
+    if (targetAlpha_ != NULL)
+    {
+        (*targetAlpha_).correctBoundaryConditions();
+    }
+
+    if (targetVelocity_ != NULL)
+    {
+        (*targetVelocity_).correctBoundaryConditions();
+    }
+}
+
+
 void relaxationZone::correct()
 {
     scalar preTime = mesh_.time().elapsedCpuTime();
+
+    resetTargetFields();
 
     forAll (relaxSchemePtr_, relaxi)
     {
         relaxSchemePtr_[relaxi]->correct();
     }
 
-    alpha_.correctBoundaryConditions();
-    U_.correctBoundaryConditions();
+    correctBoundaries();
 
     Info << "Relaxing time: " << mesh_.time().elapsedCpuTime() - preTime
          << " s" << endl;
@@ -110,6 +160,78 @@ tmp<volScalarField> relaxationZone::numericalBeach()
     }
 
     return tartificialViscotity;
+}
+
+
+const volScalarField& relaxationZone::relaxationWeights() const
+{
+    if (!relaxationWeights_)
+    {
+        relaxationWeights_ = new volScalarField
+        (
+            IOobject
+            (
+                "relaxationWeights",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::AUTO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("null", dimless, 1.0),
+            "zeroGradient"
+        );
+    }
+
+    return *relaxationWeights_;
+}
+
+
+const volScalarField& relaxationZone::targetAlphaField() const
+{
+    if (!targetAlpha_)
+    {
+        targetAlpha_ = new volScalarField
+        (
+            IOobject
+            (
+                "targetAlphaField",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::AUTO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("null", dimless, 0.0),
+            "zeroGradient"
+        );
+    }
+
+    return *targetAlpha_;
+}
+
+
+const volVectorField& relaxationZone::targetVelocityField() const
+{
+    if (!targetVelocity_)
+    {
+        targetVelocity_ = new volVectorField
+        (
+            IOobject
+            (
+                "targetVelocityField",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::AUTO_WRITE
+            ),
+            mesh_,
+            dimensionedVector("null", dimVelocity, vector::zero),
+            "zeroGradient"
+        );
+    }
+
+    return *targetVelocity_;
 }
 
 

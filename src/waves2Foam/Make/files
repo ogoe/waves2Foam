@@ -48,6 +48,12 @@ $(waveTheories)/$(irregular)/bichromaticSecond/bichromaticSecond.C
 mixedType=mixedType
 $(waveTheories)/$(mixedType)/combinedWaves/combinedWaves.C
 
+/* External wave source */
+extWF=externalWaveForcing
+$(waveTheories)/$(extWF)/externalSource.C
+$(waveTheories)/$(extWF)/externalWaveForcing.C
+$(waveTheories)/$(extWF)/emptyExternal/emptyExternal.C
+
 /* WAVE BOUNDARY CONDITIONS */ 
 fvPatchFields=fvPatchFields
 $(fvPatchFields)/waveAlpha/waveAlphaFvPatchScalarField.C

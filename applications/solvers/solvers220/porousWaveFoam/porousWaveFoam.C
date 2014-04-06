@@ -52,6 +52,7 @@ Description
 
 #include "relaxationZone.H"
 #include "porosityZones.H"
+#include "externalWaveForcing.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -66,6 +67,7 @@ int main(int argc, char *argv[])
     #include "initContinuityErrs.H"
     #include "readGravitationalAcceleration.H"
     #include "readWaveProperties.H"
+    #include "createExternalWaveForcing.H"
     #include "createPorosityFields.H"
     #include "createFields.H"
     #include "readTimeControls.H"
@@ -88,6 +90,8 @@ int main(int argc, char *argv[])
         runTime++;
 
         Info<< "Time = " << runTime.timeName() << nl << endl;
+
+        externalWave->step();
 
         twoPhaseProperties.correct();
 

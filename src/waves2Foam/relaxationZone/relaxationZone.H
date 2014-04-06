@@ -64,6 +64,16 @@ private:
 
     List<autoPtr<relaxationSchemes::relaxationScheme> > relaxSchemePtr_;
 
+    void resetTargetFields();
+
+    void correctBoundaries();
+
+protected:
+
+    mutable volScalarField* relaxationWeights_;
+    mutable volScalarField* targetAlpha_;
+    mutable volVectorField* targetVelocity_;
+
 public:
      //- Runtime type information
     TypeName("relaxationZone");
@@ -85,9 +95,17 @@ public:
 
     // Member Functions
 
-       virtual void correct();
+        virtual void correct();
 
-       tmp<volScalarField> numericalBeach();
+        tmp<volScalarField> numericalBeach();
+
+    // Access Functions
+        const volScalarField& relaxationWeights() const;
+
+        const volScalarField& targetAlphaField() const;
+
+        const volVectorField& targetVelocityField() const;
+
 };
 
 
