@@ -83,5 +83,16 @@ fi
 runApplication setWaveParameters
 runApplication setWaveField
 
+# Make the wave gauges
+if [ -d "waveGaugesNProbes" ]
+then
+    rm -rf waveGaugesNProbes
+fi
+runApplication waveGaugesNProbes
+
+# Correct the file waveGaugesNProbes/surfaceElevation_controlDict to yield
+# the desired outputting frequency.
+sed -i -e 's\//s\s\' -e 's/20;/1;/' waveGaugesNProbes/surfaceElevation_controlDict
+
 # Run tutorial
 runApplication waveFoam

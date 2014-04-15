@@ -54,7 +54,9 @@ maxDeltaT       1;
 
 functions
 {
-    surfaceElevation
+    #includeIfPresent "../waveGaugesNProbes/surfaceElevation_controlDict";
+
+/*    surfaceElevation
     {
         type            surfaceElevation;
         functionObjectLibs ( "libwaves2Foam.so" );
@@ -202,7 +204,7 @@ functions
                 nPoints     100;
             }  
         );
-    }
+    }*/
 }
 
 // ************************************************************************* //
