@@ -49,7 +49,9 @@ relaxationZone::relaxationZone
     U_(U),
     alpha_(alpha),
 
-    relaxationWeights_(NULL),
+    relaxationWeightsMomentum_(NULL),
+
+    relaxationWeightsSource_(NULL),
 
     targetAlpha_(NULL),
 
@@ -73,9 +75,14 @@ relaxationZone::relaxationZone
 
 void relaxationZone::resetTargetFields()
 {
-    if (relaxationWeights_ != NULL)
+    if (relaxationWeightsMomentum_ != NULL)
     {
-        (*relaxationWeights_).internalField() = 1.0;
+        (*relaxationWeightsMomentum_).internalField() = 1.0;
+    }
+
+    if (relaxationWeightsSource_ != NULL)
+    {
+        (*relaxationWeightsSource_).internalField() = 1.0;
     }
 
     if (targetAlpha_ != NULL)
@@ -96,9 +103,14 @@ void relaxationZone::correctBoundaries()
 
     U_.correctBoundaryConditions();
 
-    if (relaxationWeights_ != NULL)
+    if (relaxationWeightsMomentum_ != NULL)
     {
-        (*relaxationWeights_).correctBoundaryConditions();
+        (*relaxationWeightsMomentum_).correctBoundaryConditions();
+    }
+
+    if (relaxationWeightsSource_ != NULL)
+    {
+        (*relaxationWeightsSource_).correctBoundaryConditions();
     }
 
     if (targetAlpha_ != NULL)
@@ -163,15 +175,15 @@ tmp<volScalarField> relaxationZone::numericalBeach()
 }
 
 
-const volScalarField& relaxationZone::relaxationWeights() const
+const volScalarField& relaxationZone::relaxationWeightsMomentum() const
 {
-    if (!relaxationWeights_)
+    if (!relaxationWeightsMomentum_)
     {
-        relaxationWeights_ = new volScalarField
+        relaxationWeightsMomentum_ = new volScalarField
         (
             IOobject
             (
-                "relaxationWeights",
+                "relaxationWeightsMomentum",
                 mesh_.time().timeName(),
                 mesh_,
                 IOobject::NO_READ,
@@ -183,7 +195,31 @@ const volScalarField& relaxationZone::relaxationWeights() const
         );
     }
 
-    return *relaxationWeights_;
+    return *relaxationWeightsMomentum_;
+}
+
+
+const volScalarField& relaxationZone::relaxationWeightsSource() const
+{
+    if (!relaxationWeightsSource_)
+    {
+        relaxationWeightsSource_ = new volScalarField
+        (
+            IOobject
+            (
+                "relaxationWeightsSource",
+                mesh_.time().timeName(),
+                mesh_,
+                IOobject::NO_READ,
+                IOobject::AUTO_WRITE
+            ),
+            mesh_,
+            dimensionedScalar("null", dimless, 1.0),
+            "zeroGradient"
+        );
+    }
+
+    return *relaxationWeightsSource_;
 }
 
 
