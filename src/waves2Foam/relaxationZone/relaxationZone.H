@@ -70,8 +70,12 @@ private:
 
 protected:
 
-    mutable volScalarField* relaxationWeights_;
+    mutable volScalarField* relaxationWeightsMomentum_;
+
+    mutable volScalarField* relaxationWeightsSource_;
+
     mutable volScalarField* targetAlpha_;
+
     mutable volVectorField* targetVelocity_;
 
 public:
@@ -100,7 +104,9 @@ public:
         tmp<volScalarField> numericalBeach();
 
     // Access Functions
-        const volScalarField& relaxationWeights() const;
+        const volScalarField& relaxationWeightsMomentum() const;
+
+        const volScalarField& relaxationWeightsSource() const;
 
         const volScalarField& targetAlphaField() const;
 

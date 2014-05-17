@@ -1,13 +1,22 @@
 #!/bin/bash 
 
+## Making sure that prepareCase.sh is executable
+if [ ! -x "bin/prepareCase.sh" ]
+then
+    chmod a+x bin/prepareCase.sh
+fi
+
+## Make sure that bashrc is executable
 if [ ! -f "./bin/bashrc" ]
 then
     cp ./bin/bashrc.org ./bin/bashrc
     chmod a+x ./bin/bashrc
 fi
 
+## Set environmental variables
 . ./bin/bashrc
 
+## Check if WAVES_DIR exists
 if [ ! -d "$WAVES_DIR" ]
 then
     echo ""
