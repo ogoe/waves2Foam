@@ -68,7 +68,7 @@ relaxShape=relaxationShape
 
 $(relaxMethod)/$(relaxShape)/relaxationShape.C
 $(relaxMethod)/$(relaxShape)/newRelaxationShape.C
-
+$(relaxMethod)/$(relaxShape)/frozen/relaxationShapeFrozen.C
 $(relaxMethod)/$(relaxShape)/rectangular/relaxationShapeRectangular.C
 $(relaxMethod)/$(relaxShape)/cylindrical/relaxationShapeCylindrical.C
 $(relaxMethod)/$(relaxShape)/semiCylindrical/relaxationShapeSemiCylindrical.C

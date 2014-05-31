@@ -193,7 +193,17 @@ void rawForcesAndMoments::readForceAndMomentData
         std::string line;
 
         // Discard the first line
-        std::getline( input, line);
+        std::getline(input, line);
+
+#if OFVERSION >= 222 && EXTBRANCH == 0
+        // Discard yet another line
+        std::getline(input, line);
+
+#if OFVERSION >= 230
+        // Discard yet and yet another line
+        std::getline(input, line);
+#endif
+#endif
 
         // Extracting time and overtopping flux vector
         while (std::getline( input, line ))
@@ -215,7 +225,11 @@ void rawForcesAndMoments::readForceAndMomentData
 
             // Reading the first vector component with starting parenteres
             iss >> dummy;
-            temp.x() = std::atof( (dummy.substr(3,dummy.size()-1)).c_str() );
+#if OFVERSION >= 220 || EXTBRANCH == 0
+            temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
+#else
+            temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
+#endif
 
             // Reading the second vector component. Simple scalar
             iss >> val;
@@ -223,7 +237,7 @@ void rawForcesAndMoments::readForceAndMomentData
 
             // Reading the third vector component with ending parenteres
             iss >> dummy;
-            temp.z() = std::atof( (dummy.substr(0,dummy.size()-1)).c_str() );
+            temp.z() = std::atof((dummy.substr(0,dummy.size()-1)).c_str());
 
             forces[Nentries] = temp;
 
@@ -232,7 +246,7 @@ void rawForcesAndMoments::readForceAndMomentData
 
             // Reading the first vector component with starting parenteres
             iss >> dummy;
-            temp.x() = std::atof( (dummy.substr(2,dummy.size()-1)).c_str() );
+            temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
 
             // Reading the second vector component. Simple scalar
             iss >> val;
@@ -240,7 +254,7 @@ void rawForcesAndMoments::readForceAndMomentData
 
             // Reading the third vector component with ending parenteres
             iss >> dummy;
-            temp.z() = std::atof( (dummy.substr(0,dummy.size()-1)).c_str() );
+            temp.z() = std::atof((dummy.substr(0,dummy.size()-1)).c_str());
 
             moments[Nentries] = temp;
 

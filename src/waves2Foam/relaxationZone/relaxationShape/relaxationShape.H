@@ -144,10 +144,18 @@ public:
 
     // Selectors
 
-        //- Return a reference to the selected turbulence model
+        //- Return a reference to the selected relaxation shape
         static autoPtr<relaxationShape> New
         (
             const word& subDictName,
+            const fvMesh& mesh_
+        );
+
+        //- Return a reference to the selected relaxation shape
+        static autoPtr<relaxationShape> New
+        (
+            const word& subDictName,
+            const word relaxationShapeType,
             const fvMesh& mesh_
         );
 
