@@ -42,8 +42,8 @@ then
     cp $source/fvSchemes.16 $target/fvSchemes
 elif [ $FOAMEXTENDPROJECT -eq 1 ]
 then
-    cp $source/fvSolution.16 $target/fvSolution
-    cp $source/fvSchemes.16 $target/fvSchemes
+    cp -f $source/fvSolution.f30 $target/fvSolution
+    cp -f $source/fvSchemes.f30 $target/fvSchemes
 elif [ $WM_PROJECT_VERSION_NUMBER -lt 210 ]
 then
     cp $source/fvSolution.17 $target/fvSolution
@@ -58,7 +58,7 @@ else
 fi
 
 ### COPY TRANSPORTPROPERTIES
-if [ $WM_PROJECT_VERSION_NUMBER -lt 230 ]
+if [ $WM_PROJECT_VERSION_NUMBER -lt 230 -o $FOAMEXTENDPROJECT -eq 1 ]
 then
     cp ../../commonFiles/transportProperties.16 constant/transportProperties
 else

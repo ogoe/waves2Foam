@@ -109,7 +109,7 @@ void relaxationShapeLine::dataRange()
 
 void relaxationShapeLine::localCoordinates()
 {
-    scalar dlc = (dataRange_[1] - dataRange_[0]) / static_cast<scalar>(N_);
+    scalar dlc = (dataRange_[1] - dataRange_[0]) / static_cast<scalar>(N_ - 1);
 
     forAll (localCoordinates_, pointi)
     {

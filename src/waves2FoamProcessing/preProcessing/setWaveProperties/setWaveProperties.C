@@ -82,7 +82,7 @@ void setWaveProperties::writeBeginning( Ostream& os)
 
     fileName ends( names[names.size() -1]);
 
-#if OFVERSION < 220
+#if OFVERSION < 220 || EXTBRANCH == 1
     char delim(':');
 #else
     char delim('.');
