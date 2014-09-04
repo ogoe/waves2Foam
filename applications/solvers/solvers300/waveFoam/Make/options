@@ -7,7 +7,8 @@ EXE_INC = \
     -DOFVERSION=300 \
     -DEXTBRANCH=1 \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
-    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
 
 EXE_LIBS = \
     -linterfaceProperties \
@@ -19,4 +20,7 @@ EXE_LIBS = \
     -llduSolvers \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
-    -lwaves2FoamSampling
+    -lwaves2FoamSampling \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas

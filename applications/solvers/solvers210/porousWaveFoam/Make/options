@@ -9,9 +9,8 @@ EXE_INC = \
     -DEXTBRANCH=0 \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
-    -I$(WAVES_SRC)/waves2FoamPorosity/lnInclude 
-
-
+    -I$(WAVES_SRC)/waves2FoamPorosity/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
 
 EXE_LIBS = \
     -ltwoPhaseInterfaceProperties \
@@ -24,4 +23,8 @@ EXE_LIBS = \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
     -lwaves2FoamPorosity \
-    -lwaves2FoamSampling
+    -lwaves2FoamSampling \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas
+

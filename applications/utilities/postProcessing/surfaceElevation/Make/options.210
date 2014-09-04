@@ -6,7 +6,8 @@ EXE_INC = \
     -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
     -DEXTBRANCH=$(EXTBRANCH) \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
-    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
 
 EXE_LIBS = \
     -lfiniteVolume \
@@ -17,4 +18,7 @@ EXE_LIBS = \
     -llagrangian \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
-    -lwaves2FoamSampling
+    -lwaves2FoamSampling \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas
