@@ -44,12 +44,15 @@ defineRunTimeSelectionTable(externalWaveForcing, externalWaveForcing);
 externalWaveForcing::externalWaveForcing
 (
     IOobject io,
-    const Time& rT
+    const Time& rT,
+    const fvMesh& mesh
 )
 :
     regIOobject(io),
 
-    rT_(rT)
+    rT_(rT),
+
+    mesh_(mesh)
 {
 
 }
@@ -62,7 +65,8 @@ externalWaveForcing::~externalWaveForcing()
 autoPtr<externalWaveForcing> externalWaveForcing::New
 (
     IOobject io,
-    const Time& rT
+    const Time& rT,
+    const fvMesh& mesh
 )
 {
     word externalType
@@ -86,7 +90,7 @@ autoPtr<externalWaveForcing> externalWaveForcing::New
             << exit(FatalError);
     }
 
-    return autoPtr<externalWaveForcing>(cstrIter()(io, rT));
+    return autoPtr<externalWaveForcing>(cstrIter()(io, rT, mesh));
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //

@@ -51,10 +51,11 @@ addToRunTimeSelectionTable
 emptyExternal::emptyExternal
 (
     IOobject io,
-    const Time& rT
+    const Time& rT,
+    const fvMesh& mesh
 )
 :
-    externalWaveForcing(io, rT)
+    externalWaveForcing(io, rT, mesh)
 {}
 
 

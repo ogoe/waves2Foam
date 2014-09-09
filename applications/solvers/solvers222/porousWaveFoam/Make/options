@@ -13,7 +13,8 @@ EXE_INC = \
     -DXVERSION=$(WAVES_XVERSION) \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
-    -I$(WAVES_SRC)/waves2FoamPorosity/lnInclude
+    -I$(WAVES_SRC)/waves2FoamPorosity/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
 
 EXE_LIBS = \
     -ltwoPhaseMixture \
@@ -30,4 +31,7 @@ EXE_LIBS = \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
     -lwaves2FoamSampling \
-    -lwaves2FoamPorosity
+    -lwaves2FoamPorosity \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas

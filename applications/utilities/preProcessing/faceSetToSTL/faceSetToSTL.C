@@ -156,11 +156,12 @@ void extrudeFacesAndPoints
 
     fL[1].setSize(M);
 
-    face& fOrg( fL[0] );
-    face& fExt( fL[1] );
+    face& fOrg(fL[0]);
+    face& fExt(fL[1]);
 
     forAll (fOrg, pointi)
     {
+//        fExt[N - 1 - pointi] = fOrg[pointi] + N;
         fExt[pointi] = fOrg[pointi] + N;
     }
 
@@ -173,5 +174,15 @@ void extrudeFacesAndPoints
         f[1] = fOrg[(i + 1)%M];
         f[2] = fExt[(i + 1)%M];
         f[3] = fExt[i];
+    }
+
+    // Swap the direction of the original face
+    face dummy = fOrg;
+
+    forAll (fOrg, pointi)
+    {
+//        fExt[N - 1 - pointi] = fOrg[pointi] + N;
+    	fOrg[N - 1 - pointi] = dummy[pointi];
+//        fExt[pointi] = fOrg[pointi] + N;
     }
 }

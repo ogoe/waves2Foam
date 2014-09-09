@@ -11,5 +11,6 @@
                 IOobject::NO_READ,
                 IOobject::NO_WRITE
             ),
-            runTime
+            runTime,
+            mesh
         );

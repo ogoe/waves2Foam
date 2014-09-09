@@ -72,6 +72,8 @@ protected:
     // Protected data
         const Time& rT_;
 
+        const fvMesh& mesh_;
+
     // Protected member functions
 
 
@@ -99,9 +101,10 @@ public:
             externalWaveForcing,
             (
                 IOobject io,
-                const Time& rT
+                const Time& rT,
+                const fvMesh& mesh
             ),
-            (io, rT)
+            (io, rT, mesh)
         );
 
     // Constructors
@@ -110,7 +113,8 @@ public:
         externalWaveForcing
         (
             IOobject io,
-            const Time& rT
+            const Time& rT,
+            const fvMesh& mesh
         );
 
 
@@ -120,7 +124,8 @@ public:
         static autoPtr<externalWaveForcing> New
         (
             IOobject io,
-            const Time& rT
+            const Time& rT,
+            const fvMesh& mesh
         );
 
     // Destructor
