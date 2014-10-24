@@ -59,6 +59,8 @@ stokesFifth::stokesFifth
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_))
 {
     setCoefficients();
+
+    checkWaveDirection(k_);
 }
 
 

@@ -71,7 +71,10 @@ bichromaticFirst::bichromaticFirst
             Foam::max(period1_,period2_)
         )
     )
-{}
+{
+    checkWaveDirection(k1_);
+    checkWaveDirection(k2_);
+}
 
 
 void bichromaticFirst::printCoeffs()

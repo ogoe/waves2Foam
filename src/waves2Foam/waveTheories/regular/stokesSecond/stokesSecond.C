@@ -59,6 +59,8 @@ stokesSecond::stokesSecond
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_)),
     debug_(Switch(coeffDict_.lookup("debug")))
 {
+    checkWaveDirection(k_);
+
     if
     (
         H_/2.0 - 4.0*1.0/16.0*K_*sqr(H_)*(3.0/Foam::pow(Foam::tanh(K_*h_),3.0)

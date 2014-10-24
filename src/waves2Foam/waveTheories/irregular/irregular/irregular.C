@@ -81,6 +81,8 @@ irregular::irregular
         velAmp_[index] = PI_*2.0*amp_[index]/period_[index]
             /Foam::sinh(K_[index]*h_);
     }
+
+    checkWaveDirection(k_);
 }
 
 

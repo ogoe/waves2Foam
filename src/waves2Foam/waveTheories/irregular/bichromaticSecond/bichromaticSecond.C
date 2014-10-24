@@ -72,6 +72,9 @@ bichromaticSecond::bichromaticSecond
 {
     setCoeffs();
     printCoeffs();
+
+    checkWaveDirection(kn_);
+    checkWaveDirection(km_);
 }
 
 

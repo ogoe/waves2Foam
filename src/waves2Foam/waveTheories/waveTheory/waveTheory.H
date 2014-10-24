@@ -103,6 +103,10 @@ protected:
             return (-(direction_ & x) - seaLevel_);
         }
 
+        void checkWaveDirection(const vector&) const;
+
+        void checkWaveDirection(const vectorField&) const;
+
 private:
 
     // Private Member Functions
