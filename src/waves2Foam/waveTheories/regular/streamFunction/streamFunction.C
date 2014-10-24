@@ -64,7 +64,7 @@ streamFunction::streamFunction
     Tstart_(coeffDict_.lookupOrDefault<scalar>("Tstart",0.0)),
     Tend_(coeffDict_.lookupOrDefault<scalar>("Tend",GREAT))
 {
-
+    checkWaveDirection(k_);
 }
 
 

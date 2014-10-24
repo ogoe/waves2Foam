@@ -59,6 +59,7 @@ solitaryFirst::solitaryFirst
 
     propagationDirection_ /= Foam::mag( propagationDirection_ );
 
+    checkWaveDirection(propagationDirection_);
 }
 
 

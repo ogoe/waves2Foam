@@ -91,6 +91,26 @@ waveTheory::~waveTheory()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+void waveTheory::checkWaveDirection(const vector& k) const
+{
+    if (Foam::mag(k & direction_) > SMALL)
+    {
+        FatalErrorIn("void waveTheory::checkWaveDirection(const vector& k)")
+            << "The wave number " << k << " is not perpendicular to the \n"
+            << "direction of the gravitational vector " << g_ << "\n"
+            << endl << endl << exit(FatalError);
+    }
+}
+
+
+void waveTheory::checkWaveDirection(const vectorField& k) const
+{
+    forAll (k, ki)
+    {
+        checkWaveDirection(k[ki]);
+    }
+}
+
 
 scalarField waveTheory::eta
 (

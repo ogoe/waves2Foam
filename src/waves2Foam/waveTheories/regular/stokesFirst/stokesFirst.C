@@ -58,7 +58,9 @@ stokesFirst::stokesFirst
     K_(mag(k_)),
 
     Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_))
-{}
+{
+    checkWaveDirection(k_);
+}
 
 
 void stokesFirst::printCoeffs()

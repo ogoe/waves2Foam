@@ -71,6 +71,8 @@ cnoidalFirst::cnoidalFirst
     propagationDirection_ /= Foam::mag(propagationDirection_);
 
     Tsoft_ = coeffDict_.lookupOrDefault<scalar>("Tsoft",period_);
+
+    checkWaveDirection(propagationDirection_);
 }
 
 
