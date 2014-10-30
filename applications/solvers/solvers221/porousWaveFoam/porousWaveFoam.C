@@ -49,7 +49,7 @@ Description
 #include "relaxationZone.H"
 #include "externalWaveForcing.H"
 //#include "porosityZones.H"
-#include "porosityModel.H"
+#include "wavesPorosityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

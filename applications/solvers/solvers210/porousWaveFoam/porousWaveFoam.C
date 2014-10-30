@@ -48,7 +48,7 @@ Description
 #include "turbulenceModel.H"
 #include "interpolationTable.H"
 //#include "porosityZones.H"
-#include "porosityModel.H"
+#include "wavesPorosityModel.H"
 #include "pimpleControl.H"
 
 #include "relaxationZone.H"

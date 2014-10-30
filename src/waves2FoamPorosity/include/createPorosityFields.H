@@ -1,5 +1,5 @@
 // Get an autoPtr to a porosity model
-autoPtr<porosityModel> pm = Foam::porosityModel::New(mesh);
+autoPtr<wavesPorosityModel> pm = Foam::wavesPorosityModel::New(mesh);
 
 // Inside a scope to get the field deleted again.
 {

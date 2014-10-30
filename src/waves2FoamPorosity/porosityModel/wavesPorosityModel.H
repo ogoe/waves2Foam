@@ -23,13 +23,13 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::porosityModel
+    Foam::wavesPorosityModel
 
 Description
 
 
 SourceFiles
-    porosityModel.C
+    wavesPorosityModel.C
 
 Author
     Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -37,8 +37,8 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef porosityModel_H
-#define porosityModel_H
+#ifndef wavesPorosityModel_H
+#define wavesPorosityModel_H
 
 #include "fvMesh.H"
 #include "volFields.H"
@@ -60,10 +60,10 @@ namespace Foam
 {
 
 /*---------------------------------------------------------------------------*\
-                         Class porosityModel Declaration
+                         Class wavesPorosityModel Declaration
 \*---------------------------------------------------------------------------*/
 
-class porosityModel
+class wavesPorosityModel
 {
 
 protected:
@@ -79,23 +79,23 @@ private:
     // Private Member Functions
 
         //- Disallow default bitwise copy construct
-        porosityModel(const porosityModel&);
+        wavesPorosityModel(const wavesPorosityModel&);
 
         //- Disallow default bitwise assignment
-        void operator=(const porosityModel&);
+        void operator=(const wavesPorosityModel&);
 
 public:
 
     //- Runtime type information
-    TypeName("porosityModel");
+    TypeName("wavesPorosityModel");
 
     // Declare run-time constructor selection table
 
         declareRunTimeSelectionTable
         (
             autoPtr,
-            porosityModel,
-            porosityModel,
+            wavesPorosityModel,
+            wavesPorosityModel,
             (
                 const fvMesh& mesh
             ),
@@ -105,7 +105,7 @@ public:
     // Constructors
 
         //- Construct from components
-        porosityModel
+        wavesPorosityModel
         (
             const fvMesh&
         );
@@ -113,14 +113,14 @@ public:
     // Selectors
 
         //- Return a reference to the selected turbulence model
-        static autoPtr<porosityModel> New
+        static autoPtr<wavesPorosityModel> New
         (
             const fvMesh&
         );
 
     // Destructor
 
-        virtual ~porosityModel();
+        virtual ~wavesPorosityModel();
 
     // Member Functions
         //- The templated part had to be skipped, because it should also be a

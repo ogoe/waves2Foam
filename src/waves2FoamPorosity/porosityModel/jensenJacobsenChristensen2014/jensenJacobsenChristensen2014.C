@@ -38,9 +38,9 @@ namespace Foam
 defineTypeNameAndDebug(jensenJacobsenChristensen2014, 0);
 addToRunTimeSelectionTable
 (
-    porosityModel,
+    wavesPorosityModel,
     jensenJacobsenChristensen2014,
-    porosityModel
+    wavesPorosityModel
 );
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
@@ -51,7 +51,7 @@ jensenJacobsenChristensen2014::jensenJacobsenChristensen2014
     const fvMesh& mesh
 )
 :
-    porosityModel(mesh),
+    wavesPorosityModel(mesh),
 
     pZones_(mesh)
 {

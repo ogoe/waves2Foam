@@ -5,7 +5,7 @@
 
 /* POROSITY MODELS */
 pModels=porosityModel
-$(pModels)/porosityModel.C
+$(pModels)/wavesPorosityModel.C
 
 JJC=jensenJacobsenChristensen2014
 $(pModels)/$(JJC)/jensenJacobsenChristensen2014.C

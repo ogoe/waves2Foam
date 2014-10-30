@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "porosityModel.H"
+#include "wavesPorosityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -33,13 +33,13 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-    defineTypeNameAndDebug(porosityModel, 0);
-    defineRunTimeSelectionTable(porosityModel, porosityModel);
+    defineTypeNameAndDebug(wavesPorosityModel, 0);
+    defineRunTimeSelectionTable(wavesPorosityModel, wavesPorosityModel);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-Foam::porosityModel::porosityModel
+Foam::wavesPorosityModel::wavesPorosityModel
 (
 	const fvMesh& mesh
 )
@@ -47,16 +47,16 @@ Foam::porosityModel::porosityModel
 }
 
 
-Foam::porosityModel::~porosityModel()
+Foam::wavesPorosityModel::~wavesPorosityModel()
 {}
 
 
-autoPtr<porosityModel> porosityModel::New
+autoPtr<wavesPorosityModel> wavesPorosityModel::New
 (
     const fvMesh& mesh
 )
 {
-    word porosityModelTypeName;
+    word wavesPorosityModelTypeName;
 
     // Enclose the creation of the dictionary to ensure it is deleted before
     // the actual porosity model is created
@@ -76,28 +76,28 @@ autoPtr<porosityModel> porosityModel::New
 //        	)
 //        );
 //
-//        dict.lookup("porosityModel") >> porosityModelTypeName;
+//        dict.lookup("wavesPorosityModel") >> wavesPorosityModelTypeName;
 
     	mesh.thisDb().lookupObject<IOdictionary>("waveProperties")
-    		.lookup("porosityModel") >> porosityModelTypeName;
+    		.lookup("porosityModel") >> wavesPorosityModelTypeName;
     }
 
-    porosityModelConstructorTable::iterator cstrIter =
-    		porosityModelConstructorTablePtr_->find(porosityModelTypeName);
+    wavesPorosityModelConstructorTable::iterator cstrIter =
+    		wavesPorosityModelConstructorTablePtr_->find(wavesPorosityModelTypeName);
 
-    if (cstrIter == porosityModelConstructorTablePtr_->end())
+    if (cstrIter == wavesPorosityModelConstructorTablePtr_->end())
     {
         FatalErrorIn
         (
-            "porosityModel::New(const fvMesh&)"
-        )   << "Unknown porosity model of type " << porosityModelTypeName
+            "wavesPorosityModel::New(const fvMesh&)"
+        )   << "Unknown porosity model of type " << wavesPorosityModelTypeName
             << endl << endl
             << "Valid porosity models are :" << endl
-            << porosityModelConstructorTablePtr_->toc()
+            << wavesPorosityModelConstructorTablePtr_->toc()
             << exit(FatalError);
     }
 
-    return autoPtr<porosityModel>(cstrIter()(mesh));
+    return autoPtr<wavesPorosityModel>(cstrIter()(mesh));
 }
 
 

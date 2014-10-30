@@ -50,7 +50,7 @@ Description
 #include "pimpleControl.H"
 
 //#include "porosityZones.H"
-#include "porosityModel.H"
+#include "wavesPorosityModel.H"
 #include "relaxationZone.H"
 #include "externalWaveForcing.H"
 

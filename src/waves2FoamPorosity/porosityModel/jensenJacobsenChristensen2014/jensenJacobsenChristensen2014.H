@@ -40,7 +40,7 @@ Author
 #ifndef jensenJacobsenChristensen2014_H
 #define jensenJacobsenChristensen2014_H
 
-#include "porosityModel.H"
+#include "wavesPorosityModel.H"
 #include "jjc2014Zones.H"
 //#include "porosityZones.H"
 
@@ -55,7 +55,7 @@ namespace Foam
 
 class jensenJacobsenChristensen2014
 :
-    public porosityModel
+    public wavesPorosityModel
 {
 
 protected:
