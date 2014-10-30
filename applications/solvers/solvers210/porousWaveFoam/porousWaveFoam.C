@@ -47,7 +47,8 @@ Description
 #include "twoPhaseMixture.H"
 #include "turbulenceModel.H"
 #include "interpolationTable.H"
-#include "porosityZones.H"
+//#include "porosityZones.H"
+#include "porosityModel.H"
 #include "pimpleControl.H"
 
 #include "relaxationZone.H"
@@ -92,6 +93,8 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         externalWave->step();
+
+        #include "calcPorosity.H"
 
         twoPhaseProperties.correct();
 

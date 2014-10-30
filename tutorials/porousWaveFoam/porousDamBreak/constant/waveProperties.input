@@ -14,6 +14,8 @@ FoamFile
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
+porosityModel jensenJacobsenChristensen2014;
+
 seaLevel            0;
 
 relaxationNames     ( );

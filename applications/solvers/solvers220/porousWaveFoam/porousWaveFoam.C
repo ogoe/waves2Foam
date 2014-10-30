@@ -51,7 +51,8 @@ Description
 #include "fvIOoptionList.H"
 
 #include "relaxationZone.H"
-#include "porosityZones.H"
+//#include "porosityZones.H"
+#include "porosityModel.H"
 #include "externalWaveForcing.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -92,6 +93,8 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         externalWave->step();
+
+        #include "calcPorosity.H"
 
         twoPhaseProperties.correct();
 

@@ -48,7 +48,8 @@ Description
 
 #include "relaxationZone.H"
 #include "externalWaveForcing.H"
-#include "porosityZones.H"
+//#include "porosityZones.H"
+#include "porosityModel.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -88,6 +89,8 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         externalWave->step();
+
+        #include "calcPorosity.H"
 
         twoPhaseProperties.correct();
 
