@@ -49,7 +49,8 @@ Description
 #include "turbulenceModel.H"
 
 #include "relaxationZone.H"
-#include "porosityZones.H"
+//#include "porosityZones.H"
+#include "wavesPorosityModel.H"
 #include "externalWaveForcing.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -88,6 +89,8 @@ int main(int argc, char *argv[])
 
         externalWave->step();
 
+        #include "calcPorosity.H"
+
         twoPhaseProperties.correct();
 
         #include "alphaEqnSubCycle.H"
@@ -104,17 +107,17 @@ int main(int argc, char *argv[])
 
         #include "continuityErrs.H"
 
-//        p = pd + rho*gh;
-//
-//        if (pd.needReference())
-//        {
-//            p += dimensionedScalar
-//            (
-//                "p",
-//                p.dimensions(),
-//                pRefValue - getRefCellValue(p, pdRefCell)
-//            );
-//        }
+        p = pd + rho*gh;
+
+        if (pd.needReference())
+        {
+            p += dimensionedScalar
+            (
+                "p",
+                p.dimensions(),
+                pRefValue - getRefCellValue(p, pdRefCell)
+            );
+        }
 
         turbulence->correct();
 

@@ -10,15 +10,20 @@
 
     fvVectorMatrix UEqn
     (
-        pZones.ddt(rho, U)
-      + 1.0/pZones.porosity()*fvm::div(rhoPhi/(porosityFace), U)
-      - fvm::laplacian(muEff/porosityFace, U)
-      - (fvc::grad(U) & (1/pZones.porosity() * fvc::grad(muEff)))
+//        pZones.ddt(rho, U)
+//      + 1.0/pZones.porosity()*fvm::div(rhoPhi/(porosityFace), U)
+//      - fvm::laplacian(muEff/porosityFace, U)
+//      - (fvc::grad(U) & (1/pZones.porosity() * fvc::grad(muEff)))
+          pm->ddt(rho, U)
+        + 1.0/porosity*fvm::div(rhoPhi/(porosityFace), U)
+        - fvm::laplacian(muEff/porosityFace, U)
+        - (fvc::grad(U) & (1.0/porosity*fvc::grad(muEff)))
     );
 
     UEqn.relax();
 
-    pZones.addResistance(UEqn);
+//    pZones.addResistance(UEqn);
+    pm->addResistance(UEqn);
 
     if (momentumPredictor)
     {

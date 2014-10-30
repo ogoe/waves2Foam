@@ -1,0 +1,9 @@
+This set of classes is no longer being used, and it is a one-to-one copy of
+the set of classes jjc2014* as of this date.
+
+This set of classes has been recast into a runTime selection of the porosity
+model, such that it is easy to extend with different approaches for the 
+definition of a porous medium.
+
+Niels G. Jacobsen, Deltares
+2014.10.30
