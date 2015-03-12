@@ -98,10 +98,38 @@ tmp<fvMatrix<vector> > jensenJacobsenChristensen2014::ddt
     return pZones_.ddt(rho, U);
 }
 
-
-tmp<volScalarField> jensenJacobsenChristensen2014::porosity() const
+void jensenJacobsenChristensen2014::updatePorosity()
 {
-    return pZones_.porosity();
+	// Store the porosity from the last time step. Needed for moving porosity
+	// fields
+	porosity_.storeOldTime();
+
+	// Obtain the new porosity field from the pZones as a tmp<volScalarField>
+	tmp<volScalarField> tporosity = pZones_.porosity();
+	const volScalarField& poro = tporosity();
+
+    // Set the internal field values
+	porosity_.internalField() = poro.internalField();
+
+	// Update boundary conditions
+	porosity_.correctBoundaryConditions();
+}
+
+
+//tmp<volScalarField> jensenJacobsenChristensen2014::porosity() const
+const volScalarField& jensenJacobsenChristensen2014::porosity() const
+{
+//	// Store the porosity from the last time step. Needed for moving porosity
+//	// fields
+////	porosity_.storeOldTime();
+//
+//	tmp<volScalarField> tporosity = pZones_.porosity();
+//
+//
+//
+////    return pZones_.porosity();
+////    return tporosity;
+    return porosity_;
 }
 
 

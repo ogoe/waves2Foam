@@ -116,8 +116,12 @@ public:
             GeometricField<vector, fvPatchField, volMesh>&
         );
 
+        //- Update the porosity field
+        virtual void updatePorosity();
+
         //- Return a volScalarField with the porosities
-        virtual tmp<volScalarField> porosity() const;
+//        virtual tmp<volScalarField> porosity() const;
+        const volScalarField& porosity() const;
 
         //- Add the viscous and inertial resistance force contribution
         //  to the momentum equation

@@ -112,7 +112,7 @@ int main(int argc, char *argv[])
 
             forAll (faces, facei)
             {
-                faceTriangulation triangulation( pp, faces[facei], true );
+                faceTriangulation triangulation(pp, faces[facei], true );
 
                 tfl.setSize( count + triangulation.size() );
 
