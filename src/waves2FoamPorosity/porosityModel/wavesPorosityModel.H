@@ -69,7 +69,7 @@ class wavesPorosityModel
 protected:
 
     // Protected data
-
+        mutable volScalarField porosity_;
 
     // Protected member functions
 
@@ -154,8 +154,12 @@ public:
             GeometricField<vector, fvPatchField, volMesh>&
         ) = 0;
 
+        //- Update the porosity field
+        virtual void updatePorosity() = 0;
+
         //- Return a volScalarField with the porosities
-        virtual tmp<volScalarField> porosity() const = 0;
+//        virtual tmp<volScalarField> porosity() const = 0;
+        virtual const volScalarField& porosity() const = 0;
 
         //- Add the viscous and inertial resistance force contribution
         //  to the momentum equation

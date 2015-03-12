@@ -48,7 +48,6 @@ Description
 #include "turbulenceModel.H"
 
 #include "relaxationZone.H"
-//#include "porosityZones.H"
 #include "wavesPorosityModel.H"
 #include "externalWaveForcing.H"
 

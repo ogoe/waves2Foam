@@ -69,7 +69,7 @@ tmp<volScalarField> Foam::jjc2014Zones::porosity() const
         (
             IOobject
             (
-                "porosity",
+                "porosity_tmp",
                 mesh_.time().timeName(),
                 mesh_,
                 IOobject::NO_READ,
@@ -82,12 +82,12 @@ tmp<volScalarField> Foam::jjc2014Zones::porosity() const
     );
 
     // Make reference to the return field (stripping tmp-nature)
-    volScalarField & poro( tporosity() );
+    volScalarField& poro(tporosity());
 
     // Loop over all zones
     forAll(*this, i)
     {
-        operator[](i).porosity( poro );
+        operator[](i).porosity(poro);
     }
 
     return tporosity;
