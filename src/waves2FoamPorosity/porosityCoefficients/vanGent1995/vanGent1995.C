@@ -49,11 +49,24 @@ vanGent1995::vanGent1995
 :
     porosityCoefficient( poroProp )
 {
-    dimensionedScalar d50  ( poroProperties_.lookup("d50")   );
-    dimensionedScalar alpha( poroProperties_.lookup("alpha") );
-    dimensionedScalar beta ( poroProperties_.lookup("beta")  );
-    dimensionedScalar KC   ( poroProperties_.lookupOrDefault<dimensionedScalar>("KC",dimensionedScalar("KC",dimless, 10000)) );
-    scalar poro( readScalar(poroProperties_.lookup("porosity")) );
+    dimensionedScalar d50(poroProperties_.lookup("d50"));
+
+    dimensionedScalar alpha(poroProperties_.lookup("alpha"));
+
+    dimensionedScalar beta(poroProperties_.lookup("beta"));
+
+    dimensionedScalar KC
+        (
+        	poroProperties_.
+        	lookupOrDefault<dimensionedScalar>
+            (
+            	"KC",
+            	dimensionedScalar("KC",dimless, 10000)
+            )
+        );
+
+//    scalar poro(readScalar(poroProperties_.lookup("porosity")));
+    scalar poro(readResistancePorosity(poroProperties_));
 
     // Compute linear resistance coefficient
     dimensionedVector d( alpha * Foam::sqr( 1 - poro ) / Foam::pow3( poro ) / Foam::sqr(d50) * vector::one);
