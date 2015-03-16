@@ -107,7 +107,7 @@ int main(int argc, char *argv[])
 #   include "readGravitationalAcceleration.H"
 #   include "readWaveProperties.H"
 
-#if OFVERSION<220
+#if OFVERSION<220 || EXTBRANCH
     fileName dict("surfaceElevationDict");
 #else
     fileName dict("system/surfaceElevationDict");

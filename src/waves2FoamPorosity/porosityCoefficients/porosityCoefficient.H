@@ -69,6 +69,8 @@ protected:
         dimensionedVector quadraticCoefficient_;
 
     // Protected member functions
+        scalar readResistancePorosity(const dictionary&) const;
+
 
 private:
 
@@ -95,18 +97,20 @@ public:
             (
                 const dictionary & poroProp
             ),
-            ( poroProp )
+            (poroProp)
         );
+
+
 
     // Constructors
 
         //- Construct from components
-        porosityCoefficient( const dictionary & );
+        porosityCoefficient(const dictionary &);
 
     // Selectors
 
         //- Return a reference to the selected turbulence model
-        static autoPtr<porosityCoefficient> New( const dictionary & );
+        static autoPtr<porosityCoefficient> New(const dictionary &);
 
     // Destructor
 
