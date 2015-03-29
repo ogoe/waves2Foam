@@ -318,7 +318,7 @@ void Foam::sampledSurfaceElevation::write()
 {
     if (size() && checkFieldTypes())
     {
-        sampleIntegrateAndWrite( scalarFields_ );
+        sampleIntegrateAndWrite(scalarFields_);
     }
 }
 
@@ -326,6 +326,15 @@ bool Foam::sampledSurfaceElevation::performAction()
 {
     if (surfaceSampleDeltaT_ <= 10*SMALL)
     {
+        // This line is needed to update the locations of the interpolation
+        // lines.
+    	// Note, that performAction() is only called in case the upstream
+    	// time controls passes, i.e. a given timeIndex or at outputTime().
+        if (mesh_.moving())
+        {
+    	    this->correct();
+        }
+
         return mesh_.time().value() >= startTime_;
     }
     else
@@ -339,6 +348,13 @@ bool Foam::sampledSurfaceElevation::performAction()
             while (mesh_.time().value() > nextSampleTime_)
             {
                 nextSampleTime_ += surfaceSampleDeltaT_;
+            }
+
+            // This line is needed to update the locations of the interpolation
+            // lines.
+            if (mesh_.moving())
+            {
+        	    this->correct();
             }
 
             return true;
@@ -355,7 +371,7 @@ void Foam::sampledSurfaceElevation::sampleIntegrateAndWrite
     if (fields.size() && performAction())
     {
         scalarField result(0);
-        sampleAndIntegrate( scalarFields_, result );
+        sampleAndIntegrate(scalarFields_, result);
 
         if (Pstream::master())
         {
@@ -531,7 +547,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
         PtrList<volFieldSampler<scalar> > masterFields(sampledFields.size());
         combineSampledValues(sampledFields, indexSets_, masterFields);
 
-        result.setSize( masterSampledSets_.size(), 0.0 );
+        result.setSize(masterSampledSets_.size(), 0.0);
 
         if (Pstream::master())
         {
@@ -567,7 +583,7 @@ void Foam::sampledSurfaceElevation::sampleAndIntegrate
                 else
                 {
                     scalar value(0);
-                    scalar minScalarCoord( cs.scalarCoord(0) );
+                    scalar minScalarCoord(cs.scalarCoord(0));
 
                     for (int pointi=0; pointi < alpha.size() - 1; pointi++)
                     {
@@ -607,10 +623,6 @@ void Foam::sampledSurfaceElevation::read(const dictionary& dict)
     dict_.lookup("setFormat") >> writeFormat_;
 
     scalarFields_.clear();
-//    vectorFields_.clear();
-//    sphericalTensorFields_.clear();
-//    symmTensorFields_.clear();
-//    tensorFields_.clear();
 
     PtrList<sampledSet> newList
     (
@@ -637,17 +649,25 @@ void Foam::sampledSurfaceElevation::read(const dictionary& dict)
 void Foam::sampledSurfaceElevation::correct()
 {
     // Reset interpolation
-    pointMesh::Delete(mesh_);
-    volPointInterpolation::Delete(mesh_);
+	// These two lines make the moving mesh algorithms crash
+	// (tested: velocityLaplacian)
+	// NGJ: 16/03/2015
+//    pointMesh::Delete(mesh_);
+//    volPointInterpolation::Delete(mesh_);
 
     searchEngine_.correct();
 
+    // A quick test has shown that this takes a lot of time on moving meshes
+    // Potentially return to improve - if possible.
+    // NGJ: 16/03/2015.
     PtrList<sampledSet> newList
     (
         dict_.lookup("sets"),
         sampledSet::iNew(mesh_, searchEngine_)
     );
+
     transfer(newList);
+
     combineSampledSets(masterSampledSets_, indexSets_);
 }
 
