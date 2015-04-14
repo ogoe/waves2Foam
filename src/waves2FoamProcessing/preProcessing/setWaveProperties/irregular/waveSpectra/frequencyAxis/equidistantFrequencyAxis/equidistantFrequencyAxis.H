@@ -23,60 +23,58 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::JONSWAP
+    Foam::equidistantFrequencyAxis
 
 Description
+    Set random frequencyAxis for the irregular wave train.
 
 SourceFiles
-    JONSWAP.C
+    equidistantFrequencyAxis.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjøl Jacobsen, Deltares.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef JONSWAP_H
-#define JONSWAP_H
+#ifndef equidistantFrequencyAxis_H
+#define equidistantFrequencyAxis_H
 
-#include "stokesFirstProperties.H"
-#include "waveSpectra.H"
+#include "frequencyAxis.H"
+#include <time.h>
 
 namespace Foam
 {
 
-class JONSWAP
+class equidistantFrequencyAxis
 :
-    public waveSpectra
+    public frequencyAxis
 {
 private:
-
-        scalarField spectralValue
-        (
-            const scalar&,
-            const scalar&,
-            const scalar&,
-            const scalarField&
-        ) const;
 
 public:
 
         //- Runtime type information
-        TypeName("JONSWAP");
+        TypeName("equidistantFrequencyAxis");
 
-        JONSWAP
+        equidistantFrequencyAxis
         (
             const Time&,
-            dictionary&,
-            scalarField&,
-            scalarField&,
-            scalarField&,
-            vectorField&
+            dictionary&
         );
 
-        virtual void set(Ostream&);
+        virtual scalarField freqAxis
+        (
+            const scalarField&,
+            const scalarField&,
+            const label&
+        ) const;
 
-        virtual wordList list();
+        scalarField freqAxis
+        (
+            const label&
+        ) const;
+
 };
 
 }

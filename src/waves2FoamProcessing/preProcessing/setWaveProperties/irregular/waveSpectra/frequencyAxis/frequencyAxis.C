@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "waveSpectra.H"
+#include "frequencyAxis.H"
 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -34,100 +34,80 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(waveSpectra, 0);
-defineRunTimeSelectionTable(waveSpectra, waveSpectra);
+defineTypeNameAndDebug(frequencyAxis, 0);
+defineRunTimeSelectionTable(frequencyAxis, frequencyAxis);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-waveSpectra::waveSpectra
+frequencyAxis::frequencyAxis
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 :
     rT_(rT),
-    dict_(dict),
-    amp_(amp),
-    freq_(freq),
-    phi_(phi),
-    k_(k),
-
-    G_
-    (
-        Foam::mag
-        (
-            uniformDimensionedVectorField
-            (
-                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
-            ).value()
-        )
-    ),
-
-    PI_( M_PI ),
-
-    phases_(Foam::phases::New(rT_, dict_))
+    dict_(dict)
 {
+    if (dict_.subDict("frequencyAxis").found("lowerFrequencyCutoff"))
+    {
+        fl_ = readScalar
+            (
+                dict_.subDict("frequencyAxis").lookup("lowerFrequencyCutoff")
+            );
+    }
+    else
+    {
+        scalar Tp = readScalar(dict_.lookup("Tp"));
+        fl_ = 0.3/Tp;
+    }
+
+    if (dict_.subDict("frequencyAxis").found("upperFrequencyCutoff"))
+    {
+        fu_ = readScalar
+            (
+                dict_.subDict("frequencyAxis").lookup("upperFrequencyCutoff")
+            );
+    }
+    else
+    {
+        scalar Tp = readScalar(dict_.lookup("Tp"));
+        fu_ = 3.0/Tp;
+    }
 }
 
 
-waveSpectra::~waveSpectra()
+frequencyAxis::~frequencyAxis()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void waveSpectra::writeSpectrum
-(
-    Ostream& os,
-    const scalarField& freq,
-    const scalarField& S
-) const
-{
-    if (dict_.subDict("frequencyAxis").lookupOrDefault<Switch>("writeSpectrum",false))
-    {
-        S.writeEntry("spectramValues", os);
-        os << nl;
 
-        freq.writeEntry("fspectrum", os);
-        os << nl;
-    }
-}
-
-
-autoPtr<waveSpectra> waveSpectra::New
+autoPtr<frequencyAxis> frequencyAxis::New
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 {
-    word spectrumName;
-    dict.lookup("spectrum") >> spectrumName;
+    word discretisation = dict.subDict("frequencyAxis").lookup("discretisation");
 
-    waveSpectraConstructorTable::iterator cstrIter =
-            waveSpectraConstructorTablePtr_->find(spectrumName);
+    frequencyAxisConstructorTable::iterator cstrIter =
+            frequencyAxisConstructorTablePtr_->find(discretisation);
 
-    if (cstrIter == waveSpectraConstructorTablePtr_->end())
+    if (cstrIter == frequencyAxisConstructorTablePtr_->end())
     {
         FatalErrorIn
         (
-            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
-        )   << "Unknown wave spectrum '" << spectrumName << "'"
+            "frequencyAxis::New(const Time&, dictionary&)"
+        )   << "Unknown discretisation method '" << discretisation << "'"
             << endl << endl
-            << "Valid wave spectra are:" << endl
-            << waveSpectraConstructorTablePtr_->toc()
+            << "Valid discretisation methods are:" << endl
+            << frequencyAxisConstructorTablePtr_->toc()
             << exit(FatalError);
     }
 
-    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
+    return autoPtr<frequencyAxis>(cstrIter()(rT, dict));
 }
 
 

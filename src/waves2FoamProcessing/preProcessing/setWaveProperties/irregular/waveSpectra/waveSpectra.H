@@ -63,6 +63,7 @@ Author
 #include "uniformDimensionedFields.H"
 
 #include "setWaveProperties.H"
+#include "equidistantFrequencyAxis.H"
 #include "phases.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -96,8 +97,12 @@ protected:
 
 
     // Protected member functions
-
-        scalar randomPhaselag();
+        void writeSpectrum
+        (
+            Ostream&,
+            const scalarField&,
+            const scalarField&
+        ) const;
 
 private:
 

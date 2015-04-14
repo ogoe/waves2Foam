@@ -24,8 +24,8 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "waveSpectra.H"
-
+#include "equidistantFrequencyAxis.H"
+#include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -34,102 +34,52 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(waveSpectra, 0);
-defineRunTimeSelectionTable(waveSpectra, waveSpectra);
+defineTypeNameAndDebug(equidistantFrequencyAxis, 0);
+addToRunTimeSelectionTable(frequencyAxis, equidistantFrequencyAxis, frequencyAxis);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-waveSpectra::waveSpectra
+equidistantFrequencyAxis::equidistantFrequencyAxis
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 :
-    rT_(rT),
-    dict_(dict),
-    amp_(amp),
-    freq_(freq),
-    phi_(phi),
-    k_(k),
-
-    G_
-    (
-        Foam::mag
-        (
-            uniformDimensionedVectorField
-            (
-                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
-            ).value()
-        )
-    ),
-
-    PI_( M_PI ),
-
-    phases_(Foam::phases::New(rT_, dict_))
+    frequencyAxis(rT, dict)
 {
 }
-
-
-waveSpectra::~waveSpectra()
-{}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void waveSpectra::writeSpectrum
+
+scalarField equidistantFrequencyAxis::freqAxis
 (
-    Ostream& os,
-    const scalarField& freq,
-    const scalarField& S
+    const scalarField&,
+    const scalarField&,
+    const label& N
 ) const
 {
-    if (dict_.subDict("frequencyAxis").lookupOrDefault<Switch>("writeSpectrum",false))
-    {
-        S.writeEntry("spectramValues", os);
-        os << nl;
+    scalarField freq(N + 1, 0.0);
 
-        freq.writeEntry("fspectrum", os);
-        os << nl;
+    scalar df = (fu_ - fl_)/static_cast<scalar>(N);
+
+    for (int i = 0; i < N + 1; i++)
+    {
+        freq[i] = static_cast<scalar>(i)*df + fl_;
     }
+
+    return freq;
 }
 
 
-autoPtr<waveSpectra> waveSpectra::New
-(
-    const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
-)
+scalarField equidistantFrequencyAxis::freqAxis(const label& N) const
 {
-    word spectrumName;
-    dict.lookup("spectrum") >> spectrumName;
+    scalarField dummy(0);
 
-    waveSpectraConstructorTable::iterator cstrIter =
-            waveSpectraConstructorTablePtr_->find(spectrumName);
-
-    if (cstrIter == waveSpectraConstructorTablePtr_->end())
-    {
-        FatalErrorIn
-        (
-            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
-        )   << "Unknown wave spectrum '" << spectrumName << "'"
-            << endl << endl
-            << "Valid wave spectra are:" << endl
-            << waveSpectraConstructorTablePtr_->toc()
-            << exit(FatalError);
-    }
-
-    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
+    return freqAxis(dummy, dummy, N);
 }
-
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

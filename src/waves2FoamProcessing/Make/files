@@ -32,6 +32,11 @@ $(waveProp)/$(irregular)/bichromaticSecondProperties/bichromaticSecondProperties
 dws=waveSpectra
 $(waveProp)/$(irregular)/$(dws)/waveSpectra.C
 
+freq=frequencyAxis
+$(waveProp)/$(irregular)/$(dws)/$(freq)/frequencyAxis.C
+$(waveProp)/$(irregular)/$(dws)/$(freq)/equidistantFrequencyAxis/equidistantFrequencyAxis.C
+$(waveProp)/$(irregular)/$(dws)/$(freq)/cosineStretchedFrequencyAxis/cosineStretchedFrequencyAxis.C
+
 spectra=spectra
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/PiersonMoskowitz/PiersonMoskowitz.C

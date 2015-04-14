@@ -111,6 +111,25 @@ void irregularProperties::set( Ostream& os )
         writeDerived( os, "waveNumber", waveNumber);
     }
 
+    // Write the frequency axis information
+    word fa("frequencyAxis");
+
+    os << nl << indent << fa << nl << indent << token::BEGIN_BLOCK
+       << incrIndent << nl;
+
+    dictionary sd(dict_.subDict(fa));
+
+    wordList toc( sd.toc() );
+
+    forAll (toc, item)
+    {
+        ITstream it(sd.lookup(toc[item]));
+
+        addITstream(os, toc[item], it);
+    }
+
+    os << decrIndent << indent << token::END_BLOCK << endl;
+
     // Write the relaxation zone
     writeRelaxationZone( os );
 

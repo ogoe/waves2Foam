@@ -24,8 +24,8 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "waveSpectra.H"
-
+#include "cosineStretchedFrequencyAxis.H"
+#include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -34,100 +34,53 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(waveSpectra, 0);
-defineRunTimeSelectionTable(waveSpectra, waveSpectra);
+defineTypeNameAndDebug(cosineStretchedFrequencyAxis, 0);
+addToRunTimeSelectionTable(frequencyAxis, cosineStretchedFrequencyAxis, frequencyAxis);
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-waveSpectra::waveSpectra
+cosineStretchedFrequencyAxis::cosineStretchedFrequencyAxis
 (
     const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
+    dictionary& dict
 )
 :
-    rT_(rT),
-    dict_(dict),
-    amp_(amp),
-    freq_(freq),
-    phi_(phi),
-    k_(k),
-
-    G_
-    (
-        Foam::mag
-        (
-            uniformDimensionedVectorField
-            (
-                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
-            ).value()
-        )
-    ),
-
-    PI_( M_PI ),
-
-    phases_(Foam::phases::New(rT_, dict_))
+    frequencyAxis(rT, dict)
 {
 }
-
-
-waveSpectra::~waveSpectra()
-{}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
-void waveSpectra::writeSpectrum
+
+scalarField cosineStretchedFrequencyAxis::freqAxis
 (
-    Ostream& os,
-    const scalarField& freq,
-    const scalarField& S
+    const scalarField&,
+    const scalarField&,
+    const label& N
 ) const
 {
-    if (dict_.subDict("frequencyAxis").lookupOrDefault<Switch>("writeSpectrum",false))
+    scalarField freq(N + 1, 0.0);
+
+    scalar fp = 1.0/readScalar(dict_.lookup("Tp"));
+
+    // Calculate the number of upper and lower frequencies
+    label Nlow(ceil((fp - fl_)/(fu_ - fp)*(N + 1)));
+    label Nhigh(N + 1 - Nlow);
+
+    for (int i = 0; i < Nlow; i++)
     {
-        S.writeEntry("spectramValues", os);
-        os << nl;
-
-        freq.writeEntry("fspectrum", os);
-        os << nl;
-    }
-}
-
-
-autoPtr<waveSpectra> waveSpectra::New
-(
-    const Time& rT,
-    dictionary& dict,
-    scalarField& amp,
-    scalarField& freq,
-    scalarField& phi,
-    vectorField& k
-)
-{
-    word spectrumName;
-    dict.lookup("spectrum") >> spectrumName;
-
-    waveSpectraConstructorTable::iterator cstrIter =
-            waveSpectraConstructorTablePtr_->find(spectrumName);
-
-    if (cstrIter == waveSpectraConstructorTablePtr_->end())
-    {
-        FatalErrorIn
-        (
-            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
-        )   << "Unknown wave spectrum '" << spectrumName << "'"
-            << endl << endl
-            << "Valid wave spectra are:" << endl
-            << waveSpectraConstructorTablePtr_->toc()
-            << exit(FatalError);
+        freq[i] = (fp - fl_)*Foam::sin(2*M_PI/(4.0*Nlow)*i) + fl_;
     }
 
-    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
+    for (int i = 0; i <= Nhigh; i++)
+    {
+        freq[Nlow - 1 + i] =
+            (fu_ - fp)*(- Foam::cos(2*M_PI/(4*Nhigh)*i) + 1) + fp;
+    }
+
+    return freq;
 }
 
 
