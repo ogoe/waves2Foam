@@ -37,6 +37,25 @@ namespace Foam
 defineTypeNameAndDebug(PiersonMoskowitz, 0);
 addToRunTimeSelectionTable(waveSpectra, PiersonMoskowitz, waveSpectra);
 
+// * * * * * * * * * * * * Private Member Functions  * * * * * * * * * * * * //
+
+scalarField PiersonMoskowitz::spectralValue
+(
+    const scalar& Hs,
+    const scalar& Tp,
+    const scalarField& freq
+) const
+{
+    scalar fp = 1.0/Tp;
+
+    // Compute spectrum
+    scalarField S = 5.0/16.0*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)
+        *Foam::pow(freq,-5.0)*Foam::exp(- 5.0/4.0*Foam::pow(fp/freq, 4.0));
+
+    return S;
+}
+
+
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
@@ -75,89 +94,66 @@ wordList PiersonMoskowitz::list()
 void PiersonMoskowitz::set( Ostream& os )
 {
     // Get the input parameters
-    scalar Hs( readScalar(dict_.lookup("Hs")) );
-    scalar Tp( readScalar(dict_.lookup("Tp")) );
-    scalar depth( readScalar(dict_.lookup("depth")) );
-    vector direction( vector( dict_.lookup("direction")));
-    Switch freqEqui(Switch(dict_.lookup("equidistantFrequencyAxis")));
+    scalar Hs(readScalar(dict_.lookup("Hs")));
 
-    label  N( static_cast<label>(readScalar(dict_.lookup("N"))) );
+    scalar Tp(readScalar(dict_.lookup("Tp")));
 
+    scalar depth(readScalar(dict_.lookup("depth")));
+
+    vector direction(vector(dict_.lookup("direction")));
+
+    label N = readLabel(dict_.lookup("N"));
+
+    // Calculate the frequency axis
+    autoPtr<Foam::frequencyAxis> fA = Foam::frequencyAxis::New(rT_, dict_);
+    scalarField nodeFrequency(N + 1, 0);
+
+    // An intermediate step needed for certain discretisation types
+    // Placed in scopes such that the temporary variables to not 'survive'
+    {
+        equidistantFrequencyAxis equiFA(rT_, dict_);
+
+        scalarField tempFreqAxis = equiFA.freqAxis(10000);
+        scalarField tempSpectrum
+            = this->spectralValue(Hs, Tp, tempFreqAxis);
+
+        nodeFrequency = fA->freqAxis(tempFreqAxis, tempSpectrum, N);
+    }
+
+    // Prepare variables
     freq_.setSize(N);
     amp_.setSize(N);
     phi_.setSize(N);
     k_.setSize(N);
 
-    N++;
-
-    // Additional parameters
-    scalar fp    = ( 1.0/Tp );
-
-    scalar flow( 0.3*fp ), fhigh( 3.0*fp );
-
-    if (dict_.found("lowerFrequencyCutoff"))
-    {
-        flow = readScalar(dict_.lookup("lowerFrequencyCutoff"));
-    }
-
-    if (dict_.found("upperFrequencyCutoff"))
-    {
-        fhigh = readScalar(dict_.lookup("upperFrequencyCutoff"));
-    }
-
-    scalarField f(N, 0.0);
-
-    if (!freqEqui)
-    {
-        // Stretched frequency axis
-        label Nlow ( ceil( (fp - flow)/( fhigh - fp)*N ) );
-        label Nhigh( N - Nlow );
-
-        for (int i=0; i < Nlow; i++)
-        {
-            f[i] = ( fp - flow )*Foam::sin( 2*PI_/( 4.0*Nlow )*i ) + flow;
-        }
-
-        for (int i=0; i<=Nhigh; i++)
-        {
-            f[Nlow - 1 + i] =
-               (fhigh - fp)*(- Foam::cos(2*PI_/(4*Nhigh)*i) + 1) + fp;
-        }
-    }
-    else
-    {
-        // Equidistant frequency axis
-        scalar df = (fhigh - flow)/static_cast<scalar>(N-1);
-        for (int i = 0; i < N; i++)
-        {
-            f[i] = static_cast<scalar>(i)*df + flow;
-        }
-    }
-
     // Compute spectrum
-    scalarField S = 5.0/16.0*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)
-        *Foam::pow(f,-5.0)*Foam::exp( - 5.0/4.0*Foam::pow( fp/f, 4.0 ) );
+    scalarField S = this->spectralValue(Hs, Tp, nodeFrequency);
 
+    // Prepare stokesFirst to compute wave numbers
     Foam::stokesFirstProperties stp( rT_, dict_ );
 
     // Compute return variables
-    for (int i = 1; i < N; i++)
+    for (int i = 1; i < N + 1; i++)
     {
-        freq_[i - 1] = 0.5*( f[i - 1] + f[i] );
-        amp_[i - 1] = Foam::sqrt( ( S[i-1] + S[i] )*( f[i] - f[i - 1] ) );
+        // The frequency is the mid-point between two nodes
+        freq_[i - 1] = 0.5*(nodeFrequency[i - 1] + nodeFrequency[i]);
+
+        // Amplitude is the square root of the trapezoidal integral
+        amp_[i - 1] =
+            Foam::sqrt
+            (
+                (S[i-1] + S[i])
+               *(nodeFrequency[i] - nodeFrequency[i - 1])
+            );
+
+        // Wave number based on linear wave theory
         k_[i - 1] = direction*stp.linearWaveNumber(depth, freq_[i-1]);
 
+        // The phase is computed based on the phase-function
         phi_[i - 1] = phases_->phase(freq_[i - 1], k_[i - 1]);
     }
 
-    if (dict_.lookupOrDefault<Switch>("writeSpectrum",false))
-    {
-        S.writeEntry("spectramValues", os);
-        os << nl;
-
-        f.writeEntry("fspectrum", os);
-        os << nl;
-    }
+    writeSpectrum(os, nodeFrequency, S);
 }
 
 

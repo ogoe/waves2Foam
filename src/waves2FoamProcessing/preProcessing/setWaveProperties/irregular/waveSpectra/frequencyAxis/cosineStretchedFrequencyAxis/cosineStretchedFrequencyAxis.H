@@ -23,60 +23,53 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::JONSWAP
+    Foam::cosineStretchedFrequencyAxis
 
 Description
+    Set random frequencyAxis for the irregular wave train.
 
 SourceFiles
-    JONSWAP.C
+    cosineStretchedFrequencyAxis.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjøl Jacobsen, Deltares.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef JONSWAP_H
-#define JONSWAP_H
+#ifndef cosineStretchedFrequencyAxis_H
+#define cosineStretchedFrequencyAxis_H
 
-#include "stokesFirstProperties.H"
-#include "waveSpectra.H"
+#include "frequencyAxis.H"
+#include <time.h>
 
 namespace Foam
 {
 
-class JONSWAP
+class cosineStretchedFrequencyAxis
 :
-    public waveSpectra
+    public frequencyAxis
 {
 private:
-
-        scalarField spectralValue
-        (
-            const scalar&,
-            const scalar&,
-            const scalar&,
-            const scalarField&
-        ) const;
 
 public:
 
         //- Runtime type information
-        TypeName("JONSWAP");
+        TypeName("cosineStretchedFrequencyAxis");
 
-        JONSWAP
+        cosineStretchedFrequencyAxis
         (
             const Time&,
-            dictionary&,
-            scalarField&,
-            scalarField&,
-            scalarField&,
-            vectorField&
+            dictionary&
         );
 
-        virtual void set(Ostream&);
+        virtual scalarField freqAxis
+        (
+            const scalarField&,
+            const scalarField&,
+            const label&
+        ) const;
 
-        virtual wordList list();
 };
 
 }

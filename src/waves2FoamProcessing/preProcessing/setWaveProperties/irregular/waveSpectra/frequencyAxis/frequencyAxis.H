@@ -23,154 +23,118 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::setWaveProperties
+    Foam::frequencyAxis
 
 Description
-    An abstract base class for a pre-processing tool for setting the wave
-    properties in the dictionary waveProperties.
-
-    A description of the general wave framework is given in
-
-    @article { jacobsenFuhrmanFredsoe2011,
-        Author = {Jacobsen, N G and Fuhrman, D R and Freds\o{}e, J},
-        title = {{A Wave Generation Toolbox for the Open-Source CFD Library: OpenFoam\textregistered{}}},
-        Journal = {{Int. J. for Numer. Meth. Fluids}},
-        Year = {2012},
-        Volume = {70},
-        Number = {9},
-        Pages = {1073-1088},
-        DOI = {{10.1002/fld.2726}},
-    }
+    An abstract base class for setting the frequencyAxis for irregular wave trains.
 
 SourceFiles
-    setWaveProperties.C
+    frequencyAxis.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjøl Jacobsen, Deltares.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef setWaveProperties_H
-#define setWaveProperties_H
+#ifndef frequencyAxis_H
+#define frequencyAxis_H
 
 #include "fvMesh.H"
 #include "volFields.H"
 #include "IOdictionary.H"
 
-#include "OFstream.H"
-
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
 
-#include "uniformDimensionedFields.H"
+#include "setWaveProperties.H"
 
-#include <gsl/gsl_vector.h>
-#include <gsl/gsl_matrix.h>
-#include <gsl/gsl_roots.h>
-#include <gsl/gsl_multiroots.h>
+#include "uniformDimensionedFields.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
 {
 /*---------------------------------------------------------------------------*\
-                       Class setWaveProperties Declaration
+                       Class frequencyAxis Declaration
 \*---------------------------------------------------------------------------*/
 
-class setWaveProperties
+class frequencyAxis
 {
 
 protected:
 
     // Protected data
-        bool write_;
+        const Time& rT_;
+
         dictionary& dict_;
-        vector g_;
-        scalar G_;
 
-        scalar PI_;
-
-        label Nspaces_;
-
-    // Protected member functions
-        void writeBeginning( Ostream& );
-
-        void writeGiven( Ostream& );
-
-        void writeGiven( Ostream& , word );
-
-        void writeDerived( Ostream&, word, scalar);
-
-        void writeDerived( Ostream&, word, vector);
-
-        void writeDerived( Ostream&, word, scalarField);
-
-        void writeDerived( Ostream&, word, vectorField);
-
-        void writeRelaxationZone( Ostream& );
-
-        void writeEnding( Ostream& );
-
-        void addITstream(Ostream&, const word&, const ITstream&);
+        scalar fp_;
+        scalar fl_;
+        scalar fu_;
 
 private:
 
     // Private Member Functions
-        void lineFormatting( Ostream&, const word&);
 
         //- Disallow default bitwise copy construct
-        setWaveProperties(const setWaveProperties&);
+        frequencyAxis(const frequencyAxis&);
 
         //- Disallow default bitwise assignment
-        void operator=(const setWaveProperties&);
+        void operator=(const frequencyAxis&);
 
 public:
 
     //- Runtime type information
-    TypeName("setWaveProperties");
+    TypeName("frequencyAxis");
 
     // Declare run-time constructor selection table
 
         declareRunTimeSelectionTable
         (
             autoPtr,
-            setWaveProperties,
-            setWaveProperties,
+            frequencyAxis,
+            frequencyAxis,
             (
-                const Time& rT, dictionary& dict, bool write
+                const Time& rT,
+                dictionary& dict
             ),
-            (rT, dict, write)
+            (rT, dict)
         );
 
     // Constructors
 
         //- Construct from components
-        setWaveProperties
+        frequencyAxis
         (
             const Time&,
-            dictionary&,
-            bool
+            dictionary&
         );
 
     // Selectors
 
         //- Return a reference to the selected turbulence model
-        static autoPtr<setWaveProperties> New
+        static autoPtr<frequencyAxis> New
         (
             const Time&,
-            dictionary&,
-            bool
+            dictionary&
         );
 
     // Destructor
 
-        virtual ~setWaveProperties();
+        virtual ~frequencyAxis();
 
-    // Member Functions
+    // Member functions
 
-        virtual void set(Ostream&) = 0;
+        virtual scalarField freqAxis
+        (
+            const scalarField&,
+            const scalarField&,
+            const label&
+        ) const = 0;
+
 };
+
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

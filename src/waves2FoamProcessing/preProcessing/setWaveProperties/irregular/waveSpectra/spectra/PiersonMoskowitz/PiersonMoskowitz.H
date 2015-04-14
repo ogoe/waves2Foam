@@ -51,6 +51,12 @@ class PiersonMoskowitz
 {
 private:
 
+        scalarField spectralValue
+        (
+            const scalar&,
+            const scalar&,
+            const scalarField&
+        ) const;
 
 public:
 
@@ -67,7 +73,7 @@ public:
             vectorField&
         );
 
-        virtual void set( Ostream& );
+        virtual void set(Ostream&);
 
         virtual wordList list();
 };
