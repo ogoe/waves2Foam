@@ -76,25 +76,27 @@ autoPtr<wavesPorosityModel> wavesPorosityModel::New
     // Enclose the creation of the dictionary to ensure it is deleted before
     // the actual porosity model is created
     {
-    	// Not successful with porosityZones, because the reading of the
-    	// porous zones properties was made impossible, if an additional
-    	// keyword was added.
-//        IOdictionary dict
-//        (
-//        	IOobject
-//        	(
-//        	    "porosityZones",
-//        	    mesh.time().constant(),
-//        	    mesh,
-//        	    IOobject::MUST_READ,
-//        	    IOobject::NO_WRITE
-//        	)
-//        );
-//
-//        dict.lookup("wavesPorosityModel") >> wavesPorosityModelTypeName;
+        if (mesh.thisDb().foundObject<IOdictionary>("waveProperties"))
+        {
+        	mesh.thisDb().lookupObject<IOdictionary>("waveProperties")
+        		.lookup("porosityModel") >> wavesPorosityModelTypeName;
+        }
+        else
+        {
+        	IOdictionary wp
+        	(
+        	    IOobject
+        	    (
+        	        "waveProperties",
+        	        mesh.time().constant(),
+        	        mesh,
+        	        IOobject::MUST_READ,
+        	        IOobject::NO_WRITE
+        	    )
+        	);
 
-    	mesh.thisDb().lookupObject<IOdictionary>("waveProperties")
-    		.lookup("porosityModel") >> wavesPorosityModelTypeName;
+        	wp.lookup("porosityModel") >> wavesPorosityModelTypeName;
+        }
     }
 
     wavesPorosityModelConstructorTable::iterator cstrIter =

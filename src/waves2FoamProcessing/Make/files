@@ -117,6 +117,7 @@ misc=miscOperations
 $(ppw)/$(misc)/ensembleAverage/ensembleAverage.C
 $(ppw)/$(misc)/trapz/trapz.C
 $(ppw)/$(misc)/cumTrapz/cumTrapz.C
+$(ppw)/$(misc)/zeroCrossing/zeroCrossing.C
 
 /* OUTPUT */
 LIB = $(WAVES_LIBBIN)/libwaves2FoamProcessing
