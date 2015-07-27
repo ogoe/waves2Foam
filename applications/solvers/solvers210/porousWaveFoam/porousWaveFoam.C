@@ -125,6 +125,9 @@ int main(int argc, char *argv[])
             << nl << endl;
     }
 
+    // Close down the external wave forcing in a nice manner
+    externalWave->close();
+
     Info<< "End\n" << endl;
 
     return 0;

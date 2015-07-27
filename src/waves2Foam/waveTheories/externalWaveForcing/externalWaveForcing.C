@@ -44,7 +44,7 @@ defineRunTimeSelectionTable(externalWaveForcing, externalWaveForcing);
 externalWaveForcing::externalWaveForcing
 (
     IOobject io,
-    const Time& rT,
+    Time& rT,
     const fvMesh& mesh
 )
 :
@@ -65,7 +65,7 @@ externalWaveForcing::~externalWaveForcing()
 autoPtr<externalWaveForcing> externalWaveForcing::New
 (
     IOobject io,
-    const Time& rT,
+    Time& rT,
     const fvMesh& mesh
 )
 {
