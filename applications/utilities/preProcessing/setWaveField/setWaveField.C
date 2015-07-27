@@ -57,6 +57,7 @@ Additional information
 #include "uniformDimensionedFields.H"
 
 #include "crossVersionCompatibility.H"
+#include "externalWaveForcing.H"
 
 using namespace Foam;
 
@@ -69,9 +70,11 @@ int main(int argc, char *argv[])
 #   include "createTime.H"
 #   include "createMesh.H"
 
-#   include "readWaveProperties.H"
-
 #   include "readGravitationalAcceleration.H"
+
+#   include "readWaveProperties.H"
+#   include "createExternalWaveForcing.H"
+
 
     Info<< "\nReading field alpha\n" << endl;
     volScalarField alpha
@@ -126,6 +129,8 @@ int main(int argc, char *argv[])
     U.write();
 
     pd.write();
+
+    externalWave->close();
 
     Info << nl << "End" << nl << endl;
 

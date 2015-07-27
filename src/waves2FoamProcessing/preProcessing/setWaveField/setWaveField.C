@@ -149,17 +149,16 @@ void setWaveField::correct()
     {
         localCell lc = dividePolyhedral( celli, point::zero, point::one);
 
-//        vector UTarget(vector::zero);
-        vector UTarget( waveProps_->windVelocity( U_.db().time().value() ));
+        vector UTarget(waveProps_->windVelocity(U_.db().time().value()));
         scalar pTarget(0.0);
-        scalar alphaTarget( 0.0 );
+        scalar alphaTarget(0.0);
 
         // If size is less than 4, then one cannot evaluate centre/magnitude
         // without getting an floating point exception error
         if (lc.ccNeg().size() >= 4)
         {
-            UTarget = waveProps_->U( lc.centreNeg(), U_.db().time().value() );
-            pTarget = waveProps_->p( lc.centreNeg(), U_.db().time().value() );
+            UTarget = waveProps_->U(lc.centreNeg(), U_.db().time().value());
+            pTarget = waveProps_->p(lc.centreNeg(), U_.db().time().value());
             alphaTarget = lc.magNeg()/V[celli];
         }
 

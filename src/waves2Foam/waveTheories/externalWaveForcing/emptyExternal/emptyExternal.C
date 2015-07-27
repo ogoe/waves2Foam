@@ -51,7 +51,7 @@ addToRunTimeSelectionTable
 emptyExternal::emptyExternal
 (
     IOobject io,
-    const Time& rT,
+    Time& rT,
     const fvMesh& mesh
 )
 :

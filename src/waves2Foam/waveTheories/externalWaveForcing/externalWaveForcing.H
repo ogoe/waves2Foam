@@ -70,7 +70,7 @@ class externalWaveForcing
 protected:
 
     // Protected data
-        const Time& rT_;
+        Time& rT_;
 
         const fvMesh& mesh_;
 
@@ -101,7 +101,7 @@ public:
             externalWaveForcing,
             (
                 IOobject io,
-                const Time& rT,
+                Time& rT,
                 const fvMesh& mesh
             ),
             (io, rT, mesh)
@@ -113,7 +113,7 @@ public:
         externalWaveForcing
         (
             IOobject io,
-            const Time& rT,
+            Time& rT,
             const fvMesh& mesh
         );
 
@@ -124,7 +124,7 @@ public:
         static autoPtr<externalWaveForcing> New
         (
             IOobject io,
-            const Time& rT,
+            Time& rT,
             const fvMesh& mesh
         );
 
@@ -134,6 +134,9 @@ public:
 
     // Member Functions
         virtual void step() = 0;
+
+
+        virtual void close() = 0;
 
 
         virtual scalar eta

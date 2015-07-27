@@ -75,7 +75,7 @@ public:
         emptyExternal
         (
             IOobject,
-            const Time&,
+            Time&,
             const fvMesh&
         );
 
@@ -88,6 +88,12 @@ public:
 
     // Member Functions
         virtual void step();
+
+
+        virtual inline void close()
+        {
+        	// Nothing to be done
+        };
 
 
         virtual scalar eta
