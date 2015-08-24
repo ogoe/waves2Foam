@@ -204,7 +204,7 @@ scalar stokesFifth::eta
     const scalar& time
 ) const
 {
-    scalar arg((k_ & x) - omega_*time);
+    scalar arg((k_ & x) - omega_*time - phi_);
     scalar eps(K_*H_/2.0);
 
     scalar eta = (
@@ -235,9 +235,6 @@ scalar stokesFifth::ddxPd
     const vector& unitVector
 ) const
 {
-//     scalar Z(returnZ(x));
-//     scalar arg(omega_*time - (k_ & x) + phi_);
-
     scalar ddxPd(0);
 
     return ddxPd;
@@ -250,7 +247,7 @@ vector stokesFifth::U
     const scalar& time
 ) const
 {
-    scalar arg((k_ & x) - omega_*time);
+    scalar arg((k_ & x) - omega_*time - phi_);
     scalar eps(K_*H_/2.0);
     scalar uBar( (C0_ + pow(eps,2.0)*C2_ + pow(eps,4.0)*C4_)/sqrt(K_/mag(g_)));
     scalar celerity(omega_/K_);
