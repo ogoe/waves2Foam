@@ -15,6 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 seaLevel	0.01;
+seaLevelAsReference false;
 
 // A list of the relaxation zones in the simulation. The parameters are given
 // in <name>Coeffs below.

@@ -15,6 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 seaLevel	5.000;
+seaLevelAsReference false;
 
 relaxationNames ();
 

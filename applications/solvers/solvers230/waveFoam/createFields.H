@@ -93,8 +93,10 @@
     */
 
     Info<< "Calculating field g.h\n" << endl;
-    volScalarField gh("gh", g & mesh.C());
-    surfaceScalarField ghf("ghf", g & mesh.Cf());
+//    volScalarField gh("gh", g & mesh.C());
+//    surfaceScalarField ghf("ghf", g & mesh.Cf());
+    volScalarField gh("gh", g & (mesh.C() - referencePoint));
+    surfaceScalarField ghf("ghf", g & (mesh.Cf() - referencePoint));
 
     volScalarField p
     (
