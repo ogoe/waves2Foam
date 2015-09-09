@@ -184,6 +184,29 @@ int main(int argc, char *argv[])
             }
 
             os << token::END_STATEMENT << nl << endl;
+
+            // Additional level of check, such that the code does not crash at
+            // runTime:
+            if (toc[item] == "seaLevel")
+            {
+            	// Read the magnitude of the sea level
+            	scalar sL = readScalar(waveProperties.lookup("seaLevel"));
+
+            	// If the Switch seaLevelAsReference is not found _and_ the
+            	// magnitude of the sea level differs from 0 (zero), stop the
+            	// evaluation of the wave parameters
+            	if
+            	(
+            	    !waveProperties.found("seaLevelAsReference") &&
+            	    SMALL < Foam::mag(sL)
+            	)
+            	{
+            		// This merely looks up the string, it will not be found
+            		// and the user is forced to correct waveProperties.input,
+            		// before any execution is possible.
+            		waveProperties.lookup("seaLevelAsReference");
+            	}
+            }
         }
     }
 
