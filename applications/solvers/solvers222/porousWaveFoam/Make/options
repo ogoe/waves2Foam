@@ -8,7 +8,7 @@ EXE_INC = \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/fvOptions/lnInclude \
     -I$(LIB_SRC)/sampling/lnInclude \
-    -DOFVERSION=221 \
+    -DOFVERSION=222 \
     -DEXTBRANCH=0 \
     -DXVERSION=$(WAVES_XVERSION) \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
