@@ -4,7 +4,7 @@ EXE_INC = \
     -I$(LIB_SRC)/transportModels/interfaceProperties/lnInclude \
     -I$(LIB_SRC)/turbulenceModels/incompressible/turbulenceModel \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
-    -DOFVERSION=300 \
+    -DOFVERSION=310 \
     -DEXTBRANCH=1 \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
