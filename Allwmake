@@ -93,7 +93,12 @@ do
     then
         ln -s -f $i/Make/options.OpenFOAM $i/Make/options
     else
-        ln -s -f $i/Make/options.foam $i/Make/options
+        if [ "$WM_PROJECT_VERSION_NUMBER" -lt 320 ]
+        then
+            ln -s -f $i/Make/options.foam $i/Make/options
+        else
+            ln -s -f $i/Make/options.foam.320 $i/Make/options
+        fi
     fi
 done
 

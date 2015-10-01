@@ -211,10 +211,10 @@ Foam::overtopping::~overtopping()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-bool Foam::overtopping::operateOnZone( const faceZone& fz ) const
+bool Foam::overtopping::operateOnZone(const faceZone& fz) const
 {
-    const string& zoneName( fz.name() );
-    const string& ownName( this->type() );
+    const string& zoneName(fz.name());
+    const string& ownName(this->type());
     const label N = ownName.size();
 
     if (!zoneName.compare(0, N, ownName))
@@ -293,14 +293,14 @@ void Foam::overtopping::computeAndWriteBoundary
 
     if (faceId > -1)
     {
-        const scalarField& phiw( phi.boundaryField()[facePatchId] );
-        const scalarField& rhoPhiw( rhoPhi.boundaryField()[facePatchId] );
-        const scalarField& magSfw( magSf.boundaryField()[facePatchId] );
-        const vectorField& Sfw( Sf.boundaryField()[facePatchId] );
+        const scalarField& phiw(phi.boundaryField()[facePatchId]);
+        const scalarField& rhoPhiw(rhoPhi.boundaryField()[facePatchId]);
+        const scalarField& magSfw(magSf.boundaryField()[facePatchId]);
+        const vectorField& Sfw(Sf.boundaryField()[facePatchId]);
 
-        q = ( (rhoPhiw[ faceId ] - phiw[ faceId ]*rho2_)*invRhoDiff_ )
-            *Sfw[ faceId ]/magSfw[ faceId ];
-        f = rho1_*q * Foam::mag( q/magSfw[ faceId ] );
+        q = ((rhoPhiw[faceId] - phiw[faceId]*rho2_)*invRhoDiff_)
+            *Sfw[faceId]/magSfw[faceId];
+        f = rho1_*q*Foam::mag(q/magSfw[faceId]);
     }
 
 }

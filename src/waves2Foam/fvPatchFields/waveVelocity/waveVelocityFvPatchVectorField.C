@@ -26,7 +26,11 @@ License
 
 #include "waveVelocityFvPatchVectorField.H"
 #include "addToRunTimeSelectionTable.H"
-#include "Time.H"
+#if EXTBRANCH==1 && OFVERSION>310
+    #include "foamTime.H"
+#else
+    #include "Time.H"
+#endif
 #include "dimensionedVector.H"
 #include "volMesh.H"
 

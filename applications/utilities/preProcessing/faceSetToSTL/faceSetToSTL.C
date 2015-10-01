@@ -39,7 +39,11 @@ Author
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"
-#include "Time.H"
+#if EXTBRANCH==1 && OFVERSION>310
+    #include "foamTime.H"
+#else
+    #include "Time.H"
+#endif
 #include "fvMesh.H"
 #include "faceTriangulation.H"
 #include "triSurface.H"
