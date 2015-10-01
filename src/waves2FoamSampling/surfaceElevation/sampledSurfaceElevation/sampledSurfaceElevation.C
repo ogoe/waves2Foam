@@ -26,7 +26,11 @@ License
 
 #include "sampledSurfaceElevation.H"
 #include "dictionary.H"
-#include "Time.H"
+#if EXTBRANCH==1 && OFVERSION>310
+    #include "foamTime.H"
+#else
+    #include "Time.H"
+#endif
 #include "volFields.H"
 #include "ListListOps.H"
 #include "SortableList.H"

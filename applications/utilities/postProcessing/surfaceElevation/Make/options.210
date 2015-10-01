@@ -14,7 +14,6 @@ EXE_LIBS = \
     -lmeshTools \
     -lsampling \
     -lsurfMesh \
-    -ltriSurface \
     -llagrangian \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \

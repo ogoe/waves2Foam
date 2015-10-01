@@ -49,7 +49,11 @@ Additional information
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"
-#include "Time.H"
+#if EXTBRANCH==1 && OFVERSION>310
+    #include "foamTime.H"
+#else
+    #include "Time.H"
+#endif
 #include "fvMesh.H"
 #include "volFields.H"
 #include "setWaveField.H"

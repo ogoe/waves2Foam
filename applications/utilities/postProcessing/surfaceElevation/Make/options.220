@@ -15,7 +15,6 @@ EXE_LIBS = \
     -lmeshTools \
     -lsampling \
     -lsurfMesh \
-    -ltriSurface \
     -llagrangian \
     -lfileFormats \
     -L$(WAVES_LIBBIN) \
