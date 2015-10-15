@@ -121,21 +121,21 @@ else
     cd $ocw
     
     # Stash the local changes on the settings
-#    git stash
+    git stash
 
     # Get an update of the git and report the result
-#    output=`git pull`
+    output=`git pull`
     
     # Check whether the git was already up to date
-#    if [[ $output == "Already up-to-date." ]]
-#    then
-#        compileFlag=0
-#    else
-#        compileFlag=1
-#    fi
+    if [[ $output == "Already up-to-date." ]]
+    then
+        compileFlag=0
+    else
+        compileFlag=1
+    fi
 
     # Re-apply the compilation settings
-#    git stash pop
+    git stash pop
 
     cd $OLDPWD
 fi
@@ -151,7 +151,7 @@ then
 fi
 
 # Check whether the executable has been deleted
-if [ ! -f "bin/OceanWave3D" ]
+if [ ! -f "$WAVES_APPBIN/OceanWave3D" ]
 then
     compileFlag=1
 fi
