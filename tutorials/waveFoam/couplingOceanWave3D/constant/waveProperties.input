@@ -1,0 +1,82 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      environmentalProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel	0.00;
+
+// A list of the relaxation zones in the simulation. The parameters are given
+// in <name>Coeffs below.
+relaxationNames (inlet outlet);
+
+// Name to use for initialisation
+initializationName inlet;
+
+// External forcing definition
+externalForcing oceanWave3D;
+
+// Coefficients needed for the external forcing
+externalForcingCoeffs
+{
+    waveType oceanWave3D;
+
+    // Define the intervals for the OpenFoam calculations
+    nIntervals 1;
+    startTimes nonuniform List<scalar> 1(5);
+    endTimes nonuniform List<scalar> 1(20);
+
+    // Should the interval be ramped?
+    rampInterval off;
+
+    // Name of the sub-dictionary (without Coeffs), where the externalSource
+    // definition is given. Is needed, when the mapping OCW3D->OpenFoam is
+    // carried out.
+    mappingZone inlet;
+};
+
+inletCoeffs
+{
+    waveType externalSource;
+    
+    relaxationZone
+    {
+        relaxationScheme Spatial;
+        relaxationShape  Rectangular;
+    
+        relaxType   INLET;
+        startX      (5 0.0 -1);
+        endX        (10 0.0  1);
+        orientation      (1.0 0.0 0.0);
+    }
+};
+
+outletCoeffs
+{
+    waveType externalSource;
+
+    relaxationZone
+    {
+        relaxationScheme Spatial;
+        relaxationShape  Rectangular;
+
+        relaxType   OUTLET;
+        startX      (18 0.0 -1);
+        endX        (23 0.0  1);
+        orientation      (1.0 0.0 0.0);
+    }
+};
+
+
+
+// ************************************************************************* //

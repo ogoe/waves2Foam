@@ -1,0 +1,190 @@
+#!/bin/bash
+
+## The script has been modified on 2015.09.08 to reflect the fact that
+#  the svn-repository for OceanWave3D has been discontinued.
+
+sourceLib="lib"
+settings="settings"
+
+if [ ! -d "$sourceLib" ]
+then
+    mkdir $sourceLib
+fi
+
+
+echo "====================================="
+echo "    COMPILE LAPACK-3.3.1"
+echo "====================================="
+
+compileFlag=0
+
+if [ ! -f "$sourceLib/libblas.a" ]
+then
+    compileFlag=1;
+fi
+
+if [ ! -f "$sourceLib/liblapack_gfortran.a" ]
+then
+    compileFlag=1;
+fi
+
+if [ ! -f "$sourceLib/libtmglib_gfortran.a" ]
+then
+    compileFlag=1;
+fi
+
+## COMPILE LAPACK
+if [ "$compileFlag" == "1" ]
+then
+    # Unpack lapack-3.3.1
+    tar -xzf lapack-3.3.1.tgz
+
+    # Copy the necessary settings
+    cp $settings/lapackSettings/* lapack-3.3.1/.
+
+    # Compile lapack
+    cd lapack-3.3.1
+    make clean
+    make all
+    cd ..
+else
+    echo
+    echo "lapack-3.3.1 has already been compiled"
+    echo
+fi
+
+
+echo "====================================="
+echo "    COMPILE SPARSKIT2"
+echo "====================================="
+
+compileFlag=0
+
+if [ ! -f "$sourceLib/libskit_gfortran.a" ]
+then
+    compileFlag=1;
+fi
+
+## COMPILE SPARSKIT2
+if [ "$compileFlag" == "1" ]
+then
+    # Unpack SPARSKIT2
+    tar -xzf SPARSKIT2.tar.gz
+
+    # Copy the necessary settings
+    cp $settings/sparseSettings/makefile SPARSKIT2/.
+
+    # Compile SPARSKIT2
+    cd SPARSKIT2
+    make clean
+    make lib
+    mv libskit_gfortran.a ../lib/.
+    cd ..
+else
+    echo
+    echo "SPARSKIT2 has already been compiled"
+    echo
+fi
+
+
+echo "====================================="
+echo "    COMPILE OCEANWAVE3D"
+echo "====================================="
+
+# Path for the git-repository
+ocw="OceanWave3D-Fortran90"
+
+# Create output directory for OceanWave3D
+if [ ! -d "bin" ]
+then
+    mkdir bin
+fi
+
+# Check-out the git-repository
+if [ ! -d "$ocw" ]
+then
+    echo ""
+    echo "Cloning the OceanWave3D git repository ..."
+    git clone https://github.com/apengsigkarup/OceanWave3D-Fortran90.git
+
+    echo "Check out the branch 'botp'"
+    cd $ocw
+    git checkout botp
+    cd $OLDPWD
+
+    # Copy the compilation settings for OCW3D
+    cp $settings/oceanWave3DSettings/common.mk $ocw/.
+    cp $settings/oceanWave3DSettings/makefile $ocw/.
+else
+    echo ""
+    echo "Pull changes from the OceanWave3D git repository ..."
+    cd $ocw
+    
+    # Stash the local changes on the settings
+#    git stash
+
+    # Get an update of the git and report the result
+#    output=`git pull`
+    
+    # Check whether the git was already up to date
+#    if [[ $output == "Already up-to-date." ]]
+#    then
+#        compileFlag=0
+#    else
+#        compileFlag=1
+#    fi
+
+    # Re-apply the compilation settings
+#    git stash pop
+
+    cd $OLDPWD
+fi
+
+# Check for the correct environmental variables
+if [ -z "$WAVES_LIBBIN" ]
+then
+    echo ""
+    echo "Set the environmental variables for waves2Foam"
+    echo "Exiting compilation process"
+    echo ""
+    exit 1
+fi
+
+# Check whether the executable has been deleted
+if [ ! -f "bin/OceanWave3D" ]
+then
+    compileFlag=1
+fi
+
+# Check whether the library has been deleted
+if [ ! -f "$WAVES_LIBBIN/libOceanWave3D.so" ]
+then
+    compileFlag=1
+fi
+
+if [ "$compileFlag" == "1" ]
+then
+    # Temporary build directory
+    mkdir build
+
+    # Compile OceanWave3D input an executable and a dynamic library
+    cd $ocw
+
+    make clean
+    make Release
+    make shared
+
+    cd $OLDPWD
+
+    # Clean up
+    rm -rf build
+else
+    echo
+    echo "OceanWave3D has already been compiled"
+    echo
+fi
+
+exit 0
+
+
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+rm -rf bin
+rm -rf lib
+rm -rf lapack-3.3.1
+rm -rf OceanWave3D-Fortran90
+rm -rf SPARSKIT2
+
+rm -f $WAVES_LIBBIN/libOceanWave3DBuild.a
+rm -f $WAVES_LIBBIN/libOceanWave3D.so

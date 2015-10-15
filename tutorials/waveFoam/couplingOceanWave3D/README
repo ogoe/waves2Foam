@@ -1,0 +1,24 @@
+=========================================
+Test case: couplingOceanWave3D
+=========================================
+
+This test case is a copy of the standard
+waveFlume test case. The only difference
+is that the generated wave is based on 
+the nonlinear Laplace solver for wave 
+propagation: OceanWave3D.
+
+The wave generated at the inlet is based
+on stream function wave theory. Note that
+the computational domain has been shifted
+slightly to the right in comparison with
+the waveFlume case.
+
+Differences/controls found in:
+
+1. constant/waveProperties.input
+2. OceanWave3D.inp
+
+24th of July, 2015
+Niels G. Jacobsen
+Deltares

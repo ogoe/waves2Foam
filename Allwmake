@@ -38,6 +38,18 @@ then
     exit
 fi
 
+## COMPILE THIRD PARTY DEPENDENCIES
+(cd ThirdParty; ./Allwmake)
+
+if [[ $? -ne 0 ]]
+then
+    echo ""
+    echo "Problems with the compilation of the third party dependencies"
+    echo "Exiting"
+    echo ""
+    exit
+fi
+
 ## LIBRARY
 echo "====================================="
 echo "    COMPILE LIBRARY"

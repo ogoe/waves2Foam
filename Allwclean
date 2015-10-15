@@ -1,0 +1,42 @@
+#!/bin/bash 
+
+## Set environmental variables
+. ./bin/bashrc
+
+
+## COMPILE THIRD PARTY DEPENDENCIES
+(cd ThirdParty; ./Allclean)
+
+
+## LIBRARY
+echo "====================================="
+echo "    CLEAN LIBRARY"
+echo "====================================="
+
+( cd src; wclean all )
+
+
+## SOLVERS
+# Find all solver names in $WAVES_SOL
+echo ""
+echo "====================================="
+echo "    CLEAN SOLVERS"
+echo "====================================="
+
+(cd $WAVES_DIR/applications/solvers; wclean all)
+
+
+## UTILITIES
+echo ""
+echo "====================================="
+echo "    CLEAN UTILITIES"
+echo "====================================="
+
+(cd $WAVES_DIR/applications/utilities; wclean all)
+
+
+echo ""
+echo "====================================="
+echo "    CLEAN DONE"
+echo "====================================="
+echo ""
