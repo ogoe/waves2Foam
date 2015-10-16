@@ -53,6 +53,7 @@ extWF=externalWaveForcing
 $(waveTheories)/$(extWF)/externalSource.C
 $(waveTheories)/$(extWF)/externalWaveForcing.C
 $(waveTheories)/$(extWF)/emptyExternal/emptyExternal.C
+$(waveTheories)/$(extWF)/oceanWave3D/oceanWave3D.C
 
 /* WAVE BOUNDARY CONDITIONS */ 
 fvPatchFields=fvPatchFields
@@ -106,6 +107,9 @@ $(relaxMethod)/$(numericalBeach)/empty/numericalBeachEmpty.C
 
 /* Relaxation Zone */
 $(relaxMethod)/relaxationZone.C
+
+/* Set Wave Field - here for compilation reasons */
+setWaveField/setWaveField.C
 
 /* Helper functions for cross version compatibility */
 include/crossVersionCompatibility.C

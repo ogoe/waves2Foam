@@ -12,6 +12,10 @@ LIB_LIBS = \
     -lfiniteVolume \
     -lmeshTools \
     -lsampling \
+    -lstdc++ \
+    -lgfortran \
+    -L$(WAVES_LIBBIN) \
+    -lOceanWave3D \
     -L$(WAVES_GSL_LIB) \
     -lgsl \
     -lgslcblas

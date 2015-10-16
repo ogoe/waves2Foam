@@ -55,9 +55,10 @@ $(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
 /* External wave forcing */
 external=externalWaveForcing
 $(waveProp)/$(external)/externalSourceProperties/externalSourceProperties.C
+$(waveProp)/$(external)/oceanWave3DProperties/oceanWave3DProperties.C
 
 /* INITIALIZATION */
-preProcessing/setWaveField/setWaveField.C
+/*preProcessing/setWaveField/setWaveField.C*/
 
 /* PROBES AND WAVE GAUGES */
 prep=preProcessing/probes

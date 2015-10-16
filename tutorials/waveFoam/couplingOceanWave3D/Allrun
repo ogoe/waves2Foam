@@ -1,0 +1,37 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+exec="../../../bin/prepareCase.sh"
+
+if [ -x "$exec" ]
+then
+    . $exec
+else
+    echo "The file $WAVES_DIR/bin/prepareCase.sh is not executable."
+    echo "Make the file executable before continuing."
+    echo
+    echo "Exiting tutorial case."
+    exit 1
+fi
+
+
+# Set application name
+application="waveFoam"
+
+# Create the computational mesh
+runApplication blockMesh
+
+# Compute the wave parameters
+runApplication setWaveParameters
+
+# Set the wave field
+runApplication setWaveField
+
+# Define the wave gauges
+runApplication waveGaugesNProbes
+
+# Run the application
+runApplication $application
+
