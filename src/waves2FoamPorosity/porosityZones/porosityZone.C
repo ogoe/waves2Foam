@@ -60,11 +60,23 @@ Foam::porosityZone::porosityZone
     mesh_(mesh),
     dict_(dict),
     cellZoneID_(mesh_.cellZones().findZoneID(name)),
-#if OFVERSION<230 || EXTBRANCH == 1
+
+#if EXTBRANCH==1
     coordSys_(dict, mesh),
 #else
-    coordSys_(mesh, dict),
+    #if OFVERSION<230
+        coordSys_(dict, mesh),
+    #else
+        coordSys_(mesh, dict),
+    #endif
 #endif
+
+//#if OFVERSION<230 || EXTBRANCH == 1
+//    coordSys_(dict, mesh),
+//#else
+//    coordSys_(mesh, dict),
+//#endif
+
     porosity_( readScalar( dict_.lookup("porosity") ) ),
     addedMassCoeff_( readScalar( dict_.lookup("gammaAddedMass") ) ),
     D_("D", dimensionSet(0, -2, 0, 0, 0), tensor::zero),
@@ -101,11 +113,21 @@ Foam::porosityZone::porosityZone
     }
 
     // local-to-global transformation tensor
-#if OFVERSION<230 || EXTBRANCH == 1
+#if EXTBRANCH==1
     const tensor& E = coordSys_.R();
 #else
-    const tensor E = coordSys_.R().R();
+    #if OFVERSION<230
+        const tensor& E = coordSys_.R();
+    #else
+        const tensor E = coordSys_.R().R();
+    #endif
 #endif
+
+//#if OFVERSION<230 || EXTBRANCH == 1
+//    const tensor& E = coordSys_.R();
+//#else
+//    const tensor E = coordSys_.R().R();
+//#endif
 
     dimensionedVector d( pcPtr->linearCoefficient() );
 

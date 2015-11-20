@@ -25,11 +25,22 @@ License
 \*---------------------------------------------------------------------------*/
 
 #include "jjc2014Zones.H"
-#if EXTBRANCH==1 && OFVERSION>310
-    #include "foamTime.H"
+
+#if EXTBRANCH==1
+    #if 310<OFVERSION
+        #include "foamTime.H"
+    #else
+        #include "Time.H"
+    #endif
 #else
     #include "Time.H"
 #endif
+
+//#if EXTBRANCH==1 && OFVERSION>310
+//    #include "foamTime.H"
+//#else
+//    #include "Time.H"
+//#endif
 #include "volFields.H"
 
 // * * * * * * * * * * * * * * Static Data Members * * * * * * * * * * * * * //

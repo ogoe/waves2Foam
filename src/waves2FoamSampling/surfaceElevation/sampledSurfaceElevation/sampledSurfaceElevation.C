@@ -26,11 +26,23 @@ License
 
 #include "sampledSurfaceElevation.H"
 #include "dictionary.H"
-#if EXTBRANCH==1 && OFVERSION>310
-    #include "foamTime.H"
+
+#if EXTBRANCH==1
+    #if 310<OFVERSION
+        #include "foamTime.H"
+    #else
+        #include "Time.H"
+    #endif
 #else
     #include "Time.H"
 #endif
+
+//#if EXTBRANCH==1 && OFVERSION>310
+//    #include "foamTime.H"
+//#else
+//    #include "Time.H"
+//#endif
+
 #include "volFields.H"
 #include "ListListOps.H"
 #include "SortableList.H"
@@ -200,7 +212,7 @@ void Foam::sampledSurfaceElevation::combineSampledSets
 
         // The constructor for coordSet has changed as of version 2.0.
         // This is taken care of using these pre-processor statements.
-#if OFVERSION < 200 || EXTBRANCH==1
+#if EXTBRANCH==1
         // Get reference point (note: only master has all points)
         point refPt;
 
@@ -215,28 +227,92 @@ void Foam::sampledSurfaceElevation::combineSampledSets
 
         masterSampledSets.set
         (
-            seti,
-            new coordSet
-            (
-                samplePts.name(),
-                samplePts.axis(),
-                UIndirectList<point>(allPts, indexSets[seti]),
-                refPt
-            )
+                seti,
+                new coordSet
+                (
+                        samplePts.name(),
+                        samplePts.axis(),
+                        UIndirectList<point>(allPts, indexSets[seti]),
+                        refPt
+                )
         );
 #else
+    #if OFVERSION < 200
+        // Get reference point (note: only master has all points)
+        point refPt;
+
+        if (allPts.size())
+        {
+            refPt = samplePts.getRefPoint(allPts);
+        }
+        else
+        {
+            refPt = vector::zero;
+        }
+
         masterSampledSets.set
         (
-            seti,
-            new coordSet
-            (
-                samplePts.name(),
-                samplePts.axis(),
-                List<point>(UIndirectList<point>(allPts, indexSets[seti])),
-                allCurveDist
-            )
+                seti,
+                new coordSet
+                (
+                        samplePts.name(),
+                        samplePts.axis(),
+                        UIndirectList<point>(allPts, indexSets[seti]),
+                        refPt
+                )
         );
+    #else
+        masterSampledSets.set
+        (
+                seti,
+                new coordSet
+                (
+                        samplePts.name(),
+                        samplePts.axis(),
+                        List<point>(UIndirectList<point>(allPts, indexSets[seti])),
+                        allCurveDist
+                )
+        );
+    #endif
 #endif
+
+//#if OFVERSION < 200 || EXTBRANCH==1
+//        // Get reference point (note: only master has all points)
+//        point refPt;
+//
+//        if (allPts.size())
+//        {
+//            refPt = samplePts.getRefPoint(allPts);
+//        }
+//        else
+//        {
+//            refPt = vector::zero;
+//        }
+//
+//        masterSampledSets.set
+//        (
+//            seti,
+//            new coordSet
+//            (
+//                samplePts.name(),
+//                samplePts.axis(),
+//                UIndirectList<point>(allPts, indexSets[seti]),
+//                refPt
+//            )
+//        );
+//#else
+//        masterSampledSets.set
+//        (
+//            seti,
+//            new coordSet
+//            (
+//                samplePts.name(),
+//                samplePts.axis(),
+//                List<point>(UIndirectList<point>(allPts, indexSets[seti])),
+//                allCurveDist
+//            )
+//        );
+//#endif
     }
 }
 
@@ -256,11 +332,21 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     mesh_(refCast<const fvMesh>(obr)),
     loadFromFiles_(loadFromFiles),
     outputPath_(fileName::null),
-#if OFVERSION < 210
-    searchEngine_(mesh_, true),
-#else
+#if EXTBRANCH==1
     searchEngine_(mesh_),
+#else
+    #if OFVERSION<210
+        searchEngine_(mesh_, true),
+    #else
+        searchEngine_(mesh_),
+    #endif
 #endif
+
+//#if OFVERSION < 210
+//    searchEngine_(mesh_, true),
+//#else
+//    searchEngine_(mesh_),
+//#endif
     fieldNames_(),
     interpolationScheme_(word::null),
     writeFormat_(word::null),
@@ -681,33 +767,73 @@ void Foam::sampledSurfaceElevation::updateMesh(const mapPolyMesh&)
     correct();
 }
 
+#if EXTBRANCH==1
 
-#if OFVERSION<220 || EXTBRANCH==1
 void Foam::sampledSurfaceElevation::movePoints(const pointField&)
 {
     correct();
 }
+
 #else
-void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
-{
-    correct();
-}
 
-#if OFVERSION > 220 && EXTBRANCH==0
-    bool Foam::sampledSurfaceElevation::timeSet()
+    #if OFVERSION<220
+
+    void Foam::sampledSurfaceElevation::movePoints(const pointField&)
     {
-        // Do nothing
-        return true;
+        correct();
     }
-#elif XVERSION && EXTBRANCH==0
-    bool Foam::sampledSurfaceElevation::timeSet()
+
+    #else
+
+    void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
     {
-        // Do nothing
-        return true;
+        correct();
     }
+
+        #if OFVERSION > 220
+        bool Foam::sampledSurfaceElevation::timeSet()
+        {
+            // Do nothing
+            return true;
+        }
+        #elif XVERSION
+        bool Foam::sampledSurfaceElevation::timeSet()
+        {
+            // Do nothing
+            return true;
+        }
+        #endif
+
+    #endif
 #endif
 
-#endif
+
+//#if OFVERSION<220 || EXTBRANCH==1
+//void Foam::sampledSurfaceElevation::movePoints(const pointField&)
+//{
+//    correct();
+//}
+//#else
+//void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
+//{
+//    correct();
+//}
+//
+//#if OFVERSION > 220 && EXTBRANCH==0
+//    bool Foam::sampledSurfaceElevation::timeSet()
+//    {
+//        // Do nothing
+//        return true;
+//    }
+//#elif XVERSION && EXTBRANCH==0
+//    bool Foam::sampledSurfaceElevation::timeSet()
+//    {
+//        // Do nothing
+//        return true;
+//    }
+//#endif
+//
+//#endif
 
 
 void Foam::sampledSurfaceElevation::readUpdate

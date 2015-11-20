@@ -37,11 +37,23 @@ Author
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"
-#if EXTBRANCH==1 && OFVERSION>310
-    #include "foamTime.H"
+
+#if EXTBRANCH==1
+    #if 310<OFVERSION
+        #include "foamTime.H"
+    #else
+        #include "Time.H"
+    #endif
 #else
     #include "Time.H"
 #endif
+
+//#if EXTBRANCH==1 && OFVERSION>310
+//    #include "foamTime.H"
+//#else
+//    #include "Time.H"
+//#endif
+
 #include "fvMesh.H"
 
 #include "postProcessingWaves.H"

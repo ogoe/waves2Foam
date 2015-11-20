@@ -107,11 +107,20 @@ int main(int argc, char *argv[])
 #   include "readGravitationalAcceleration.H"
 #   include "readWaveProperties.H"
 
-#if OFVERSION<220 || EXTBRANCH
+#if EXTBRANCH==1
     fileName dict("surfaceElevationDict");
 #else
-    fileName dict("system/surfaceElevationDict");
+    #if OFVERSION<220
+        fileName dict("surfaceElevationDict");
+    #else
+        fileName dict("system/surfaceElevationDict");
+    #endif
 #endif
+//#if OFVERSION<220 || EXTBRANCH
+//    fileName dict("surfaceElevationDict");
+//#else
+//    fileName dict("system/surfaceElevationDict");
+//#endif
 
     IOsampledSurfaceElevation sSets
     (

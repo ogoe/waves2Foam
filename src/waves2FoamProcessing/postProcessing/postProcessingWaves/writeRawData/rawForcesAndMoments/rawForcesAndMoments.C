@@ -195,14 +195,16 @@ void rawForcesAndMoments::readForceAndMomentData
         // Discard the first line
         std::getline(input, line);
 
-#if OFVERSION >= 222 && EXTBRANCH == 0
+#if EXTBRANCH == 0
+    #if OFVERSION >= 222
         // Discard yet another line
         std::getline(input, line);
 
-#if OFVERSION >= 230
-        // Discard yet and yet another line
-        std::getline(input, line);
-#endif
+        #if OFVERSION >= 230
+            // Discard yet and yet another line
+            std::getline(input, line);
+        #endif
+    #endif
 #endif
 
         // Extracting time and overtopping flux vector
@@ -225,11 +227,21 @@ void rawForcesAndMoments::readForceAndMomentData
 
             // Reading the first vector component with starting parenteres
             iss >> dummy;
-#if OFVERSION >= 220 || EXTBRANCH == 0
+#if EXTBRANCH==1
             temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
 #else
+    #if 220<=OFVERSION
+            temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
+    #else
             temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
+    #endif
 #endif
+
+//#if OFVERSION >= 220 || EXTBRANCH == 0
+//            temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
+//#else
+//            temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
+//#endif
 
             // Reading the second vector component. Simple scalar
             iss >> val;

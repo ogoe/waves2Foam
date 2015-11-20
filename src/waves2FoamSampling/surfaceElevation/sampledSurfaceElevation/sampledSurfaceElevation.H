@@ -295,17 +295,34 @@ public:
         virtual void updateMesh(const mapPolyMesh&);
 
         //- Update for mesh point-motion
-#if OFVERSION<220 || EXTBRANCH == 1
+
+#if EXTBRANCH==1
         virtual void movePoints(const pointField&);
 #else
+    #if OFVERSION<220
+        virtual void movePoints(const pointField&);
+    #else
         virtual void movePoints(const polyMesh&);
 
-    #if OFVERSION > 220
-        virtual bool timeSet();
-    #elif XVERSION
-        virtual bool timeSet();
+        #if OFVERSION>220
+            virtual bool timeSet();
+        #elif XVERSION
+            virtual bool timeSet();
+        #endif
     #endif
 #endif
+
+//#if OFVERSION<220 || EXTBRANCH == 1
+//        virtual void movePoints(const pointField&);
+//#else
+//        virtual void movePoints(const polyMesh&);
+//
+//    #if OFVERSION > 220
+//        virtual bool timeSet();
+//    #elif XVERSION
+//        virtual bool timeSet();
+//    #endif
+//#endif
 
         //- Update for changes of mesh due to readUpdate
         virtual void readUpdate(const polyMesh::readUpdateState state);

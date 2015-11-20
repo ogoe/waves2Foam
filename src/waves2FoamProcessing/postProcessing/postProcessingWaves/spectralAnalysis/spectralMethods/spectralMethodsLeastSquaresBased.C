@@ -110,7 +110,7 @@ void spectralMethodsLeastSquaresBased::solve
     // Create the least-squares right and left hand sides
     label N( A.size() );
 
-#if EXTBRANCH
+#if EXTBRANCH==1
     scalarSquareMatrix AtA(N, 0.0);
 #else
     SquareMatrix<scalar> AtA(N, N);
@@ -132,7 +132,7 @@ void spectralMethodsLeastSquaresBased::solve
     }
 
     // Solve the square system
-#if EXTBRANCH
+#if EXTBRANCH==1
     Foam::scalarSquareMatrix::LUsolve(AtA, Atb);
 #else
     Foam::LUsolve(AtA, Atb);

@@ -219,12 +219,25 @@ public:
             }
 
             //- Return axis
-#if OFVERSION<230 || EXTRANCH == 1
+#if EXTBRANCH==1
             vector axis() const
             {
                 return coordSys_.axis();
             }
+#else
+    #if OFVERSION<230
+            vector axis() const
+            {
+                return coordSys_.axis();
+            }
+    #endif
 #endif
+//#if OFVERSION<230 || EXTBRANCH == 1
+//            vector axis() const
+//            {
+//                return coordSys_.axis();
+//            }
+//#endif
 
             //- Return porosity
             scalar porosity() const
