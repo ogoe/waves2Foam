@@ -36,41 +36,63 @@ namespace waves2Foam
 
 word pName()
 {
-#if OFVERSION<170 || EXTBRANCH==1
+#if EXTBRANCH==1
     return "pd";
 #else
-    return "p_rgh";
+    #if OFVERSION<170
+        return "pd";
+    #else
+        return "p_rgh";
+    #endif
 #endif
 }
 
 
 word aName()
 {
-#if OFVERSION<230 || EXTBRANCH==1
+#if EXTBRANCH==1
     return "alpha1";
 #else
-    return "alpha.water";
+    #if OFVERSION<230
+        return "alpha1";
+    #else
+        return "alpha.water";
+    #endif
 #endif
 }
 
 
 word waterPhase()
 {
-#if OFVERSION<230 || EXTBRANCH==1
+#if EXTBRANCH==1
     return "phase1";
 #else
-    return "water";
+    #if OFVERSION<230
+        return "phase1";
+    #else
+        return "water";
+    #endif
 #endif
 }
 
 
 word airPhase()
 {
-#if OFVERSION<230 || EXTBRANCH==1
+#if EXTBRANCH==1
     return "phase2";
 #else
-    return "air";
+    #if OFVERSION<230
+        return "phase2";
+    #else
+        return "air";
+    #endif
 #endif
+
+//#if OFVERSION<230 || EXTBRANCH==1
+//    return "phase2";
+//#else
+//    return "air";
+//#endif
 }
 
 

@@ -82,11 +82,22 @@ void setWaveProperties::writeBeginning( Ostream& os)
 
     fileName ends( names[names.size() -1]);
 
-#if OFVERSION < 220 || EXTBRANCH == 1
+#if EXTBRANCH==1
     char delim(':');
 #else
-    char delim('.');
+    #if OFVERSION<220
+        char delim(':');
+    #else
+        char delim('.');
+    #endif
 #endif
+
+//#if OFVERSION < 220 || EXTBRANCH == 1
+//    char delim(':');
+//#else
+//    char delim('.');
+//#endif
+
     wordList subnames( ends.components( delim ) );
     word dictName( subnames[ subnames.size() -1 ] );
 

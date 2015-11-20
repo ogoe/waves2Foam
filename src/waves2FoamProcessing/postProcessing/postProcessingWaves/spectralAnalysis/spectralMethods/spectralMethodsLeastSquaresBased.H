@@ -44,7 +44,7 @@ Author
 #include "fvCFD.H"
 #include "complexExp.H"
 
-#if EXTBRANCH
+#if EXTBRANCH==1
     #include "scalarSquareMatrix.H"
 #else
     #include "scalarMatrices.H"

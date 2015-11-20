@@ -26,11 +26,23 @@ License
 
 #include "wavePressureFvPatchScalarField.H"
 #include "addToRunTimeSelectionTable.H"
-#if EXTBRANCH==1 && OFVERSION>310
-    #include "foamTime.H"
+
+#if EXTBRANCH==1
+    #if 310<OFVERSION
+        #include "foamTime.H"
+    #else
+        #include "Time.H"
+    #endif
 #else
     #include "Time.H"
 #endif
+
+//#if EXTBRANCH==1 && OFVERSION>310
+//    #include "foamTime.H"
+//#else
+//    #include "Time.H"
+//#endif
+
 #include "dimensionedVector.H"
 #include "volMesh.H"
 

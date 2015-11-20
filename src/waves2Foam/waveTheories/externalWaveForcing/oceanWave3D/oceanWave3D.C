@@ -548,7 +548,15 @@ void oceanWave3D::updateTimeAndTimeStep()
     #include "CourantNo.H"
 
 	// Set the time step according to the new phi-field
-    #include "readTimeControls.H"
+#if EXTBRANCH==1
+	#include "readTimeControls.H"
+#else
+    #if OFVERSION<300
+        #include "readTimeControls.H"
+    #else
+        #include "createTimeControls.H"
+    #endif
+#endif
     #include "setDeltaT.H"
 
 	// Update time:

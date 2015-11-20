@@ -111,13 +111,29 @@ protected:
         //- Write the output file header
         virtual void writeFileHeader();
 
-#if OFVERSION<220 || EXTBRANCH==1
+#if EXTBRANCH==1
         //- Update mesh
         virtual void updateMesh(const mapPolyMesh&);
 
         //- Move points
         virtual void movePoints(const pointField&);
+#else
+    #if OFVERSION<220
+        //- Update mesh
+        virtual void updateMesh(const mapPolyMesh&);
+
+        //- Move points
+        virtual void movePoints(const pointField&);
+    #endif
 #endif
+
+//#if OFVERSION<220 || EXTBRANCH==1
+//        //- Update mesh
+//        virtual void updateMesh(const mapPolyMesh&);
+//
+//        //- Move points
+//        virtual void movePoints(const pointField&);
+//#endif
 
 public:
 
