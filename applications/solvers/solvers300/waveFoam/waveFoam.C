@@ -44,10 +44,13 @@ Description
 #include "CrankNicolsonDdtScheme.H"
 #include "subCycle.H"
 #include "immiscibleIncompressibleTwoPhaseMixture.H"
-#include "turbulenceModel.H"
+#include "turbulentTransportModel.H"
 #include "pimpleControl.H"
 #include "fvIOoptionList.H"
+#include "CorrectPhi.H"
 #include "fixedFluxPressureFvPatchScalarField.H"
+#include "localEulerDdtScheme.H"
+#include "fvcSmooth.H"
 
 #include "relaxationZone.H"
 #include "externalWaveForcing.H"
@@ -62,16 +65,25 @@ int main(int argc, char *argv[])
 
     pimpleControl pimple(mesh);
 
+    #include "createTimeControls.H"
+    #include "createRDeltaT.H"
     #include "initContinuityErrs.H"
+
     #include "readGravitationalAcceleration.H"
     #include "readWaveProperties.H"
     #include "createExternalWaveForcing.H"
+
     #include "createFields.H"
-    #include "readTimeControls.H"
-    #include "createPrghCorrTypes.H"
+    #include "createMRF.H"
+    #include "createFvOptions.H"
     #include "correctPhi.H"
-    #include "CourantNo.H"
-    #include "setInitialDeltaT.H"
+
+    if (!LTS)
+    {
+        #include "readTimeControls.H"
+        #include "CourantNo.H"
+        #include "setInitialDeltaT.H"
+    }
 
     // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -80,9 +92,17 @@ int main(int argc, char *argv[])
     while (runTime.run())
     {
         #include "readTimeControls.H"
-        #include "CourantNo.H"
-        #include "alphaCourantNo.H"
-        #include "setDeltaT.H"
+
+        if (LTS)
+        {
+            #include "setRDeltaT.H"
+        }
+        else
+        {
+            #include "CourantNo.H"
+            #include "alphaCourantNo.H"
+            #include "setDeltaT.H"
+        }
 
         runTime++;
 
@@ -95,7 +115,7 @@ int main(int argc, char *argv[])
         {
             #include "alphaControls.H"
             #include "alphaEqnSubCycle.H"
-
+            
             relaxing.correct();
 
             mixture.correct();
