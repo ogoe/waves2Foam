@@ -120,6 +120,22 @@ oceanWave3D::oceanWave3D
     	}
     }
 
+    if (rT_.endTime().value() < startTime_)
+    {
+		FatalErrorIn("oceanWave3D::oceanWave3D(IOobject io, Time& rT, const fvMesh& mesh)")
+			<< "The simulation will terminate before the selected interval starts.\n"
+			<< "Correct the endTime in system/controlDict.\n"
+			<< endl << exit(FatalError);
+    }
+
+    if (rT_.endTime().value() < endTime_)
+    {
+		FatalErrorIn("oceanWave3D::oceanWave3D(IOobject io, Time& rT, const fvMesh& mesh)")
+			<< "The simulation will terminate before the selected interval ends.\n"
+			<< "Correct the endTime in system/controlDict.\n"
+			<< endl << exit(FatalError);
+    }
+
 	if (ramp_)
 	{
 		Tsoft_ = readScalar(coeffDict_.lookup("Tsoft"));
