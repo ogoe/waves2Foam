@@ -68,7 +68,7 @@ functions
 
         setFormat          raw;
         interpolationScheme cellPointFace;
-        fields (alpha1);
+        #include "fieldName"
 
         #includeIfPresent "../waveGaugesNProbes/surfaceElevation_sets";
 

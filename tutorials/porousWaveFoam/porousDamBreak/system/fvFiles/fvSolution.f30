@@ -17,22 +17,6 @@ FoamFile
 
 solvers
 {
-    "alpha.water.*"
-    {
-        nAlphaCorr      1;
-        nAlphaSubCycles 1;
-        alphaOuterCorrectors yes;
-        cAlpha          1;
-
-        MULESCorr       no;
-        nLimiterIter    3;
-
-        solver          smoothSolver;
-        smoother        symGaussSeidel;
-        tolerance       1e-8;
-        relTol          0;
-    }
-
     pcorr
     {
         solver          PCG;
@@ -41,7 +25,7 @@ solvers
         relTol          0;
     }
 
-    p_rgh
+    pd
     {
         solver          PCG;
         preconditioner  DIC;
@@ -49,9 +33,10 @@ solvers
         relTol          0.0;
     }
 
-    p_rghFinal
+    pdFinal
     {
-        $p_rgh;
+        solver          PCG;
+        preconditioner  DIC;
         tolerance       1e-07;
         relTol          0;
     }
@@ -76,20 +61,22 @@ solvers
 PIMPLE
 {
     momentumPredictor yes;
-    nOuterCorrectors 1;
     nCorrectors     3;
     nNonOrthogonalCorrectors 0;
+    nOuterCorrectors 1;
+    nAlphaCorr      1;
+    nAlphaSubCycles 1;
+    cAlpha          1;
 }
 
-relaxationFactors
+PISO
 {
-    fields
-    {
-    }
-    equations
-    {
-        ".*" 1;
-    }
+    momentumPredictor yes;
+    nCorrectors     3;
+    nNonOrthogonalCorrectors 0;
+    nAlphaCorr      1;
+    nAlphaSubCycles 1;
+    cAlpha          1;
 }
 
 

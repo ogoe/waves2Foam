@@ -83,6 +83,8 @@ protected:
 
         scalar maxDT_;
 
+        vector translateOFMesh_;
+
         tensor OFtoOCW_;
         tensor OCWtoOF_;
 

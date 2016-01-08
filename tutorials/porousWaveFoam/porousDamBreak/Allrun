@@ -3,10 +3,31 @@
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-sh ./../../../bin/prepareCase.sh
+. ./../../../bin/prepareCase.sh
 
 # Set application name
 application="porousWaveFoam"
+
+fieldSource="system/fieldName"
+
+if [ "$WM_PROJECT_VERSION_NUMBER" -lt 230 ]
+then
+    echo "Option 1"
+    cp system/setFieldsDict.org system/setFieldsDict
+    echo "fields (alpha1);" > $fieldSource
+else
+    if [ "$EXTBRANCH" -eq 1 ]
+    then
+        echo "Option 2"
+        cp system/setFieldsDict.org system/setFieldsDict
+        echo "fields (alpha1);" > $fieldSource
+    else
+        echo "Option 3"
+        cp system/setFieldsDict.org system/setFieldsDict
+        sed -i 's/alpha1/alpha.water/g' system/setFieldsDict 
+        echo "fields (alpha.water);" > $fieldSource
+    fi
+fi
 
 # Create the computational mesh
 runApplication blockMesh
