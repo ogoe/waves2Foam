@@ -92,6 +92,14 @@ oceanWave3D::oceanWave3D
 
     Tsoft_(0),
 
+    translateOFMesh_
+    (
+    	coeffDict_.lookupOrDefault<vector>
+        (
+        	"translateOpenFoamMesh", vector::zero
+        )
+    ),
+
     OFtoOCW_(tensor::zero),
 
     OCWtoOF_(tensor::zero)
@@ -241,6 +249,15 @@ void oceanWave3D::mappingTensors()
 
 	// Create the inverse map
 	OCWtoOF_ = Foam::inv(OFtoOCW_);
+
+	// Check that the translation vector is horizontal
+    if (SMALL < Foam::mag(translateOFMesh_ & g))
+    {
+    	FatalErrorIn("void oceanWave3D::mappingTensors()")
+    	    << "The translation vector of the computational mesh for OpenFoam\n"
+    		<< "is not horizontal. "
+    		<< endl << exit(FatalError);
+    }
 }
 
 
@@ -682,7 +699,7 @@ scalar oceanWave3D::eta
 ) const
 {
 	// Rotate the point x according to the predefined rotation matrix
-	vector xx = OFtoOCW_ & x;
+	vector xx = OFtoOCW_ & (x + translateOFMesh_);
 
 	// Create output
     double eta(0);
@@ -733,7 +750,7 @@ vector oceanWave3D::U
 ) const
 {
 	// Rotate the point x according to the predefined rotation matrix
-	vector xx = OFtoOCW_ & x;
+	vector xx = OFtoOCW_ & (x + translateOFMesh_);
 
     // Map the coordinates to fortran format
     double x0[3];
