@@ -94,10 +94,11 @@ oceanWave3D::oceanWave3D
 
     translateOFMesh_
     (
-    	coeffDict_.lookupOrDefault<vector>
-        (
-        	"translateOpenFoamMesh", vector::zero
-        )
+    	coeffDict_.lookup("translateOpenFoamMesh")
+//    	coeffDict_.lookupOrDefault<vector>
+//        (
+//        	"translateOpenFoamMesh", vector::zero
+//        )
     ),
 
     OFtoOCW_(tensor::zero),

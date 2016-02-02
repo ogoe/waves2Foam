@@ -43,6 +43,8 @@ externalForcingCoeffs
     // definition is given. Is needed, when the mapping OCW3D->OpenFoam is
     // carried out.
     mappingZone inlet;
+
+    translateOpenFoamMesh (0 0 0);
 };
 
 inletCoeffs

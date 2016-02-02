@@ -95,6 +95,9 @@ void oceanWave3DProperties::set( Ostream& os )
     // Write the information for the mapping
     writeGiven(os, "mappingZone");
 
+    // Set the translation of the OF-mesh
+    writeGiven(os, "translateOpenFoamMesh");
+
     // Write the closing bracket
     writeEnding( os );
 }
