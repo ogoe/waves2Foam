@@ -144,7 +144,7 @@ void waveGauges::evaluate( const word& name )
     gauges() << nl;
     gauges() << indent << "outputControl      timeStep;"
              << " // Alternative: outputTime" << nl;
-    gauges() << indent << "outputInterval     20;" << nl << nl;
+    gauges() << indent << "outputInterval      1;" << nl << nl;
     gauges() << indent << "//Additional output controls in waves2Foam" << nl;
     gauges() << indent << "//samplingStartTime  -1;" << nl;
     gauges() << indent << "//surfaceSampleDeltaT 0.025;" << nl;
