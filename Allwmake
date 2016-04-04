@@ -38,6 +38,21 @@ then
     exit
 fi
 
+# Hard-coded creation of the target for the compiled libraries, solvers and utilities
+# This is needed, because the Third-party installation does not use wmake, i.e. if
+# the directory does not exist, it means that all subsequent OpenFoam/waves2Foam
+# parts of the installation will fail!
+if [ ! -d "$WAVES_APPBIN" ]
+then
+    mkdir -p $WAVES_APPBIN
+fi
+
+if [ ! -d "$WAVES_LIBBIN" ]
+then
+    mkdir -p $WAVES_LIBBIN
+fi
+
+
 ## COMPILE THIRD PARTY DEPENDENCIES
 (cd ThirdParty; ./Allwmake)
 

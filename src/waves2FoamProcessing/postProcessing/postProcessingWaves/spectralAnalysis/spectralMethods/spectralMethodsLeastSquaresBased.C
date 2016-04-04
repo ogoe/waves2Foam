@@ -128,7 +128,7 @@ void spectralMethodsLeastSquaresBased::solve
             AtA[i][j] = Foam::sum( ai*aj );
         }
 
-        Atb[i] = Foam::sum( ai*b );
+        Atb[i] = Foam::sum(ai*b);
     }
 
     // Solve the square system
