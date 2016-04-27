@@ -105,12 +105,7 @@ if [ ! -d "$ocw" ]
 then
     echo ""
     echo "Cloning the OceanWave3D git repository ..."
-    git clone https://github.com/apengsigkarup/OceanWave3D-Fortran90.git
-
-    echo "Check out the branch 'botp'"
-    cd $ocw
-    git checkout botp
-    cd $OLDPWD
+    git clone https://github.com/boTerpPaulsen/OceanWave3D-Fortran90.git  
 
     # Copy the compilation settings for OCW3D
     cp $settings/oceanWave3DSettings/common.mk $ocw/.
