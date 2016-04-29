@@ -109,7 +109,7 @@ void relaxationShapeLine::dataRange()
 
 void relaxationShapeLine::localCoordinates()
 {
-    scalar dlc = (dataRange_[1] - dataRange_[0]) / static_cast<scalar>(N_ - 1);
+    scalar dlc = (dataRange_[1] - dataRange_[0])/static_cast<scalar>(N_ - 1);
 
     forAll (localCoordinates_, pointi)
     {
@@ -158,16 +158,29 @@ scalar relaxationShapeLine::interpolation
     scalar lc = localCoordinate(p0);
     scalar res(0);
 
-    for (label i = 0; i < source.size() - 1; i++)
-    {
-        if (localCoordinates_[i] <= lc && lc < localCoordinates_[i + 1])
-        {
-            scalar dlc = localCoordinates_[i + 1] - localCoordinates_[i];
-            res = source[i] + (source[i + 1] - source[i])/dlc
-                *(lc - localCoordinates_[i]);
-            break;
-        }
-    }
+//  OLD IMPLEMENTATION - BRUTE FORCE SEARCH
+//    for (label i = 0; i < source.size() - 1; i++)
+//    {
+//        if (localCoordinates_[i] <= lc && lc < localCoordinates_[i + 1])
+//        {
+//            scalar dlc = localCoordinates_[i + 1] - localCoordinates_[i];
+//            res = source[i] + (source[i + 1] - source[i])/dlc
+//                *(lc - localCoordinates_[i]);
+//            break;
+//        }
+//    }
+
+    // Utilise the knowledge that the interpolation axis is equidistant when
+    // location the index-range of 'lc' on this axis
+    scalar length1 = localCoordinates_[localCoordinates_.size() - 1]
+         - localCoordinates_[0];
+    scalar length2 = lc - localCoordinates_[0];
+    label index = static_cast<label>(length2/length1*localCoordinates_.size());
+
+    // Perform the interpolation
+    scalar dlc = localCoordinates_[index + 1] - localCoordinates_[index];
+    res = source[index] + (source[index + 1] - source[index])/dlc
+    		*(lc - localCoordinates_[index]);
 
     return res;
 }

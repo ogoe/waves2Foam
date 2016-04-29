@@ -59,6 +59,7 @@ Author
 
 #include "uniformDimensionedFields.H"
 #include "waveGauges.H"
+#include "probeGauges.H"
 
 using namespace Foam;
 
@@ -89,21 +90,27 @@ int main(int argc, char *argv[])
         )
     );
 
-    wordList toc( probeDefs.toc() );
+    wordList toc(probeDefs.toc());
 
     forAll (toc, item)
     {
-        word name( toc[item] );
+        word name(toc[item]);
 
         if (probeDefs.isDict(name))
         {
-            const dictionary& dict( probeDefs.subDict(name) );
+            const dictionary& dict(probeDefs.subDict(name));
 
             if (word(dict.lookup("type")) == "waveGauge")
             {
-                waveGauges wg( mesh, dict );
+                waveGauges wg(mesh, dict);
 
-                wg.evaluate( name );
+                wg.evaluate(name);
+            }
+            else if (word(dict.lookup("type")) == "probeGauge")
+            {
+            	probeGauges pg(mesh, dict);
+
+            	pg.evaluate(name);
             }
             else
             {

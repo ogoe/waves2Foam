@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
     }
 
     // Write end divider
-    wOut.writeEndDivider( os );
+    wOut.writeEndDivider(os);
 
     // End
     Info<< "\nEnd\n" << endl;

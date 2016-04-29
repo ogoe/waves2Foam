@@ -139,7 +139,7 @@ int main(int argc, char *argv[])
     );
 
     // Read the relaxation names from waveProperties
-    wordList relaxNames( waveProperties.lookup("relaxationNames") );
+    wordList relaxNames(waveProperties.lookup("relaxationNames"));
 
     // Create the relaxation shape function and add the data to the above
     // generated fields
@@ -149,9 +149,9 @@ int main(int argc, char *argv[])
         autoPtr<relaxationShapes::relaxationShape> relaxShape
             = relaxationShapes::relaxationShape::New(relaxNames[relaxi], mesh);
 
-        const labelList& cells( relaxShape->cells());
+        const labelList& cells(relaxShape->cells());
 
-        const scalarField& sigma( relaxShape->sigma());
+        const scalarField& sigma(relaxShape->sigma());
 
         forAll (cells, celli)
         {

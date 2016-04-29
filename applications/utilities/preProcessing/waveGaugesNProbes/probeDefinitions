@@ -28,4 +28,19 @@ reflectionAnalysis
 }
 
 
+probing
+{
+    type probeGauge;
+
+    pointDistribution lineDistribution;
+    N 5;    
+    linestart (35 0.1 0.0);
+    lineend (39 0.9 0.0);
+
+    outputControl timeStep;
+    outputInterval 1;
+
+    fields (U p alpha1);
+}
+
 // ************************************************************************* //

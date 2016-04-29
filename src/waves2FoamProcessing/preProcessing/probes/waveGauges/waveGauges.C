@@ -48,7 +48,7 @@ void waveGauges::writeVTKFormat
     autoPtr<OFstream> vtk;
 
     // Writing the lines as VTK format
-    vtk.reset( new OFstream( "waveGaugesNProbes/" + name + ".vtk" ));
+    vtk.reset(new OFstream("waveGaugesNProbes/" + name + ".vtk" ));
 
     // Writing header
     vtk() << "# vtk DataFile Version 3.0" << nl << "vtk output" << nl
@@ -57,15 +57,15 @@ void waveGauges::writeVTKFormat
     // Writing points
     vtk() << "POINTS " << 2*pp.size() << " float" << endl;
 
-    forAll (pp, pointi)
+    forAll(pp, pointi)
     {
-        point p( pp[pointi] );
+        point p(pp[pointi]);
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
     }
 
-    forAll (pp, pointi)
+    forAll(pp, pointi)
     {
-        point p( pp[pointi] + addPoint );
+        point p(pp[pointi] + addPoint);
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
     }
 
@@ -89,7 +89,7 @@ waveGauges::waveGauges
 :
     mesh_(mesh),
 
-    gaugeDict_( dict )
+    gaugeDict_(dict)
 {
 }
 
@@ -97,22 +97,22 @@ waveGauges::waveGauges
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-void waveGauges::evaluate( const word& name )
+void waveGauges::evaluate(const word& name)
 {
-    point addPoint( gaugeDict_.lookup("add") );
-    word  vertAxis( word(gaugeDict_.lookup("axis")) );
+    point addPoint(gaugeDict_.lookup("add"));
+    word  vertAxis(word(gaugeDict_.lookup("axis")));
 
     autoPtr<Foam::pointDistributions> pd
     (
-        Foam::pointDistributions::New( mesh_, gaugeDict_ )
+        Foam::pointDistributions::New(mesh_, gaugeDict_)
     );
 
-    pointField pp( pd->evaluate() );
+    pointField pp(pd->evaluate());
 
     autoPtr<OFstream> gauges;
 
     // Writing the sets file
-    gauges.reset( new OFstream( "waveGaugesNProbes/" + name + "_sets" ));
+    gauges.reset(new OFstream("waveGaugesNProbes/" + name + "_sets"));
 
     gauges() << "sets" << nl << token::BEGIN_LIST << nl << incrIndent;
 
@@ -135,7 +135,7 @@ void waveGauges::evaluate( const word& name )
     gauges() << decrIndent << token::END_LIST << token::END_STATEMENT << nl;
 
     // Writing the file to be included in controlDict
-    gauges.reset(new OFstream( "waveGaugesNProbes/" + name + "_controlDict" ));
+    gauges.reset(new OFstream("waveGaugesNProbes/" + name + "_controlDict"));
 
     gauges() << incrIndent << indent << name << nl << indent
              << token::BEGIN_BLOCK << nl << incrIndent;
@@ -160,10 +160,10 @@ void waveGauges::evaluate( const word& name )
     // Writing the surfaceElevationDict
     gauges.reset
     (
-        new OFstream( "waveGaugesNProbes/" + name + "surfaceElevationDict" )
+        new OFstream("waveGaugesNProbes/" + name + "surfaceElevationDict")
     );
 
-    mesh_.writeBanner( gauges() );
+    mesh_.writeBanner(gauges());
 
     // Write the file information. Class name is not correct when
     // using wOut.writeHeader( os ); hence manual entries
@@ -177,7 +177,7 @@ void waveGauges::evaluate( const word& name )
     gauges() << decrIndent << indent << token::END_BLOCK << nl;
 
     // Write the divider
-    mesh_.writeDivider( gauges() );
+    mesh_.writeDivider(gauges());
     gauges() << nl << nl;
 
     gauges() << "setFormat           raw;" << nl;
@@ -187,11 +187,11 @@ void waveGauges::evaluate( const word& name )
     gauges() << "#includeIfPresent  \"../waveGaugesNProbes/" << name
              << "_sets\";" << nl;
 
-    mesh_.writeEndDivider( gauges() );
+    mesh_.writeEndDivider(gauges());
 
-    if (gaugeDict_.lookupOrDefault<Switch>("writeVTK", true ))
+    if (gaugeDict_.lookupOrDefault<Switch>("writeVTK", true))
     {
-        writeVTKFormat( name, pp, addPoint );
+        writeVTKFormat(name, pp, addPoint);
     }
 }
 
