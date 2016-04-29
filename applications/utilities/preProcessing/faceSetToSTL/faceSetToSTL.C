@@ -99,15 +99,15 @@ int main(int argc, char *argv[])
         {
             Info << "\nCreates the STL surface for " << toc[item] << endl;
 
-            pointField pp ( stlDefs.subDict(toc[item]).lookup("points") );
-            faceList faces( stlDefs.subDict(toc[item]).lookup("faces") );
+            pointField pp(stlDefs.subDict(toc[item]).lookup("points"));
+            faceList faces(stlDefs.subDict(toc[item]).lookup("faces"));
 
             triFaceList tfl(0);
             label count(0);
 
             if (
                    stlDefs.subDict(toc[item])
-                   .lookupOrDefault<Switch>("extrude", false )
+                   .lookupOrDefault<Switch>("extrude", false)
                )
             {
                 if (faces.size() <= 1)
@@ -128,9 +128,9 @@ int main(int argc, char *argv[])
 
             forAll (faces, facei)
             {
-                faceTriangulation triangulation(pp, faces[facei], true );
+                faceTriangulation triangulation(pp, faces[facei], true);
 
-                tfl.setSize( count + triangulation.size() );
+                tfl.setSize(count + triangulation.size());
 
                 forAll (triangulation, triI)
                 {
@@ -138,7 +138,7 @@ int main(int argc, char *argv[])
                 }
             }
 
-            triSurface ts( tfl, pp );
+            triSurface ts(tfl, pp);
 
             Info << "Writes the STL surface for " << toc[item] << endl;
 
@@ -156,10 +156,38 @@ void extrudeFacesAndPoints
     const dictionary& dict, faceList& fL, pointField& pp
 )
 {
-    vector extrude( dict.lookup("extrudeVector") );
+	// Get the extrude vector
+	vector extrude( dict.lookup("extrudeVector") );
 
+	// Check for correct (positive) orientation of the final shape
+    vector faceCentre(fL[0].centre(pp));
+    vector faceNormal(fL[0].normal(pp));
+
+    scalar projection = (extrude & faceNormal)
+    	/(Foam::mag(extrude)*Foam::mag(faceNormal));
+
+    // If the projection is positive (!), the face is ordered correctly.
+    // Note that this is the case, since the original face is swapped in
+    // orientation at the end of this method.
+    if (projection < -SMALL)
+    {
+        Info << "Orientation of the STL-surface is swapped to\n"
+        	 << "yield outward pointing normals." << endl;
+
+        // Swap the direction of the original face
+        face dummy = fL[0];
+        face& target = fL[0];
+
+        forAll (target, pointi)
+        {
+          	target[target.size() - 1 - pointi] = dummy[pointi];
+        }
+    }
+
+
+	// Get the number of points and extrude the points
     label N = pp.size();
-    pp.setSize( 2*N );
+    pp.setSize(2*N);
 
     for (int i=0; i < N; i++)
     {
@@ -168,7 +196,7 @@ void extrudeFacesAndPoints
 
     label M = fL[0].size();
 
-    fL.setSize( 2 + M );
+    fL.setSize(2 + M);
 
     fL[1].setSize(M);
 
@@ -183,7 +211,7 @@ void extrudeFacesAndPoints
 
     for (int i = 0; i < M ; i++)
     {
-        face& f( fL[i + 2] );
+        face& f(fL[i + 2]);
         f.setSize(4);
 
         f[0] = fOrg[i];

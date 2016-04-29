@@ -82,17 +82,18 @@ void relaxationSchemeSpatial::correct()
     // Compute the relaxation weights - only changes for moving/changing meshes
     if (weight_.size() != sigma.size())
     {
-        weight_.setSize( sigma.size(), 0.0 );
+    	weight_.clear();
+        weight_.setSize(sigma.size(), 0.0);
     }
 
     relaxWeight_->weights(cells, sigma, weight_);
 
     // Perform the correction
-    const scalarField& V ( mesh_.V() );
-    const vectorField& C ( mesh_.C() );
-    const cellList& cc( mesh_.cells() );
-    const pointField& pp( mesh_.points() );
-    const faceList& fL( mesh_.faces() );
+    const scalarField& V(mesh_.V());
+    const vectorField& C(mesh_.C());
+    const cellList& cc(mesh_.cells());
+    const pointField& pp(mesh_.points());
+    const faceList& fL(mesh_.faces());
 
     forAll (cells, celli)
     {
@@ -103,21 +104,21 @@ void relaxationSchemeSpatial::correct()
         // the cell centre
         scalar cellHeight
             (
-                Foam::max( p & waveProps_->returnDir() )
-              - Foam::min( p & waveProps_->returnDir() )
+                Foam::max(p & waveProps_->returnDir())
+              - Foam::min(p & waveProps_->returnDir())
             );
-        scalar sdc( signedPointToSurfaceDistance( C[cellNo] ) );
+        scalar sdc(signedPointToSurfaceDistance(C[cellNo]));
 
         // Target variables
-        scalar alphaTarget( 0.0 );
-        vector UTarget( waveProps_->windVelocity( mesh_.time().value() ) );
+        scalar alphaTarget(0.0);
+        vector UTarget(waveProps_->windVelocity(mesh_.time().value()));
 
         // Only do cutting, if surface is close by
-        if (Foam::mag( sdc ) <= 2*cellHeight)
+        if (Foam::mag(sdc) <= 2*cellHeight)
         {
             localCellNeg lc(mesh_, cellNo);
 
-            dividePolyhedral( point::zero, vector::one, lc);
+            dividePolyhedral(point::zero, vector::one, lc);
 
             if (lc.ccNeg().size() >= 4)
             {
@@ -136,11 +137,10 @@ void relaxationSchemeSpatial::correct()
             UTarget     = waveProps_->windVelocity( mesh_.time().value() );
         }
 
-        U_[cellNo] = (1 - weight_[celli])*UTarget
-                     + weight_[celli]*U_[cellNo];
+        U_[cellNo] = (1 - weight_[celli])*UTarget + weight_[celli]*U_[cellNo];
 
         alpha_[cellNo] = (1 - weight_[celli])*alphaTarget
-                         + weight_[celli]*alpha_[cellNo];
+            + weight_[celli]*alpha_[cellNo];
     }
 
     // REMEMBER NOT TO PUT correctBoundaryConditions() HERE BUT ONE LEVEL UP
