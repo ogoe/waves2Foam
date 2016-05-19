@@ -64,7 +64,9 @@ class streamFunctionProperties
 {
 private:
 
-    stokesFirstProperties sfp_;
+    const Time& localRT_;
+
+    void writeInputFile() const;
 
 public:
 
