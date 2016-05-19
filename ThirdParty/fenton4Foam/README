@@ -1,0 +1,30 @@
+Stream function theory programs.
+
+These programs are based on the paper of Fenton (1988). 
+
+J.D. Fenton (1988) The numerical solution of steady water wave problems
+Computers and Geosciences vol 14(3), pp 357-368.
+
+The code was given directly in an appendix to the paper. Jesper Skourup 
+(DHI) typed it in and it was later ammended by Harry Bingham (DTU).
+
+fenton.orig.f : original fenton program. From Harry Bingham
+fenton.f.from.harry : Harry's modified version. Some improvements on 
+allocation and different output. 
+fenton.f : My modification of Harry's fenton.f. Change of output as the 
+only thing.
+fft.f : fft routine needed.
+
+
+Compile by ifc -o fenton fenton.f fft.f
+
+12 July 2004 Henrik Bredmose
+
+============================================================
+The mentioned files are not distributed with waves2Foam. The
+only difference between the last version modified by Henrik 
+Bredmose and the present version is that the present version
+writes the necessary coefficients into an OpenFoam dictionary
+format.
+
+06 May 2016, Niels G. Jacobsen
