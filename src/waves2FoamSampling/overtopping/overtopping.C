@@ -346,22 +346,22 @@ void Foam::overtopping::computeAndWrite
     const surfaceScalarField& rhoPhi
 )
 {
-    const surfaceVectorField& Sf( mesh_.Sf() );
-    const surfaceScalarField& magSf( mesh_.magSf() );
+    const surfaceVectorField& Sf(mesh_.Sf());
+    const surfaceScalarField& magSf(mesh_.magSf());
 
     vectorField q(fz.size(), vector::zero);
     vectorField f(fz.size(), vector::zero);
 
     forAll (fz, facei)
     {
-        label faceI( fz[facei] );
+        label faceI(fz[facei]);
 
-        if (mesh_.isInternalFace( faceI ))
+        if (mesh_.isInternalFace( faceI))
         {
-            q[facei] = ((rhoPhi[ faceI ] - phi[ faceI ]*rho2_)*invRhoDiff_)
-                *Sf[ faceI ]/magSf[ faceI ];
+            q[facei] = ((rhoPhi[faceI] - phi[faceI]*rho2_)*invRhoDiff_)
+                *Sf[faceI]/magSf[faceI];
             f[facei] = rho1_*q[facei]
-                *Foam::mag( q[facei]/magSf[facei] );
+                *Foam::mag(q[facei]/magSf[faceI]);
         }
         else
         {
@@ -378,8 +378,8 @@ void Foam::overtopping::computeAndWrite
         }
     }
 
-    vector OT( Foam::gSum(q) );
-    vector F ( Foam::gSum(f) );
+    vector OT(Foam::gSum(q));
+    vector F (Foam::gSum(f));
 
     if (Pstream::master())
     {
@@ -395,7 +395,7 @@ void Foam::overtopping::write()
 {
     makeFile();
 
-    const faceZoneMesh& faceZones( mesh_.faceZones() );
+    const faceZoneMesh& faceZones(mesh_.faceZones());
 
     if (Pstream::master())
     {
@@ -411,9 +411,9 @@ void Foam::overtopping::write()
 
     forAll (faceZones, fzi)
     {
-        if (operateOnZone( faceZones[fzi] ))
+        if (operateOnZone(faceZones[fzi]))
         {
-            computeAndWrite( faceZones[fzi], phi, rhoPhi );
+            computeAndWrite(faceZones[fzi], phi, rhoPhi);
         }
     }
 
