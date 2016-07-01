@@ -482,7 +482,16 @@ void oceanWave3D::updatePhi()
 
 
     // Map the phiTemp -> phi
+#if EXTBRANCH==1
     phi.internalField() = phiTemp.internalField();
+#else
+    #if OFVERSION<400
+        phi.internalField() = phiTemp.internalField();
+    #else
+        phi.ref() = phiTemp.internalField();
+    #endif
+#endif
+    
 
     forAll (phi.boundaryField(), patchi)
     {

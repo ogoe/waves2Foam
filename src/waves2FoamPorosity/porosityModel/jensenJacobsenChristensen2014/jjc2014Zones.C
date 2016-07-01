@@ -97,7 +97,15 @@ tmp<volScalarField> Foam::jjc2014Zones::porosity() const
     );
 
     // Make reference to the return field (stripping tmp-nature)
-    volScalarField& poro(tporosity());
+#if EXTBRANCH==1
+        volScalarField& poro(tporosity());
+#else
+    #if OFVERSION<400
+        volScalarField& poro(tporosity());
+    #else
+        volScalarField& poro(tporosity.ref());
+    #endif
+#endif    
 
     // Loop over all zones
     forAll(*this, i)

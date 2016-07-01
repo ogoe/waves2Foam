@@ -59,13 +59,29 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 )
 :
     mixedFvPatchField<vector>(p, iF),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -85,7 +101,15 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 )
 :
     mixedFvPatchField<vector>(ptf, p, iF, mapper),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_(ptf.waveProps_)
 {
 }
@@ -99,13 +123,29 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 )
 :
     mixedFvPatchField<vector>(p, iF),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -120,15 +160,31 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 )
 :
     mixedFvPatchField<vector>(ptf, iF),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
+    (
+        waveTheories::waveTheory::New
         (
-            waveTheories::waveTheory::New
-            (
-                this->patch().name(),
-                this->dimensionedInternalField().mesh()
-            )
+            this->patch().name(),
+#if EXTBRANCH==1
+            this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
+    )
 {
 }
 
@@ -168,7 +224,15 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
         return;
     }
 
+#if EXTBRANCH==1
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
+#else
+    #if OFVERSION<400
+        const fvMesh& mesh = this->dimensionedInternalField().mesh();
+    #else
+        const fvMesh& mesh = this->internalField().mesh();
+    #endif
+#endif
     const word patchName = this->patch().name();
     const label patchID = mesh.boundaryMesh().findPatchID(patchName);
     const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );

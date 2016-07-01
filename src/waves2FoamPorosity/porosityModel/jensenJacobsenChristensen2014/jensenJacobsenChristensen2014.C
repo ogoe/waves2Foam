@@ -109,14 +109,21 @@ void jensenJacobsenChristensen2014::updatePorosity()
 	const volScalarField& poro = tporosity();
 
     // Set the internal field values
+#if EXTBRANCH==1
 	porosity_.internalField() = poro.internalField();
+#else
+    #if OFVERSION<400
+	porosity_.internalField() = poro.internalField();
+    #else
+	porosity_.ref() = poro.internalField();
+    #endif
+#endif
 
 	// Update boundary conditions
 	porosity_.correctBoundaryConditions();
 }
 
 
-//tmp<volScalarField> jensenJacobsenChristensen2014::porosity() const
 const volScalarField& jensenJacobsenChristensen2014::porosity() const
 {
 //	// Store the porosity from the last time step. Needed for moving porosity

@@ -59,13 +59,29 @@ wavePressureFvPatchScalarField::wavePressureFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(p, iF),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -84,7 +100,15 @@ wavePressureFvPatchScalarField::wavePressureFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(ptf, p, iF, mapper),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_(ptf.waveProps_)
 {
 }
@@ -98,13 +122,29 @@ wavePressureFvPatchScalarField::wavePressureFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(p, iF),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -119,13 +159,29 @@ wavePressureFvPatchScalarField::wavePressureFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(ptf, iF),
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#if EXTBRANCH==1
+    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -167,7 +223,15 @@ void wavePressureFvPatchScalarField::updateCoeffs()
         return;
     }
 
+#if EXTBRANCH==1
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
+#else
+    #if OFVERSION<400
+        const fvMesh& mesh = this->dimensionedInternalField().mesh();
+    #else
+        const fvMesh& mesh = this->internalField().mesh();
+    #endif
+#endif
     const word patchName = this->patch().name();
     const label patchID = mesh.boundaryMesh().findPatchID(patchName);
     const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );

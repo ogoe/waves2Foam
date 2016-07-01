@@ -35,6 +35,19 @@ fi
 
 # Compile the library
 (cd waves2Foam          ; wmake libso)
+
 (cd waves2FoamProcessing; wmake libso)
-(cd waves2FoamSampling  ; wmake libso)
+
+# Currently, only compile waves2FoamSampling for all Openfoam versions except
+# for OpenFOAM-4.0
+if [ $FOAMEXTENDPROJECT -eq "0" ]
+then
+    if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
+    then
+        (cd waves2FoamSampling  ; wmake libso)
+    fi
+else
+    (cd waves2FoamSampling  ; wmake libso)
+fi
+
 (cd waves2FoamPorosity  ; wmake libso)
