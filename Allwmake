@@ -129,7 +129,7 @@ do
     fi
 done
 
-( cd $WAVES_PRE  && wmake all )
+( cd $WAVES_PRE && wmake all )
 
 # Post-processing utilities
 echo ""
@@ -148,7 +148,20 @@ else
     ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
 fi
 
-( cd $WAVES_POST && wmake all )
+# Currently, only compile waves2FoamSampling for all Openfoam versions except
+# for OpenFOAM-4.0
+if [ $FOAMEXTENDPROJECT -eq "0" ]
+then
+    if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
+    then
+        ( cd $WAVES_POST && wmake all )
+    else
+        ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
+    fi
+else
+    ( cd $WAVES_POST && wmake all )
+fi
+
 
 echo ""
 echo "====================================="

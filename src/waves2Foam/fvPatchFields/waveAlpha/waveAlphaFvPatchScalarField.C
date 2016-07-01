@@ -58,13 +58,29 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(p, iF),
+#if EXTBRANCH==1
     convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -83,7 +99,15 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(ptf, p, iF, mapper),
+#if EXTBRANCH==1
     convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_(ptf.waveProps_)
 {
 }
@@ -97,13 +121,29 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(p, iF),
+#if EXTBRANCH==1
     convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -118,13 +158,29 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 )
 :
     mixedFvPatchField<scalar>(ptf, iF),
+#if EXTBRANCH==1
     convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+#else
+    #if OFVERSION<400
+        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    #else
+        convexPolyhedral( this->internalField().mesh(), true ),
+    #endif
+#endif
     waveProps_
     (
         waveTheories::waveTheory::New
         (
             this->patch().name(),
+#if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
+#else
+    #if OFVERSION<400
+            this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
+#endif
         )
     )
 {
@@ -166,7 +222,15 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
         return;
     }
 
+#if EXTBRANCH==1
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
+#else
+    #if OFVERSION<400
+        const fvMesh& mesh = this->dimensionedInternalField().mesh();
+    #else
+        const fvMesh& mesh = this->internalField().mesh();
+    #endif
+#endif
     const word patchName = this->patch().name();
     const label patchID = mesh.boundaryMesh().findPatchID(patchName);
     const scalarField& magSf( mesh.magSf().boundaryField()[patchID] );
