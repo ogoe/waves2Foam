@@ -18,6 +18,12 @@ then
     do
         ln -s -f $WAVES_SRC/$i/Make/options.210 $WAVES_SRC/$i/Make/options
     done
+elif [ $OFPLUSBRANCH -eq "1" ]
+then
+    for i in $dirList
+    do
+        ln -s -f $WAVES_SRC/$i/Make/options.220 $WAVES_SRC/$i/Make/options
+    done
 else
     if [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
     then
@@ -40,14 +46,17 @@ fi
 
 # Currently, only compile waves2FoamSampling for all Openfoam versions except
 # for OpenFOAM-4.0
-if [ $FOAMEXTENDPROJECT -eq "0" ]
+if [ $FOAMEXTENDPROJECT -eq "1" ]
 then
+    (cd waves2FoamSampling  ; wmake libso)
+elif [ $OFPLUSBRANCH -eq "1" ]
+then
+    (cd waves2FoamSampling  ; wmake libso)
+else
     if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
     then
         (cd waves2FoamSampling  ; wmake libso)
     fi
-else
-    (cd waves2FoamSampling  ; wmake libso)
 fi
 
 (cd waves2FoamPorosity  ; wmake libso)

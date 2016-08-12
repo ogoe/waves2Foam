@@ -112,6 +112,8 @@ void spectralMethodsLeastSquaresBased::solve
 
 #if EXTBRANCH==1
     scalarSquareMatrix AtA(N, 0.0);
+#elif OFPLUSBRANCH==1
+    SquareMatrix<scalar> AtA(N, N);
 #else
     SquareMatrix<scalar> AtA(N, N);
 #endif
@@ -134,6 +136,8 @@ void spectralMethodsLeastSquaresBased::solve
     // Solve the square system
 #if EXTBRANCH==1
     Foam::scalarSquareMatrix::LUsolve(AtA, Atb);
+#elif OFPLUSBRANCH==1
+    Foam::LUsolve(AtA, Atb);
 #else
     Foam::LUsolve(AtA, Atb);
 #endif

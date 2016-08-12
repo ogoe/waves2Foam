@@ -224,6 +224,8 @@ public:
             {
                 return coordSys_.axis();
             }
+#elif OFPLUSBRANCH==1
+            // NOTHING TO BE ADDED
 #else
     #if OFVERSION<230
             vector axis() const
@@ -232,12 +234,6 @@ public:
             }
     #endif
 #endif
-//#if OFVERSION<230 || EXTBRANCH == 1
-//            vector axis() const
-//            {
-//                return coordSys_.axis();
-//            }
-//#endif
 
             //- Return porosity
             scalar porosity() const

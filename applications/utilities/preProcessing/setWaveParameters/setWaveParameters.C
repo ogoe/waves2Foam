@@ -116,15 +116,13 @@ int main(int argc, char *argv[])
         wOut.objectPath(),
 #if EXTBRANCH==1
         ios_base::out|ios_base::trunc,
+#elif OFPLUSBRANCH==1
+        // Nothing to be put here
 #else
     #if OFVERSION<170
         ios_base::out|ios_base::trunc,
     #endif
 #endif
-
-//#if OFVERSION < 170 || EXTBRANCH == 1
-//        ios_base::out|ios_base::trunc,
-//#endif
         IOstream::ASCII,
         IOstream::currentVersion,
         IOstream::UNCOMPRESSED

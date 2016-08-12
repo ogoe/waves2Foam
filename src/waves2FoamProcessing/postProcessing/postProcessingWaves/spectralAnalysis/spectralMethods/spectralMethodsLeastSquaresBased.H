@@ -46,6 +46,8 @@ Author
 
 #if EXTBRANCH==1
     #include "scalarSquareMatrix.H"
+#elif OFPLUSBRANCH==1
+    #include "scalarMatrices.H"
 #else
     #include "scalarMatrices.H"
 #endif

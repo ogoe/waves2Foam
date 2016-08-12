@@ -52,7 +52,9 @@ Foam::jjc2014Zones::ddt
 {
     tmp<fvMatrix<Type> > tres = fvm::ddt(vf);
 #if EXTBRANCH==1
-        modifyDdt(tres());
+    modifyDdt(tres());
+#elif OFPLUSBRANCH==1
+    modifyDdt(tres());
 #else
     #if OFVERSION<400
         modifyDdt(tres());
@@ -75,7 +77,9 @@ Foam::jjc2014Zones::ddt
 {
     tmp<fvMatrix<Type> > tres = fvm::ddt(vf);
 #if EXTBRANCH==1
-        modifyDdt(tres());
+    modifyDdt(tres());
+#elif OFPLUSBRANCH==1
+    modifyDdt(tres());
 #else
     #if OFVERSION<400
         modifyDdt(tres());
@@ -98,7 +102,9 @@ Foam::jjc2014Zones::ddt
 {
     tmp<fvMatrix<Type> > tres = fvm::ddt(rho,vf);
 #if EXTBRANCH==1
-        modifyDdt(tres());
+    modifyDdt(tres());
+#elif OFPLUSBRANCH==1
+    modifyDdt(tres());
 #else
     #if OFVERSION<400
         modifyDdt(tres());
@@ -121,7 +127,9 @@ Foam::jjc2014Zones::ddt
 {
     tmp<fvMatrix<Type> > tres = fvm::ddt(rho,vf);
 #if EXTBRANCH==1
-        modifyDdt(tres());
+    modifyDdt(tres());
+#elif OFPLUSBRANCH==1
+    modifyDdt(tres());
 #else
     #if OFVERSION<400
         modifyDdt(tres());

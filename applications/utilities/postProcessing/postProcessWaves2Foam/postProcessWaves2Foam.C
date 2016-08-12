@@ -44,6 +44,8 @@ Author
     #else
         #include "Time.H"
     #endif
+#elif OFPLUSBRANCH==1
+    #include "Time.H"
 #else
     #include "Time.H"
 #endif

@@ -33,14 +33,11 @@ License
     #else
         #include "Time.H"
     #endif
+#elif OFPLUSBRANCH==1
+    #include "Time.H"
 #else
     #include "Time.H"
 #endif
-//#if EXTBRANCH==1 && OFVERSION>310
-//    #include "foamTime.H"
-//#else
-//    #include "Time.H"
-//#endif
 
 #include "dimensionedVector.H"
 #include "volMesh.H"
@@ -59,12 +56,14 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 :
     mixedFvPatchField<scalar>(p, iF),
 #if EXTBRANCH==1
-    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#elif OFPLUSBRANCH==1
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #else
     #if OFVERSION<400
-        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
     #else
-        convexPolyhedral( this->internalField().mesh(), true ),
+        convexPolyhedral(this->internalField().mesh(), true),
     #endif
 #endif
     waveProps_
@@ -73,6 +72,8 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
         (
             this->patch().name(),
 #if EXTBRANCH==1
+            this->dimensionedInternalField().mesh()
+#elif OFPLUSBRANCH==1
             this->dimensionedInternalField().mesh()
 #else
     #if OFVERSION<400
@@ -100,12 +101,14 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 :
     mixedFvPatchField<scalar>(ptf, p, iF, mapper),
 #if EXTBRANCH==1
-    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#elif OFPLUSBRANCH==1
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #else
     #if OFVERSION<400
-        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
     #else
-        convexPolyhedral( this->internalField().mesh(), true ),
+        convexPolyhedral(this->internalField().mesh(), true),
     #endif
 #endif
     waveProps_(ptf.waveProps_)
@@ -122,12 +125,14 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 :
     mixedFvPatchField<scalar>(p, iF),
 #if EXTBRANCH==1
-    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#elif OFPLUSBRANCH==1
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #else
     #if OFVERSION<400
-        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
     #else
-        convexPolyhedral( this->internalField().mesh(), true ),
+        convexPolyhedral(this->internalField().mesh(), true),
     #endif
 #endif
     waveProps_
@@ -136,6 +141,8 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
         (
             this->patch().name(),
 #if EXTBRANCH==1
+            this->dimensionedInternalField().mesh()
+#elif OFPLUSBRANCH==1
             this->dimensionedInternalField().mesh()
 #else
     #if OFVERSION<400
@@ -159,12 +166,14 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
 :
     mixedFvPatchField<scalar>(ptf, iF),
 #if EXTBRANCH==1
-    convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+#elif OFPLUSBRANCH==1
+    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #else
     #if OFVERSION<400
-        convexPolyhedral( this->dimensionedInternalField().mesh(), true ),
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
     #else
-        convexPolyhedral( this->internalField().mesh(), true ),
+        convexPolyhedral(this->internalField().mesh(), true),
     #endif
 #endif
     waveProps_
@@ -173,6 +182,8 @@ waveAlphaFvPatchScalarField::waveAlphaFvPatchScalarField
         (
             this->patch().name(),
 #if EXTBRANCH==1
+            this->dimensionedInternalField().mesh()
+#elif OFPLUSBRANCH==1
             this->dimensionedInternalField().mesh()
 #else
     #if OFVERSION<400
@@ -223,6 +234,8 @@ void waveAlphaFvPatchScalarField::updateCoeffs()
     }
 
 #if EXTBRANCH==1
+    const fvMesh& mesh = this->dimensionedInternalField().mesh();
+#elif OFPLUSBRANCH==1
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
 #else
     #if OFVERSION<400

@@ -63,6 +63,8 @@ Foam::porosityZone::porosityZone
 
 #if EXTBRANCH==1
     coordSys_(dict, mesh),
+#elif OFPLUSBRANCH==1
+    coordSys_(mesh, dict),
 #else
     #if OFVERSION<230
         coordSys_(dict, mesh),
@@ -115,6 +117,8 @@ Foam::porosityZone::porosityZone
     // local-to-global transformation tensor
 #if EXTBRANCH==1
     const tensor& E = coordSys_.R();
+#elif OFPLUSBRANCH==1
+    const tensor E = coordSys_.R().R();
 #else
     #if OFVERSION<230
         const tensor& E = coordSys_.R();
@@ -122,12 +126,6 @@ Foam::porosityZone::porosityZone
         const tensor E = coordSys_.R().R();
     #endif
 #endif
-
-//#if OFVERSION<230 || EXTBRANCH == 1
-//    const tensor& E = coordSys_.R();
-//#else
-//    const tensor E = coordSys_.R().R();
-//#endif
 
     dimensionedVector d( pcPtr->linearCoefficient() );
 

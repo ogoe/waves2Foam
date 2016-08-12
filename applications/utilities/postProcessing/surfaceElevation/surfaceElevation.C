@@ -109,6 +109,8 @@ int main(int argc, char *argv[])
 
 #if EXTBRANCH==1
     fileName dict("surfaceElevationDict");
+#elif OFPLUSBRANCH==1
+    fileName dict("system/surfaceElevationDict");
 #else
     #if OFVERSION<220
         fileName dict("surfaceElevationDict");
@@ -116,11 +118,6 @@ int main(int argc, char *argv[])
         fileName dict("system/surfaceElevationDict");
     #endif
 #endif
-//#if OFVERSION<220 || EXTBRANCH
-//    fileName dict("surfaceElevationDict");
-//#else
-//    fileName dict("system/surfaceElevationDict");
-//#endif
 
     IOsampledSurfaceElevation sSets
     (

@@ -141,6 +141,9 @@ rm -f $WAVES_POST/surfaceElevation/Make/options
 if [ "$EXTBRANCH" -eq "1" ]
 then
     ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
+elif [ "$OFPLUSBRANCH" -eq "1" ]
+then
+    ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
 elif [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
 then
     ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
