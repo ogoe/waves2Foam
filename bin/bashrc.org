@@ -25,9 +25,9 @@ export WAVES_GSL_LIB=/usr/lib64
 # The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
 if [ `uname` = "Darwin" ]
 then
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/-/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/[v+-]/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
 else
-    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/-/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+    version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/[v+-]/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
 fi
 
 export WM_PROJECT_VERSION_NUMBER=$version
@@ -64,6 +64,7 @@ fi
 
 export EXTBRANCH
 
+## Is it the new foam-extend class?
 FOAMEXTENDPROJECT=0
 
 if [ $WM_PROJECT == "foam" ]
@@ -80,6 +81,19 @@ then
     export WAVES_SOL=${WAVES_SOL}"_EXT"
 fi
 
+## Is it the OpenFoam+ version?
+OFPLUSBRANCH=`echo $WM_PROJECT_VERSION | grep '+'`
+
+if [ -z $OFPLUSBRANCH ]
+then
+    OFPLUSBRANCH=0
+else
+    OFPLUSBRANCH=1
+    export WAVES_SOL=${WAVES_SOL}"_PLUS"
+fi
+
+export OFPLUSBRANCH
+
 ### PRINT INFORMATION
 if [ "$printVariables" == "1" ]
 then
@@ -87,6 +101,6 @@ then
     echo "====================================="
     echo "    ENVIRONMENTAL VARIABLES"
     echo "====================================="
-    env | grep "WAVES\|EXTBRANCH\|WM_PROJECT_VERSION_NUMBER\|FOAMEXTEND" | sort
+    env | grep "WAVES\|EXTBRANCH\|WM_PROJECT_VERSION_NUMBER\|FOAMEXTEND\|OFPLUSBRANCH" | sort
     echo ""
 fi

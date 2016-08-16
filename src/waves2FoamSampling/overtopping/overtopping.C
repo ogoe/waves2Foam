@@ -54,6 +54,17 @@ void Foam::overtopping::movePoints(const pointField&)
 {
     // Do nothing
 }
+#elif OFPLUSBRANCH==1
+    void Foam::overtopping::movePoints(const polyMesh&)
+    {
+        // Do nothing
+    }
+
+    bool Foam::overtopping::timeSet()
+    {
+        // Do nothing
+        return true;
+    }
 #else
     #if OFVERSION<220
     void Foam::overtopping::movePoints(const pointField&)
@@ -81,34 +92,6 @@ void Foam::overtopping::movePoints(const pointField&)
         #endif
     #endif
 #endif
-
-
-//#if OFVERSION<220 || EXTBRANCH==1
-//void Foam::overtopping::movePoints(const pointField&)
-//{
-//    // Do nothing
-//}
-//#else
-//void Foam::overtopping::movePoints(const polyMesh&)
-//{
-//    // Do nothing
-//}
-//
-//#if OFVERSION > 220 && EXTBRANCH==0
-//    bool Foam::overtopping::timeSet()
-//    {
-//        // Do nothing
-//        return true;
-//    }
-//#elif XVERSION && EXTBRANCH==0
-//    bool Foam::overtopping::timeSet()
-//    {
-//        // Do nothing
-//        return true;
-//    }
-//#endif
-//
-//#endif
 
 
 void Foam::overtopping::makeFile()

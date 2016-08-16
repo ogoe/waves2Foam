@@ -484,6 +484,8 @@ void oceanWave3D::updatePhi()
     // Map the phiTemp -> phi
 #if EXTBRANCH==1
     phi.internalField() = phiTemp.internalField();
+#elif OFPLUSBRANCH==1
+    phi.internalField() = phiTemp.internalField();
 #else
     #if OFVERSION<400
         phi.internalField() = phiTemp.internalField();
@@ -593,6 +595,8 @@ void oceanWave3D::updateTimeAndTimeStep()
 	// Set the time step according to the new phi-field
 #if EXTBRANCH==1
 	#include "readTimeControls.H"
+#elif OFPLUSBRANCH==1
+    #include "createTimeControls.H"
 #else
     #if OFVERSION<300
         #include "readTimeControls.H"

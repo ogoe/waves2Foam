@@ -224,6 +224,8 @@ public:
             {
                 return coordSys_.axis();
             }
+#elif OFPLUSBRANCH==1
+            // NOTHING TO BE ADDED
 #else
     #if OFVERSION<230
             vector axis() const

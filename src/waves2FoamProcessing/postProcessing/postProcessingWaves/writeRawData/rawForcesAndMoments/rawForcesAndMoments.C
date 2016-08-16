@@ -195,7 +195,11 @@ void rawForcesAndMoments::readForceAndMomentData
         // Discard the first line
         std::getline(input, line);
 
-#if EXTBRANCH == 0
+#if OFPLUSBRANCH==1
+    // Discard two lines
+    std::getline(input, line);
+    std::getline(input, line);
+#elif EXTBRANCH == 0
     #if OFVERSION >= 222
         // Discard yet another line
         std::getline(input, line);
@@ -229,6 +233,8 @@ void rawForcesAndMoments::readForceAndMomentData
             iss >> dummy;
 #if EXTBRANCH==1
             temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
+#elif OFPLUSBRANCH==1
+            temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
 #else
     #if 220<=OFVERSION
             temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
@@ -236,13 +242,6 @@ void rawForcesAndMoments::readForceAndMomentData
             temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
     #endif
 #endif
-
-//#if OFVERSION >= 220 || EXTBRANCH == 0
-//            temp.x() = std::atof((dummy.substr(3,dummy.size()-1)).c_str());
-//#else
-//            temp.x() = std::atof((dummy.substr(2,dummy.size()-1)).c_str());
-//#endif
-
             // Reading the second vector component. Simple scalar
             iss >> val;
             temp.y() = val;

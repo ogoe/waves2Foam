@@ -84,6 +84,8 @@ void setWaveProperties::writeBeginning( Ostream& os)
 
 #if EXTBRANCH==1
     char delim(':');
+#elif OFPLUSBRANCH==1
+    char delim('.');
 #else
     #if OFVERSION<220
         char delim(':');
@@ -91,12 +93,6 @@ void setWaveProperties::writeBeginning( Ostream& os)
         char delim('.');
     #endif
 #endif
-
-//#if OFVERSION < 220 || EXTBRANCH == 1
-//    char delim(':');
-//#else
-//    char delim('.');
-//#endif
 
     wordList subnames( ends.components( delim ) );
     word dictName( subnames[ subnames.size() -1 ] );

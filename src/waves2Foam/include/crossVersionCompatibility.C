@@ -38,6 +38,8 @@ word pName()
 {
 #if EXTBRANCH==1
     return "pd";
+#elif OFPLUSBRANCH==1
+    return "p_rgh";
 #else
     #if OFVERSION<170
         return "pd";
@@ -52,6 +54,8 @@ word aName()
 {
 #if EXTBRANCH==1
     return "alpha1";
+#elif OFPLUSBRANCH==1
+    return "alpha.water";
 #else
     #if OFVERSION<230
         return "alpha1";
@@ -66,6 +70,8 @@ word waterPhase()
 {
 #if EXTBRANCH==1
     return "phase1";
+#elif OFPLUSBRANCH==1
+    return "water";
 #else
     #if OFVERSION<230
         return "phase1";
@@ -80,6 +86,8 @@ word airPhase()
 {
 #if EXTBRANCH==1
     return "phase2";
+#elif OFPLUSBRANCH==1
+    return "air";
 #else
     #if OFVERSION<230
         return "phase2";
@@ -88,11 +96,6 @@ word airPhase()
     #endif
 #endif
 
-//#if OFVERSION<230 || EXTBRANCH==1
-//    return "phase2";
-//#else
-//    return "air";
-//#endif
 }
 
 

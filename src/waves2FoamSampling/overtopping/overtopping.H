@@ -166,7 +166,16 @@ public:
         //- Execute the at the final time-loop, currently does nothing
         virtual void end() {};
 
-#if OFVERSION>=220 && EXTBRANCH==0
+#if OFPLUSBRANCH==1
+        //- Update mesh
+        virtual void updateMesh(const mapPolyMesh&);
+
+        //- Move points
+        virtual void movePoints(const polyMesh&);
+
+        virtual bool timeSet();
+
+#elif OFVERSION>=220 && EXTBRANCH==0
         //- Update mesh
         virtual void updateMesh(const mapPolyMesh&);
 

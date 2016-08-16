@@ -79,6 +79,8 @@ void relaxationZone::resetTargetFields()
     {
 #if EXTBRANCH==1
         (*relaxationWeightsMomentum_).internalField() = 1.0;
+#elif OFPLUSBRANCH==1
+        (*relaxationWeightsMomentum_).internalField() = 1.0;
 #else
     #if OFVERSION<400
         (*relaxationWeightsMomentum_).internalField() = 1.0;
@@ -91,6 +93,8 @@ void relaxationZone::resetTargetFields()
     if (relaxationWeightsSource_ != NULL)
     {
 #if EXTBRANCH==1
+        (*relaxationWeightsSource_).internalField() = 1.0;
+#elif OFPLUSBRANCH==1
         (*relaxationWeightsSource_).internalField() = 1.0;
 #else
     #if OFVERSION<400
@@ -105,6 +109,8 @@ void relaxationZone::resetTargetFields()
     {
 #if EXTBRANCH==1
         (*targetAlpha_).internalField() = 0.0;
+#elif OFPLUSBRANCH==1
+        (*targetAlpha_).internalField() = 0.0;
 #else
     #if OFVERSION<400
         (*targetAlpha_).internalField() = 0.0;
@@ -117,6 +123,8 @@ void relaxationZone::resetTargetFields()
     if (targetVelocity_ != NULL)
     {
 #if EXTBRANCH==1
+        (*targetVelocity_).internalField() = vector::zero;
+#elif OFPLUSBRANCH==1
         (*targetVelocity_).internalField() = vector::zero;
 #else
     #if OFVERSION<400
@@ -197,6 +205,8 @@ tmp<volScalarField> relaxationZone::numericalBeach()
     );
 
 #if EXTBRANCH==1
+    volScalarField& artificialViscosity(tartificialViscotity());
+#elif OFPLUSBRANCH==1
     volScalarField& artificialViscosity(tartificialViscotity());
 #else
     #if OFVERSION<400

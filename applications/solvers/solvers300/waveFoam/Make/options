@@ -12,6 +12,7 @@ EXE_INC = \
     -I$(LIB_SRC)/sampling/lnInclude \
     -DOFVERSION=300 \
     -DEXTBRANCH=0 \
+    -DOFPLUSBRANCH=0 \
     -DXVERSION=$(WAVES_XVERSION) \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \

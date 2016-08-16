@@ -111,6 +111,8 @@ void jensenJacobsenChristensen2014::updatePorosity()
     // Set the internal field values
 #if EXTBRANCH==1
 	porosity_.internalField() = poro.internalField();
+#elif OFPLUSBRANCH==1
+        porosity_.internalField() = poro.internalField();
 #else
     #if OFVERSION<400
 	porosity_.internalField() = poro.internalField();

@@ -56,15 +56,12 @@ Additional information
     #else
         #include "Time.H"
     #endif
+#elif OFPLUSBRANCH==1
+    #include "Time.H"
 #else
     #include "Time.H"
 #endif
 
-//#if EXTBRANCH==1 && OFVERSION>310
-//    #include "foamTime.H"
-//#else
-//    #include "Time.H"
-//#endif
 
 #include "fvMesh.H"
 #include "volFields.H"

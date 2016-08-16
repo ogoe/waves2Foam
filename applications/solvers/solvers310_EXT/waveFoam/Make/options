@@ -6,6 +6,7 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -DOFVERSION=310 \
     -DEXTBRANCH=1 \
+    -DOFPLUSBRANCH=0 \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
     -I$(WAVES_GSL_INCLUDE)

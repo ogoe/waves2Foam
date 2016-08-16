@@ -33,15 +33,11 @@ License
     #else
         #include "Time.H"
     #endif
+#elif OFPLUSBRANCH==1
+    #include "Time.H"
 #else
     #include "Time.H"
 #endif
-
-//#if EXTBRANCH==1 && OFVERSION>310
-//    #include "foamTime.H"
-//#else
-//    #include "Time.H"
-//#endif
 
 #include "volFields.H"
 #include "ListListOps.H"
@@ -236,6 +232,18 @@ void Foam::sampledSurfaceElevation::combineSampledSets
                         refPt
                 )
         );
+#elif OFPLUSBRANCH==1
+        masterSampledSets.set
+        (
+            seti,
+            new coordSet
+            (
+                samplePts.name(),
+                samplePts.axis(),
+                List<point>(UIndirectList<point>(allPts, indexSets[seti])),
+                allCurveDist
+            )
+        );
 #else
     #if OFVERSION < 200
         // Get reference point (note: only master has all points)
@@ -275,44 +283,6 @@ void Foam::sampledSurfaceElevation::combineSampledSets
         );
     #endif
 #endif
-
-//#if OFVERSION < 200 || EXTBRANCH==1
-//        // Get reference point (note: only master has all points)
-//        point refPt;
-//
-//        if (allPts.size())
-//        {
-//            refPt = samplePts.getRefPoint(allPts);
-//        }
-//        else
-//        {
-//            refPt = vector::zero;
-//        }
-//
-//        masterSampledSets.set
-//        (
-//            seti,
-//            new coordSet
-//            (
-//                samplePts.name(),
-//                samplePts.axis(),
-//                UIndirectList<point>(allPts, indexSets[seti]),
-//                refPt
-//            )
-//        );
-//#else
-//        masterSampledSets.set
-//        (
-//            seti,
-//            new coordSet
-//            (
-//                samplePts.name(),
-//                samplePts.axis(),
-//                List<point>(UIndirectList<point>(allPts, indexSets[seti])),
-//                allCurveDist
-//            )
-//        );
-//#endif
     }
 }
 
@@ -334,6 +304,8 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     outputPath_(fileName::null),
 #if EXTBRANCH==1
     searchEngine_(mesh_),
+#elif OFPLUSBRANCH==1
+    searchEngine_(mesh_),
 #else
     #if OFVERSION<210
         searchEngine_(mesh_, true),
@@ -342,11 +314,6 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     #endif
 #endif
 
-//#if OFVERSION < 210
-//    searchEngine_(mesh_, true),
-//#else
-//    searchEngine_(mesh_),
-//#endif
     fieldNames_(),
     interpolationScheme_(word::null),
     writeFormat_(word::null),
@@ -773,7 +740,17 @@ void Foam::sampledSurfaceElevation::movePoints(const pointField&)
 {
     correct();
 }
+#elif OFPLUSBRANCH==1
+    void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
+    {
+        correct();
+    }
 
+    bool Foam::sampledSurfaceElevation::timeSet()
+    {
+        // Do nothing
+        return true;
+    }
 #else
 
     #if OFVERSION<220
@@ -806,34 +783,6 @@ void Foam::sampledSurfaceElevation::movePoints(const pointField&)
 
     #endif
 #endif
-
-
-//#if OFVERSION<220 || EXTBRANCH==1
-//void Foam::sampledSurfaceElevation::movePoints(const pointField&)
-//{
-//    correct();
-//}
-//#else
-//void Foam::sampledSurfaceElevation::movePoints(const polyMesh&)
-//{
-//    correct();
-//}
-//
-//#if OFVERSION > 220 && EXTBRANCH==0
-//    bool Foam::sampledSurfaceElevation::timeSet()
-//    {
-//        // Do nothing
-//        return true;
-//    }
-//#elif XVERSION && EXTBRANCH==0
-//    bool Foam::sampledSurfaceElevation::timeSet()
-//    {
-//        // Do nothing
-//        return true;
-//    }
-//#endif
-//
-//#endif
 
 
 void Foam::sampledSurfaceElevation::readUpdate

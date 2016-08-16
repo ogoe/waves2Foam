@@ -298,6 +298,10 @@ public:
 
 #if EXTBRANCH==1
         virtual void movePoints(const pointField&);
+#elif OFPLUSBRANCH==1
+        virtual void movePoints(const polyMesh&);
+
+        virtual bool timeSet();
 #else
     #if OFVERSION<220
         virtual void movePoints(const pointField&);
@@ -311,18 +315,6 @@ public:
         #endif
     #endif
 #endif
-
-//#if OFVERSION<220 || EXTBRANCH == 1
-//        virtual void movePoints(const pointField&);
-//#else
-//        virtual void movePoints(const polyMesh&);
-//
-//    #if OFVERSION > 220
-//        virtual bool timeSet();
-//    #elif XVERSION
-//        virtual bool timeSet();
-//    #endif
-//#endif
 
         //- Update for changes of mesh due to readUpdate
         virtual void readUpdate(const polyMesh::readUpdateState state);

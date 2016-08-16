@@ -63,6 +63,8 @@ Foam::jjc2014Zone::jjc2014Zone
 
 #if EXTBRANCH==1
     coordSys_(dict, mesh),
+#elif OFPLUSBRANCH==1
+    coordSys_(mesh, dict),
 #else
     #if OFVERSION<230
         coordSys_(dict, mesh),
@@ -71,12 +73,6 @@ Foam::jjc2014Zone::jjc2014Zone
     #endif
 #endif
 
-//    #if OFVERSION<230 || EXTBRANCH == 1
-//    coordSys_(dict, mesh),
-//#else
-//    coordSys_(mesh, dict),
-//#endif
-//
     porosity_( readScalar( dict_.lookup("porosity") ) ),
     addedMassCoeff_( readScalar( dict_.lookup("gammaAddedMass") ) ),
     D_("D", dimensionSet(0, -2, 0, 0, 0), tensor::zero),
@@ -115,6 +111,8 @@ Foam::jjc2014Zone::jjc2014Zone
     // local-to-global transformation tensor
 #if EXTBRANCH==1
     const tensor& E = coordSys_.R();
+#elif OFPLUSBRANCH==1
+    const tensor E = coordSys_.R().R();
 #else
     #if OFVERSION<230
         const tensor& E = coordSys_.R();
@@ -122,11 +120,6 @@ Foam::jjc2014Zone::jjc2014Zone
         const tensor E = coordSys_.R().R();
     #endif
 #endif
-    //#if OFVERSION<230 || EXTBRANCH == 1
-//    const tensor& E = coordSys_.R();
-//#else
-//    const tensor E = coordSys_.R().R();
-//#endif
 
     dimensionedVector d( pcPtr->linearCoefficient() );
 

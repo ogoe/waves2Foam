@@ -9,9 +9,10 @@ EXE_INC = \
     -I$(LIB_SRC)/finiteVolume/lnInclude \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/sampling/lnInclude \
-    -DOFVERSION=300 \
+    -DOFVERSION=400 \
     -DEXTBRANCH=0 \
     -DXVERSION=$(WAVES_XVERSION) \
+    -DOFPLUSBRANCH=0 \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
     -I$(WAVES_GSL_INCLUDE)
 
