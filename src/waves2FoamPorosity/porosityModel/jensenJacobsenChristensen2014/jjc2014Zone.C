@@ -80,7 +80,7 @@ Foam::jjc2014Zone::jjc2014Zone
 {
     Info<< "Creating porous zone: " << name_ << endl;
 
-    autoPtr<Foam::porosityCoefficient> pcPtr( Foam::porosityCoefficient::New( dict ) );
+    autoPtr<Foam::porosityCoefficient> pcPtr(Foam::porosityCoefficient::New(dict));
 
     bool foundZone = (cellZoneID_ != -1);
     reduce(foundZone, orOp<bool>());
@@ -121,7 +121,7 @@ Foam::jjc2014Zone::jjc2014Zone
     #endif
 #endif
 
-    dimensionedVector d( pcPtr->linearCoefficient() );
+    dimensionedVector d(pcPtr->linearCoefficient());
 
     if (D_.dimensions() != d.dimensions())
     {
@@ -143,7 +143,7 @@ Foam::jjc2014Zone::jjc2014Zone
     D_.value() = (E & D_ & E.T()).value();
 
 
-    dimensionedVector f( pcPtr->quadraticCoefficient() );
+    dimensionedVector f(pcPtr->quadraticCoefficient());
 
     if (F_.dimensions() != f.dimensions())
     {
@@ -159,9 +159,9 @@ Foam::jjc2014Zone::jjc2014Zone
 
     checkNegativeResistance(f);
 
-    F_.value().xx() = 0.5 * f.value().x();
-    F_.value().yy() = 0.5 * f.value().y();
-    F_.value().zz() = 0.5 * f.value().z();
+    F_.value().xx() = 0.5*f.value().x();
+    F_.value().yy() = 0.5*f.value().y();
+    F_.value().zz() = 0.5*f.value().z();
     F_.value() = (E & F_ & E.T()).value();
 
     // it is an error not to define anything

@@ -67,6 +67,8 @@ protected:
 
         dimensionedVector linearCoefficient_;
         dimensionedVector quadraticCoefficient_;
+        dimensionedVector KCQuadraticCoefficient_;
+        dimensionedScalar scaledKC_;
 
     // Protected member functions
         scalar readResistancePorosity(const dictionary&) const;
@@ -119,15 +121,25 @@ public:
     // Member Functions
 
         // Access
-        const dimensionedVector & linearCoefficient() const
+        const dimensionedVector& linearCoefficient() const
         {
             return linearCoefficient_;
         };
 
-        const dimensionedVector & quadraticCoefficient() const
+        const dimensionedVector& quadraticCoefficient() const
         {
             return quadraticCoefficient_;
         };
+
+        const dimensionedVector& KCquadraticCoefficinet() const
+        {
+        	return KCQuadraticCoefficient_;
+        }
+
+        const dimensionedScalar& scaledKC() const
+        {
+        	return scaledKC_;
+        }
 };
 
 
