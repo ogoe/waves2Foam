@@ -21,13 +21,26 @@ export WAVES_GSL_INCLUDE=/usr/include
 export WAVES_GSL_LIB=/usr/lib64
 
 ### OTHER STATIC ENVIRONMENTAL VARIABLES
-## Version number
+## Version number - first old numbering system for foam-extend, OpenFoam and up to OpenFoam-v3.0+
 # The "-0" is for zero-padding the version number, to accept differences between e.g. 2.1 and 2.1.1
 if [ `uname` = "Darwin" ]
 then
     version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\'$'\n/g' -e 's/[v+-]/\'$'\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
 else
     version=`echo $WM_PROJECT_VERSION"-0" | sed -e 's/\.x/-0/' -e 's/\./\n/g' -e 's/[v+-]/\n/g' | grep "[0-9]" | head -3 | tr -d '\n'`
+fi
+
+# Version number for the OpenFoam-v1606+ version numbering (no dots, etc)
+flag=`echo $WM_PROJECT_VERSION | grep "^v[0-9]*+"`
+echo $flag
+if [ -n "$flag" ]
+then
+    if [ `uname` = "Darwin" ]
+    then
+        version=`echo $WM_PROJECT_VERSION | sed -e 's/[v+-]/\'$'\n/g' | tr -d '\n'`
+    else
+        version=`echo $WM_PROJECT_VERSION | sed -e 's/[v+-]/\n/g' | tr -d '\n'`
+    fi
 fi
 
 export WM_PROJECT_VERSION_NUMBER=$version

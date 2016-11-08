@@ -76,6 +76,8 @@ bool Foam::sampledSurfaceElevation::checkFieldTypes()
                 false
             );
 
+#if OFPLUSBRANCH == 1
+    #if OFVERSION<1606
             if (io.headerOk())
             {
                 fieldTypes[fieldi] = io.headerClassName();
@@ -84,6 +86,28 @@ bool Foam::sampledSurfaceElevation::checkFieldTypes()
             {
                 fieldTypes[fieldi] = "(notFound)";
             }
+    #else
+            // Circumventing the check and only check for scalarField, since 
+            // we know that we do not need to check for anything else.
+            if (io.typeHeaderOk<volScalarField>(true))
+            {
+                fieldTypes[fieldi] = io.headerClassName();
+            }
+            else
+            {
+                fieldTypes[fieldi] = "(notFound)";
+            }
+    #endif
+#else
+            if (io.headerOk())
+            {
+                fieldTypes[fieldi] = io.headerClassName();
+            }
+            else
+            {
+                fieldTypes[fieldi] = "(notFound)";
+            }
+#endif
         }
     }
     else

@@ -26,11 +26,16 @@ elif [ $FOAMEXTENDPROJECT -eq 1 ]
 then
     sed 's/object      pd.org;/object      pd;/' < 0.org/pd.org > 0/pd
 else
-    if [ $WM_PROJECT_VERSION_NUMBER -lt 400 ]
+    if [ "$OFPLUSBRANCH" -eq "1" ]
     then
         sed 's/object      pd.org;/object      p_rgh;/' < 0.org/pd.org > 0/p_rgh
     else
-        cp 0.org/p_rgh.40.org 0/p_rgh
+        if [ $WM_PROJECT_VERSION_NUMBER -lt 400 ]
+        then
+            sed 's/object      pd.org;/object      p_rgh;/' < 0.org/pd.org > 0/p_rgh
+        else
+            cp 0.org/p_rgh.40.org 0/p_rgh
+        fi
     fi
 fi
 

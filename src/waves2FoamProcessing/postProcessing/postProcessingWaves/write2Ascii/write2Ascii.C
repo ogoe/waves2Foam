@@ -107,16 +107,35 @@ void write2Ascii::evaluate()
             IOobject::MUST_READ
         );
 
+#if OFPLUSBRANCH == 1
+    #if OFVERSION<1606
         if (!fileHeader.headerOk())
         {
             break;
         }
+    #else
+        // Step required to update the header
+        fileHeader.typeHeaderOk<volScalarField>(false);
+
+        if (!(fileHeader.headerClassName() == "scalarField" 
+              || fileHeader.headerClassName() == "vectorField"))
+        {
+            // The check for the header is discus
+            break;
+        }
+    #endif
+#else
+        if (!fileHeader.headerOk())
+        {
+            break;
+        }
+#endif
 
         asciiPtr_.reset(new OFstream( directDir_ + "/" + ss.str() + ".txt" ) );
 
         if (fileHeader.headerClassName() == "scalarField")
         {
-            IOField<scalar> field( fileHeader );
+            IOField<scalar> field(fileHeader);
 
             forAll (field, datai)
             {
@@ -125,7 +144,7 @@ void write2Ascii::evaluate()
         }
         else if (fileHeader.headerClassName() == "vectorField")
         {
-            IOField<vector> field( fileHeader );
+            IOField<vector> field(fileHeader);
 
             forAll (field, datai)
             {
