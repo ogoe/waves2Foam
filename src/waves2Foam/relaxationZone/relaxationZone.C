@@ -207,7 +207,11 @@ tmp<volScalarField> relaxationZone::numericalBeach()
 #if EXTBRANCH==1
     volScalarField& artificialViscosity(tartificialViscotity());
 #elif OFPLUSBRANCH==1
-    volScalarField& artificialViscosity(tartificialViscotity());
+    #if OFVERSION<1606
+        volScalarField& artificialViscosity(tartificialViscotity());
+    #else
+        volScalarField& artificialViscosity(tartificialViscotity.ref());
+    #endif
 #else
     #if OFVERSION<400
         volScalarField& artificialViscosity(tartificialViscotity());

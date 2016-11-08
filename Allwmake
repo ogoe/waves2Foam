@@ -155,11 +155,16 @@ fi
 # for OpenFOAM-4.0
 if [ $FOAMEXTENDPROJECT -eq "0" ]
 then
-    if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
+    if [ "$OFPLUSBRANCH" -eq "1" ]
     then
-        ( cd $WAVES_POST && wmake all )
+        ( cd $WAVES_POST && wmake all)
     else
-        ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
+        if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
+        then
+            ( cd $WAVES_POST && wmake all )
+        else
+            ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
+        fi
     fi
 else
     ( cd $WAVES_POST && wmake all )

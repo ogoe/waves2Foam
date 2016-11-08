@@ -54,7 +54,11 @@ Foam::jjc2014Zones::ddt
 #if EXTBRANCH==1
     modifyDdt(tres());
 #elif OFPLUSBRANCH==1
-    modifyDdt(tres());
+    #if OFVERSION < 1606
+        modifyDdt(tres());
+    #else
+        modifyDdt(tres.ref());
+    #endif
 #else
     #if OFVERSION<400
         modifyDdt(tres());
@@ -79,7 +83,11 @@ Foam::jjc2014Zones::ddt
 #if EXTBRANCH==1
     modifyDdt(tres());
 #elif OFPLUSBRANCH==1
-    modifyDdt(tres());
+    #if OFVERSION < 1606
+        modifyDdt(tres());
+    #else
+        modifyDdt(tres.ref());
+    #endif
 #else
     #if OFVERSION<400
         modifyDdt(tres());
@@ -104,7 +112,11 @@ Foam::jjc2014Zones::ddt
 #if EXTBRANCH==1
     modifyDdt(tres());
 #elif OFPLUSBRANCH==1
-    modifyDdt(tres());
+    #if OFVERSION < 1606
+        modifyDdt(tres());
+    #else
+        modifyDdt(tres.ref());
+    #endif
 #else
     #if OFVERSION<400
         modifyDdt(tres());
@@ -129,7 +141,11 @@ Foam::jjc2014Zones::ddt
 #if EXTBRANCH==1
     modifyDdt(tres());
 #elif OFPLUSBRANCH==1
-    modifyDdt(tres());
+    #if OFVERSION < 1606
+        modifyDdt(tres());
+    #else
+        modifyDdt(tres.ref());
+    #endif
 #else
     #if OFVERSION<400
         modifyDdt(tres());

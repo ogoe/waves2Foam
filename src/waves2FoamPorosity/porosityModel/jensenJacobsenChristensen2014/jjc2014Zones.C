@@ -97,7 +97,11 @@ tmp<volScalarField> Foam::jjc2014Zones::porosity() const
 #if EXTBRANCH==1
     volScalarField& poro(tporosity());
 #elif OFPLUSBRANCH==1
-    volScalarField& poro(tporosity());
+    #if OFVERSION<1606
+        volScalarField& poro(tporosity());
+    #else
+        volScalarField& poro(tporosity.ref());
+    #endif
 #else
     #if OFVERSION<400
         volScalarField& poro(tporosity());

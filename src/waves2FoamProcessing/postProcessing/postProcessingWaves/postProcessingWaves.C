@@ -290,10 +290,20 @@ word postProcessingWaves::dataType()
 
     // The inquiry to fileHeader.headerOk() is needed to update
     // headerClassName() from IOobject. This is weird but not looked into.
+#if OFPLUSBRANCH == 1
+    #if OFVERSION<1606
+        if (!fileHeader.headerOk())
+        {
+        }
+    #else
+        // Dummy question to read in the class name
+        fileHeader.typeHeaderOk<volScalarField>(false);
+    #endif
+#else
     if (!fileHeader.headerOk())
     {
-
     }
+#endif
 
     if (fileHeader.headerClassName() == "scalarField")
     {
