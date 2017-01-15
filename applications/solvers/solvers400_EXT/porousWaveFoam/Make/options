@@ -1,0 +1,29 @@
+EXE_INC = \
+    -I$(LIB_SRC)/transportModels \
+    -I$(LIB_SRC)/transportModels/incompressible/lnInclude \
+    -I$(LIB_SRC)/transportModels/interfaceProperties/lnInclude \
+    -I$(LIB_SRC)/turbulenceModels/incompressible/turbulenceModel \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -DOFVERSION=400 \
+    -DEXTBRANCH=1 \
+    -DOFPLUSBRANCH=0 \
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamPorosity/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
+
+EXE_LIBS = \
+    -linterfaceProperties \
+    -lincompressibleTransportModels \
+    -lincompressibleTurbulenceModel \
+    -lincompressibleRASModels \
+    -lincompressibleLESModels \
+    -lfiniteVolume \
+    -llduSolvers \
+    -L$(WAVES_LIBBIN) \
+    -lwaves2Foam \
+    -lwaves2FoamSampling \
+    -lwaves2FoamPorosity \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas

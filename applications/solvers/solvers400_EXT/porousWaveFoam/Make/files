@@ -1,0 +1,3 @@
+porousWaveFoam.C
+
+EXE = $(WAVES_APPBIN)/porousWaveFoam
