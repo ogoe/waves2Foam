@@ -1,0 +1,4 @@
+writeMooringLines.C
+
+EXE = $(WAVES_APPBIN)/writeMooringLines
+
