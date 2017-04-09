@@ -1,0 +1,11 @@
+EXE_INC = \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/sixDoFRigidBodyMotion/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamMooring/lnInclude
+
+    
+EXE_LIBS = \
+    -lfiniteVolume \
+    -lsixDoFRigidBodyMotion \
+    -L$(FOAM_USER_LIBBIN) \
+    -lwaves2FoamMooring

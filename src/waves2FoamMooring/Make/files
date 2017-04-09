@@ -1,0 +1,6 @@
+mooringLine/catenaryShape.C
+mooringLine/mooringLine.C
+
+write1DFvMesh/write1DFvMesh.C
+
+LIB = $(WAVES_LIBBIN)/libwaves2FoamMooring

@@ -60,3 +60,8 @@ else
 fi
 
 (cd waves2FoamPorosity  ; wmake libso)
+
+if [ "$WM_PROJECT_VERSION_NUMBER" -eq "1606" ]
+then
+    (cd waves2FoamMooring   ; wmake libso)
+fi

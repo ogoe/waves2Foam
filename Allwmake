@@ -173,6 +173,21 @@ fi
 
 echo ""
 echo "====================================="
+echo "    COMPILE BREEDER"
+echo "====================================="
+
+if [ "$WM_PROJECT_VERSION_NUMBER" -eq "1606" ]
+then
+    ( cd $WAVES_POST/../breeder && wmake all )
+else
+    echo ""
+    echo "Nothing available for compilation in the breeder"
+    echo "directory."
+    echo ""
+fi
+
+echo ""
+echo "====================================="
 echo "    COMPILATION DONE"
 echo "====================================="
 echo ""
