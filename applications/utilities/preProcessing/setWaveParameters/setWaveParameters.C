@@ -39,7 +39,7 @@ Description
          constant/waveProperties
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 Additional information
     Implementation published and validated in the following journal article:
@@ -155,14 +155,45 @@ int main(int argc, char *argv[])
         // If a sub-dictionary, then compute parameters and write the subdict
         if (waveProperties.isDict(toc[item]))
         {
-            dictionary& sd = waveProperties.subDict(toc[item]);
+        	dictionary& sd = waveProperties.subDict(toc[item]);
 
-            autoPtr<setWaveProperties> props
-                (
-                    setWaveProperties::New(runTime, sd, true)
-                );
+        	if (toc[item] == "sampleIncidentWaveField")
+        	{
+                os << toc[item] << nl;
+                os << token::BEGIN_BLOCK << incrIndent << nl;
 
-            props->set( os );
+                scalar dt(readScalar(sd.lookup("deltaT")));
+                scalar T(readScalar(sd.lookup("endTime")));
+
+                os << indent << "deltaT" << token::SPACE << dt << token::END_STATEMENT << nl;
+                os << indent << "endTime" << token::SPACE << T << token::END_STATEMENT << nl;
+
+                pointField input(sd.lookup("points"));
+
+                os << nl << indent << "points" << token::SPACE << nl
+                    << indent << input.size() << token::BEGIN_LIST << nl;
+
+                forAll (input, pointi)
+                {
+                    os << indent << indent << input[pointi] << nl;
+                }
+
+                os << indent << token::END_LIST << token::END_STATEMENT << nl;
+
+
+                os << decrIndent << token::END_BLOCK << nl;
+                os << nl;
+
+        	}
+        	else
+        	{
+                autoPtr<setWaveProperties> props
+                    (
+                        setWaveProperties::New(runTime, sd, true)
+                    );
+
+                props->set(os);
+        	}
         }
         else
         {
