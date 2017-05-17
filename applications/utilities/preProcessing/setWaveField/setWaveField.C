@@ -30,7 +30,7 @@ Description
     velocity field accordingly to specified wave theory.
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 Additional information
     Implementation published and validated in the following journal article:

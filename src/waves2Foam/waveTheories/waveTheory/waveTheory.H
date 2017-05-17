@@ -219,6 +219,11 @@ public:
 
         // Return the unit vertical direction in the direction of g
         const inline vector& returnDir() const { return direction_;}
+
+        // Return a reference to the dictionary
+        const inline dictionary& patchDict() const {return coeffDict_;};
+
+        const inline scalar& seaLevel() const {return seaLevel_;};
 };
 
 
