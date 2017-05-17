@@ -103,7 +103,6 @@ scalar stokesFirst::ddxPd
     const vector& unitVector
 ) const
 {
-
     scalar Z(returnZ(x));
     scalar arg(omega_*time - (k_ & x) + phi_);
 
@@ -134,7 +133,6 @@ scalar stokesFirst::p
 
     return res;
 }
-
 
 
 vector stokesFirst::U
