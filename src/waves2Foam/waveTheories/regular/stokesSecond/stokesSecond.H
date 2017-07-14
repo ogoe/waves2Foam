@@ -138,6 +138,12 @@ public:
             const scalar&
         ) const;
 
+        virtual scalar p
+        (
+            const point&,
+            const scalar&
+        ) const;
+
         virtual scalar ddxPd
         (
             const point&,
