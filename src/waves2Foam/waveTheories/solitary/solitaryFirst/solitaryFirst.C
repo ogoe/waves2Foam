@@ -204,6 +204,9 @@ vector solitaryFirst::U
            - ((x - x0_) & propagationDirection_)
          ));
 
+    // Corrected sign (error) in the vertical velocity (2017.07.15, NJ)
+    Uvert *= -1.0;
+
     return Uhorz*propagationDirection_ - Uvert*direction_;
 }
 

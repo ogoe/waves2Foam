@@ -9,6 +9,8 @@ $(waveProp)/$(current)/potentialCurrentProperties/potentialCurrentProperties.C
 /* Solitary type */
 solitary=solitary
 $(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
+/*$(waveProp)/$(solitary)/solitaryGrimshaw1971Properties/solitaryGrimshaw1971Properties.C*/
+$(waveProp)/$(solitary)/chappelear1962Properties/chappelear1962Properties.C
 
 /* Stokes theories */
 regular=regular
