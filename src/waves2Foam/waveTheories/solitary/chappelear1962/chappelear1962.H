@@ -23,17 +23,11 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::waveTheories::stokesSecond
+    Foam::waveTheories::chappelear1962
 
 Description
-    Implementation of a second order stokes theory for monochromatic surface
-    water waves. Implemented following the description by
-
-        Hydrodynamics of Coastal Regions
-        Ib A. Svendsen and Ivar G. Jonsson
-        1982
-        Den private ingenioerfond
-        Technical University of Denmark
+    Implementation of the solitary wave theory described in Chappelear (1962).
+    Shallow-Water Waves, Journal of Geophysical Research.
 
     A description of the general wave framework is given in
 
@@ -49,19 +43,18 @@ Description
     }
 
 SourceFiles
-    stokesSecond.C
+    chappelear1962.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels G. Jacobsen, Deltares.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef stokesSecond_H
-#define stokesSecond_H
+#ifndef chappelear1962_H
+#define chappelear1962_H
 
 #include "waveTheory.H"
-#include "Switch.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -71,10 +64,10 @@ namespace waveTheories
 {
 
 /*---------------------------------------------------------------------------*\
-                           Class stokesSecond Declaration
+                         Class chappelear1962 Declaration
 \*---------------------------------------------------------------------------*/
 
-class stokesSecond
+class chappelear1962
 :
     public waveTheory
 {
@@ -82,29 +75,36 @@ class stokesSecond
 protected:
 
     // Protected data
+        // Read from waveProperties
         scalar H_;
         scalar h_;
-        scalar omega_;
-        scalar period_;
-        scalar phi_;
-        vector k_;
-        scalar K_;
-        scalar Tsoft_;
+        vector propagationDirection_;
+        point  x0_;
+        scalar L1_;
+        scalar L3_;
 
-        bool debug_;
+        // Computed
+        scalar dL_;
+        scalar kappa_;
+        scalar G_;
+        scalar c_;
 
     // Protected member functions
 
-        scalar factor(const scalar&) const;
+        scalar shapeT(const point&, const scalar&) const;
+
+        scalar shapeS(const point&, const scalar&) const;
+
+        scalar factor(const scalar& ) const;
 public:
 
     //- Runtime type information
-    TypeName("stokesSecond");
+    TypeName("chappelear1962");
 
     // Constructors
 
         //- from components
-        stokesSecond
+        chappelear1962
         (
             const word&,
             const fvMesh& mesh_
@@ -113,32 +113,19 @@ public:
 
     // Destructor
 
-        ~stokesSecond()
+        ~chappelear1962()
         {}
 
 
     // Member Functions
         virtual Switch conflictTSoftInitialise() const
         {
-            if (Tsoft_ > 0)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return false;
         };
 
         void printCoeffs();
 
         virtual scalar eta
-        (
-            const point&,
-            const scalar&
-        ) const;
-
-        virtual scalar p
         (
             const point&,
             const scalar&
@@ -156,6 +143,13 @@ public:
             const point&,
             const scalar&
         ) const;
+
+        virtual scalar p
+        (
+            const point&,
+            const scalar&
+        ) const;
+
 };
 
 

@@ -153,6 +153,35 @@ scalar stokesSecond::ddxPd
 }
 
 
+scalar stokesSecond::p
+(
+    const point& x,
+    const scalar& time
+) const
+{
+	scalar res = 0;
+
+	// Get arguments and local coordinate system
+    scalar Z(returnZ(x));
+    scalar arg(omega_*time - (k_ & x) + phi_);
+
+    // First order contribution
+    res = rhoWater_*mag(g_)*H_/2.0*Foam::cosh(K_*(Z + h_))
+        /Foam::cosh(K_*h_)*Foam::cos(arg);
+
+    // Second order contribution
+    res += 1.0/8.0*rhoWater_*mag(g_)*K_*Foam::sqr(H_)/Foam::sinh(2.0*K_*h_)
+        *((3.0*Foam::cosh(2.0*K_*(Z + h_))/Foam::sqr(Foam::sinh(K_*h_)) - 1.0)*Foam::cos(2.0*arg)
+         - Foam::cosh(2*K_*(Z + h_)) + 1);
+
+    // Apply the ramping-factor
+    res *= factor(time);
+
+    return res;
+}
+
+
+
 vector stokesSecond::U
 (
     const point& x,

@@ -21,6 +21,8 @@ $(waveTheories)/$(current)/potentialCurrent/potentialCurrent.C
 /* Solitary type */
 solitary=solitary
 $(waveTheories)/$(solitary)/solitaryFirst/solitaryFirst.C
+/*$(waveTheories)/$(solitary)/solitaryGrimshaw1971/solitaryGrimshaw1971.C*/
+$(waveTheories)/$(solitary)/chappelear1962/chappelear1962.C
 
 /* Regular wave theories */
 regular=regular
