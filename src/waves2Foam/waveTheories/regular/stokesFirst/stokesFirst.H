@@ -148,6 +148,11 @@ public:
             const scalar&
         ) const;
 
+        bool implementPressure() const
+        {
+            return true;
+        };
+
         virtual vector U
         (
             const point&,

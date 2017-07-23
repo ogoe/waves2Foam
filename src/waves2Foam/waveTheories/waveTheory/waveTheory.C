@@ -82,6 +82,17 @@ waveTheory::waveTheory
         dictionary sD(transProp.subDict(Foam::waves2Foam::waterPhase()));
         rhoWater_ = (dimensionedScalar(sD.lookup("rho"))).value();
     }
+
+    // Set the reference level
+    referenceLevel_ = vector::zero;
+
+    bool correctReference =
+        this->lookupOrDefault<bool>("seaLevelAsReference", false);
+
+    if (correctReference)
+    {
+        referenceLevel_ = seaLevel_*Foam::cmptMultiply(direction_, direction_);
+    }
 }
 
 

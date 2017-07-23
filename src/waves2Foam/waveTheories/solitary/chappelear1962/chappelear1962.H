@@ -83,6 +83,9 @@ protected:
         scalar L1_;
         scalar L3_;
 
+        // Bernoullis constant - estimate
+        scalar R_;
+
         // Computed
         scalar dL_;
         scalar kappa_;
@@ -149,6 +152,11 @@ public:
             const point&,
             const scalar&
         ) const;
+
+        bool implementPressure() const
+        {
+            return true;
+        };
 
 };
 

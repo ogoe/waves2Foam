@@ -74,6 +74,22 @@ chappelear1962::chappelear1962
     propagationDirection_ /= Foam::mag(propagationDirection_);
 
     checkWaveDirection(propagationDirection_);
+
+    // Estimate of Bernoillis constant. Appears sensitive to large amplitudes!
+    point X(x0_);
+
+    // Get surface elevation and a point on the surface
+    scalar E = this->eta(X, 0.0);
+    X -= (X & direction_)*direction_;
+    X -= E*direction_;
+
+    // Evaluate the velocity at the surface and correct into a steady reference
+    // frame
+    vector vel = this->U(X, 0.0);
+    vel -= (c_*propagationDirection_);
+
+    R_ = 0.5*Foam::cmptSum(Foam::cmptMultiply(vel, vel)) + Foam::mag(g_)*E;
+
 }
 
 
@@ -166,9 +182,26 @@ scalar chappelear1962::p
     const scalar& time
 ) const
 {
-    scalar Z(returnZ(x));
-
     scalar res = 0;
+
+    // Get the reference level.
+    scalar Z(returnZ(x) + h_);
+
+    // Get the velocity and correct for the propagation speed (otherwise,
+    // the time derivative of the velocity potential would be needed).
+    vector vel = this->U(x, time);
+    vel -= (c_*propagationDirection_);
+
+    // Get the component-wise square of the velocity vector
+    vector tmp = Foam::cmptMultiply(vel, vel);
+
+    // The last component is a matter of transforming total pressure
+    // into excess pressure.
+    res = R_ -Z*Foam::mag(g_) - 0.5*Foam::cmptSum(tmp)
+        - ((x - referenceLevel_) & g_);
+    res *= rhoWater_;
+
+//    Info << referenceLevel_ << endl;
 
     return res;
 }

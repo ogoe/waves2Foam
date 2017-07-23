@@ -46,7 +46,7 @@ SourceFiles
     stokesFifth.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 TODO:
     - Compute detadt
@@ -119,6 +119,9 @@ protected:
         scalar E2_;
         scalar E4_;
 
+        // Bernoulli constant
+        scalar R_;
+
     // Protected member functions
 
         scalar factor(const scalar&) const;
@@ -164,6 +167,17 @@ public:
             const point&,
             const scalar&
         ) const;
+
+        virtual scalar p
+        (
+            const point&,
+            const scalar&
+        ) const;
+
+        bool implementPressure() const
+        {
+            return true;
+        };
 
         virtual scalar ddxPd
         (
