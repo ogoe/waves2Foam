@@ -110,6 +110,8 @@ scalar potentialCurrent::p
 {
     scalar result = rhoWater_*Foam::mag(g_)*localSeaLevel_;
 
+    result += rhoWater_*(referenceLevel_ & g_);
+
     return result;
 }
 

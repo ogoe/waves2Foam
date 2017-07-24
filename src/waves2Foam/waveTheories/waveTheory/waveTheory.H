@@ -86,6 +86,7 @@ protected:
         scalar rhoWater_;
         vector g_;
         vector direction_;
+        vector referenceLevel_;
 
         const dictionary coeffDict_;
 
@@ -195,7 +196,15 @@ public:
         (
             const point&,
             const scalar&
-        ) const { return 0.0; };
+        ) const
+        {
+        	return 0.0;
+        };
+
+        virtual bool implementPressure() const
+        {
+        	return false;
+        };
 
         // Access - field
         virtual scalarField eta

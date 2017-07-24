@@ -157,6 +157,12 @@ void stokesFifth::setCoefficients()
            - 42.0*pow(S,4.0) + 77.0*pow(S,5.0)
          )/(32.0*pow(1.0 - S,5.0));
 
+
+    // Bernoulli constant
+    scalar eps(K_*H_/2.0);
+    R_ = Foam::mag(g_)/K_*(0.5*Foam::sqr(C0_) + K_*h_ + Foam::sqr(eps)*E2_
+    		+ Foam::pow(eps, 4.0)*E4_);
+
     // For K_*h_ = 0.753982 the coefficients should (approximately) fulfill:
 //     Info << "A11_ = " << A11_ << " = 1.208490" << endl;
 //     Info << "A22_ = " << A22_ << " = 0.799840" << endl;
@@ -225,6 +231,36 @@ scalar stokesFifth::eta
                  )/K_*factor(time) + seaLevel_;
 
     return eta;
+}
+
+
+scalar stokesFifth::p
+(
+    const point& x,
+    const scalar& time
+) const
+{
+    scalar res = 0;
+
+	// Get the reference level. Note that Eq. (29) in Fenton (1985) is
+	// defined, such that z = 0 at the bottom
+	scalar Z(returnZ(x) + h_);
+
+    // Get the velocity and correct for the propagation speed (otherwise,
+	// the time derivative of the velocity potential would be needed).
+    vector vel = this->U(x, time);
+    vel = omega_/K_*k_/K_ - vel;
+
+    // Get the component-wise square of the velocity vector
+    vector tmp = Foam::cmptMultiply(vel, vel);
+
+    // The last component is a matter of transforming total pressure
+    // into excess pressure. The equation follows from (29), Fenton (1985).
+    res = R_ -Z*Foam::mag(g_) - 0.5*Foam::cmptSum(tmp)
+        - ((x - referenceLevel_) & g_);
+    res *= rhoWater_;
+
+    return res;
 }
 
 
