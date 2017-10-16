@@ -61,7 +61,7 @@ Foam::jjc2014Zones::jjc2014Zones
             "porosityZones",
             mesh.time().constant(),
             mesh,
-            IOobject::READ_IF_PRESENT,
+            IOobject::MUST_READ,//IOobject::READ_IF_PRESENT,
             IOobject::NO_WRITE
         ),
         jjc2014Zone::iNew(mesh)
