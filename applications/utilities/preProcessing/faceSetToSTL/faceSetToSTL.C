@@ -34,7 +34,7 @@ Description
     "stlDefinitions".
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 \*---------------------------------------------------------------------------*/
 
@@ -51,12 +51,6 @@ Author
 #else
     #include "Time.H"
 #endif
-
-//#if EXTBRANCH==1 && OFVERSION>310
-//    #include "foamTime.H"
-//#else
-//    #include "Time.H"
-//#endif
 
 #include "fvMesh.H"
 #include "faceTriangulation.H"

@@ -58,7 +58,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
     convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #elif OFPLUSBRANCH==1
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #if OFVERSION<1706
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #else
+        convexPolyhedral(this->internalField().mesh(), true),
+    #endif
 #else
     #if OFVERSION<400
         convexPolyhedral(this->dimensionedInternalField().mesh(), true),
@@ -74,7 +78,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
             this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
 #else
     #if OFVERSION<400
             this->dimensionedInternalField().mesh()
@@ -104,7 +112,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
     convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #elif OFPLUSBRANCH==1
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #if OFVERSION<1706
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #else
+        convexPolyhedral(this->internalField().mesh(), true),
+    #endif
 #else
     #if OFVERSION<400
         convexPolyhedral(this->dimensionedInternalField().mesh(), true),
@@ -128,7 +140,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
     convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #elif OFPLUSBRANCH==1
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #if OFVERSION<1706
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #else
+        convexPolyhedral(this->internalField().mesh(), true),
+    #endif
 #else
     #if OFVERSION<400
         convexPolyhedral(this->dimensionedInternalField().mesh(), true),
@@ -144,7 +160,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
             this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
 #else
     #if OFVERSION<400
             this->dimensionedInternalField().mesh()
@@ -169,7 +189,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
     convexPolyhedral(this->dimensionedInternalField().mesh(), true),
 #elif OFPLUSBRANCH==1
-    convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #if OFVERSION<1706
+        convexPolyhedral(this->dimensionedInternalField().mesh(), true),
+    #else
+        convexPolyhedral(this->internalField().mesh(), true),
+    #endif
 #else
     #if OFVERSION<400
         convexPolyhedral(this->dimensionedInternalField().mesh(), true),
@@ -185,7 +209,11 @@ waveVelocityFvPatchVectorField::waveVelocityFvPatchVectorField
 #if EXTBRANCH==1
             this->dimensionedInternalField().mesh()
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
             this->dimensionedInternalField().mesh()
+    #else
+            this->internalField().mesh()
+    #endif
 #else
     #if OFVERSION<400
             this->dimensionedInternalField().mesh()
@@ -237,7 +265,11 @@ void waveVelocityFvPatchVectorField::updateCoeffs()
 #if EXTBRANCH==1
     const fvMesh& mesh = this->dimensionedInternalField().mesh();
 #elif OFPLUSBRANCH==1
-    const fvMesh& mesh = this->dimensionedInternalField().mesh();
+    #if OFVERSION<1706
+        const fvMesh& mesh = this->dimensionedInternalField().mesh();
+    #else
+        const fvMesh& mesh = this->internalField().mesh();
+    #endif
 #else
     #if OFVERSION<400
         const fvMesh& mesh = this->dimensionedInternalField().mesh();

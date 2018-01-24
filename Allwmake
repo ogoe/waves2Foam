@@ -118,7 +118,17 @@ do
 
     if [ "$FOAMEXTENDPROJECT" -eq "0" ]
     then
-        ln -s -f $i/Make/options.OpenFOAM $i/Make/options
+        if [ "$OFPLUSBRANCH" -eq "1" ]
+        then
+            if [ "$WM_PROJECT_VERSION_NUMBER" -lt 1706 ]
+            then
+                ln -s -f $i/Make/options.OpenFOAM $i/Make/options
+            else
+                ln -s -f $i/Make/options.OpenFOAMPlus1706 $i/Make/options
+            fi
+        else
+            ln -s -f $i/Make/options.OpenFOAM $i/Make/options
+        fi
     else
         if [ "$WM_PROJECT_VERSION_NUMBER" -lt 320 ]
         then
@@ -157,7 +167,12 @@ if [ $FOAMEXTENDPROJECT -eq "0" ]
 then
     if [ "$OFPLUSBRANCH" -eq "1" ]
     then
-        ( cd $WAVES_POST && wmake all)
+        if [ "$WM_PROJECT_VERSION_NUMBER" -lt "1612" ]
+        then
+            ( cd $WAVES_POST && wmake all)
+        else
+            ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
+        fi
     else
         if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
         then

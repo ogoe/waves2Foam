@@ -112,7 +112,11 @@ void jensenJacobsenChristensen2014::updatePorosity()
 #if EXTBRANCH==1
 	porosity_.internalField() = poro.internalField();
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
         porosity_.internalField() = poro.internalField();
+    #else
+        porosity_.ref() = poro.internalField();
+    #endif
 #else
     #if OFVERSION<400
 	porosity_.internalField() = poro.internalField();
