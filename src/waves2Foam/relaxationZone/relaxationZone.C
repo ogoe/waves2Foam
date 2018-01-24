@@ -80,7 +80,11 @@ void relaxationZone::resetTargetFields()
 #if EXTBRANCH==1
         (*relaxationWeightsMomentum_).internalField() = 1.0;
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
         (*relaxationWeightsMomentum_).internalField() = 1.0;
+    #else
+        (*relaxationWeightsMomentum_).ref() = 1.0;
+    #endif
 #else
     #if OFVERSION<400
         (*relaxationWeightsMomentum_).internalField() = 1.0;
@@ -95,7 +99,11 @@ void relaxationZone::resetTargetFields()
 #if EXTBRANCH==1
         (*relaxationWeightsSource_).internalField() = 1.0;
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
         (*relaxationWeightsSource_).internalField() = 1.0;
+    #else
+        (*relaxationWeightsSource_).ref() = 1.0;
+    #endif
 #else
     #if OFVERSION<400
         (*relaxationWeightsSource_).internalField() = 1.0;
@@ -110,7 +118,11 @@ void relaxationZone::resetTargetFields()
 #if EXTBRANCH==1
         (*targetAlpha_).internalField() = 0.0;
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
         (*targetAlpha_).internalField() = 0.0;
+    #else
+        (*targetAlpha_).ref() = 0.0;
+    #endif
 #else
     #if OFVERSION<400
         (*targetAlpha_).internalField() = 0.0;
@@ -125,7 +137,11 @@ void relaxationZone::resetTargetFields()
 #if EXTBRANCH==1
         (*targetVelocity_).internalField() = vector::zero;
 #elif OFPLUSBRANCH==1
+    #if OFVERSION<1706
         (*targetVelocity_).internalField() = vector::zero;
+    #else
+        (*targetVelocity_).ref() = vector::zero;
+    #endif
 #else
     #if OFVERSION<400
         (*targetVelocity_).internalField() = vector::zero;

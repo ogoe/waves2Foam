@@ -31,7 +31,7 @@ else
 fi
 
 # Version number for the OpenFoam-v1606+ version numbering (no dots, etc)
-flag=`echo $WM_PROJECT_VERSION | grep "^v[0-9]*+"`
+flag=`echo $WM_PROJECT_VERSION | grep "^v[0-9]*+\|v[0-9]*"`
 echo $flag
 if [ -n "$flag" ]
 then
@@ -95,7 +95,7 @@ then
 fi
 
 ## Is it the OpenFoam+ version?
-OFPLUSBRANCH=`echo $WM_PROJECT_VERSION | grep '+'`
+OFPLUSBRANCH=`echo $WM_PROJECT_VERSION | grep '+\|v[0-9]*'`
 
 if [ -z $OFPLUSBRANCH ]
 then

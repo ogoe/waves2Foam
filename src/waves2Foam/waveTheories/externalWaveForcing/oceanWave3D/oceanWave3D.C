@@ -485,7 +485,11 @@ void oceanWave3D::updatePhi()
 #if EXTBRANCH==1
     phi.internalField() = phiTemp.internalField();
 #elif OFPLUSBRANCH==1
-    phi.internalField() = phiTemp.internalField();
+    #if OFVERSION<1706
+        phi.internalField() = phiTemp.internalField();
+    #else
+        phi.ref() = phiTemp.internalField();
+    #endif
 #else
     #if OFVERSION<400
         phi.internalField() = phiTemp.internalField();
@@ -497,7 +501,15 @@ void oceanWave3D::updatePhi()
 
     forAll (phi.boundaryField(), patchi)
     {
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1706
     	phi.boundaryField()[patchi] == phiTemp.boundaryField()[patchi];
+    #else
+    	phi.boundaryFieldRef()[patchi] == phiTemp.boundaryField()[patchi];
+    #endif
+#else
+  	phi.boundaryField()[patchi] == phiTemp.boundaryField()[patchi];
+#endif
     }
 
     // Perform the correction to phi utilising the correctPhi code (foam-extend-3.1)

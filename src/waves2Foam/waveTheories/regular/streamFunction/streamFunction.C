@@ -65,6 +65,23 @@ streamFunction::streamFunction
     Tend_(coeffDict_.lookupOrDefault<scalar>("Tend",GREAT))
 {
     checkWaveDirection(k_);
+
+    // Evaluate the Bernoulli constant
+    scalar E = this->eta(vector::zero, 2*Tsoft_);
+    vector vel = this->U(vector::zero - E*direction_, 2*Tsoft_);
+
+//    Info << vector::zero - E*direction_ << endl;
+
+//    Info << "Vel 1: " << vel;
+
+    vel -= k_/K_*omega_/K_;
+
+//    Info << tab << vel << endl;
+
+    R_ = 0.5*Foam::cmptSum(Foam::cmptMultiply(vel, vel))
+        + Foam::mag(g_)*(E - seaLevel_);
+
+//    Info << "R: " << R_ << endl;
 }
 
 
@@ -151,6 +168,35 @@ scalar streamFunction::ddxPd
     ddxPd =  rhoWater_*(omega_/K_*dUx - Ux*dUx - Uy*dUy)*factor(time);
 
     return ddxPd;
+}
+
+
+scalar streamFunction::p
+(
+    const point& x,
+    const scalar& time
+) const
+{
+	scalar res = 0;
+
+	// Get the reference level.
+	scalar Z(returnZ(x));
+
+	// Get the velocity and correct for the propagation speed (otherwise,
+	// the time derivative of the velocity potential would be needed).
+	vector vel = this->U(x, time);
+	vel -= omega_/K_*k_/K_;
+
+	// Get the component-wise square of the velocity vector
+	vector tmp = Foam::cmptMultiply(vel, vel);
+
+	// The last component is a matter of transforming total pressure
+	// into excess pressure. The equation follows from (29), Fenton (1985).
+	res = R_ - Z*Foam::mag(g_) - 0.5*Foam::cmptSum(tmp)
+	    - ((x - referenceLevel_) & g_);
+	res *= rhoWater_;
+
+	return res;
 }
 
 

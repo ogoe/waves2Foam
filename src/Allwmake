@@ -51,7 +51,10 @@ then
     (cd waves2FoamSampling  ; wmake libso)
 elif [ $OFPLUSBRANCH -eq "1" ]
 then
-    (cd waves2FoamSampling  ; wmake libso)
+    if [ "$WM_PROJECT_VERSION_NUMBER" -lt "1706" ]
+    then
+        (cd waves2FoamSampling  ; wmake libso)
+    fi
 else
     if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
     then

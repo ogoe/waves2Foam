@@ -51,7 +51,7 @@ SourceFiles
     streamFunction.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -88,6 +88,9 @@ protected:
         scalar K_;
         scalar uBar_;
         scalar N_;
+
+        scalar R_;
+
         scalarField A_;
         scalarField B_;
         scalar Tsoft_;
@@ -144,6 +147,12 @@ public:
             const point&,
             const scalar&,
             const vector&
+        ) const;
+
+        scalar p
+        (
+            const point&,
+            const scalar&
         ) const;
 
         virtual vector U
