@@ -1,5 +1,7 @@
 close all, clear all
 
+addpath('./../../../../applications/utilities/misc/matlab/postprocessing/');
+
 figure
 % Change the size of the figure
 w = 1; h = 2
@@ -15,17 +17,9 @@ set(gcf,'Position',hp);
 
 %% Read simulation data
 
-xx = load('../postProcessedWaves2Foam/surfaceElevation/surfaceElevation_indexXYZ.txt');
-
-for i=1:size(xx,1)
-    data = load(sprintf('../postProcessedWaves2Foam/surfaceElevation/surfaceElevation_%d.txt',xx(i)));
-    
-    if i==1
-        eta = zeros(size(xx, 1), size(data, 1));
-    end
-    
-    eta(i,:) = data';
-end
+cd ../postProcessing
+[time, xx, y, z, eta] = readSurfaceElevation('0');
+cd ../matlab
 
 %% Plot the comparison with experimental data
 fSize = 14;
@@ -36,7 +30,9 @@ for i=0:2:22
     subplot(6,2,i/2+1), hold on, grid on, set(gca,'box','on');
     fill([30 59 59 30]/100,[0 0 27 27]/100,0.75*[1 1 1])
     
-    plot(xx(:,2), eta(:,i/2+1), 'linewidth',1.5)
+    dt = time - (i/2)*0.2;
+    It = find(abs(dt) == min(abs(dt)));
+    plot(xx, eta(It,:), 'linewidth',1.5)
     plot(x(:,1), x(:,2), 'bo')
     
     xlim([0 0.892]), ylim([0 0.3])

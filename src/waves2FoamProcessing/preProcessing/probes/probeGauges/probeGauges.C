@@ -109,8 +109,15 @@ void probeGauges::evaluate(const word& name)
     gauges() << indent << "functionObjectLibs ( \"libsampling.so\" );" << nl;
     gauges() << indent << "enabled            true;" << nl;
     gauges() << nl;
+#if OFPLUSBRANCH==1 && 1606<OFVERSION
+    word wc(gaugeDict_.lookup("writeControl"));
+    scalar wi = readScalar(gaugeDict_.lookup("writeInterval"));
+    gauges() << indent << "writeControl       " << wc << ";" << nl;
+    gauges() << indent << "writeInterval      " << wi << ";" << nl;
+#else
     gauges() << indent << "outputControl      timeStep;" << nl;
     gauges() << indent << "outputInterval     " << interval << ";" << nl << nl;
+#endif
     gauges() << nl;
     gauges() << indent << "probeLocations" << nl << indent << "(" << nl;
     forAll(pp, pointi)
