@@ -45,4 +45,4 @@ runApplication waveGaugesNProbes
 runApplication $application
 
 # Run the post-processing of data
-runApplication postProcessWaves2Foam
+# runApplication postProcessWaves2Foam

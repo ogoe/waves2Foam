@@ -10,26 +10,52 @@ FoamFile
     version     2.0;
     format      ascii;
     class       dictionary;
-    object      loggingProperties;
+    object      fvSchemes;
 }
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-surfaceElevation
+ddtSchemes
 {
-    type waveGauge;
-
-    pointDistribution lineDistribution;
-    N 90;
-    linestart (0.001 0.001 0.0005);
-    lineend   (0.89 0.001 0.0005);
-    add       (0.00 0.50 0.00);
-    axis      y;
-    stretch   1.0;
-
-    // REQURIED ONLY FOR NEW FUNCTIONOBJECT IMPLEMENTATION
-    writeControl adjustableRunTime;
-    writeInterval 0.01;
+    default Euler;
 }
 
+gradSchemes
+{
+    default         Gauss linear;
+    grad(U)         Gauss linear;
+    grad(alpha1)     Gauss linear;
+}
+
+divSchemes
+{
+    div(rhoPhi,U)  Gauss limitedLinearV 1;
+    //div((muEff*dev(T(grad(U))))) Gauss linear;
+    div(((rho*nuEff)*dev2(T(grad(U))))) Gauss linear;
+    div(phi,alpha)  Gauss MUSCL;
+    div(phirb,alpha) Gauss interfaceCompression;
+}
+
+laplacianSchemes
+{
+    default         Gauss linear corrected;
+}
+
+interpolationSchemes
+{
+    default         linear;
+}
+
+snGradSchemes
+{
+    default         corrected;
+}
+
+fluxRequired
+{
+    default         no;
+    p_rgh;
+    pcorr;
+    alpha.water;
+}
 
 // ************************************************************************* //

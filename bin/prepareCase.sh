@@ -28,7 +28,12 @@ then
 else
     if [ "$OFPLUSBRANCH" -eq "1" ]
     then
-        sed 's/object      pd.org;/object      p_rgh;/' < 0.org/pd.org > 0/p_rgh
+        if [ $WM_PROJECT_VERSION_NUMBER -lt 1706 ]
+        then
+            sed 's/object      pd.org;/object      p_rgh;/' < 0.org/pd.org > 0/p_rgh
+        else
+            cp 0.org/p_rgh.1706.org 0/p_rgh
+        fi
     else
         if [ $WM_PROJECT_VERSION_NUMBER -lt 400 ]
         then
@@ -66,6 +71,10 @@ elif [ $WM_PROJECT_VERSION_NUMBER -lt 300 ]
 then
     cp $source/fvSolution.23 $target/fvSolution
     cp $source/fvSchemes.23 $target/fvSchemes
+elif [ "$OFPLUSBRANCH" -eq "1" ] && [ $WM_PROJECT_VERSION_NUMBER -gt 1612 ]
+then
+    cp $source/fvSolution.1706 $target/fvSolution
+    cp $source/fvSchemes.1706 $target/fvSchemes
 else
     cp $source/fvSolution.30 $target/fvSolution
     cp $source/fvSchemes.30 $target/fvSchemes

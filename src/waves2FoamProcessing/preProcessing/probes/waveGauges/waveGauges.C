@@ -142,12 +142,19 @@ void waveGauges::evaluate(const word& name)
     gauges() << indent << "type               surfaceElevation;" << nl;
     gauges() << indent << "functionObjectLibs ( \"libwaves2Foam.so\" );" << nl;
     gauges() << nl;
+#if OFPLUSBRANCH==1 && 1606<OFVERSION
+    word wc(gaugeDict_.lookup("writeControl"));
+    scalar wi = readScalar(gaugeDict_.lookup("writeInterval"));
+    gauges() << indent << "writeControl       " << wc << ";" << nl;
+    gauges() << indent << "writeInterval      " << wi << ";" << nl;
+#else
     gauges() << indent << "outputControl      timeStep;"
              << " // Alternative: outputTime" << nl;
     gauges() << indent << "outputInterval      1;" << nl << nl;
     gauges() << indent << "//Additional output controls in waves2Foam" << nl;
     gauges() << indent << "//samplingStartTime  -1;" << nl;
     gauges() << indent << "//surfaceSampleDeltaT 0.025;" << nl;
+#endif
     gauges() << nl;
     gauges() << indent << "setFormat          raw;" << nl;
     gauges() << indent << "interpolationScheme cellPointFace;" << nl;
