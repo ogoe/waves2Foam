@@ -99,6 +99,33 @@ int main(int argc, char *argv[])
         )
     );
 
+    autoPtr<OFstream> osPtrU;
+        osPtrU.reset
+        (
+            new OFstream
+            (
+                runTime.time().path() + "/" + fn + "/" + "U.dat"
+            )
+        );
+
+    autoPtr<OFstream> osPtrV;
+        osPtrV.reset
+        (
+    		new OFstream
+       		(
+   				runTime.time().path() + "/" + fn + "/" + "V.dat"
+       		)
+        );
+
+    autoPtr<OFstream> osPtrW;
+        osPtrW.reset
+        (
+       		new OFstream
+       		(
+    			runTime.time().path() + "/" + fn + "/" + "W.dat"
+       		)
+        );
+
     // Get all the relaxation zones
     wordList relaxationNames = waveProperties.lookup("relaxationNames");
 
@@ -107,47 +134,85 @@ int main(int argc, char *argv[])
 
     // Write the header file
     osPtr() << "Time";
+    osPtrU() << "Time";
+    osPtrV() << "Time";
+    osPtrW() << "Time";
 
     forAll(relaxationNames, relaxi)
     {
     	forAll(input, pointi)
         {
             osPtr() << tab << relaxationNames[relaxi];
+            osPtrU() << tab << relaxationNames[relaxi];
+            osPtrV() << tab << relaxationNames[relaxi];
+            osPtrW() << tab << relaxationNames[relaxi];
         }
 
     }
     osPtr() << endl;
+    osPtrU() << endl;
+    osPtrV() << endl;
+    osPtrW() << endl;
 
     osPtr() << "-1";
+    osPtrU() << "-1";
+    osPtrV() << "-1";
+    osPtrW() << "-1";
     forAll(relaxationNames, relaxi)
     {
     	forAll(input, pointi)
     	{
             osPtr() << tab << input[pointi].x();
+            osPtrU() << tab << input[pointi].x();
+            osPtrV() << tab << input[pointi].x();
+            osPtrW() << tab << input[pointi].x();
     	}
     }
     osPtr() << endl;
+    osPtrU() << endl;
+    osPtrV() << endl;
+    osPtrW() << endl;
+
 
     osPtr() << "-2";
+    osPtrU() << "-2";
+    osPtrV() << "-2";
+    osPtrW() << "-2";
+
     forAll(relaxationNames, relaxi)
     {
     	forAll(input, pointi)
     	{
             osPtr() << tab << input[pointi].y();
+            osPtrU() << tab << input[pointi].y();
+            osPtrV() << tab << input[pointi].y();
+            osPtrW() << tab << input[pointi].y();
     	}
     }
     osPtr() << endl;
+    osPtrU() << endl;
+    osPtrV() << endl;
+    osPtrW() << endl;
 
     osPtr() << "-3";
+    osPtrU() << "-3";
+    osPtrV() << "-3";
+    osPtrW() << "-3";
+
     forAll(input, pointi)
     {
         forAll(relaxationNames, relaxi)
     	{
             osPtr() << tab << input[pointi].z();
+            osPtrU() << tab << input[pointi].z();
+            osPtrV() << tab << input[pointi].z();
+            osPtrW() << tab << input[pointi].z();
     	}
     }
     osPtr() << endl;
-
+    osPtrU() << endl;
+    osPtrV() << endl;
+    osPtrW() << endl;
 
     // Prepare all the wave theories
     List<autoPtr<Foam::waveTheories::waveTheory> > theories(relaxationNames.size());
@@ -162,22 +227,16 @@ int main(int argc, char *argv[])
     scalar dt = readScalar(subDict.lookup("deltaT"));
     scalar T = readScalar(subDict.lookup("endTime"));
 
-//    Info << endl;
-//    Info << "Progress:" << endl;
-//    Info << "0% ========================================== 100%" << endl;
-
     label count = 0;
-//    label N(T/dt/50);
 
     // Loop over all times until finished
     while (t <= T)
     {
-//    	if (count++ % N == 0)
-//    	{
-//    		Info << "*";
-//    	}
 
         osPtr() << t;
+        osPtrU() << t;
+        osPtrV() << t;
+        osPtrW() << t;
 
         forAll(relaxationNames, relaxi)
         {
@@ -186,10 +245,28 @@ int main(int argc, char *argv[])
             forAll (eta, etai)
             {
                 osPtr() << tab << eta[etai];
+
+                if (-(theories[relaxi]->returnDir() & input[etai]) < eta[etai])
+                {
+                	vector U = theories[relaxi]->U(input[etai], t);
+                	osPtrU() << tab << U.x();
+                	osPtrV() << tab << U.y();
+                	osPtrW() << tab << U.z();
+                }
+                else
+                {
+                	vector U = vector::zero;
+                	osPtrU() << tab << U.x();
+                	osPtrV() << tab << U.y();
+                	osPtrW() << tab << U.z();
+                }
             }
         }
 
         osPtr() << endl;
+        osPtrU() << endl;
+        osPtrV() << endl;
+        osPtrW() << endl;
 
         t += dt;
     }
