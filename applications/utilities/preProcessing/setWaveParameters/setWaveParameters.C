@@ -180,6 +180,30 @@ int main(int argc, char *argv[])
 
                 os << indent << token::END_LIST << token::END_STATEMENT << nl;
 
+                wordList names(0);
+                if (sd.found("names"))
+                {
+                	wordList tmp = sd.lookup("names");
+                	names.setSize(tmp.size());
+                	names = tmp;
+                }
+                else
+                {
+                	wordList tmp = waveProperties.lookup("relaxationNames");
+                	names.setSize(tmp.size());
+                	names = tmp;
+                }
+
+                os << nl << indent << "names" << token::SPACE << nl
+                		<< indent << names.size() << token::BEGIN_LIST << nl;
+
+                forAll (names, namei)
+                {
+                	os << indent << indent << names[namei] << nl;
+                }
+
+                os << indent << token::END_LIST << token::END_STATEMENT << nl;
+
 
                 os << decrIndent << token::END_BLOCK << nl;
                 os << nl;

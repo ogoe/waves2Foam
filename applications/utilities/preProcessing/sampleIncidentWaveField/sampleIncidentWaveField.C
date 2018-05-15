@@ -54,7 +54,6 @@ int main(int argc, char *argv[])
 #   include "createTime.H"
 #   include "createMesh.H"
 
-//#   include "readGravitationalAcceleration.H"
     Info << "\nReading g" << endl;
     uniformDimensionedVectorField g
     (
@@ -83,8 +82,6 @@ int main(int argc, char *argv[])
 
 	const dictionary& subDict
 	    (waveProperties.subDict("sampleIncidentWaveField"));
-
-//	#   include "readWaveProperties.H"
 
     // Make output file
     fileName fn = "syntheticWaveField/0";
@@ -127,7 +124,7 @@ int main(int argc, char *argv[])
         );
 
     // Get all the relaxation zones
-    wordList relaxationNames = waveProperties.lookup("relaxationNames");
+    wordList relaxationNames(subDict.lookup("names"));
 
     // Read all points to be read
     pointField input(subDict.lookup("points"));
