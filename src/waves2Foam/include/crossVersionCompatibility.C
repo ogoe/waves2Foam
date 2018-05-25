@@ -99,6 +99,20 @@ word airPhase()
 }
 
 
+word rAUfName()
+{
+#if EXTBRANCH==1
+	return "Dp";
+#elif OFPLUSBRANCH==1
+	return "rAUf";
+#elif 290<OFVERSION
+	return "rAUf";
+#else
+	notImplemented("word rAUfName() is not implemented for this OpenFoam version.");
+#endif
+}
+
+
 } // End namespace waves2Foam
 
 } // End namespace Foam
