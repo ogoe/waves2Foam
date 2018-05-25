@@ -56,6 +56,8 @@ word waterPhase();
 
 word airPhase();
 
+word rAUfName();
+
 } // End namespace waves2Foam
 } // End namespace Foam
 
