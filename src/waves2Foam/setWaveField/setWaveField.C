@@ -158,7 +158,7 @@ void setWaveField::correct()
         if (lc.ccNeg().size() >= 4)
         {
             UTarget = waveProps_->U(lc.centreNeg(), U_.db().time().value());
-            pTarget = waveProps_->p(lc.centreNeg(), U_.db().time().value());
+            pTarget = waveProps_->pExcess(lc.centreNeg(), U_.db().time().value());
             alphaTarget = lc.magNeg()/V[celli];
         }
 

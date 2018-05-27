@@ -109,21 +109,41 @@ scalar combinedWaves::eta
 }
 
 
-scalar combinedWaves::ddxPd
+//scalar combinedWaves::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    scalar ddxPd(0.0);
+//
+//    forAll (combinedWavesPtr_, cI)
+//    {
+//        ddxPd += combinedWavesPtr_[cI]->ddxPd(x, time, unitVector);
+//    }
+//
+//    return ddxPd;
+//}
+
+
+scalar combinedWaves::pExcess
 (
     const point& x,
-    const scalar& time,
-    const vector& unitVector
+    const scalar& time
 ) const
 {
-    scalar ddxPd(0.0);
+    scalar res(0);
 
     forAll (combinedWavesPtr_, cI)
     {
-        ddxPd += combinedWavesPtr_[cI]->ddxPd(x, time, unitVector);
+        res += combinedWavesPtr_[cI]->pExcess(x, time);
     }
 
-    return ddxPd;
+    // There must only be corrected for the reference pressure once.
+    res -= ((combinedWavesNames_.size() - 1.0)*referencePressure());
+
+    return res;
 }
 
 

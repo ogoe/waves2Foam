@@ -94,24 +94,24 @@ scalar externalSource::eta
 }
 
 
-scalar externalSource::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    return external_.ddxPd(x, time, unitVector);
-}
+//scalar externalSource::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    return external_.ddxPd(x, time, unitVector);
+//}
 
 
-scalar externalSource::p
+scalar externalSource::pExcess
 (
     const point& x,
     const scalar& time
 ) const
 {
-    return external_.p(x, time);
+    return external_.pExcess(x, time);
 }
 
 

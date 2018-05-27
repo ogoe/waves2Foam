@@ -304,17 +304,17 @@ scalar bichromaticSecond::eta
 }
 
 
-scalar bichromaticSecond::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    scalar ddxPd(0);
-
-    return ddxPd;
-}
+//scalar bichromaticSecond::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    scalar ddxPd(0);
+//
+//    return ddxPd;
+//}
 
 
 vector bichromaticSecond::U

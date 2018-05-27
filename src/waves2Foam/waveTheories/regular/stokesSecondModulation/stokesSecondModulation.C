@@ -141,33 +141,33 @@ scalar stokesSecondModulation::eta
 }
 
 
-scalar stokesSecondModulation::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    scalar Z(returnZ(x));
-    scalar arg(omega_*time - (k_ & x) + phi_);
-    scalar modH = waveHeight( x, time );
-
-    scalar ddxPd(0);
-
-    ddxPd = (
-                rhoWater_*mag(g_)*K_*modH/2.0*Foam::cosh(K_*(Z + h_))
-               /Foam::cosh(K_*h_)*Foam::sin(arg)
-               + 1/4*rhoWater_*mag(g_)*pow(K_,2)*pow(modH,2)
-               /Foam::sinh(2*K_*h_)
-                *( 3*Foam::cosh(2*K_*(Z + h_))/pow(Foam::sinh(K_*h_),2) - 1)
-                *Foam::sin(2*arg)
-            )*factor(time);
-/*
-    Info << "ddxPd still isn't implemented. Need to think about the gradient
-    on arbitrary directed mesh with arbitrary wave number vector!
-    and arbitrary g-direction!!!" << endl;*/
-    return ddxPd;
-}
+//scalar stokesSecondModulation::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    scalar Z(returnZ(x));
+//    scalar arg(omega_*time - (k_ & x) + phi_);
+//    scalar modH = waveHeight( x, time );
+//
+//    scalar ddxPd(0);
+//
+//    ddxPd = (
+//                rhoWater_*mag(g_)*K_*modH/2.0*Foam::cosh(K_*(Z + h_))
+//               /Foam::cosh(K_*h_)*Foam::sin(arg)
+//               + 1/4*rhoWater_*mag(g_)*pow(K_,2)*pow(modH,2)
+//               /Foam::sinh(2*K_*h_)
+//                *( 3*Foam::cosh(2*K_*(Z + h_))/pow(Foam::sinh(K_*h_),2) - 1)
+//                *Foam::sin(2*arg)
+//            )*factor(time);
+///*
+//    Info << "ddxPd still isn't implemented. Need to think about the gradient
+//    on arbitrary directed mesh with arbitrary wave number vector!
+//    and arbitrary g-direction!!!" << endl;*/
+//    return ddxPd;
+//}
 
 
 vector stokesSecondModulation::U

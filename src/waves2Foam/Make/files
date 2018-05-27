@@ -21,7 +21,6 @@ $(waveTheories)/$(current)/potentialCurrent/potentialCurrent.C
 /* Solitary type */
 solitary=solitary
 $(waveTheories)/$(solitary)/solitaryFirst/solitaryFirst.C
-/*$(waveTheories)/$(solitary)/solitaryGrimshaw1971/solitaryGrimshaw1971.C*/
 $(waveTheories)/$(solitary)/chappelear1962/chappelear1962.C
 
 /* Regular wave theories */
@@ -60,7 +59,7 @@ $(waveTheories)/$(extWF)/oceanWave3D/oceanWave3D.C
 /* WAVE BOUNDARY CONDITIONS */ 
 fvPatchFields=fvPatchFields
 $(fvPatchFields)/waveAlpha/waveAlphaFvPatchScalarField.C
-$(fvPatchFields)/wavePressure/wavePressureFvPatchScalarField.C
+/*$(fvPatchFields)/wavePressure/wavePressureFvPatchScalarField.C*/
 $(fvPatchFields)/waveVelocity/waveVelocityFvPatchVectorField.C
 
 /* RELAXATION METHOD */

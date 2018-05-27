@@ -184,32 +184,32 @@ scalar cnoidalFirst::eta
 }
 
 
-scalar cnoidalFirst::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-
-    scalar Z(returnZ(x));
-    scalar arg(argument(x,time));
-
-    scalar snn(0.0), cnn(0.0), dnn(0.0);
-    gsl_sf_elljac_e( arg, m_, &snn, &cnn, &dnn);
-
-    scalar ddxPd(0);
-
-    ddxPd  =   rhoWater_*Foam::mag(g_)
-             * (
-                 eta_x(snn, cnn, dnn) + 1.0/2.0*Foam::pow(h_, 2.0)
-                *(1 - Foam::pow((Z + h_)/h_, 2.0))*eta_xxx(snn, cnn, dnn)
-               );
-
-    ddxPd *= factor(time);
-
-    return ddxPd;
-}
+//scalar cnoidalFirst::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//
+//    scalar Z(returnZ(x));
+//    scalar arg(argument(x,time));
+//
+//    scalar snn(0.0), cnn(0.0), dnn(0.0);
+//    gsl_sf_elljac_e( arg, m_, &snn, &cnn, &dnn);
+//
+//    scalar ddxPd(0);
+//
+//    ddxPd  =   rhoWater_*Foam::mag(g_)
+//             * (
+//                 eta_x(snn, cnn, dnn) + 1.0/2.0*Foam::pow(h_, 2.0)
+//                *(1 - Foam::pow((Z + h_)/h_, 2.0))*eta_xxx(snn, cnn, dnn)
+//               );
+//
+//    ddxPd *= factor(time);
+//
+//    return ddxPd;
+//}
 
 
 vector cnoidalFirst::U

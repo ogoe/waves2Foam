@@ -145,10 +145,10 @@ scalar chappelear1962::eta
 	// Evaluate the function
     scalar res = 0.0;
 
-    res = 1.0 + 2.0*dL_ + 2.0*L3_ - dL_*Foam::sqr(T) + 141.0/20.0*Foam::sqr(dL_)
+    res += 1.0 + 2.0*dL_ + 2.0*L3_ - dL_*Foam::sqr(T) + 141.0/20.0*Foam::sqr(dL_)
         + 12.0*dL_*L3_ + Foam::sqr(L3_)
         - (5.0*Foam::sqr(dL_) + 6.0*dL_*L3_)*Foam::sqr(T)
-        + 3.0/4.0*Foam::sqr(dL_)*Foam::pow(T, 4.0);
+        + 3.0/4.0*Foam::sqr(dL_)*Foam::pow(T, 4.0)
         + 8181.0/280.0*Foam::pow(dL_, 3.0) + 141.0/2.0*Foam::sqr(dL_)*L3_
         + 30.0*dL_*Foam::sqr(L3_) - Foam::sqr(T)*(2043.0/80.0*Foam::pow(dL_, 3.0)
         + 50.0*Foam::sqr(dL_)*L3_ + 15.0*dL_*Foam::sqr(L3_))
@@ -157,26 +157,26 @@ scalar chappelear1962::eta
 
     // Make transformation to the OF-coordinate system
     res *= h_;
-    res += h_ - seaLevel_;
+    res += seaLevel_ - h_;
 
     return res;
 }
 
 
-scalar chappelear1962::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    // A quite nasty expression!
+//scalar chappelear1962::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    // A quite nasty expression!
+//
+//    return 0.0;
+//}
 
-    return 0.0;
-}
 
-
-scalar chappelear1962::p
+scalar chappelear1962::pExcess
 (
     const point& x,
     const scalar& time
@@ -184,8 +184,8 @@ scalar chappelear1962::p
 {
     scalar res = 0;
 
-    // Get the reference level.
-    scalar Z(returnZ(x) + h_);
+/*    // Get the reference level.
+    scalar Z(returnZ(x));
 
     // Get the velocity and correct for the propagation speed (otherwise,
     // the time derivative of the velocity potential would be needed).
@@ -197,12 +197,16 @@ scalar chappelear1962::p
 
     // The last component is a matter of transforming total pressure
     // into excess pressure.
-    res = R_ -Z*Foam::mag(g_) - 0.5*Foam::cmptSum(tmp)
-        - ((x - referenceLevel_) & g_);
+
+    res = R_ - Z*Foam::mag(g_) - 0.5*Foam::cmptSum(tmp)
+        - (x & g_);
+//    ; //- ((x - referenceLevel_) & g_);
     res *= rhoWater_;
 
-//    Info << referenceLevel_ << endl;
+    res -= 2.0*referencePressure();
 
+    Info << Z << tab << R_ << tab << referencePressure() << endl;
+*/
     return res;
 }
 

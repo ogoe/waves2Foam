@@ -135,43 +135,43 @@ scalar streamFunction::eta
 }
 
 
-scalar streamFunction::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    // PAS PAA, DETTE FOELGER IKKE KONVENTIONEN MED ARBITRAER BOELGETALSVEKTOR!
-    scalar Z(returnZ(x));
-    scalar arg = (k_ & x) - omega_*time + phi_;
+//scalar streamFunction::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    // PAS PAA, DETTE FOELGER IKKE KONVENTIONEN MED ARBITRAER BOELGETALSVEKTOR!
+//    scalar Z(returnZ(x));
+//    scalar arg = (k_ & x) - omega_*time + phi_;
+//
+//    scalar ddxPd(0);
+//    vector uu(U(x,time));
+//    scalar Ux(uu.x());
+//    scalar Uy(- uu & direction_);
+//    scalar dUx(0);
+//    scalar dUy(0);
+//
+//    scalar j(0);
+//    forAll (B_,ii)
+//    {
+//        j = ii + 1;
+//        dUx += - j*K_*B_[ii]*Foam::cosh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)
+//            *Foam::sin(j*arg);
+//        dUy +=   j*K_*B_[ii]*Foam::sinh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)
+//            *Foam::cos(j*arg);
+//    }
+//    dUx *= factor(time);
+//    dUy *= factor(time);
+//
+//    ddxPd =  rhoWater_*(omega_/K_*dUx - Ux*dUx - Uy*dUy)*factor(time);
+//
+//    return ddxPd;
+//}
 
-    scalar ddxPd(0);
-    vector uu(U(x,time));
-    scalar Ux(uu.x());
-    scalar Uy(- uu & direction_);
-    scalar dUx(0);
-    scalar dUy(0);
 
-    scalar j(0);
-    forAll (B_,ii)
-    {
-        j = ii + 1;
-        dUx += - j*K_*B_[ii]*Foam::cosh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)
-            *Foam::sin(j*arg);
-        dUy +=   j*K_*B_[ii]*Foam::sinh(j*K_*(Z + h_))/Foam::cosh(j*K_*h_)
-            *Foam::cos(j*arg);
-    }
-    dUx *= factor(time);
-    dUy *= factor(time);
-
-    ddxPd =  rhoWater_*(omega_/K_*dUx - Ux*dUx - Uy*dUy)*factor(time);
-
-    return ddxPd;
-}
-
-
-scalar streamFunction::p
+scalar streamFunction::pExcess
 (
     const point& x,
     const scalar& time

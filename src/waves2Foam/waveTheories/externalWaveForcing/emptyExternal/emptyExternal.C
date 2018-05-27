@@ -77,18 +77,18 @@ scalar emptyExternal::eta
 }
 
 
-scalar emptyExternal::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    return 0.0;
-}
+//scalar emptyExternal::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    return 0.0;
+//}
 
 
-scalar emptyExternal::p
+scalar emptyExternal::pExcess
 (
     const point& x,
     const scalar& time

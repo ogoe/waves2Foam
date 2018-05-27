@@ -99,29 +99,29 @@ scalar stokesFirstStanding::eta
 }
 
 
-scalar stokesFirstStanding::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-
-    scalar Z(returnZ(x));
-    scalar arg1(omega_*time - (k_ & x) + phi_);
-    scalar arg2(omega_*time + (k_ & x) + phi_);
-
-    scalar ddxPd(0);
-
-    ddxPd = (
-                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
-               /Foam::cosh(K_*h_)*Foam::sin(arg1)
-              - rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
-               /Foam::cosh(K_*h_)*Foam::sin(arg2)
-            )*factor(time);
-
-    return ddxPd;
-}
+//scalar stokesFirstStanding::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//
+//    scalar Z(returnZ(x));
+//    scalar arg1(omega_*time - (k_ & x) + phi_);
+//    scalar arg2(omega_*time + (k_ & x) + phi_);
+//
+//    scalar ddxPd(0);
+//
+//    ddxPd = (
+//                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+//               /Foam::cosh(K_*h_)*Foam::sin(arg1)
+//              - rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+//               /Foam::cosh(K_*h_)*Foam::sin(arg2)
+//            )*factor(time);
+//
+//    return ddxPd;
+//}
 
 
 vector stokesFirstStanding::U

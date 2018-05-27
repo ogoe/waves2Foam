@@ -111,30 +111,55 @@ scalar bichromaticFirst::eta
 }
 
 
-scalar bichromaticFirst::ddxPd
+//scalar bichromaticFirst::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//
+//    scalar Z(returnZ(x));
+//    scalar arg1(omega1_*time - (k1_ & x) + phi1_);
+//    scalar arg2(omega2_*time - (k2_ & x) + phi2_);
+//
+//    scalar ddxPd(0);
+//
+//    ddxPd =
+//        (
+//           rhoWater_*mag(g_)*K1_*H1_/2.0*Foam::cosh(K1_*(Z + h_))
+//          /Foam::cosh(K1_*h_)*Foam::sin(arg1)
+//         + rhoWater_*mag(g_)*K2_*H2_/2.0*Foam::cosh(K2_*(Z + h_))
+//          /Foam::cosh(K2_*h_)*Foam::sin(arg2)
+//        )*factor(time);
+//
+//    return ddxPd;
+//}
+
+
+scalar bichromaticFirst::pExcess
 (
     const point& x,
-    const scalar& time,
-    const vector& unitVector
+    const scalar& time
 ) const
 {
-
     scalar Z(returnZ(x));
     scalar arg1(omega1_*time - (k1_ & x) + phi1_);
     scalar arg2(omega2_*time - (k2_ & x) + phi2_);
 
-    scalar ddxPd(0);
+    scalar res = 0;
 
-    ddxPd =
-        (
-           rhoWater_*mag(g_)*K1_*H1_/2.0*Foam::cosh(K1_*(Z + h_))
-          /Foam::cosh(K1_*h_)*Foam::sin(arg1)
-         + rhoWater_*mag(g_)*K2_*H2_/2.0*Foam::cosh(K2_*(Z + h_))
-          /Foam::cosh(K2_*h_)*Foam::sin(arg2)
-        )*factor(time);
+    res += rhoWater_*mag(g_)*H1_/2.0*Foam::cosh(K1_*(Z + h_))
+        /Foam::cosh(K1_*h_)*Foam::cos(arg1);
+    res += rhoWater_*mag(g_)*H2_/2.0*Foam::cosh(K2_*(Z + h_))
+            /Foam::cosh(K2_*h_)*Foam::cos(arg2);
 
-    return ddxPd;
+    res *= factor(time);
+    res += referencePressure();
+
+    return res;
 }
+
 
 
 vector bichromaticFirst::U

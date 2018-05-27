@@ -234,7 +234,7 @@ scalar stokesFifth::eta
 }
 
 
-scalar stokesFifth::p
+scalar stokesFifth::pExcess
 (
     const point& x,
     const scalar& time
@@ -264,17 +264,17 @@ scalar stokesFifth::p
 }
 
 
-scalar stokesFifth::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    scalar ddxPd(0);
-
-    return ddxPd;
-}
+//scalar stokesFifth::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    scalar ddxPd(0);
+//
+//    return ddxPd;
+//}
 
 
 vector stokesFifth::U

@@ -127,14 +127,41 @@ scalar irregular::eta
 }
 
 
-scalar irregular::ddxPd
+//scalar irregular::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    return 0.0;
+//}
+
+
+scalar irregular::pExcess
 (
     const point& x,
-    const scalar& time,
-    const vector& unitVector
+    const scalar& time
 ) const
 {
-    return 0.0;
+    scalar Z(returnZ(x));
+
+    scalar res = 0;
+
+    forAll (amp_, index)
+    {
+        scalar arg0 = omega_[index]*time - (k_[index] & x) + phi_[index];
+        scalar arg1 = K_[index]*(Z + h_);
+
+        res += rhoWater_*mag(g_)*amp_[index]*Foam::cosh(arg1)
+            /Foam::cosh(K_[index]*h_)*Foam::cos(arg0);
+    }
+
+    res *= factor(time);
+
+    res += referencePressure();
+
+    return res;
 }
 
 

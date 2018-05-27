@@ -128,32 +128,32 @@ scalar stokesSecond::eta
 }
 
 
-scalar stokesSecond::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    scalar Z(returnZ(x));
-    scalar arg(omega_*time - (k_ & x) + phi_);
+//scalar stokesSecond::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    scalar Z(returnZ(x));
+//    scalar arg(omega_*time - (k_ & x) + phi_);
+//
+//    scalar ddxPd(0);
+//
+//    ddxPd = (
+//                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+//                /Foam::cosh(K_*h_)*Foam::sin(arg)
+//                + 1/4*rhoWater_*mag(g_)*pow(K_,2)*pow(H_,2)
+//                /Foam::sinh(2*K_*h_)
+//                *( 3*Foam::cosh(2*K_*(Z + h_))/pow(Foam::sinh(K_*h_),2) - 1)
+//                *Foam::sin(2*arg)
+//            )*factor(time);
+//
+//    return ddxPd;
+//}
 
-    scalar ddxPd(0);
 
-    ddxPd = (
-                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
-                /Foam::cosh(K_*h_)*Foam::sin(arg)
-                + 1/4*rhoWater_*mag(g_)*pow(K_,2)*pow(H_,2)
-                /Foam::sinh(2*K_*h_)
-                *( 3*Foam::cosh(2*K_*(Z + h_))/pow(Foam::sinh(K_*h_),2) - 1)
-                *Foam::sin(2*arg)
-            )*factor(time);
-
-    return ddxPd;
-}
-
-
-scalar stokesSecond::p
+scalar stokesSecond::pExcess
 (
     const point& x,
     const scalar& time
@@ -176,6 +176,7 @@ scalar stokesSecond::p
 
     // Apply the ramping-factor
     res *= factor(time);
+    res += referencePressure();
 
     return res;
 }

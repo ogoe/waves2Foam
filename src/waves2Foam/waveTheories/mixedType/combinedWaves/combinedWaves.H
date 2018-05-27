@@ -124,12 +124,30 @@ public:
             const scalar&
         ) const;
 
-        virtual scalar ddxPd
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const;
+
+        virtual scalar pExcess
         (
             const point&,
-            const scalar&,
-            const vector&
+            const scalar&
         ) const;
+
+        bool implementPressure() const
+        {
+            forAll (combinedWavesPtr_, wavei)
+            {
+                if (~combinedWavesPtr_[wavei]->implementPressure())
+                {
+                    return false;
+                }
+            }
+            return true;
+        };
 
         virtual vector U
         (
