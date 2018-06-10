@@ -82,6 +82,21 @@ setWaveField::setWaveField
           << " horizontal free surface with zero velocity." << nl << endl;
     }
 
+    if (!waveProps_->isInitialiser())
+    {
+        FatalErrorIn
+        (
+            "setWaveField::setWaveField"
+            "("
+            " const fvMesh& mesh,"
+            " volVectorField& U,"
+            " volScalarField& alpha,"
+            " volScalarField& p"
+            ")"
+        ) << "\n"
+          << "The specified initialising wave theory does not support "
+          << "initialisation." << endl << endl << exit(FatalError);
+    }
 }
 
 

@@ -171,6 +171,11 @@ public:
         //-
         virtual Switch conflictTSoftInitialise() const = 0;
 
+        virtual bool isInitialiser() const
+        {
+            return true;
+        };
+
         const vector windVelocity( const scalar& time ) const
         {
             return factor( time )*wind_;
