@@ -96,28 +96,28 @@ scalar stokesFirst::eta
 }
 
 
-scalar stokesFirst::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    scalar Z(returnZ(x));
-    scalar arg(omega_*time - (k_ & x) + phi_);
+//scalar stokesFirst::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    scalar Z(returnZ(x));
+//    scalar arg(omega_*time - (k_ & x) + phi_);
+//
+//    scalar ddxPd(0);
+//
+//    ddxPd = (
+//                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
+//               /Foam::cosh(K_*h_)*Foam::sin(arg)
+//            )*factor(time);
+//
+//    return ddxPd;
+//}
 
-    scalar ddxPd(0);
 
-    ddxPd = (
-                rhoWater_*mag(g_)*K_*H_/2.0*Foam::cosh(K_*(Z + h_))
-               /Foam::cosh(K_*h_)*Foam::sin(arg)
-            )*factor(time);
-
-    return ddxPd;
-}
-
-
-scalar stokesFirst::p
+scalar stokesFirst::pExcess
 (
     const point& x,
     const scalar& time
@@ -130,6 +130,8 @@ scalar stokesFirst::p
 
     res = rhoWater_*mag(g_)*H_/2.0*Foam::cosh(K_*(Z + h_))
         /Foam::cosh(K_*h_)*Foam::cos(arg)*factor(time);
+
+    res += referencePressure();
 
     return res;
 }

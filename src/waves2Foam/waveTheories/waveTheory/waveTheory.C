@@ -102,6 +102,19 @@ waveTheory::~waveTheory()
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
+scalar waveTheory::referencePressure() const
+{
+    return referencePressure(seaLevel_);
+}
+
+scalar waveTheory::referencePressure(const scalar localSeaLevel) const
+{
+    return rhoWater_*Foam::mag(g_)
+        *(localSeaLevel + (referenceLevel_ & direction_));
+}
+
+
+
 void waveTheory::checkWaveDirection(const vector& k) const
 {
     if (Foam::mag(k & direction_) > SMALL)
@@ -140,22 +153,22 @@ scalarField waveTheory::eta
 }
 
 
-scalarField waveTheory::ddxPd
-(
-    const pointField& x,
-    const scalar& time,
-    const vectorField& unitVector
-) const
-{
-    scalarField temp(x.size(),0.0);
-
-    forAll (x,ii)
-    {
-        temp[ii] = ddxPd(x[ii],time, unitVector[ii]);
-    }
-
-    return temp;
-}
+//scalarField waveTheory::ddxPd
+//(
+//    const pointField& x,
+//    const scalar& time,
+//    const vectorField& unitVector
+//) const
+//{
+//    scalarField temp(x.size(),0.0);
+//
+//    forAll (x,ii)
+//    {
+//        temp[ii] = ddxPd(x[ii],time, unitVector[ii]);
+//    }
+//
+//    return temp;
+//}
 
 
 vectorField waveTheory::U

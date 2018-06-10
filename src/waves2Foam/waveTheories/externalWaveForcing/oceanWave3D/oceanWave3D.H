@@ -32,7 +32,7 @@ SourceFiles
     oceanWave3D.C
 
 Author
-    Niels Gjøl Jacobsen, Deltares.  All rights reserved.
+    Niels Gjoel Jacobsen, Deltares.  All rights reserved.
     Bo Terp Paulsen, Deltares. All rights reserved.
 
 \*---------------------------------------------------------------------------*/
@@ -162,12 +162,12 @@ public:
         ) const;
 
 
-        virtual scalar ddxPd
-        (
-            const point&,
-            const scalar&,
-            const vector&
-        ) const;
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const;
 
 
         virtual vector U
@@ -177,11 +177,16 @@ public:
         ) const;
 
 
-        virtual scalar p
+        virtual scalar pExcess
         (
             const point&,
             const scalar&
         ) const;
+
+        bool implementPressure() const
+        {
+            return false;
+        };
 
 
         virtual bool writeData(Foam::Ostream&) const

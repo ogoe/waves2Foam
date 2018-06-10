@@ -142,18 +142,23 @@ public:
             const scalar&
         ) const;
 
-        virtual scalar ddxPd
-        (
-            const point&,
-            const scalar&,
-            const vector&
-        ) const;
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const;
 
-        scalar p
+        scalar pExcess
         (
             const point&,
             const scalar&
         ) const;
+
+        bool implementPressure() const
+        {
+            return true;
+        };
 
         virtual vector U
         (

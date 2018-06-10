@@ -91,28 +91,24 @@ scalar potentialCurrent::eta
 }
 
 
-scalar potentialCurrent::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    return 0.0;
-}
+//scalar potentialCurrent::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    return 0.0;
+//}
 
 
-scalar potentialCurrent::p
+scalar potentialCurrent::pExcess
 (
     const point& x,
     const scalar& time
 ) const
 {
-    scalar result = rhoWater_*Foam::mag(g_)*localSeaLevel_;
-
-    result += rhoWater_*(referenceLevel_ & g_);
-
-    return result;
+    return referencePressure(localSeaLevel_);
 }
 
 

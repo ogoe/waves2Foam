@@ -93,20 +93,20 @@ scalar solitaryFirst::eta
 }
 
 
-scalar solitaryFirst::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    // A quite nasty expression!
+//scalar solitaryFirst::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    // A quite nasty expression!
+//
+//    return 0.0;
+//}
 
-    return 0.0;
-}
 
-
-scalar solitaryFirst::p
+scalar solitaryFirst::pExcess
 (
     const point& x,
     const scalar& time
@@ -128,7 +128,7 @@ scalar solitaryFirst::p
 
     result /= ( 4.0*Foam::pow(h_, 3.0) );
 
-    result += rhoWater_*G_*seaLevel_;
+    result += referencePressure();
 
     return result;
 }

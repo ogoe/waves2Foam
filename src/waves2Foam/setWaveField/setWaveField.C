@@ -82,6 +82,21 @@ setWaveField::setWaveField
           << " horizontal free surface with zero velocity." << nl << endl;
     }
 
+    if (!waveProps_->isInitialiser())
+    {
+        FatalErrorIn
+        (
+            "setWaveField::setWaveField"
+            "("
+            " const fvMesh& mesh,"
+            " volVectorField& U,"
+            " volScalarField& alpha,"
+            " volScalarField& p"
+            ")"
+        ) << "\n"
+          << "The specified initialising wave theory does not support "
+          << "initialisation." << endl << endl << exit(FatalError);
+    }
 }
 
 
@@ -158,7 +173,7 @@ void setWaveField::correct()
         if (lc.ccNeg().size() >= 4)
         {
             UTarget = waveProps_->U(lc.centreNeg(), U_.db().time().value());
-            pTarget = waveProps_->p(lc.centreNeg(), U_.db().time().value());
+            pTarget = waveProps_->pExcess(lc.centreNeg(), U_.db().time().value());
             alphaTarget = lc.magNeg()/V[celli];
         }
 

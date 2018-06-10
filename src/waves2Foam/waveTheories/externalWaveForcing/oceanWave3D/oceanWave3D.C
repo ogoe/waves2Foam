@@ -752,18 +752,18 @@ scalar oceanWave3D::eta
 }
 
 
-scalar oceanWave3D::ddxPd
-(
-    const point& x,
-    const scalar& time,
-    const vector& unitVector
-) const
-{
-    return 0.0;
-}
+//scalar oceanWave3D::ddxPd
+//(
+//    const point& x,
+//    const scalar& time,
+//    const vector& unitVector
+//) const
+//{
+//    return 0.0;
+//}
 
 
-scalar oceanWave3D::p
+scalar oceanWave3D::pExcess
 (
     const point& x,
     const scalar& time

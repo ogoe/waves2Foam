@@ -52,7 +52,7 @@ SourceFiles
     cnoidalFirst.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -167,12 +167,12 @@ public:
             const scalar&
         ) const;
 
-        virtual scalar ddxPd
-        (
-            const point&,
-            const scalar&,
-            const vector&
-        ) const;
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const;
 
         virtual vector U
         (

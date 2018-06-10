@@ -134,12 +134,12 @@ public:
             const scalar&
         ) const;
 
-        virtual scalar ddxPd
-        (
-            const point&,
-            const scalar&,
-            const vector&
-        ) const;
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const;
 
         virtual vector U
         (
@@ -147,7 +147,7 @@ public:
             const scalar&
         ) const;
 
-        virtual scalar p
+        virtual scalar pExcess
         (
             const point&,
             const scalar&

@@ -50,7 +50,7 @@ SourceFiles
     irregular.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -138,12 +138,23 @@ public:
             const scalar&
         ) const;
 
-        virtual scalar ddxPd
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const;
+
+        virtual scalar pExcess
         (
             const point&,
-            const scalar&,
-            const vector&
+            const scalar&
         ) const;
+
+        bool implementPressure() const
+        {
+            return true;
+        };
 
         virtual vector U
         (

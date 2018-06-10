@@ -21,7 +21,7 @@ regularSpectrum
     callName surfaceElevation;
 
     removeDuplicate true;
-    inputDir surfaceElevationAnyName/0.0011976;
+    inputDir surfaceElevationAnyName;
 
     deltaT 0.01;
     tMin    10.0; // Default: minimum time

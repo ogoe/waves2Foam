@@ -32,7 +32,7 @@ SourceFiles
     externalWaveForcing.C
 
 Author
-    Niels Gjøl Jacobsen, Deltares.  All rights reserved.
+    Niels Gjoel Jacobsen, Deltares.  All rights reserved.
     Bo Terp Paulsen, Deltares, All rights reserved.
 
 
@@ -146,27 +146,19 @@ public:
         ) const = 0;
 
 
-        virtual scalar ddxPd
+        virtual scalar pExcess
         (
             const point&,
-            const scalar&,
-            const vector&
+            const scalar&
         ) const = 0;
 
+        virtual bool implementPressure() const = 0;
 
         virtual vector U
         (
             const point&,
             const scalar&
         ) const = 0;
-
-
-        virtual scalar p
-        (
-            const point&,
-            const scalar&
-        ) const = 0;
-
 
         virtual bool writeData(Foam::Ostream&) const = 0;
 };

@@ -104,6 +104,10 @@ protected:
             return (-(direction_ & x) - seaLevel_);
         }
 
+        scalar referencePressure() const;
+
+        scalar referencePressure(const scalar) const;
+
         void checkWaveDirection(const vector&) const;
 
         void checkWaveDirection(const vectorField&) const;
@@ -167,6 +171,11 @@ public:
         //-
         virtual Switch conflictTSoftInitialise() const = 0;
 
+        virtual bool isInitialiser() const
+        {
+            return true;
+        };
+
         const vector windVelocity( const scalar& time ) const
         {
             return factor( time )*wind_;
@@ -179,12 +188,12 @@ public:
             const scalar&
         ) const = 0;
 
-        virtual scalar ddxPd
-        (
-            const point&,
-            const scalar&,
-            const vector&
-        ) const = 0;
+//        virtual scalar ddxPd
+//        (
+//            const point&,
+//            const scalar&,
+//            const vector&
+//        ) const = 0;
 
         virtual vector U
         (
@@ -192,7 +201,7 @@ public:
             const scalar&
         ) const = 0;
 
-        virtual scalar p
+        virtual scalar pExcess
         (
             const point&,
             const scalar&
@@ -213,12 +222,12 @@ public:
             const scalar&
         ) const;
 
-        virtual scalarField ddxPd
-        (
-            const pointField&,
-            const scalar&,
-            const vectorField&
-        ) const;
+//        virtual scalarField ddxPd
+//        (
+//            const pointField&,
+//            const scalar&,
+//            const vectorField&
+//        ) const;
 
         virtual vectorField U
         (
