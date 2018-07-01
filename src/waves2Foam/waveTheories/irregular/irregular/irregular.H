@@ -91,6 +91,8 @@ protected:
         scalarField period_;
         scalarField velAmp_;
         scalar Tsoft_;
+        scalar Tend_;
+        scalar Tdecay_;
 
     // Protected member functions
 
@@ -138,12 +140,6 @@ public:
             const scalar&
         ) const;
 
-//        virtual scalar ddxPd
-//        (
-//            const point&,
-//            const scalar&,
-//            const vector&
-//        ) const;
 
         virtual scalar pExcess
         (

@@ -152,7 +152,15 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     searchEngine_(mesh_),
     interpolationScheme_(word::null),
     writeFormat_(word::null),
+#if OFPLUSBRANCH==1
+    #if OFVERSION > 1712
+    surfaceElevationFilePtr_(nullptr)
+    #else
     surfaceElevationFilePtr_(NULL)
+    #endif
+#else
+    surfaceElevationFilePtr_(NULL)
+#endif
 {
     if (Pstream::parRun())
     {
@@ -189,7 +197,15 @@ Foam::sampledSurfaceElevation::sampledSurfaceElevation
     searchEngine_(mesh_),
     interpolationScheme_(word::null),
     writeFormat_(word::null),
+#if OFPLUSBRANCH==1
+    #if OFVERSION > 1712
+    surfaceElevationFilePtr_(nullptr)
+    #else
     surfaceElevationFilePtr_(NULL)
+    #endif
+#else
+    surfaceElevationFilePtr_(NULL)
+#endif
 {
     if (Pstream::parRun())
     {

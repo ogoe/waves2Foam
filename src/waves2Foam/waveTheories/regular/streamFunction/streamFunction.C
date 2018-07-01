@@ -70,18 +70,10 @@ streamFunction::streamFunction
     scalar E = this->eta(vector::zero, 2*Tsoft_);
     vector vel = this->U(vector::zero - E*direction_, 2*Tsoft_);
 
-//    Info << vector::zero - E*direction_ << endl;
-
-//    Info << "Vel 1: " << vel;
-
     vel -= k_/K_*omega_/K_;
-
-//    Info << tab << vel << endl;
 
     R_ = 0.5*Foam::cmptSum(Foam::cmptMultiply(vel, vel))
         + Foam::mag(g_)*(E - seaLevel_);
-
-//    Info << "R: " << R_ << endl;
 }
 
 

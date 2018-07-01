@@ -60,8 +60,15 @@ irregular::irregular
     period_(N_, 0),
     velAmp_(N_, 0),
 
-    Tsoft_( readScalar(coeffDict_.lookup("Tsoft")))
+    Tsoft_( readScalar(coeffDict_.lookup("Tsoft"))),
+
+    Tend_(coeffDict_.lookupOrDefault<scalar>("Tend", GREAT))
 {
+    if (Tend_ < GREAT)
+    {
+        Tdecay_ = readScalar(coeffDict_.lookup("Tdecay"));
+    }
+
     omega_ *= (2.0*PI_);
 
     // Compute the length of k_
@@ -101,6 +108,13 @@ scalar irregular::factor(const scalar& time) const
     if (0.0 < Tsoft_ && time < Tsoft_)
     {
         factor = Foam::sin(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time));
+    }
+
+    if (Tend_ <= time)
+    {
+        scalar diffT(Foam::min(time - Tend_, Tdecay_));
+
+        factor = Foam::cos(2*PI_/(4.0*Tdecay_)*diffT);
     }
 
     return factor;
