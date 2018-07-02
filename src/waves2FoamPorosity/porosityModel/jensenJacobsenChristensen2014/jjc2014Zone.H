@@ -147,7 +147,15 @@ public:
         autoPtr<jjc2014Zone> clone() const
         {
             notImplemented("autoPtr<jjc2014Zone> clone() const");
+#if OFPLUSBRANCH==1
+    #if OFVERSION > 1712
+            return autoPtr<jjc2014Zone>(nullptr);
+    #else
             return autoPtr<jjc2014Zone>(NULL);
+    #endif
+#else
+            return autoPtr<jjc2014Zone>(NULL);
+#endif
         }
 
         //- Return pointer to new jjc2014Zone created on freestore from Istream

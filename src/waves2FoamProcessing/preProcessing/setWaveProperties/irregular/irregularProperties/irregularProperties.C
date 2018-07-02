@@ -81,6 +81,12 @@ void irregularProperties::set( Ostream& os )
         writeGiven( os, "writeSpectrum");
     }
 
+    if (dict_.found("Tend"))
+    {
+        writeGiven(os, "Tend");
+        writeGiven(os, "Tdecay");
+    }
+
     // Make a pointer to the spectral theory
     scalarField amp(0);
     scalarField frequency(0);

@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 #   include "setRootCase.H"
 
 #   include "createTime.H"
-#   include "createMesh.H"
+//#   include "createMesh.H"
 
     IOdictionary stlDefs
     (
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
             "stlDefinitions",
             runTime.constant(),
             "triSurface",
-            mesh,
+            runTime,
             IOobject::MUST_READ,
             IOobject::NO_WRITE
         )
