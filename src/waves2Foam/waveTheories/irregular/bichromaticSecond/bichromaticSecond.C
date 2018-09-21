@@ -296,7 +296,7 @@ scalar bichromaticSecond::eta
     eta += an_*Foam::cos( thetan ) + am_*Foam::cos( thetam );
 
     eta += Gnmm_*Anm_*Foam::cos(thetan - thetam)
-        + Gnmp_*Anm_*Foam::cos(thetan - thetam)
+        + Gnmp_*Anm_*Foam::cos(thetan + thetam)
         + G2n_*A2n_*Foam::cos(2*thetan)
         + G2m_*A2m_*Foam::cos(2*thetam);
 
