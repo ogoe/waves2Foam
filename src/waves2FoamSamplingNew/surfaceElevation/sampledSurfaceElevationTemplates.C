@@ -393,7 +393,7 @@ void Foam::sampledSurfaceElevation::sampleAndWrite(fieldGroup<Type>& fields)
             surfaceElevationFilePtr_() << "\t" << result[seti];
         }
 
-        surfaceElevationFilePtr_() << "\n";
+        surfaceElevationFilePtr_() << endl;
 	}
 
 }
