@@ -60,9 +60,10 @@ streamFunction::streamFunction
     A_("A", coeffDict_, N_),
     B_("B", coeffDict_, N_),
 
-    Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft",period_)),
-    Tstart_(coeffDict_.lookupOrDefault<scalar>("Tstart",0.0)),
-    Tend_(coeffDict_.lookupOrDefault<scalar>("Tend",GREAT))
+    Tsoft_(coeffDict_.lookupOrDefault<scalar>("Tsoft", period_)),
+    Tdecay_(coeffDict_.lookupOrDefault<scalar>("Tdecay", period_)),
+    Tstart_(coeffDict_.lookupOrDefault<scalar>("Tstart", 0.0)),
+    Tend_(coeffDict_.lookupOrDefault<scalar>("Tend", GREAT))
 {
     checkWaveDirection(k_);
 
@@ -101,7 +102,7 @@ scalar streamFunction::factor(const scalar& time) const
 
     if (time > Tend_)
     {
-        factor = Foam::cos(2*PI_/(4.0*Tsoft_)*Foam::min(Tsoft_, time - Tend_));
+        factor = Foam::cos(2*PI_/(4.0*Tdecay_)*Foam::min(Tdecay_, time - Tend_));
     }
 
     return factor;
