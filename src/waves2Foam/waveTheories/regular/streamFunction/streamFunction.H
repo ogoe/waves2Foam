@@ -94,6 +94,7 @@ protected:
         scalarField A_;
         scalarField B_;
         scalar Tsoft_;
+        scalar Tdecay_;
         scalar Tstart_;
         scalar Tend_;
 

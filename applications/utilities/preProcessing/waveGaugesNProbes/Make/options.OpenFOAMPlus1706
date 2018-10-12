@@ -11,7 +11,7 @@ EXE_INC = \
 EXE_LIBS = \
     -lOpenFOAM \
     -lfiniteVolume \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
     -lwaves2FoamProcessing \
     -L$(WAVES_GSL_LIB) \

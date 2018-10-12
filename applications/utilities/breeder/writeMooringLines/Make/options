@@ -7,5 +7,5 @@ EXE_INC = \
 EXE_LIBS = \
     -lfiniteVolume \
     -lsixDoFRigidBodyMotion \
-    -L$(FOAM_USER_LIBBIN) \
+    -L$(WAVES_LIBBIN) \
     -lwaves2FoamMooring
