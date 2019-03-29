@@ -55,6 +55,7 @@ $(waveTheories)/$(extWF)/externalSource.C
 $(waveTheories)/$(extWF)/externalWaveForcing.C
 $(waveTheories)/$(extWF)/emptyExternal/emptyExternal.C
 $(waveTheories)/$(extWF)/oceanWave3D/oceanWave3D.C
+$(waveTheories)/$(extWF)/irregularFast/irregularFast.C
 
 /* WAVE BOUNDARY CONDITIONS */ 
 fvPatchFields=fvPatchFields
