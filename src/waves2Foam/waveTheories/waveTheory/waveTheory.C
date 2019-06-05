@@ -54,10 +54,21 @@ waveTheory::waveTheory
 
     seaLevel_(readScalar(lookup("seaLevel"))),
 
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1812
+	    g_( uniformDimensionedVectorField
+	        (
+	            mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+	        ).value() ),
+    #else
+        g_(meshObjects::gravity::New(mesh_.thisDb().time()).value()),
+    #endif
+#else
     g_( uniformDimensionedVectorField
         (
             mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
         ).value() ),
+#endif
 
     direction_( g_/mag(g_) ),
 

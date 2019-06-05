@@ -94,7 +94,15 @@ autoPtr<porosityCoefficient> porosityCoefficient::New
     const dictionary & poroProp
 )
 {
+#if OFPLUSBRANCH==1
+    #if OFVERSION < 1812
+	    word poroForm = poroProp.lookup("resistanceFormulation");
+    #else
+	    word poroForm(poroProp.lookup("resistanceFormulation"));
+    #endif
+#else
     word poroForm = poroProp.lookup("resistanceFormulation");
+#endif
 
     porosityCoefficientConstructorTable::iterator cstrIter =
             porosityCoefficientConstructorTablePtr_->find(poroForm);

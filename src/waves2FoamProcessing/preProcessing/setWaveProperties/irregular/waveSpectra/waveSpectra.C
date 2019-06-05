@@ -57,16 +57,21 @@ waveSpectra::waveSpectra
     phi_(phi),
     k_(k),
 
-    G_
-    (
-        Foam::mag
-        (
-            uniformDimensionedVectorField
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1812
+        G_(Foam::mag(uniformDimensionedVectorField
             (
                 rT_.db().lookupObject<uniformDimensionedVectorField>("g")
-            ).value()
-        )
-    ),
+            ).value())),
+    #else
+        G_(Foam::mag(Foam::meshObjects::gravity::New(rT_).value())),
+    #endif
+#else
+        G_(Foam::mag(uniformDimensionedVectorField
+            (
+                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
+            ).value())),
+#endif
 
     PI_( M_PI ),
 

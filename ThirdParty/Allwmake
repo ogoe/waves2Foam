@@ -120,9 +120,12 @@ else
 
     # Get an update of the git and report the result
     output=`git pull`
-    
+    echo $output
     # Check whether the git was already up to date
     if [[ $output == "Already up-to-date." ]]
+    then
+        compileFlag=0
+    elif [[ $output == "Already up to date." ]] 
     then
         compileFlag=0
     else

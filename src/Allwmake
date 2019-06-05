@@ -56,7 +56,6 @@ then
         (cd waves2FoamSampling  ; wmake libso)
     else
         (cd waves2FoamSamplingNew  ; wmake libso)
-        echo "OUGHT TO COMPILE NEW SAMPLING"
     fi
 else
     if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]

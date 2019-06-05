@@ -61,11 +61,21 @@ relaxationShape::relaxationShape
 
     refreshIndexSigma_(-1)
 {
-    vector g( uniformDimensionedVectorField
-        (
-            mesh_.thisDb()
-            .lookupObject<uniformDimensionedVectorField>("g")).value()
-        );
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1812
+        vector g(uniformDimensionedVectorField
+            (
+                mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+    #else
+        vector g(Foam::meshObjects::gravity::New(mesh_.thisDb().time()).value());
+    #endif
+#else
+        vector g(uniformDimensionedVectorField
+            (
+                mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+#endif
 
     direction_ = g/mag(g);
 }

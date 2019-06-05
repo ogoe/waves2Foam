@@ -165,11 +165,26 @@ scalar irregularFast::factor(const scalar& time) const
 void irregularFast::calcUnitVectors()
 {
 	// Get the gravity field
-    vector g =
-    	uniformDimensionedVectorField
-        (
-            mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
-        ).value();
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1812
+        vector g(uniformDimensionedVectorField
+            (
+                mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+    #else
+        vector g(Foam::meshObjects::gravity::New(mesh_.thisDb().time()).value());
+    #endif
+#else
+        vector g(uniformDimensionedVectorField
+            (
+                mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+#endif
+//    vector g =
+//    	uniformDimensionedVectorField
+//        (
+//            mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+//        ).value();
 
     // The vertical coordinate is based on the gravity field
     eZ_ = Foam::cmptMultiply(g, g);
