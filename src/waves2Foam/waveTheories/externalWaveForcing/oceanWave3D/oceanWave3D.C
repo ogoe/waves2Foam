@@ -213,10 +213,26 @@ dimensionedScalar oceanWave3D::OCWTimeStep() const
 void oceanWave3D::mappingTensors()
 {
 	// Get a unit vector along the direction of gravity.
-	vector g = uniformDimensionedVectorField
-        (
-	        mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
-	    ).value();
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1812
+        vector g(uniformDimensionedVectorField
+            (
+                mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+    #else
+        vector g(Foam::meshObjects::gravity::New(mesh_.thisDb().time()).value());
+    #endif
+#else
+        vector g(uniformDimensionedVectorField
+            (
+                mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+#endif
+
+//	vector g = uniformDimensionedVectorField
+//        (
+//	        mesh_.thisDb().lookupObject<uniformDimensionedVectorField>("g")
+//	    ).value();
 
 	g = cmptMultiply(g, g);
 	g /= Foam::mag(g);

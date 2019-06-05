@@ -55,13 +55,12 @@ Author
 #ifndef relaxationShape_H
 #define relaxationShape_H
 
+#include "fvCFD.H"
 #include "volFields.H"
 
 #include "IOdictionary.H"
 #include "autoPtr.H"
 #include "runTimeSelectionTables.H"
-
-//#include "mathematicalConstants.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

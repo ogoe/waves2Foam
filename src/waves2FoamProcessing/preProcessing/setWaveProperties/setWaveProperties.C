@@ -222,13 +222,21 @@ setWaveProperties::setWaveProperties
     write_(write),
     dict_(dict),
 
-    g_
-    (
-        uniformDimensionedVectorField
-        (
-            rT.db().lookupObject<uniformDimensionedVectorField>("g")
-        ).value()
-    )
+#if OFPLUSBRANCH==1
+    #if OFVERSION<1812
+        g_(uniformDimensionedVectorField
+            (
+                rT.db().lookupObject<uniformDimensionedVectorField>("g")
+            ).value())
+    #else
+        g_(Foam::meshObjects::gravity::New(rT).value())
+    #endif
+#else
+        g_(uniformDimensionedVectorField
+            (
+                rT.db().lookupObject<uniformDimensionedVectorField>("g")
+            ).value())
+#endif
 {
     G_  = Foam::mag(g_);
     PI_ = M_PI;
