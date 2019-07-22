@@ -236,7 +236,20 @@ public:
         ) const;
 
         // Return the unit vertical direction in the direction of g
-        const inline vector& returnDir() const { return direction_;}
+        const inline vector& returnDir() const
+        {
+            return direction_;
+        };
+
+        inline scalar magG() const
+        {
+            return Foam::mag(g_);
+        };
+
+        inline scalar rhoWater() const
+        {
+            return rhoWater_;
+        };
 
         // Return a reference to the dictionary
         const inline dictionary& patchDict() const {return coeffDict_;};
