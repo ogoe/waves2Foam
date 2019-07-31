@@ -140,14 +140,26 @@ void waveGauges::evaluate(const word& name)
     gauges() << incrIndent << indent << name << nl << indent
              << token::BEGIN_BLOCK << nl << incrIndent;
     gauges() << indent << "type               surfaceElevation;" << nl;
-    gauges() << indent << "functionObjectLibs ( \"libwaves2Foam.so\" );" << nl;
     gauges() << nl;
-#if OFPLUSBRANCH==1 && 1606<OFVERSION
+#if OFPLUSBRANCH==1 && 1606<OFVERSION && OFVERSION < 1812
+    gauges() << indent << "functionObjectLibs ( \"libwaves2Foam.so\" );" << nl;
+
     word wc(gaugeDict_.lookup("writeControl"));
     scalar wi = readScalar(gaugeDict_.lookup("writeInterval"));
+
+    gauges() << indent << "writeControl       " << wc << ";" << nl;
+    gauges() << indent << "writeInterval      " << wi << ";" << nl;
+#elif OFPLUSBRANCH==1 && 1806<OFVERSION
+    gauges() << indent << "libs ( \"libwaves2Foam.so\" );" << nl;
+
+    word wc(gaugeDict_.lookup("writeControl"));
+    scalar wi = readScalar(gaugeDict_.lookup("writeInterval"));
+
     gauges() << indent << "writeControl       " << wc << ";" << nl;
     gauges() << indent << "writeInterval      " << wi << ";" << nl;
 #else
+    gauges() << indent << "functionObjectLibs ( \"libwaves2Foam.so\" );" << nl;
+
     gauges() << indent << "outputControl      timeStep;"
              << " // Alternative: outputTime" << nl;
     gauges() << indent << "outputInterval      1;" << nl << nl;
