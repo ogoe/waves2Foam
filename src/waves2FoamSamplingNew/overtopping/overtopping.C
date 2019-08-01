@@ -222,12 +222,14 @@ bool Foam::overtopping::write()
     Info << "Write the overtopping" << endl;
 
     // Write the time with high accuracy
-    label pres0 = overtoppingFilePtr_().precision(13);
+    if (Pstream::master())
+    {
+        label pres0 = overtoppingFilePtr_().precision(13);
 
-    overtoppingFilePtr_() << runTime_.time().value() << tab;
+        overtoppingFilePtr_() << runTime_.time().value() << tab;
 
-    overtoppingFilePtr_().precision(pres0);
-
+        overtoppingFilePtr_().precision(pres0);
+    }
 
     // Get reference to mesh and fields
     const fvMesh& mesh = runTime_.db().lookupObject<fvMesh>("region0");
@@ -262,12 +264,19 @@ bool Foam::overtopping::write()
         {
             const faceZone& fZ = faceZones[fzi];
 
-            overtoppingFilePtr_() << "\t"
-                << calcOvertopping(mesh, phi, rhoPhi, fZ);
+            vector Q = calcOvertopping(mesh, phi, rhoPhi, fZ);
+
+            if (Pstream::master())
+            {
+                overtoppingFilePtr_() << "\t" << Q;
+            }
         }
     }
 
-    overtoppingFilePtr_() << endl;
+    if (Pstream::master())
+    {
+        overtoppingFilePtr_() << endl;
+    }
 
     return true;
 }
