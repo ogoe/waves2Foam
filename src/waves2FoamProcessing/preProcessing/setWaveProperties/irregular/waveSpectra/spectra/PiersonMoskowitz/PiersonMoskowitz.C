@@ -49,8 +49,8 @@ scalarField PiersonMoskowitz::spectralValue
     scalar fp = 1.0/Tp;
 
     // Compute spectrum
-    scalarField S = 5.0/16.0*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)
-        *Foam::pow(freq,-5.0)*Foam::exp(- 5.0/4.0*Foam::pow(fp/freq, 4.0));
+    scalarField S(5.0/16.0*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)
+        *Foam::pow(freq,-5.0)*Foam::exp(- 5.0/4.0*Foam::pow(fp/freq, 4.0)));
 
     return S;
 }

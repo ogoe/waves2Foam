@@ -65,8 +65,8 @@ scalarField JONSWAP::spectralValue
         /(2*Foam::pow(sigma, 2.0)*Foam::pow(fp, 2.0)));
 
     // Compute spectrum
-    scalarField S = alpha*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)*Foam::pow(freq,-5.0)
-        *Foam::pow(gamma,beta)*Foam::exp(- 5.0/4.0*Foam::pow(fp/freq, 4.0));
+    scalarField S(alpha*Foam::pow(Hs,2.0)*Foam::pow(fp,4.0)*Foam::pow(freq,-5.0)
+        *Foam::pow(gamma,beta)*Foam::exp(- 5.0/4.0*Foam::pow(fp/freq, 4.0)));
 
     return S;
 }

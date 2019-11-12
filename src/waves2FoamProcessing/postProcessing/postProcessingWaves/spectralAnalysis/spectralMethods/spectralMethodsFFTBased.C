@@ -117,8 +117,8 @@ void spectralMethodsFFTBased::powerSpectrum
     // Compute the spectrum for each vector component
     for (int i=0; i<3; i++)
     {
-        scalarField comp = input.component(i);
-        scalarField speci = spectrum.component(i);
+        scalarField comp(input.component(i));
+        scalarField speci(spectrum.component(i));
 
         powerSpectrum(comp, deltaT, speci);
 
