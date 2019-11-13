@@ -207,7 +207,7 @@ void zeroCrossing::crossingAnalysis
 
         // Get reference to input field and create crossing field
         const scalarField& inp = input[indexi];
-        scalarField searchField = Foam::pos(inp) - Foam::neg(inp);
+        scalarField searchField(Foam::pos(inp) - Foam::neg(inp));
 
         label count = -1;
 

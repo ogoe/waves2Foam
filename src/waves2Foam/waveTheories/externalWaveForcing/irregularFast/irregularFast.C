@@ -352,7 +352,7 @@ void irregularFast::calcHyperbolicFunctions()
     Sinh_.setSize(verticalCoordinate_.size());
 
     // Make a local coordinate system, which is 0 at zero level
-    scalarField Z = verticalCoordinate_ - seaLevel_;
+    scalarField Z(verticalCoordinate_ - seaLevel_);
 
     // Loop over all vertical coordinates
     forAll (Z, zi)
@@ -374,8 +374,8 @@ void irregularFast::calcHyperbolicFunctions()
 void irregularFast::calcWaveNumberTrigonometricFunctions()
 {
 	// Compute the two horizontal components of the wave number
-    scalarField kx = (k_ & eX_);
-    scalarField ky = (k_ & eY_);
+    scalarField kx(k_ & eX_);
+    scalarField ky(k_ & eY_);
 
     const scalarField& x = horizontalCoordinates_[0];
     const scalarField& y = horizontalCoordinates_[1];
