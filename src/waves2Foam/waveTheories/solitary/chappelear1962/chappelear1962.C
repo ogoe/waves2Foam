@@ -182,7 +182,7 @@ scalar chappelear1962::pExcess
     const scalar& time
 ) const
 {
-    scalar res = 0;
+//    scalar res = 0;
 
 /*    // Get the reference level.
     scalar Z(returnZ(x));
@@ -207,6 +207,27 @@ scalar chappelear1962::pExcess
 
     Info << Z << tab << R_ << tab << referencePressure() << endl;
 */
+
+    scalar res = 0;
+
+    // Get the reference level.
+    scalar Z(returnZ(x));
+
+    // Get the velocity and correct for the propagation speed (otherwise,
+    // the time derivative of the velocity potential would be needed).
+    vector vel = this->U(x, time);
+    vel -= (c_*propagationDirection_);
+
+    // Get the component-wise square of the velocity vector
+    vector tmp = Foam::cmptMultiply(vel, vel);
+
+    // The last component is a matter of transforming total pressure
+    // into excess pressure. The equation follows from (29), Fenton (1985).
+    res = R_ - Z*Foam::mag(g_) - 0.5*Foam::cmptSum(tmp)
+    - ((x - referenceLevel_) & g_);
+    res *= rhoWater_;
+
+
     return res;
 }
 
