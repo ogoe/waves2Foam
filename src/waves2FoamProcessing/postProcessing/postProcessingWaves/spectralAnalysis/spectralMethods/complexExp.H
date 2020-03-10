@@ -40,8 +40,12 @@ Author
 
 namespace Foam
 {
+#if OFPLUSBRANCH==1 && 1906 < OFVERSION
     //- Computes the complex exponentital
     Foam::complex EXP( const Foam::complex& );
+#else
+    Foam::complex exp( const Foam::complex& );
+#endif
 
 } // End namespace Foam
 
