@@ -28,12 +28,27 @@ License
 
 /* * * * * * * * * * * * * * * HELPER FUNCTIONS  * * * * * * * * * * * * * * */
 
-Foam::complex Foam::exp( const Foam::complex& C )
-{
-    Foam::complex res( Foam::complex::zero );
+#if OFPLUSBRANCH==1 && 1906 < OFVERSION
 
-    res.Re() = Foam::exp( C.Re() )*Foam::cos( C.Im() );
-    res.Im() = Foam::exp( C.Re() )*Foam::sin( C.Im() );
+Foam::complex Foam::EXP(const Foam::complex& C)
+{
+    Foam::complex res(0,0);
+
+    res.real(Foam::exp(C.Re())*Foam::cos(C.Im()));
+    res.imag(Foam::exp(C.Re())*Foam::sin(C.Im()));
 
     return res;
 }
+
+#else
+
+Foam::complex Foam::exp(const Foam::complex& C)
+{
+    Foam::complex res(Foam::complex::zero);
+
+    res.Re() = Foam::exp(C.Re())*Foam::cos(C.Im());
+    res.Im() = Foam::exp(C.Re())*Foam::sin(C.Im());
+
+    return res;
+}
+#endif

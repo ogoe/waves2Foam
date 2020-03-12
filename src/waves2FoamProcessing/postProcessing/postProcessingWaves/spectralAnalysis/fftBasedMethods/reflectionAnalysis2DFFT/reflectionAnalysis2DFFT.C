@@ -164,12 +164,20 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
     // Set the correct size of return fields
     if (ampRight.size() != k.size())
     {
+#if OFPLUSBRANCH == 1 && 1906 < OFVERSION
+        ampRight.setSize(k.size(), complex(0, 0));
+#else
         ampRight.setSize(k.size(), complex::zero);
+#endif
     }
 
     if (ampLeft.size() != k.size())
     {
+#if OFPLUSBRANCH == 1 && 1906 < OFVERSION
+        ampLeft.setSize(k.size(), complex(0, 0));
+#else
         ampLeft.setSize(k.size(), complex::zero);
+#endif
     }
 
     if (determinant.size() != k.size())
@@ -213,12 +221,19 @@ void reflectionAnalysis2DFFT::decomposeAmplitudes
         determinant[freqi] = D;
 
         // Compute the complex coefficients C (Eq. 15)
-        Field<complex> C( X_.size(), complex::zero );
+#if OFPLUSBRANCH == 1 && 1906 < OFVERSION
+        Field<complex> C(X_.size(), complex(0, 0));
+#else
+        Field<complex> C(X_.size(), complex::zero);
+#endif
 
         for (int p=0; p < P; p++)
         {
+#if OFPLUSBRANCH == 1 && 1906 < OFVERSION
+            C[p] = complex(0,0);
+#else
             C[p] = complex::zero;
-
+#endif
             for (int q=0; q < P; q++)
             {
                 C[p] +=

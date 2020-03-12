@@ -137,17 +137,19 @@ public:
             const scalar&
         ) const;
 
+
         bool implementPressure() const
         {
             forAll (combinedWavesPtr_, wavei)
             {
-                if (~combinedWavesPtr_[wavei]->implementPressure())
+                if (!combinedWavesPtr_[wavei]->implementPressure())
                 {
                     return false;
                 }
             }
             return true;
         };
+
 
         virtual vector U
         (
