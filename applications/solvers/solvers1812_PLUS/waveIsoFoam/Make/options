@@ -27,7 +27,6 @@ EXE_LIBS = \
     -lfvOptions \
     -lmeshTools \
     -lsampling \
-    -lwaveModels \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
     -lwaves2FoamSampling \
