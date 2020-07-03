@@ -64,7 +64,8 @@ class waveGauges
 private:
 
     // Private data
-        const fvMesh& mesh_;
+//        const fvMesh& mesh_;
+        const Time& runTime_;
         const dictionary& gaugeDict_;
 
     // Private Member Functions
@@ -91,7 +92,8 @@ public:
         //- Construct from components
         waveGauges
         (
-            const fvMesh&,
+//            const fvMesh&,
+            const Time&,
             const dictionary&
         );
 

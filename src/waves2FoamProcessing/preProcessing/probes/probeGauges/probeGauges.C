@@ -69,11 +69,11 @@ void probeGauges::writeVTKFormat
 
 probeGauges::probeGauges
 (
-    const fvMesh& mesh,
+//    const fvMesh& mesh,
     const dictionary& dict
 )
 :
-    mesh_(mesh),
+//    mesh_(mesh),
 
     gaugeDict_(dict)
 {
@@ -88,7 +88,8 @@ void probeGauges::evaluate(const word& name)
 	// Evaluate the point distribution
 	autoPtr<Foam::pointDistributions> pd
 	(
-		Foam::pointDistributions::New(mesh_, gaugeDict_)
+//		Foam::pointDistributions::New(mesh_, gaugeDict_)
+	    Foam::pointDistributions::New(gaugeDict_)
 	);
 
 	pointField pp(pd->evaluate());

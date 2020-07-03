@@ -68,7 +68,7 @@ class pointDistributions
 protected:
 
     // Protected data
-        const fvMesh& mesh_;
+//        const fvMesh& mesh_;
         const dictionary& pointDict_;
 
     // Protected member functions
@@ -96,10 +96,11 @@ public:
             pointDistributions,
             pointDistributions,
             (
-                   const fvMesh& mesh,
+//                   const fvMesh& mesh,
                 const dictionary& dict
             ),
-            ( mesh, dict )
+//            ( mesh, dict )
+            (dict )
         );
 
     // Constructors
@@ -107,7 +108,7 @@ public:
         //- Construct from components
         pointDistributions
         (
-            const fvMesh&,
+//            const fvMesh&,
             const dictionary&
         );
 
@@ -116,7 +117,7 @@ public:
         //- Return a reference to the selected turbulence model
         static autoPtr<pointDistributions> New
         (
-            const fvMesh&,
+//            const fvMesh&,
             const dictionary&
         );
 

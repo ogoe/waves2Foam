@@ -84,7 +84,7 @@ public:
         //- Construct from components
         lineDistribution
         (
-            const fvMesh&,
+//            const fvMesh&,
             const dictionary&
         );
 

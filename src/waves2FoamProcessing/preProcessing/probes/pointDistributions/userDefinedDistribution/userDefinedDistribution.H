@@ -85,7 +85,7 @@ public:
         //- Construct from components
         userDefinedDistribution
         (
-            const fvMesh&,
+//            const fvMesh&,
             const dictionary&
         );
 
