@@ -72,10 +72,10 @@ int main(int argc, char *argv[])
 #   include "setRootCase.H"
 
 #   include "createTime.H"
-#   include "createMesh.H"
+//#   include "createMesh.H"
 
     // Needed by e.g. the reflection analysis
-#   include "readGravitationalAcceleration.H"
+//#   include "readGravitationalAcceleration.H"
     Info << "\n";
 
     mkDir("waveGaugesNProbes");
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
         (
             "probeDefinitions",
             runTime.constant(),
-            mesh,
+            runTime,
             IOobject::MUST_READ,
             IOobject::NO_WRITE
         )
@@ -104,13 +104,15 @@ int main(int argc, char *argv[])
 
             if (word(dict.lookup("type")) == "waveGauge")
             {
-                waveGauges wg(mesh, dict);
+//                waveGauges wg(mesh, dict);
+                waveGauges wg(runTime, dict);
 
                 wg.evaluate(name);
             }
             else if (word(dict.lookup("type")) == "probeGauge")
             {
-            	probeGauges pg(mesh, dict);
+//            	probeGauges pg(mesh, dict);
+            	probeGauges pg(dict);
 
             	pg.evaluate(name);
             }

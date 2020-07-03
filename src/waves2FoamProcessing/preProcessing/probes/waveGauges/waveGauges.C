@@ -83,11 +83,13 @@ void waveGauges::writeVTKFormat
 
 waveGauges::waveGauges
 (
-    const fvMesh& mesh,
+//    const fvMesh& mesh,
+    const Time& runTime,
     const dictionary& dict
 )
 :
-    mesh_(mesh),
+//    mesh_(mesh),
+    runTime_(runTime),
 
     gaugeDict_(dict)
 {
@@ -104,7 +106,8 @@ void waveGauges::evaluate(const word& name)
 
     autoPtr<Foam::pointDistributions> pd
     (
-        Foam::pointDistributions::New(mesh_, gaugeDict_)
+//        Foam::pointDistributions::New(mesh_, gaugeDict_)
+        Foam::pointDistributions::New(gaugeDict_)
     );
 
     pointField pp(pd->evaluate());
@@ -182,7 +185,8 @@ void waveGauges::evaluate(const word& name)
         new OFstream("waveGaugesNProbes/" + name + "surfaceElevationDict")
     );
 
-    mesh_.writeBanner(gauges());
+//    mesh_.writeBanner(gauges());
+    runTime_.writeBanner(gauges());
 
     // Write the file information. Class name is not correct when
     // using wOut.writeHeader( os ); hence manual entries
@@ -196,7 +200,8 @@ void waveGauges::evaluate(const word& name)
     gauges() << decrIndent << indent << token::END_BLOCK << nl;
 
     // Write the divider
-    mesh_.writeDivider(gauges());
+//    mesh_.writeDivider(gauges());
+    runTime_.writeDivider(gauges());
     gauges() << nl << nl;
 
     gauges() << "setFormat           raw;" << nl;
@@ -206,7 +211,8 @@ void waveGauges::evaluate(const word& name)
     gauges() << "#includeIfPresent  \"../waveGaugesNProbes/" << name
              << "_sets\";" << nl;
 
-    mesh_.writeEndDivider(gauges());
+//    mesh_.writeEndDivider(gauges());
+    runTime_.writeEndDivider(gauges());
 
     if (gaugeDict_.lookupOrDefault<Switch>("writeVTK", true))
     {

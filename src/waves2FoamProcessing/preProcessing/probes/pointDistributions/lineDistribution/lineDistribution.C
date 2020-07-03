@@ -47,11 +47,12 @@ addToRunTimeSelectionTable
 
 lineDistribution::lineDistribution
 (
-    const fvMesh& mesh,
+//    const fvMesh& mesh,
     const dictionary& dict
 )
 :
-    pointDistributions( mesh, dict )
+//    pointDistributions( mesh, dict )
+    pointDistributions( dict )
 {
 }
 

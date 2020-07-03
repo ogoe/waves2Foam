@@ -41,11 +41,11 @@ defineRunTimeSelectionTable(pointDistributions, pointDistributions);
 
 pointDistributions::pointDistributions
 (
-    const fvMesh& mesh,
+//    const fvMesh& mesh,
     const dictionary& dict
 )
 :
-    mesh_(mesh),
+//    mesh_(mesh),
 
     pointDict_( dict )
 {
@@ -54,7 +54,7 @@ pointDistributions::pointDistributions
 
 autoPtr<pointDistributions> pointDistributions::New
 (
-    const fvMesh& mesh,
+//    const fvMesh& mesh,
     const dictionary& dict
 )
 {
@@ -75,7 +75,8 @@ autoPtr<pointDistributions> pointDistributions::New
             << exit(FatalError);
     }
 
-    return autoPtr<pointDistributions>(cstrIter()( mesh, dict));
+//    return autoPtr<pointDistributions>(cstrIter()( mesh, dict));
+    return autoPtr<pointDistributions>(cstrIter()( dict));
 }
 
 
