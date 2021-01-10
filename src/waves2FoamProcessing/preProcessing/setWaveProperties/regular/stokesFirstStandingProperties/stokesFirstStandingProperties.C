@@ -49,11 +49,12 @@ stokesFirstStandingProperties::stokesFirstStandingProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 :
-    setWaveProperties(rT, dict, write),
-    sfp_( rT, dict, false, "")
+    setWaveProperties(rT, dict, g, write),
+    sfp_( rT, dict, g, false, "")
 {
     Info << "\nConstructing: " << this->type() << endl;
 }

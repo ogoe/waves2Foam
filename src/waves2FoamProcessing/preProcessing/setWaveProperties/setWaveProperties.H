@@ -46,7 +46,7 @@ SourceFiles
     setWaveProperties.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -139,9 +139,9 @@ public:
             setWaveProperties,
             setWaveProperties,
             (
-                const Time& rT, dictionary& dict, bool write
+                const Time& rT, dictionary& dict, vector g, bool write
             ),
-            (rT, dict, write)
+            (rT, dict, g, write)
         );
 
     // Constructors
@@ -151,6 +151,7 @@ public:
         (
             const Time&,
             dictionary&,
+            vector,
             bool
         );
 
@@ -161,6 +162,7 @@ public:
         (
             const Time&,
             dictionary&,
+            vector,
             bool
         );
 

@@ -54,7 +54,12 @@ scalarField reflectionAnalysis2DFFT::linearWaveNumbers
     scalarField res( frequencies.size(), 0.0);
 
     // Load the stokes first calculator
-    stokesFirstProperties stp( rT_ , dataDict_ );
+    vector g(uniformDimensionedVectorField
+            (
+                rT_.db().lookupObject<uniformDimensionedVectorField>("g")
+            ).value());
+
+    stokesFirstProperties stp( rT_ , dataDict_, g );
 
     // Compute the linear wave number for each freqency
     forAll (frequencies, freqi)

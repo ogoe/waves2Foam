@@ -46,7 +46,7 @@ SourceFiles
     waveSpectra.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -90,6 +90,7 @@ protected:
         scalarField& phi_;
         vectorField& k_;
 
+        vector g_;
         scalar G_;
 
         scalar PI_;
@@ -130,12 +131,13 @@ public:
             (
                 const Time& rT,
                 dictionary& dict,
+                vector g,
                 scalarField& amp,
                 scalarField& freq,
                 scalarField& phi,
                 vectorField& k
             ),
-            (rT, dict, amp, freq, phi, k)
+            (rT, dict, g, amp, freq, phi, k)
         );
 
     // Constructors
@@ -145,6 +147,7 @@ public:
         (
             const Time&,
             dictionary&,
+            vector,
             scalarField&,
             scalarField&,
             scalarField&,
@@ -158,6 +161,7 @@ public:
         (
             const Time&,
             dictionary&,
+            vector,
             scalarField&,
             scalarField&,
             scalarField&,

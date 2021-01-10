@@ -116,10 +116,11 @@ stokesFifthProperties::stokesFifthProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 :
-    setWaveProperties(rT, dict, write)
+    setWaveProperties(rT, dict, g, write)
 {
     Info << "\nConstructing: " << this->type() << endl;
 

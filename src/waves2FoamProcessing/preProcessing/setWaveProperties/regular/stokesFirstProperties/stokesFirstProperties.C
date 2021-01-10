@@ -48,10 +48,11 @@ addToRunTimeSelectionTable
 stokesFirstProperties::stokesFirstProperties
 (
     const Time& rT,
-    dictionary& dict
+    dictionary& dict,
+    vector g
 )
 :
-    setWaveProperties(rT, dict, false)
+    setWaveProperties(rT, dict, g, false)
 {
 //    Info << "\nConstructing: " << this->type() << "(Dummy)"<< endl;
 
@@ -65,10 +66,11 @@ stokesFirstProperties::stokesFirstProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 :
-    setWaveProperties(rT, dict, write)
+    setWaveProperties(rT, dict, g, write)
 {
     Info << "\nConstructing: " << this->type() << endl;
 
@@ -82,11 +84,12 @@ stokesFirstProperties::stokesFirstProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write,
     word string
 )
 :
-    setWaveProperties(rT, dict, write)
+    setWaveProperties(rT, dict, g, write)
 {
     Info << "\nConstructing: " << this->type()
          << " (Used by another wave theory)";

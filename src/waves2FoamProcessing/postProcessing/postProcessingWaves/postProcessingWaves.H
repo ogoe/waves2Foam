@@ -34,7 +34,7 @@ SourceFiles
     postProcessingWaves.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
