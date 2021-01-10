@@ -213,7 +213,7 @@ int main(int argc, char *argv[])
         	{
                 autoPtr<setWaveProperties> props
                     (
-                        setWaveProperties::New(runTime, sd, true)
+                        setWaveProperties::New(runTime, sd, g.value(), true)
                     );
 
                 props->set(os);

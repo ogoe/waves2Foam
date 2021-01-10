@@ -44,7 +44,7 @@ SourceFiles
     setWaveProperties.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -76,13 +76,15 @@ public:
         stokesFirstProperties
         (
             const Time&,
-            dictionary&
+            dictionary&,
+            vector
         );
 
         stokesFirstProperties
         (
             const Time&,
             dictionary&,
+            vector,
             bool
         );
 
@@ -90,6 +92,7 @@ public:
         (
             const Time&,
             dictionary&,
+            vector,
             bool,
             word
         );

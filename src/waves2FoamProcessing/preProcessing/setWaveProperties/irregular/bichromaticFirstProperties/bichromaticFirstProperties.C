@@ -49,12 +49,13 @@ bichromaticFirstProperties::bichromaticFirstProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 :
-    setWaveProperties(rT, dict, write),
-    sfp1_( rT, dict, write, "1"),
-    sfp2_( rT, dict, write, "2")
+    setWaveProperties(rT, dict, g, write),
+    sfp1_( rT, dict, g, write, "1"),
+    sfp2_( rT, dict, g, write, "2")
 {
     Info << "\nConstructing: " << this->type() << endl;
 }

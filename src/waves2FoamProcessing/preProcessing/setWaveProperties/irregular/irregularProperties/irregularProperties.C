@@ -49,10 +49,11 @@ irregularProperties::irregularProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 :
-    setWaveProperties(rT, dict, write),
+    setWaveProperties(rT, dict, g, write),
     rT_(rT)
 {
     Info << "\nConstructing: " << this->type() << endl;
@@ -95,7 +96,7 @@ void irregularProperties::set( Ostream& os )
 
     autoPtr<waveSpectra> spectra
     (
-        waveSpectra::New(rT_, dict_, amp, frequency, phaselag, waveNumber)
+        waveSpectra::New(rT_, dict_, g_, amp, frequency, phaselag, waveNumber)
     );
 
     // Write properties specific to chosen spectral theory

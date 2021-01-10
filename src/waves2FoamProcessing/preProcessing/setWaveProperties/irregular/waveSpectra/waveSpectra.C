@@ -44,6 +44,7 @@ waveSpectra::waveSpectra
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     scalarField& amp,
     scalarField& freq,
     scalarField& phi,
@@ -57,7 +58,7 @@ waveSpectra::waveSpectra
     phi_(phi),
     k_(k),
 
-#if OFPLUSBRANCH==1
+/*#if OFPLUSBRANCH==1
     #if OFVERSION<1812
         G_(Foam::mag(uniformDimensionedVectorField
             (
@@ -71,7 +72,10 @@ waveSpectra::waveSpectra
             (
                 rT_.db().lookupObject<uniformDimensionedVectorField>("g")
             ).value())),
-#endif
+#endif*/
+    g_(g),
+
+    G_(Foam::mag(g)),
 
     PI_( M_PI ),
 
@@ -108,6 +112,7 @@ autoPtr<waveSpectra> waveSpectra::New
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     scalarField& amp,
     scalarField& freq,
     scalarField& phi,
@@ -132,7 +137,7 @@ autoPtr<waveSpectra> waveSpectra::New
             << exit(FatalError);
     }
 
-    return autoPtr<waveSpectra>(cstrIter()(rT, dict, amp, freq, phi, k));
+    return autoPtr<waveSpectra>(cstrIter()(rT, dict, g, amp, freq, phi, k));
 }
 
 

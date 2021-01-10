@@ -216,13 +216,14 @@ setWaveProperties::setWaveProperties
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 :
     write_(write),
     dict_(dict),
 
-#if OFPLUSBRANCH==1
+/*#if OFPLUSBRANCH==1
     #if OFVERSION<1812
         g_(uniformDimensionedVectorField
             (
@@ -236,7 +237,8 @@ setWaveProperties::setWaveProperties
             (
                 rT.db().lookupObject<uniformDimensionedVectorField>("g")
             ).value())
-#endif
+#endif*/
+    g_(g)
 {
     G_  = Foam::mag(g_);
     PI_ = M_PI;
@@ -256,6 +258,7 @@ autoPtr<setWaveProperties> setWaveProperties::New
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     bool write
 )
 {
@@ -281,7 +284,7 @@ autoPtr<setWaveProperties> setWaveProperties::New
         << exit(FatalError);
     }
 
-    return autoPtr<setWaveProperties>(cstrIter()(rT, dict, write));
+    return autoPtr<setWaveProperties>(cstrIter()(rT, dict, g, write));
 }
 
 

@@ -79,13 +79,14 @@ JONSWAP::JONSWAP
 (
     const Time& rT,
     dictionary& dict,
+    vector g,
     scalarField& amp,
     scalarField& freq,
     scalarField& phi,
     vectorField& k
 )
 :
-    waveSpectra(rT, dict, amp, freq, phi, k)
+    waveSpectra(rT, dict, g, amp, freq, phi, k)
 {
     Info << "\nConstructing: " << this->type() << endl;
 }
@@ -149,7 +150,7 @@ void JONSWAP::set(Ostream& os)
     scalarField S = this->spectralValue(Hs, Tp, gamma, nodeFrequency);
 
     // Prepare stokesFirst to compute wave numbers
-    Foam::stokesFirstProperties stp(rT_, dict_);
+    Foam::stokesFirstProperties stp(rT_, dict_, g_);
 
     // Compute return variables
     for (int i = 1; i < N + 1; i++)

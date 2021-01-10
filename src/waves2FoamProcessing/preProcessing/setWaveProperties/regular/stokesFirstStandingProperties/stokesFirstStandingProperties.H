@@ -75,6 +75,7 @@ public:
     (
         const Time&,
         dictionary&,
+        vector,
         bool
     );
 
