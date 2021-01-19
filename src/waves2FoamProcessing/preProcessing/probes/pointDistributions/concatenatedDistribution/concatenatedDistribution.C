@@ -24,7 +24,7 @@ License
 
 \*---------------------------------------------------------------------------*/
 
-#include "userDefinedDistribution.H"
+#include "concatenatedDistribution.H"
 #include "addToRunTimeSelectionTable.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
@@ -34,54 +34,111 @@ namespace Foam
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
-defineTypeNameAndDebug(userDefinedDistribution, 0);
+defineTypeNameAndDebug(concatenatedDistribution, 0);
 addToRunTimeSelectionTable
 (
     pointDistributions,
-    userDefinedDistribution,
+    concatenatedDistribution,
     pointDistributions
 );
 
 // * * * * * * * * * * * * * * * * Constructors  * * * * * * * * * * * * * * //
 
 
-userDefinedDistribution::userDefinedDistribution
+concatenatedDistribution::concatenatedDistribution
 (
 //    const fvMesh& mesh,
     const dictionary& dict
 )
 :
-//    pointDistributions( mesh, dict )
-    pointDistributions(dict )
+    pointDistributions(dict),
+
+    ppS_(0),
+    ppE_(0)
 {
 }
 
 
-userDefinedDistribution::~userDefinedDistribution()
+concatenatedDistribution::~concatenatedDistribution()
 {}
 
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-pointField userDefinedDistribution::evaluateStart()
+pointField concatenatedDistribution::evaluateStart()
 {
-    Info << "CHECK" << endl;
+    ppS_.setSize(0);
 
-    // Read needed material
-    scalarField x("xValues", pointDict_, readLabel( pointDict_.lookup("N")));
-    scalarField y("yValues", pointDict_, readLabel( pointDict_.lookup("N")));
-    scalarField z("zValues", pointDict_, readLabel( pointDict_.lookup("N")));
+    wordList toc(pointDict_.toc());
 
-    // Define the return field
-    pointField res(x.size(), point::zero);
-
-    forAll (res, pointi)
+    forAll (toc, item)
     {
-        res[pointi] = point(x[pointi], y[pointi], z[pointi]);
+        word name(toc[item]);
+
+        if (pointDict_.isDict(name))
+        {
+            // Get the point distribution
+            const dictionary subDict(pointDict_.subDict(name));
+
+            autoPtr<Foam::pointDistributions> pd
+                (
+                    Foam::pointDistributions::New(subDict)
+                );
+
+            pointField pp(pd->evaluateStart());
+
+            // Update the size of the ppS_
+            label N = ppS_.size();
+            ppS_.setSize(N + pp.size());
+
+            // Insert all points
+            forAll (pp, pointi)
+            {
+                ppS_[pointi + N] = pp[pointi];
+            }
+        }
     }
 
-    return res;
+    return ppS_;
+}
+
+
+pointField concatenatedDistribution::evaluateEnd()
+{
+    ppE_.setSize(0);
+
+    wordList toc(pointDict_.toc());
+
+    forAll (toc, item)
+    {
+        word name(toc[item]);
+
+        if (pointDict_.isDict(name))
+        {
+            // Get the point distribution
+            const dictionary subDict(pointDict_.subDict(name));
+
+            autoPtr<Foam::pointDistributions> pd
+            (
+                    Foam::pointDistributions::New(subDict)
+            );
+
+            pointField pp(pd->evaluateEnd());
+
+            // Update the size of the ppE_
+            label N = ppE_.size();
+            ppE_.setSize(N + pp.size());
+
+            // Insert all points
+            forAll (pp, pointi)
+            {
+                ppE_[pointi + N] = pp[pointi];
+            }
+        }
+    }
+
+    return ppE_;
 }
 
 

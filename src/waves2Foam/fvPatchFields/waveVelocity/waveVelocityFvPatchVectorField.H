@@ -47,7 +47,7 @@ SourceFiles
     waveVelocityFvPatchVectorField.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -98,7 +98,16 @@ private:
 public:
 
     //- Runtime type information
+#if OFPLUSBRANCH==1
+    #if OFVERSION<2012
     TypeName("waveVelocity");
+    #else
+    TypeName("relaxationVelocity");
+    #endif
+#else
+    TypeName("waveVelocity");
+#endif
+//    TypeName("waveVelocity");
 
 
     // Constructors

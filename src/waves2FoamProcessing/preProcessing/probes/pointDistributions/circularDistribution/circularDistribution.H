@@ -33,7 +33,7 @@ SourceFiles
     circularDistribution.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -95,7 +95,7 @@ public:
         virtual ~circularDistribution();
 
     // Member Functions
-        virtual pointField evaluate();
+        virtual pointField evaluateStart();
 };
 
 

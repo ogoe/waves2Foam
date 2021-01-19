@@ -9,7 +9,6 @@ $(waveProp)/$(current)/potentialCurrentProperties/potentialCurrentProperties.C
 /* Solitary type */
 solitary=solitary
 $(waveProp)/$(solitary)/solitaryFirstProperties/solitaryFirstProperties.C
-/*$(waveProp)/$(solitary)/solitaryGrimshaw1971Properties/solitaryGrimshaw1971Properties.C*/
 $(waveProp)/$(solitary)/chappelear1962Properties/chappelear1962Properties.C
 
 /* Stokes theories */
@@ -59,9 +58,6 @@ external=externalWaveForcing
 $(waveProp)/$(external)/externalSourceProperties/externalSourceProperties.C
 $(waveProp)/$(external)/oceanWave3DProperties/oceanWave3DProperties.C
 
-/* INITIALIZATION */
-/*preProcessing/setWaveField/setWaveField.C*/
-
 /* PROBES AND WAVE GAUGES */
 prep=preProcessing/probes
 pointd=pointDistributions
@@ -72,13 +68,16 @@ $(prep)/$(pointd)/userDefinedDistribution/userDefinedDistribution.C
 $(prep)/$(pointd)/lineDistribution/lineDistribution.C
 $(prep)/$(pointd)/circularDistribution/circularDistribution.C
 $(prep)/$(pointd)/quadrilateralDistribution/quadrilateralDistribution.C
+$(prep)/$(pointd)/concatenatedDistribution/concatenatedDistribution.C
 
 /* POSTPROCESSINGWAVES */
-ppw=postProcessing/postProcessingWaves
-$(ppw)/postProcessingWaves.C
+/* REMOVED Jan. 2021 */
+/*ppw=postProcessing/postProcessingWaves
+$(ppw)/postProcessingWaves.C*/
 
 /* Read and write */
-rawData=writeRawData
+/* REMOVED Jan. 2021 */
+/*rawData=writeRawData
 $(ppw)/$(rawData)/rawSurfaceElevation/rawSurfaceElevation.C
 $(ppw)/$(rawData)/rawVelocityProbes/rawVelocityProbes.C
 $(ppw)/$(rawData)/rawForcesAndMoments/rawForcesAndMoments.C
@@ -89,18 +88,22 @@ $(ppw)/writeIndexLocation/writeIndexLocation.C
 
 cleaning=cleaningUtil
 $(ppw)/$(cleaning)/removeData/removeData.C
-$(ppw)/$(cleaning)/removeSubDirs/removeSubDirs.C
+$(ppw)/$(cleaning)/removeSubDirs/removeSubDirs.C*/
 
 
 /* Interpolation routines */
+/* REMOVED Jan. 2021 */
+/*
 wintData=writeInterpolatedData
 $(ppw)/$(wintData)/interpolateSurfaceElevation/interpolateSurfaceElevation.C
 $(ppw)/$(wintData)/interpolateVelocityProbes/interpolateVelocityProbes.C
 $(ppw)/$(wintData)/interpolateForcesAndMoments/interpolateForcesAndMoments.C
 $(ppw)/$(wintData)/interpolateAlphaProbes/interpolateAlphaProbes.C
-$(ppw)/$(wintData)/interpolateOvertopping/interpolateOvertopping.C
+$(ppw)/$(wintData)/interpolateOvertopping/interpolateOvertopping.C*/
 
 /* Spectral methods */
+/* REMOVED Jan. 2021 */
+/*
 spec=spectralAnalysis
 specHelp=spectralMethods
 fft=fftBasedMethods
@@ -114,14 +117,15 @@ $(ppw)/$(spec)/$(fft)/powerSpectraFFT/powerSpectraFFT.C
 $(ppw)/$(spec)/$(fft)/reflectionAnalysis2DFFT/reflectionAnalysis2DFFT.C
 
 $(ppw)/$(spec)/$(lsb)/powerSpectraLS/powerSpectraLS.C
-$(ppw)/$(spec)/$(lsb)/reflectionAnalysis2DLS/reflectionAnalysis2DLS.C
+$(ppw)/$(spec)/$(lsb)/reflectionAnalysis2DLS/reflectionAnalysis2DLS.C*/
 
 /* Misc post-processing */
-misc=miscOperations
+/* REMOVED Jan. 2021 */
+/*misc=miscOperations
 $(ppw)/$(misc)/ensembleAverage/ensembleAverage.C
 $(ppw)/$(misc)/trapz/trapz.C
 $(ppw)/$(misc)/cumTrapz/cumTrapz.C
-$(ppw)/$(misc)/zeroCrossing/zeroCrossing.C
+$(ppw)/$(misc)/zeroCrossing/zeroCrossing.C*/
 
 /* OUTPUT */
 LIB = $(WAVES_LIBBIN)/libwaves2FoamProcessing

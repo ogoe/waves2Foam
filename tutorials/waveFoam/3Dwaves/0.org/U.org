@@ -23,7 +23,7 @@ boundaryField
 {
     inlet0
     {
-        type            waveVelocity;
+        type            zeroGradient; //waveVelocity;
         refValue        uniform ( 0 0 0 );
         refGradient     uniform ( 0 0 0 );
         valueFraction   uniform 1;
@@ -31,7 +31,7 @@ boundaryField
     }
     inlet1
     {
-        type            waveVelocity;
+        type            zeroGradient; //waveVelocity;
         refValue        uniform ( 0 0 0 );
         refGradient     uniform ( 0 0 0 );
         valueFraction   uniform 1;
@@ -39,7 +39,7 @@ boundaryField
     }
     inlet2
     {
-        type            waveVelocity;
+        type            zeroGradient; //waveVelocity;
         refValue        uniform ( 0 0 0 );
         refGradient     uniform ( 0 0 0 );
         valueFraction   uniform 1;

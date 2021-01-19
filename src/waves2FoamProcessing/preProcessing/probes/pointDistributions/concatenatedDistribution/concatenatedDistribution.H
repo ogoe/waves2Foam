@@ -23,14 +23,13 @@ License
     Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 Class
-    Foam::quadrilateralDistribution
+    Foam::concatenatedDistribution
 
 Description
-    A quadrilateral point distribution with stretching along both of the sides
-    of the quadrilateral.
+    A simple concatenated distribution with stretching.
 
 SourceFiles
-    quadrilateralDistribution.C
+    concatenatedDistribution.C
 
 Author
     Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
@@ -38,8 +37,8 @@ Author
 
 \*---------------------------------------------------------------------------*/
 
-#ifndef quadrilateralDistribution_H
-#define quadrilateralDistribution_H
+#ifndef concatenatedDistribution_H
+#define concatenatedDistribution_H
 
 #include "pointDistributions.H"
 
@@ -52,7 +51,7 @@ namespace Foam
                          Class waveTheory Declaration
 \*---------------------------------------------------------------------------*/
 
-class quadrilateralDistribution
+class concatenatedDistribution
 :
     public pointDistributions
 {
@@ -60,6 +59,8 @@ class quadrilateralDistribution
 protected:
 
     // Protected data
+        pointField ppE_;
+        pointField ppS_;
 
     // Protected member functions
 
@@ -68,22 +69,22 @@ private:
     // Private Member Functions
 
         //- Disallow default bitwise copy construct
-        quadrilateralDistribution(const quadrilateralDistribution&);
+        concatenatedDistribution(const concatenatedDistribution&);
 
         //- Disallow default bitwise assignment
-        void operator=(const quadrilateralDistribution&);
+        void operator=(const concatenatedDistribution&);
 
     // Private member data
 
 public:
 
     //- Runtime type information
-    TypeName("quadrilateralDistribution");
+    TypeName("concatenatedDistribution");
 
     // Constructors
 
         //- Construct from components
-        quadrilateralDistribution
+        concatenatedDistribution
         (
 //            const fvMesh&,
             const dictionary&
@@ -92,10 +93,12 @@ public:
 
     // Destructor
 
-        virtual ~quadrilateralDistribution();
+        virtual ~concatenatedDistribution();
 
     // Member Functions
         virtual pointField evaluateStart();
+
+        virtual pointField evaluateEnd();
 };
 
 

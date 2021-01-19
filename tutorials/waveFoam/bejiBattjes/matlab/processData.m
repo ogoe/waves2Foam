@@ -11,14 +11,25 @@ else
 end
 
 %% Load the numerical simulation
-cd ../surfaceElevation/
-h = dir('0*');
-cd ..
 
-[time, x, y, z, eta] = readSurfaceElevation( h(1).name );
+if exist('../surfaceElevation', 'dir')
+    cd ../surfaceElevation/
+    h = dir('0*');
+    cd ..
+    
+    [time, x, y, z, eta] = readSurfaceElevation( h(1).name );
+    
+    cd ( homeDir );
 
-cd ( homeDir );
-
+else
+    cd ../postProcessing/surfaceElevation/
+    h = dir('0*');
+    cd ..
+    
+    [time, x, y, z, eta] = readSurfaceElevation( h(1).name );
+    
+    cd ( homeDir );
+end
 
 %% Load the experimental data
 fileNames  = {'a04.dat';'a10.dat';'a13.dat';'a14.dat';'a15.dat';'a17.dat';'a19.dat';'a21.dat'};
@@ -37,7 +48,7 @@ tOffset = 0.53 - 2.02;
 hf = figure; figureSize(1.4,2.5)
 
 plotLegend = true;
-fontsize = 17;
+fontsize = 12;
 
 for i=1:length(expData)
     subplot(2,4,i), hold on, grid on
@@ -59,7 +70,7 @@ for i=1:length(expData)
         
     end
     
-    set(gca,'fontname','times','fontsize',fontsize,'box','on','xlim',[30 40],'ylim',[-0.02 0.03]);
+    set(gca,'fontname','times','fontsize',fontsize,'box','on','xlim',min(time(end) - tOffset, 40) + [-10 0],'ylim',[-0.02 0.03]);
 
     if i==1 || i == 5
         ylabel('Elevation, [m]');
@@ -73,8 +84,6 @@ end
 fprintf('\n\n- Printing the figure to <case>/matlab/result.eps\n\n');
 print -depsc result
 
-time
-eta
 
 function figureSize(h,w)
 % Rescaling the plotting window

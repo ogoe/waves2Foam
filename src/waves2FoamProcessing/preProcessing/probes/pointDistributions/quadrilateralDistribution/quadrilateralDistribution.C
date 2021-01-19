@@ -64,7 +64,7 @@ quadrilateralDistribution::~quadrilateralDistribution()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-pointField quadrilateralDistribution::evaluate()
+pointField quadrilateralDistribution::evaluateStart()
 {
     // Read needed material
     label N0( readLabel(pointDict_.lookup("N0")) );

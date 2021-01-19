@@ -32,7 +32,7 @@ SourceFiles
     waveGauges.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -73,7 +73,7 @@ private:
         (
             const word&,
             const pointField&,
-            const point&
+            const pointField&
         );
 
         //- Disallow default bitwise copy construct

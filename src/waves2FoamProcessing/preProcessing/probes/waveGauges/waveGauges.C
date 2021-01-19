@@ -41,8 +41,8 @@ defineTypeNameAndDebug(waveGauges, 0);
 void waveGauges::writeVTKFormat
 (
     const word& name,
-    const pointField& pp,
-    const point& addPoint
+    const pointField& ppS,
+    const pointField& ppE
 )
 {
     autoPtr<OFstream> vtk;
@@ -55,25 +55,25 @@ void waveGauges::writeVTKFormat
           << "ASCII" << nl << "DATASET POLYDATA" << endl;
 
     // Writing points
-    vtk() << "POINTS " << 2*pp.size() << " float" << endl;
+    vtk() << "POINTS " << 2*ppS.size() << " float" << endl;
 
-    forAll(pp, pointi)
+    forAll(ppS, pointi)
     {
-        point p(pp[pointi]);
+        point p(ppS[pointi]);
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
     }
 
-    forAll(pp, pointi)
+    forAll(ppE, pointi)
     {
-        point p(pp[pointi] + addPoint);
+        point p(ppE[pointi]);
         vtk() << p.x() << " " << p.y() << " " << p.z() << endl;
     }
 
     // Writing lines
-    vtk() << "LINES " << pp.size() << " " << 3*pp.size() << endl;
-    forAll (pp, pointi)
+    vtk() << "LINES " << ppS.size() << " " << 3*ppS.size() << endl;
+    forAll (ppS, pointi)
     {
-        vtk() << "2 " << pointi << " " << pointi + pp.size() << endl;
+        vtk() << "2 " << pointi << " " << pointi + ppS.size() << endl;
     }
 }
 
@@ -101,16 +101,16 @@ waveGauges::waveGauges
 
 void waveGauges::evaluate(const word& name)
 {
-    point addPoint(gaugeDict_.lookup("add"));
+//    point addPoint(gaugeDict_.lookup("add"));
     word  vertAxis(word(gaugeDict_.lookup("axis")));
 
     autoPtr<Foam::pointDistributions> pd
     (
-//        Foam::pointDistributions::New(mesh_, gaugeDict_)
         Foam::pointDistributions::New(gaugeDict_)
     );
 
-    pointField pp(pd->evaluate());
+    pointField ppS(pd->evaluateStart());
+    pointField ppE(pd->evaluateEnd());
 
     autoPtr<OFstream> gauges;
 
@@ -119,7 +119,7 @@ void waveGauges::evaluate(const word& name)
 
     gauges() << "sets" << nl << token::BEGIN_LIST << nl << incrIndent;
 
-    forAll (pp, pointi)
+    forAll (ppS, pointi)
     {
         gauges() << indent << "gauge_" << pointi << nl << indent
                  << token::BEGIN_BLOCK << incrIndent << nl;
@@ -127,10 +127,14 @@ void waveGauges::evaluate(const word& name)
                  << token::END_STATEMENT << nl;
         gauges() << indent << "axis         " << vertAxis
                  << token::END_STATEMENT << nl;
-        gauges() << indent << "start        " << pp[pointi]
+        gauges() << indent << "start        " << ppS[pointi]
                  << token::END_STATEMENT << nl;
-        gauges() << indent << "end          " << pp[pointi] + addPoint
+        gauges() << indent << "end          " << ppE[pointi]
                  << token::END_STATEMENT << nl;
+//        gauges() << indent << "start        " << pp[pointi]
+//                 << token::END_STATEMENT << nl;
+//        gauges() << indent << "end          " << pp[pointi] + addPoint
+//                 << token::END_STATEMENT << nl;
         gauges() << indent << "nPoints      100" << token::END_STATEMENT << nl;
         gauges() << decrIndent << indent << token::END_BLOCK << nl << nl;
     }
@@ -216,7 +220,7 @@ void waveGauges::evaluate(const word& name)
 
     if (gaugeDict_.lookupOrDefault<Switch>("writeVTK", true))
     {
-        writeVTKFormat(name, pp, addPoint);
+        writeVTKFormat(name, ppS, ppE);
     }
 }
 

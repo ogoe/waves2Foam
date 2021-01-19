@@ -47,7 +47,7 @@ SourceFiles
     wavePressureFvPatchScalarField.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -98,7 +98,15 @@ private:
 public:
 
     //- Runtime type information
+#if OFPLUSBRANCH==1
+    #if OFVERSION<2012
     TypeName("wavePressure");
+    #else
+    TypeName("relaxationPressure");
+    #endif
+#else
+    TypeName("wavePressure");
+#endif
 
 
     // Constructors

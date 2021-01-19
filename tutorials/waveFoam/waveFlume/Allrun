@@ -35,5 +35,6 @@ runApplication setWaveField
 runApplication $application
 
 # To a post-processing analysis
-ln -s postProcessing/surfaceElevationAnyName surfaceElevationAnyName
-runApplication postProcessWaves2Foam
+# postProcessWaves2Foam removed as of Jan. 2021
+#ln -s postProcessing/surfaceElevationAnyName surfaceElevationAnyName
+#runApplication postProcessWaves2Foam

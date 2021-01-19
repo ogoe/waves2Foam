@@ -23,7 +23,7 @@ boundaryField
 {
     inlet
     {
-        type            waveAlpha;
+        type            zeroGradient; //waveAlpha;
         refValue        uniform 0;
         refGrad         uniform 0;
         valueFraction   uniform 1;

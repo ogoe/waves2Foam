@@ -15,7 +15,7 @@ FoamFile
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 seaLevel	5.000;
-seaLevelAsReference false;
+seaLevelAsReference true;
 
 relaxationNames ();
 
@@ -23,7 +23,14 @@ initializationName cyclic1;
 
 cyclic1Coeffs
 {
-    waveType	solitaryFirst;
+    // Solitary first can be applied, but less accurate
+    // waveType	solitaryFirst;
+    // height	2.0;
+    // depth       5;
+    // direction   (1 0 0);
+    // x0          (150 0 0);
+
+    waveType	chappelear1962;
     height	2.0;
     depth       5;
     direction   (1 0 0);

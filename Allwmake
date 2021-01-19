@@ -141,50 +141,50 @@ done
 
 ( cd $WAVES_PRE && wmake all )
 
-# Post-processing utilities
-echo ""
-echo "====================================="
-echo "    COMPILE POST-PROCESSING"
-echo "====================================="
-rm -f $WAVES_POST/surfaceElevation/Make/options
-
-if [ "$EXTBRANCH" -eq "1" ]
-then
-    ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
-elif [ "$OFPLUSBRANCH" -eq "1" ]
-then
-    ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
-elif [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
-then
-    ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
-else
-    ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
-fi
-
+# Post-processing utilities - Post processing removed from compilation Jan. 2021
+# echo ""
+# echo "====================================="
+# echo "    COMPILE POST-PROCESSING"
+# echo "====================================="
+# rm -f $WAVES_POST/surfaceElevation/Make/options
+# 
+# if [ "$EXTBRANCH" -eq "1" ]
+# then
+#     ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
+# elif [ "$OFPLUSBRANCH" -eq "1" ]
+# then
+#     ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
+# elif [ "$WM_PROJECT_VERSION_NUMBER" -lt "220" ]
+# then
+#     ln -s -f $WAVES_POST/surfaceElevation/Make/options.210 $WAVES_POST/surfaceElevation/Make/options
+# else
+#     ln -s -f $WAVES_POST/surfaceElevation/Make/options.220 $WAVES_POST/surfaceElevation/Make/options
+# fi
+# 
 # Currently, only compile waves2FoamSampling for all Openfoam versions except
 # for OpenFOAM-4.0
-if [ $FOAMEXTENDPROJECT -eq "0" ]
-then
-    if [ "$OFPLUSBRANCH" -eq "1" ]
-    then
-        if [ "$WM_PROJECT_VERSION_NUMBER" -lt "1612" ]
-        then
-            ( cd $WAVES_POST && wmake all)
-        else
-            ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
-        fi
-    else
-        if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
-        then
-            ( cd $WAVES_POST && wmake all )
-        else
-            ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
-        fi
-    fi
-else
-    ( cd $WAVES_POST && wmake all )
-fi
-
+# if [ $FOAMEXTENDPROJECT -eq "0" ]
+# then
+#     if [ "$OFPLUSBRANCH" -eq "1" ]
+#     then
+#         if [ "$WM_PROJECT_VERSION_NUMBER" -lt "1612" ]
+#         then
+#             ( cd $WAVES_POST && wmake all)
+#         else
+#             ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
+#         fi
+#     else
+#         if [ "$WM_PROJECT_VERSION_NUMBER" -lt "400" ]
+#         then
+#             ( cd $WAVES_POST && wmake all )
+#         else
+#             ( cd $WAVES_POST/postProcessWaves2Foam; wmake)
+#         fi
+#     fi
+# else
+#     ( cd $WAVES_POST && wmake all )
+# fi
+# 
 
 echo ""
 echo "====================================="

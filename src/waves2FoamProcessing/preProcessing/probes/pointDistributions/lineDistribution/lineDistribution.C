@@ -64,7 +64,7 @@ lineDistribution::~lineDistribution()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-pointField lineDistribution::evaluate()
+pointField lineDistribution::evaluateStart()
 {
     // Read needed material
     label N( readLabel(pointDict_.lookup("N")) );

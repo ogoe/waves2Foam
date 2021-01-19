@@ -33,7 +33,7 @@ SourceFiles
     pointDistributions.C
 
 Author
-    Niels Gjøl Jacobsen, Technical University of Denmark.  All rights reserved.
+    Niels Gjoel Jacobsen, Technical University of Denmark.  All rights reserved.
 
 
 \*---------------------------------------------------------------------------*/
@@ -128,7 +128,16 @@ public:
     // Member Functions
 
         // Access
-        virtual pointField evaluate() = 0;
+        virtual pointField evaluateStart() = 0;
+
+        virtual inline pointField evaluateEnd()
+        {
+            pointField pp(this->evaluateStart());
+
+            point addPoint(pointDict_.lookup("add"));
+
+            return pp + addPoint;
+        };
 };
 
 
