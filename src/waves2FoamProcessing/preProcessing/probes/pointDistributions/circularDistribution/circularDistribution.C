@@ -64,7 +64,7 @@ circularDistribution::~circularDistribution()
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
 
 
-pointField circularDistribution::evaluate()
+pointField circularDistribution::evaluateStart()
 {
     // Read needed material
     label N( readLabel(pointDict_.lookup("N")) );

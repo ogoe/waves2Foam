@@ -88,11 +88,10 @@ void probeGauges::evaluate(const word& name)
 	// Evaluate the point distribution
 	autoPtr<Foam::pointDistributions> pd
 	(
-//		Foam::pointDistributions::New(mesh_, gaugeDict_)
 	    Foam::pointDistributions::New(gaugeDict_)
 	);
 
-	pointField pp(pd->evaluate());
+	pointField pp(pd->evaluateStart());
 
 	// Get the additional information for the sampling
 	label interval(readLabel(gaugeDict_.lookup("outputInterval")));
