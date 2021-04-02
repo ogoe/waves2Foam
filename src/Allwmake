@@ -42,6 +42,14 @@ fi
 # Compile the library
 (cd waves2Foam          ; wmake libso)
 
+if [ $OFPLUSBRANCH -eq "1" ]
+then
+    if [ "$WM_PROJECT_VERSION_NUMBER" -gt "1806" ]
+    then
+        (cd waves2FoamGABC; wmake libso)
+    fi
+fi
+
 (cd waves2FoamProcessing; wmake libso)
 
 # Currently, only compile waves2FoamSampling for all Openfoam versions except

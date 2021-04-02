@@ -1,0 +1,79 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version	2.0;
+    format	ascii;
+    class	dictionary;
+    object	waveProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel            0.00;
+seaLevelAsReference true;
+
+relaxationNames     ();
+
+initializationName  inlet;
+
+sampleIncidentWaveField
+{
+    deltaT 0.01;
+    endTime 20;
+    points  1((-6 0 0));
+}
+
+inletCoeffs
+{
+    waveType    irregular;
+    spectrum    newWaveJONSWAP;
+
+    N           500;
+    Tsoft       0.0;
+    
+    etaMax      0.02;
+    Tp          2.50;
+    gamma       1.0;
+
+    depth       0.50;
+    direction   (1 0 0);
+
+    phaseMethod focusingPhase;
+    focusTime   15;
+    focusPoint  (-6.0 0 0);
+
+    frequencyAxis
+    {
+        discretisation equidistantFrequencyAxis;
+    }
+
+    GABCSettings
+    {
+        preProcessMethod   polynomialDefault;
+        defaultRange       "kh000_030";
+        depth              0.50;
+    }
+}
+
+
+outletCoeffs
+{
+    waveType potentialCurrent;
+    U        (0 0 0);
+    Tsoft    2.0;
+
+    GABCSettings
+    {
+        preProcessMethod   polynomialDefault;
+        defaultRange       "kh000_030";
+        depth              0.50;
+    }
+}
+
+
+// ************************************************************************* //

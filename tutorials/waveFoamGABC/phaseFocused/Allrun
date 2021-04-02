@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+(cd 0; rm -rf *)
+(cd constant/polyMesh; rm -rf *)
+
+# Create the base blockmesh
+runApplication blockMesh -dict system/blockMeshDict
+
+# Copy from 0.org
+list=`ls 0.org/*.org`
+
+for i in $list
+do
+    var=`basename $i`
+    cp $i 0/${var%.org}
+done
+
+runApplication waveGaugesNProbes
+
+# Prepare fields
+runApplication setWaveParameters
+runApplication setWaveField
+
+

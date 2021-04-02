@@ -40,6 +40,7 @@ $(waveProp)/$(irregular)/$(dws)/$(freq)/cosineStretchedFrequencyAxis/cosineStret
 
 spectra=spectra
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/JONSWAP/JONSWAP.C
+$(waveProp)/$(irregular)/$(dws)/$(spectra)/newWaveJONSWAP/newWaveJONSWAP.C
 $(waveProp)/$(irregular)/$(dws)/$(spectra)/PiersonMoskowitz/PiersonMoskowitz.C
 
 phases=phases
@@ -58,6 +59,16 @@ external=externalWaveForcing
 $(waveProp)/$(external)/externalSourceProperties/externalSourceProperties.C
 $(waveProp)/$(external)/oceanWave3DProperties/oceanWave3DProperties.C
 
+/* GABC settings */
+gabc=gabcSettings
+$(waveProp)/$(gabc)/gabcSettings.C
+$(waveProp)/$(gabc)/polynomialDefault/polynomialDefault.C
+$(waveProp)/$(gabc)/polynomialManual/polynomialManual.C
+$(waveProp)/$(gabc)/rationalDefault/rationalDefault.C
+$(waveProp)/$(gabc)/rationalManual/rationalManual.C
+$(waveProp)/$(gabc)/constantTheory/constantTheory.C
+$(waveProp)/$(gabc)/constantDepth/constantDepth.C
+
 /* PROBES AND WAVE GAUGES */
 prep=preProcessing/probes
 pointd=pointDistributions
@@ -69,6 +80,7 @@ $(prep)/$(pointd)/lineDistribution/lineDistribution.C
 $(prep)/$(pointd)/circularDistribution/circularDistribution.C
 $(prep)/$(pointd)/quadrilateralDistribution/quadrilateralDistribution.C
 $(prep)/$(pointd)/concatenatedDistribution/concatenatedDistribution.C
+
 
 /* POSTPROCESSINGWAVES */
 /* REMOVED Jan. 2021 */

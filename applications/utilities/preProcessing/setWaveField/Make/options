@@ -10,6 +10,7 @@ EXE_LIBS = \
     -lfiniteVolume \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
+    -lwaves2FoamGABC \
     -L$(WAVES_GSL_LIB) \
     -lgsl \
     -lgslcblas
