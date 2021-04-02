@@ -71,6 +71,8 @@ Author
 #include <gsl/gsl_roots.h>
 #include <gsl/gsl_multiroots.h>
 
+#include "gabcSettings.H"
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 namespace Foam
@@ -110,6 +112,8 @@ protected:
         void writeDerived( Ostream&, word, vectorField);
 
         void writeRelaxationZone( Ostream& );
+
+        void writeGABCSettings( Ostream& );
 
         void writeEnding( Ostream& );
 

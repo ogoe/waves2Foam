@@ -15,6 +15,7 @@ EXE_INC = \
     -I$(LIB_SRC)/TurbulenceModels/phaseIncompressible/lnInclude \
     -I$(LIB_SRC)/transportModels/immiscibleIncompressibleTwoPhaseMixture/lnInclude \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamGABC/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSamplingNew/lnInclude \
     -I$(WAVES_GSL_INCLUDE) \
     -DOFVERSION=2012 \
@@ -38,6 +39,7 @@ EXE_LIBS = \
     -lincompressibleInterPhaseTransportModels \
     -L$(WAVES_LIBBIN) \
     -lwaves2Foam \
+    -lwaves2FoamGABC \
     -lwaves2FoamSampling \
     -L$(WAVES_GSL_LIB) \
     -lgsl \

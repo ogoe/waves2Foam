@@ -58,6 +58,11 @@ word airPhase();
 
 word rAUfName();
 
+inline scalar alphaInterface()
+{
+    return 0.10;
+};
+
 } // End namespace waves2Foam
 } // End namespace Foam
 

@@ -180,9 +180,10 @@ void setWaveProperties::writeDerived(Ostream& os, word name, vectorField val)
 
 void setWaveProperties::writeRelaxationZone( Ostream& os )
 {
+    // Write the relaxation zone settings
     word rl("relaxationZone");
 
-    if (dict_.found( rl ))
+    if (dict_.found(rl))
     {
         os << nl << indent << rl << nl << indent << token::BEGIN_BLOCK
            << incrIndent << nl;
@@ -200,6 +201,41 @@ void setWaveProperties::writeRelaxationZone( Ostream& os )
 
         os << decrIndent << indent << token::END_BLOCK << endl;
     }
+
+    // Write the GABC settings
+    word gabc("GABCSettings");
+
+    if (dict_.found(gabc))
+    {
+        this->writeGABCSettings(os);
+    }
+}
+
+
+void setWaveProperties::writeGABCSettings(Ostream& os)
+{
+    // Get the subdictionary
+    word gabc("GABCSettings");
+
+    dictionary sd(dict_.subDict(gabc));
+
+    // Write the start of the block
+    os << nl << indent << gabc << nl << indent << token::BEGIN_BLOCK
+       << incrIndent << nl;
+
+    scalar depth(-1);
+    if (dict_.found("depth"))
+    {
+        depth = readScalar(dict_.lookup("depth"));
+    }
+
+    // Call the GABC settings method
+    autoPtr<Foam::gabcSettings> settings(Foam::gabcSettings::New(sd, depth));
+    settings->set(os);
+
+    // Write the end of the block
+    os << decrIndent << indent << token::END_BLOCK << endl;
+
 }
 
 

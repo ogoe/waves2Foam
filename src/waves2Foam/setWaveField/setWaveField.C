@@ -158,6 +158,7 @@ scalar setWaveField::signedPointToSurfaceDistance
 
 void setWaveField::correct()
 {
+
     const scalarField& V( mesh_.V() );
 
     forAll (U_, celli)
