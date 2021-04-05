@@ -26,7 +26,7 @@ inletCoeffs
     waveType       streamFunction;
     
     specifyPeriod  false;
-    waveLength     2.5;
+    waveLength     2.0;
 
     specifyEuler   false;
     stokesVelocity 0.0;
