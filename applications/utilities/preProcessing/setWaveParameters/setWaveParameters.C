@@ -62,6 +62,7 @@ Additional information
 #include "IOstream.H"
 
 #include "setWaveProperties.H"
+#include "writeManualIHFoamProperties.H"
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
@@ -211,12 +212,30 @@ int main(int argc, char *argv[])
         	}
         	else
         	{
-                autoPtr<setWaveProperties> props
-                    (
-                        setWaveProperties::New(runTime, sd, g.value(), true)
-                    );
+        	    bool flag(false);
 
-                props->set(os);
+        	    if (sd.found("useIHFoam"))
+        	    {
+        	        if (Switch(sd.lookup("useIHFoam")))
+        	        {
+        	            flag = true;
+        	        }
+        	    }
+
+        	    if (flag == true)
+        	    {
+                    writeManualIHFoamProperties props(runTime, sd, g.value(), true);
+                    props.set(os);
+        	    }
+        	    else
+        	    {
+                    autoPtr<setWaveProperties> props
+                        (
+                            setWaveProperties::New(runTime, sd, g.value(), true)
+                        );
+
+                    props->set(os);
+        	    }
         	}
         }
         else
