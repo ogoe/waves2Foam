@@ -1,0 +1,8 @@
+Example of the combined use of the boundary conditions in IHFoam and those defined in Borsboom and Jacobsen (2021). The case is taken from the comparison of a theoretical model for the IHFoam absorbing boundary condition (ABC) with numerical results. This investigation is reported in:
+
+Jacobsen, N.G. (2021). Theoretical model of an absorbing wave boundary condition. Technical note.
+(https://www.researchgate.net/publication/351069340_Theoretical_model_of_an_absorbing_wave_boundary_condition).
+
+Please note that upwind is used for the convective term. This is not generally recommended, but it is acceptable in the present work, where linear wave theory is applicable and convective terms negligible; see Borsboom and Jacobsen (2021) for a discussion.
+
+Niels G. Jacobsen, April 2021.

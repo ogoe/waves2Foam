@@ -53,6 +53,7 @@ $(waveProp)/$(irregular)/irregularProperties/irregularProperties.C
 /* Mixed type wave theories */
 mixedType=mixedType
 $(waveProp)/$(mixedType)/combinedWavesProperties/combinedWavesProperties.C
+$(waveProp)/$(mixedType)/writeManualIHFoam/writeManualIHFoamProperties.C
 
 /* External wave forcing */
 external=externalWaveForcing
