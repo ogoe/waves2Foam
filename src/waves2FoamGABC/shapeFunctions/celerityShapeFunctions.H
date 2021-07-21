@@ -159,6 +159,25 @@ public:
             scalarField&
         ) = 0;
 
+        inline virtual bool isSteadyCurrent()
+        {
+            if (dict_.subDict(dictName()).found("steadyCurrentOutgoing"))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        inline virtual vector steadyCurrentOutgoing()
+        {
+            return vector(dict_.subDict(dictName()).lookup("steadyCurrentOutgoing"));
+        }
+
+
+
 };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

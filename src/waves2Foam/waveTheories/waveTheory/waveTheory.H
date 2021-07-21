@@ -83,6 +83,7 @@ protected:
 
     // Protected data
         scalar seaLevel_;
+        scalar rhoAir_;
         scalar rhoWater_;
         vector g_;
         vector direction_;
@@ -215,6 +216,11 @@ public:
         	return false;
         };
 
+        virtual bool implementCurrentSpeed() const
+        {
+            return false;
+        };
+
         // Access - field
         virtual scalarField eta
         (
@@ -235,6 +241,11 @@ public:
             const scalar&
         ) const;
 
+        inline virtual vector currentSpeed()
+        {
+            return vector::zero;
+        };
+
         // Return the unit vertical direction in the direction of g
         const inline vector& returnDir() const
         {
@@ -246,6 +257,11 @@ public:
             return Foam::mag(g_);
         };
 
+        inline scalar rhoAir() const
+        {
+            return rhoAir_;
+        };
+
         inline scalar rhoWater() const
         {
             return rhoWater_;
@@ -255,6 +271,11 @@ public:
         const inline dictionary& patchDict() const {return coeffDict_;};
 
         const inline scalar& seaLevel() const {return seaLevel_;};
+
+        inline virtual void updateCoeffs() const
+        {
+            // Nothing to be done here
+        };
 };
 
 

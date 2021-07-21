@@ -72,6 +72,8 @@ void rationalManual::set( Ostream& os )
     this->writeGiven(os, "a4");
 
     this->writeDepth(os);
+
+    this->writeSteadyCurrent(os);
 }
 
 

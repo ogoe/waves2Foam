@@ -111,6 +111,8 @@ void rationalDefault::set( Ostream& os )
     }
 
     this->writeDepth(os);
+
+    this->writeSteadyCurrent(os);
 }
 
 

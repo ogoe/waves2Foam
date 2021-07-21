@@ -89,6 +89,14 @@ protected:
         }
     }
 
+    inline void writeSteadyCurrent(Ostream& os)
+    {
+        if (dict_.found("steadyCurrentOutgoing"))
+        {
+            writeGiven(os, "steadyCurrentOutgoing");
+        }
+    }
+
 private:
 
     // Private Member Functions

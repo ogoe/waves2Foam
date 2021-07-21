@@ -147,6 +147,11 @@ public:
             const point&,
             const scalar&
         ) const;
+
+        inline virtual vector currentSpeed()
+        {
+            return U_;
+        };
 };
 
 

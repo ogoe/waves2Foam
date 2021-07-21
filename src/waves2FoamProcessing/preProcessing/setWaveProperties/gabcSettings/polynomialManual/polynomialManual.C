@@ -71,6 +71,8 @@ void polynomialManual::set( Ostream& os )
     this->writeGiven(os, "a3");
 
     this->writeDepth(os);
+
+    this->writeSteadyCurrent(os);
 }
 
 
