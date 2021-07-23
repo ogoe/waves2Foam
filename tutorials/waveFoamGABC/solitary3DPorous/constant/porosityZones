@@ -1,0 +1,64 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM Extend Project: Open Source CFD        |
+|  \\    /   O peration     | Version:  1.6-ext                               |
+|   \\  /    A nd           | Web:      www.extend-project.de                 |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    location    "constant";
+    object      porousZones;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+/*
+For details on the porosity formulation and resistance coefficients please see:
+
+@article{Jensen2014,
+author = {Jensen, Bjarne and Jacobsen, Niels Gj\o{}l and Christensen, Erik Damgaard},
+journal = {Coastal Engineering},
+pages = {56--72},
+publisher = {Elsevier B.V.},
+title = {{Investigations on the porous media equations and resistance coefficients for coastal structures}},
+volume = {84},
+year = {2014},
+}
+*/
+
+1
+(
+    porosity
+    {
+        coordinateSystem
+        {
+            e1  (1 0 0);
+            e2  (0 0 1);
+        }
+
+        // This is required for at least 2.3
+        origin (0 0 0);
+        coordinateRotation
+        {
+            type axesRotation;
+            e1   (1 0 0);
+            e2   (0 0 1);
+        }
+
+        resistanceFormulation vanGent1995;
+
+        porosity 0.38;
+        KC KC [0 0 0 0 0 0 0] 10000;
+        gammaAddedMass 0.34;
+        
+        d50 d50 [0 1 0 0 0 0 0] 0.02;
+        alpha alpha [0 0 0 0 0 0 0] 1000;
+	beta beta [0 0 0 0 0 0 0] 1.1;
+    }
+
+)
+
+// ************************************************************************* //

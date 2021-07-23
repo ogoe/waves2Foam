@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+(rm -rf 0/*)
+(rm -rf constant/polyMesh/*)
+
+# Create the base blockmesh
+runApplication blockMesh -dict system/blockMeshDict
+runApplication topoSet
+runApplication subsetMesh c0 -patch wall -overwrite
+rm -f constant/polyMesh/sets/c0*
+
+# Copy from 0.org
+list=`ls 0.org/*.org`
+
+for i in $list
+do
+    var=`basename $i`
+    cp $i 0/${var%.org}
+done
+
+# Prepare fields
+runApplication setWaveParameters
+runApplication setWaveField
+
+# Get the porosity zones on both sides of the wall
+mv log.topoSet log.topoSet.wall
+runApplication topoSet -dict system/topoSetDict.porous
+runApplication setsToZones
+
