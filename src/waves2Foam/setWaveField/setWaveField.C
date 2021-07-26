@@ -158,7 +158,7 @@ scalar setWaveField::signedPointToSurfaceDistance
 
 void setWaveField::correct()
 {
-
+    // Loop over all internal fields
     const scalarField& V( mesh_.V() );
 
     forAll (U_, celli)
@@ -182,6 +182,28 @@ void setWaveField::correct()
         alpha_[celli] = alphaTarget;
         p_[celli] = pTarget;
     }
+
+#if OFPLUSBRANCH==1
+    #if OFVERSION>1806
+    // Loop over all boundary patches and perform specific corrections for the
+    // GABC boundaries
+    forAll (mesh_.boundaryMesh(), patchI)
+    {
+        // Get the first 4 characters of the pressure type
+        std::string pStr(p_.boundaryField()[patchI].type().c_str());
+        word pType(pStr.substr(0,4));
+
+        if (pType == "gabc")
+        {
+            alpha_.boundaryFieldRef()[patchI].evaluate();
+            U_.boundaryFieldRef()[patchI].evaluate();
+            p_.boundaryFieldRef()[patchI].evaluate();
+//            Info << p_.boundaryField()[patchI].type() << endl;
+        }
+    }
+
+    #endif
+#endif
 }
 
 

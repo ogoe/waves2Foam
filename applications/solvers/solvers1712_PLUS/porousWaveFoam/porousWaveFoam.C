@@ -105,9 +105,10 @@ int main(int argc, char *argv[])
         Info<< "Time = " << runTime.timeName() << nl << endl;
 
         externalWave->step();
-	Info << "Calc porosity" << endl;
+
+        Info << "Calc porosity" << endl;
         #include "calcPorosity.H"
-	Info << "Done calc porosity" << endl;
+	    Info << "Done calc porosity" << endl;
 
         // --- Pressure-velocity PIMPLE corrector loop
         while (pimple.loop())

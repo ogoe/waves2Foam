@@ -67,6 +67,8 @@ void constantDepth::set( Ostream& os )
     this->writeGiven(os, "celerityFactor");
 
     this->writeDepth(os);
+
+    this->writeSteadyCurrent(os);
 }
 
 

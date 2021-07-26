@@ -67,6 +67,8 @@ void constantTheory::set( Ostream& os )
     this->writeGiven(os, "sourceName");
 
     this->writeDepth(os);
+
+    this->writeSteadyCurrent(os);
 }
 
 

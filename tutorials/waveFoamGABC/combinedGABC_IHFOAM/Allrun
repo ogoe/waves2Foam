@@ -3,8 +3,9 @@
 # Source tutorial run functions
 . $WM_PROJECT_DIR/bin/tools/RunFunctions
 
-(cd 0; rm -rf *)
-(cd constant/polyMesh; rm -rf *)
+(rm -rf 0/*)
+(rm -rf constant/polyMesh/*)
+
 rm log.* *.foam
 touch case.foam
 

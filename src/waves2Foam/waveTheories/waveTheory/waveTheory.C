@@ -90,8 +90,12 @@ waveTheory::waveTheory
                 IOobject::NO_WRITE
             )
         );
-        dictionary sD(transProp.subDict(Foam::waves2Foam::waterPhase()));
-        rhoWater_ = (dimensionedScalar(sD.lookup("rho"))).value();
+
+        dictionary sDA(transProp.subDict(Foam::waves2Foam::airPhase()));
+        rhoAir_ = (dimensionedScalar(sDA.lookup("rho"))).value();
+
+        dictionary sDW(transProp.subDict(Foam::waves2Foam::waterPhase()));
+        rhoWater_ = (dimensionedScalar(sDW.lookup("rho"))).value();
     }
 
     // Set the reference level

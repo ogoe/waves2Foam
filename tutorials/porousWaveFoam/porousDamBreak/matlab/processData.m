@@ -32,8 +32,9 @@ for i=0:2:22
     
     dt = time - (i/2)*0.2;
     It = find(abs(dt) == min(abs(dt)));
+    plot(x(:,1), x(:,2), 'bo', 'markersize', 2, 'markerfacecolor', 'b')
     plot(xx, eta(It,:), 'linewidth',1.5)
-    plot(x(:,1), x(:,2), 'bo')
+    
     
     xlim([0 0.892]), ylim([0 0.3])
     

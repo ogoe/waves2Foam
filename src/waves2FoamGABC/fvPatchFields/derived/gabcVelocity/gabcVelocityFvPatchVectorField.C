@@ -156,6 +156,12 @@ void gabcVelocityFvPatchVectorField::updateCoeffs()
 
     const fvMesh& mesh = this->patch().boundaryMesh().mesh();
 
+    // For initialization of the velocity field
+    if (!mesh.thisDb().foundObject<surfaceScalarField>(phiName_))
+    {
+        return;
+    }
+
     // Get the face flux in the first iteration to align with the face flux
     // used in the momentum equation.
     // At first, simply phiName_ from every time step was used, but that caused
