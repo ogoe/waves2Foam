@@ -1,0 +1,16 @@
+EXE_INC = \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -DEXTBRANCH=$(EXTBRANCH) \
+    -I$(WAVES_SRC)/waves2Foam/lnInclude \
+    -I$(WAVES_GSL_INCLUDE)
+
+EXE_LIBS = \
+    -lfiniteVolume \
+    -L$(WAVES_LIBBIN) \
+    -lwaves2Foam \
+    -L$(WAVES_GSL_LIB) \
+    -lgsl \
+    -lgslcblas
+
