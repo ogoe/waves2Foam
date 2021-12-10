@@ -1,0 +1,38 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  1.5                                   |
+|   \\  /    A nd           | Web:      http://www.OpenFOAM.org               |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      loggingProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+probes
+{
+    type probeGauge;
+
+    pointDistribution quadrilateralDistribution;
+    N0   4;
+    N1   67;
+
+    linestart0 (-1.53375 0 -0.49625);
+    lineend0   (-0.02625 0 -0.49625);
+    lineend1   (-1.53375 0 -0.00125); 
+    stretch 1;
+
+    fields (p_rgh U alpha.water);
+    outputInterval 1;
+
+    writeControl timeStep;
+    writeInterval 1;
+}
+
+
+// ************************************************************************* //

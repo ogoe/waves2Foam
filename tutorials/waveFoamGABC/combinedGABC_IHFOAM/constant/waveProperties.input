@@ -1,0 +1,62 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version	2.0;
+    format	ascii;
+    class	dictionary;
+    object	waveProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel            0.00;
+seaLevelAsReference true;
+
+relaxationNames     ();
+
+initializationName  inlet;
+
+inletCoeffs
+{
+    waveType    streamFunction;
+    
+    specifyPeriod false;
+    waveLength    1.5712;
+
+    specifyEuler  false;
+    stokesVelocity 0.0;
+    N             5;
+    Niter         15;
+
+
+    height      0.005;
+    phi         0.0;
+    depth       0.50;
+    direction   (1 0 0);
+
+    GABCSettings
+    {
+        preProcessMethod constantTheory;
+        sourceName       inlet;
+    }
+}
+
+
+outlet
+{
+    // Detailing that IHFoam is used, which gives
+    // specific instructions to setWaveParameters
+    useIHFoam       yes; 
+
+    alpha           alpha.water;
+    waveModel       shallowWaterAbsorption;
+    nPaddle         1;
+}
+
+
+// ************************************************************************* //
