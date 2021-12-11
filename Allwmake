@@ -149,7 +149,7 @@ then
         ln -s -f $WAVES_PRE/setWaveField/Make/options2012 $WAVES_PRE/setWaveField/Make/options
     fi
 else
-    ln -s -f $WAVES_PRE/setWaveField/Make/optionsPre2012 $WAVES_PRE/setWaveField/Make/options
+    ln -s -f $WAVES_PRE/setWaveField/Make/optionsNonGABC $WAVES_PRE/setWaveField/Make/options
 fi
 
 ( cd $WAVES_PRE && wmake all )

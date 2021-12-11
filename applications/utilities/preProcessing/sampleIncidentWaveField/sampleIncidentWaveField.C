@@ -34,7 +34,19 @@ Author
 \*---------------------------------------------------------------------------*/
 
 #include "argList.H"
-#include "Time.H"
+
+#if EXTBRANCH==1
+    #if 310<OFVERSION
+        #include "foamTime.H"
+    #else
+        #include "Time.H"
+    #endif
+#elif OFPLUSBRANCH==1
+    #include "Time.H"
+#else
+    #include "Time.H"
+#endif
+
 #include "fvMesh.H"
 #include "volFields.H"
 #include "OFstream.H"
