@@ -1,0 +1,9 @@
+
+/* Current */
+internalVelocity/internalVelocity.C
+fixedDischarge/fixedDischarge.C
+
+fixedDischargeProperties/fixedDischargeProperties.C
+
+/* OUTPUT */
+LIB = $(WAVES_LIBBIN)/libinternal
