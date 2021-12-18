@@ -1,0 +1,67 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2.1.1                                 |
+|   \\  /    A nd           | Web:      www.OpenFOAM.org                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version	2.0;
+    format	ascii;
+    class	dictionary;
+    object	waveProperties;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+seaLevel            -8.0; // Downstream water level, since internalVelocityTrial does not correctly account for non-zero p_rgh
+seaLevelAsReference true;
+
+relaxationNames     ();
+
+initializationName  init;
+
+inletCoeffs
+{
+    waveType   fixedDischargeTrial;
+    Qm3s       1;
+    filterTime 4;
+
+    bottomLevel -10;
+    domainWidth 0.2;
+
+    Tsoft    2.0;
+
+    GABCSettings
+    {
+        preProcessMethod   constantDepth;
+        celerityFactor     0.7; // Accounts for absorbtion against the current direction: (c - U) ~= 0.7\sqrt{gh}
+        depth              3.6;   // Approximation
+    }
+}
+
+
+outletCoeffs
+{
+    waveType potentialCurrent;
+    localSeaLevel -8;
+    U        (0 0 0);
+    Tsoft    2.0;
+
+    GABCSettings
+    {
+        preProcessMethod   rationalDefault;
+        defaultRange       "kh000_030";
+        depth              22;
+    }
+}
+
+initCoeffs
+{
+    waveType potentialCurrent;
+    localSeaLevel -6.7;
+    U        (0 0 0);
+    Tsoft    2.0;
+}
+
+// ************************************************************************* //

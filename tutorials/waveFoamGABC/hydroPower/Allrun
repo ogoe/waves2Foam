@@ -1,0 +1,39 @@
+#!/bin/bash
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Compile trial boundary conditions
+(. ./../../../bin/bashrc; cd localLib; wmake libso)
+
+# Clean up
+(rm -rf 0/*)
+(rm -rf constant/polyMesh/*)
+
+# Create the base blockmesh
+runApplication blockMesh -dict system/blockMeshDict
+
+# Copy from 0.org
+list=`ls 0.org/*.org`
+
+for i in $list
+do
+    var=`basename $i`
+    cp $i 0/${var%.org}
+done
+
+# Set the surface elevation gauges
+runApplication waveGaugesNProbes
+
+# Prepare fields
+runApplication setWaveParameters
+runApplication setWaveField
+
+# Needed to have different water levels; possibly develop a custom boundary
+runApplication setFields   
+
+# No internalVelocityTrialProperties generated, hence brute force
+sed -i 's/potentialCurrent/internalVelocityTrial/' constant/waveProperties
+
+# Instructions for running the case
+## runApplication waveIsoFoam

@@ -1,0 +1,19 @@
+Case: hydroPower (Illustrative trial case for 2DV only)
+
+This case demonstrates the use of GABC for steady state applications, however, significant code development is required to make it into a streamlined implementation for general 3D applications akin to other parts of waves2Foam.
+
+Notes:
+1. Simulated without turbulence, so synthetically used nu = 5e-3 instead.
+
+2. seaLevel (waveProperties.input) is set to -8 m with 'seaLevelAsReference true', because the downstream steady water level boundary condition need a vanishing excess pressure.
+
+3. Note that the solution never becomes steady upstream, because pressure waves go against the flow in the tube, whereby waves travel towards the inlet. These are absorbed by the GABC.
+
+4. The initial water level is larger than the quasi-steady and the inlet boundary automatically adjusts (i) the water level and (ii) the inlet velocity to ensure the volume flux, while also working as an absorbing boundary for outgoing waves.
+
+5. The water depth at the inlet is unknown apriori, so it is an approximation. This also means that the absorbtion performance varies through the simulation, because the actual water level varies. An adaptive approach for the water depth in the GABC could be useful.
+
+6. Tested for OpenFoam (ESI) v. 2106.
+
+Niels G. Jacobsen
+Copenhagen, Denmark, 2021.12.17
