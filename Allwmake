@@ -142,7 +142,10 @@ done
 # Compile the setWaveField and account for the inclusion of lwaveModels (IHFoam) as of 2012-ESI
 if [ "$OFPLUSBRANCH" -eq "1" ]
 then
-    if [ "$WM_PROJECT_VERSION_NUMBER" -lt 2012 ]
+    if [ "$WM_PROJECT_VERSION_NUMBER" -lt 1812 ]
+    then
+        ln -s -f $WAVES_PRE/setWaveField/Make/optionsNonGABC $WAVES_PRE/setWaveField/Make/options
+    elif [ "$WM_PROJECT_VERSION_NUMBER" -lt 2012 ]
     then
         ln -s -f $WAVES_PRE/setWaveField/Make/optionsPre2012 $WAVES_PRE/setWaveField/Make/options
     else
