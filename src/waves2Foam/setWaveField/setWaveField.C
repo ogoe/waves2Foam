@@ -207,6 +207,62 @@ void setWaveField::correct()
 }
 
 
+void setWaveField::correct
+(
+    const labelList& indices
+)
+{
+    // Loop over all internal fields
+    const scalarField& V( mesh_.V() );
+
+    forAll (indices, indexi)
+    {
+        label celli = indices[indexi];
+        localCell lc = dividePolyhedral( celli, point::zero, point::one);
+
+        vector UTarget(waveProps_->windVelocity(U_.db().time().value()));
+        scalar pTarget(0.0);
+        scalar alphaTarget(0.0);
+
+        // If size is less than 4, then one cannot evaluate centre/magnitude
+        // without getting an floating point exception error
+        if (lc.ccNeg().size() >= 4)
+        {
+            UTarget = waveProps_->U(lc.centreNeg(), U_.db().time().value());
+            pTarget = waveProps_->pExcess(lc.centreNeg(), U_.db().time().value());
+            alphaTarget = lc.magNeg()/V[celli];
+        }
+
+        U_[celli] = UTarget;
+        alpha_[celli] = alphaTarget;
+        p_[celli] = pTarget;
+    }
+
+#if OFPLUSBRANCH==1
+    #if OFVERSION>1806
+    // Loop over all boundary patches and perform specific corrections for the
+    // GABC boundaries
+    forAll (mesh_.boundaryMesh(), patchI)
+    {
+        // Get the first 4 characters of the pressure type
+        std::string pStr(p_.boundaryField()[patchI].type().c_str());
+        word pType(pStr.substr(0,4));
+
+        if (pType == "gabc")
+        {
+            alpha_.boundaryFieldRef()[patchI].evaluate();
+            U_.boundaryFieldRef()[patchI].evaluate();
+            p_.boundaryFieldRef()[patchI].evaluate();
+//            Info << p_.boundaryField()[patchI].type() << endl;
+        }
+    }
+
+    #endif
+#endif
+}
+
+
+
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 
 } // End namespace Foam

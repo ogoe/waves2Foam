@@ -138,9 +138,36 @@ int main(int argc, char *argv[])
 
     Info << "Setting the wave field ...\n" << endl;
 
-    setWaveField swf(mesh, U, alpha, pd);
+    if (waveProperties.found("initiateByZones") == 0)
+    {
+        Info << "Global" << endl;
+        setWaveField swf(mesh, U, alpha, pd);
 
-    swf.correct();
+        swf.correct();
+    }
+    else if (Switch(waveProperties.lookup("initiateByZones")))
+    {
+        wordList relaxationSets(waveProperties.lookup("initiationZones"));
+
+        forAll(relaxationSets, relaxi)
+        {
+            Info << "    Setting wave field for cell zone " <<
+                    relaxationSets[relaxi] << endl;
+            setWaveField swf(mesh, relaxationSets[relaxi], U, alpha, pd);
+
+            label cellZoneID = mesh.cellZones().findZoneID(relaxationSets[relaxi]);
+            const labelList& cells = mesh.cellZones()[cellZoneID];
+
+            swf.correct(cells);
+        }
+    }
+    else
+    {
+        Info << "Global 2" << endl;
+        setWaveField swf(mesh, U, alpha, pd);
+
+        swf.correct();
+    }
 
     alpha.write();
 
