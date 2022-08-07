@@ -104,6 +104,7 @@ autoPtr<porosityCoefficient> porosityCoefficient::New
     word poroForm = poroProp.lookup("resistanceFormulation");
 #endif
 
+#if OFVERSION < 2206
     porosityCoefficientConstructorTable::iterator cstrIter =
             porosityCoefficientConstructorTablePtr_->find(poroForm);
 
@@ -120,6 +121,23 @@ autoPtr<porosityCoefficient> porosityCoefficient::New
     }
 
     return autoPtr<porosityCoefficient>(cstrIter()( poroProp ));
+#else
+    auto* cstrIter = porosityCoefficientConstructorTable(poroForm);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "porosityCoefficient::New(const dictionary &)"
+        )   << "Unknown resistance formulation: " << poroForm
+            << endl << endl
+            << "Valid methods are :" << endl
+            << porosityCoefficientConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<porosityCoefficient>(cstrIter( poroProp ));
+#endif
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //

@@ -122,6 +122,7 @@ autoPtr<waveSpectra> waveSpectra::New
     word spectrumName;
     dict.lookup("spectrum") >> spectrumName;
 
+#if OFVERSION < 2206
     waveSpectraConstructorTable::iterator cstrIter =
             waveSpectraConstructorTablePtr_->find(spectrumName);
 
@@ -138,6 +139,23 @@ autoPtr<waveSpectra> waveSpectra::New
     }
 
     return autoPtr<waveSpectra>(cstrIter()(rT, dict, g, amp, freq, phi, k));
+#else
+    auto* cstrIter = waveSpectraConstructorTable(spectrumName);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "waveSpectra::New(const fvMesh&, dictionary&, bool)"
+        )   << "Unknown wave spectrum '" << spectrumName << "'"
+            << endl << endl
+            << "Valid wave spectra are:" << endl
+            << waveSpectraConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<waveSpectra>(cstrIter(rT, dict, g, amp, freq, phi, k));
+#endif
 }
 
 

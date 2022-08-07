@@ -60,6 +60,7 @@ autoPtr<pointDistributions> pointDistributions::New
 {
     word pd( dict.lookup("pointDistribution") );
 
+#if OFVERSION < 2206
     pointDistributionsConstructorTable::iterator cstrIter =
             pointDistributionsConstructorTablePtr_->find( pd );
 
@@ -75,8 +76,24 @@ autoPtr<pointDistributions> pointDistributions::New
             << exit(FatalError);
     }
 
-//    return autoPtr<pointDistributions>(cstrIter()( mesh, dict));
     return autoPtr<pointDistributions>(cstrIter()( dict));
+#else
+    auto* cstrIter = pointDistributionsConstructorTable(pd);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "pointDistributions::New(const dictionary&)"
+        )   << "Unknown point distribution: " << pd
+            << endl << endl
+            << "Valid methods are :" << endl
+            << pointDistributionsConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<pointDistributions>(cstrIter(dict));
+#endif
 }
 
 

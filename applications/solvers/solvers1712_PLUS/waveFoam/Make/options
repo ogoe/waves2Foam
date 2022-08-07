@@ -14,7 +14,7 @@ EXE_INC = \
     -DOFPLUSBRANCH=1 \
     -DXVERSION=$(WAVES_XVERSION) \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
-    -I$(WAVES_SRC)/waves2FoamSamplingNew/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling1712/lnInclude \
     -I$(WAVES_GSL_INCLUDE)
 
 EXE_LIBS = \

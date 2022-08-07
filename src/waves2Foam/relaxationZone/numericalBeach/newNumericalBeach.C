@@ -58,6 +58,7 @@ autoPtr<numericalBeach> numericalBeach::New
         beachTypeName = coeffDict_.lookupOrDefault<word>("beachType","Empty");
     }
 
+#if OFVERSION < 2206
     dictionaryConstructorTable::iterator cstrIter =
         dictionaryConstructorTablePtr_->find("numericalBeach"+beachTypeName);
 
@@ -74,6 +75,23 @@ autoPtr<numericalBeach> numericalBeach::New
     }
 
     return autoPtr<numericalBeach>(cstrIter()(subDictName,mesh_));
+#else
+    auto* cstrIter = dictionaryConstructorTable("numericalBeach"+beachTypeName);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "numericalBeach::New(const word&, const fvMesh&)"
+        )   << "Unknown beach type 'numericalBeach" << beachTypeName << "'"
+            << endl << endl
+            << "Valid beach types are :" << endl
+            << dictionaryConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<numericalBeach>(cstrIter(subDictName,mesh_));
+#endif
 }
 
 

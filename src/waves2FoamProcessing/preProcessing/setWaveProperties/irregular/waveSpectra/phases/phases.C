@@ -67,6 +67,7 @@ autoPtr<phases> phases::New
 {
     word phaseName = dict.lookupOrDefault<word>("phaseMethod","randomPhase");
 
+#if OFVERSION < 2206
     phasesConstructorTable::iterator cstrIter =
             phasesConstructorTablePtr_->find(phaseName);
 
@@ -83,6 +84,23 @@ autoPtr<phases> phases::New
     }
 
     return autoPtr<phases>(cstrIter()(rT, dict));
+#else
+    auto* cstrIter = phasesConstructorTable(phaseName);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "phases::New(const Time&, dictionary&)"
+        )   << "Unknown phasing method '" << phaseName << "'"
+            << endl << endl
+            << "Valid phasing methods are:" << endl
+            << phasesConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<phases>(cstrIter(rT, dict));
+#endif
 }
 
 

@@ -59,6 +59,7 @@ autoPtr<relaxationShape> relaxationShape::New
 
     }
 
+#if OFVERSION < 2206
     dictionaryConstructorTable::iterator cstrIter =
         dictionaryConstructorTablePtr_->find
         (
@@ -78,6 +79,26 @@ autoPtr<relaxationShape> relaxationShape::New
     }
 
     return autoPtr<relaxationShape>(cstrIter()(subDictName,mesh_));
+#else
+    auto* cstrIter = dictionaryConstructorTable
+        (
+            "relaxationShape"+relaxationShapeTypeName
+        );
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "relaxationShape::New(const word&, const fvMesh&)"
+        )   << "Unknown relaxation shape type 'relaxationShape"
+            << relaxationShapeTypeName << "'" << endl << endl
+            << "Valid relaxation shape types are :" << endl
+            << dictionaryConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<relaxationShape>(cstrIter(subDictName,mesh_));
+#endif
 }
 
 
@@ -88,6 +109,8 @@ autoPtr<relaxationShape> relaxationShape::New
     const fvMesh& mesh_
 )
 {
+
+#if OFVERSION < 2206
     dictionaryConstructorTable::iterator cstrIter =
         dictionaryConstructorTablePtr_->find
         (
@@ -107,6 +130,26 @@ autoPtr<relaxationShape> relaxationShape::New
     }
 
     return autoPtr<relaxationShape>(cstrIter()(subDictName,mesh_));
+#else
+    auto* cstrIter = dictionaryConstructorTable
+        (
+            "relaxationShape"+relaxationShapeTypeName
+        );
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "relaxationShape::New(const word&, const fvMesh&)"
+        )   << "Unknown relaxation shape type 'relaxationShape"
+            << relaxationShapeTypeName << "'" << endl << endl
+            << "Valid relaxation shape types are :" << endl
+            << dictionaryConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<relaxationShape>(cstrIter(subDictName,mesh_));
+#endif
 }
 
 

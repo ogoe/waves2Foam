@@ -1,0 +1,23 @@
+EXE_INC = \
+    -DOFVERSION=$(WM_PROJECT_VERSION_NUMBER) \
+    -DEXTBRANCH=$(EXTBRANCH) \
+    -DXVERSION=$(WAVES_XVERSION) \
+    -DOFPLUSBRANCH=$(OFPLUSBRANCH) \
+    -I$(LIB_SRC)/finiteVolume/lnInclude \
+    -I$(LIB_SRC)/fileFormats/lnInclude \
+    -I$(LIB_SRC)/surfMesh/lnInclude \
+    -I$(LIB_SRC)/meshTools/lnInclude \
+    -I$(LIB_SRC)/conversion/lnInclude \
+    -I$(LIB_SRC)/dynamicMesh/lnInclude \
+    -I$(LIB_SRC)/sampling/lnInclude \
+    -I$(WAVES_SRC)/waves2Foam/lnInclude
+
+LIB_LIBS = \
+    -lfiniteVolume \
+    -lmeshTools \
+    -lconversion \
+    -ldynamicMesh \
+    -lsampling \
+    -L$(WAVES_LIBBIN) \
+    -lwaves2Foam
+

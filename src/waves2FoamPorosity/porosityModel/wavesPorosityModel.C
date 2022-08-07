@@ -99,6 +99,7 @@ autoPtr<wavesPorosityModel> wavesPorosityModel::New
         }
     }
 
+#if OFVERSION < 2206
     wavesPorosityModelConstructorTable::iterator cstrIter =
     		wavesPorosityModelConstructorTablePtr_->find(wavesPorosityModelTypeName);
 
@@ -115,6 +116,23 @@ autoPtr<wavesPorosityModel> wavesPorosityModel::New
     }
 
     return autoPtr<wavesPorosityModel>(cstrIter()(mesh));
+#else
+    auto* cstrIter = wavesPorosityModelConstructorTable(wavesPorosityModelTypeName);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "wavesPorosityModel::New(const fvMesh&)"
+        )   << "Unknown porosity model of type " << wavesPorosityModelTypeName
+            << endl << endl
+            << "Valid porosity models are :" << endl
+            << wavesPorosityModelConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<wavesPorosityModel>(cstrIter(mesh));
+#endif
 }
 
 
