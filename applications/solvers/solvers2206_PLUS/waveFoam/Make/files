@@ -1,0 +1,3 @@
+waveFoam.C
+
+EXE = $(FOAM_APPBIN)/waveFoam

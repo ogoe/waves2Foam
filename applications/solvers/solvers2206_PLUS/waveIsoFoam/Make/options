@@ -22,7 +22,7 @@ EXE_INC = \
     -I$(WAVES_SRC)/waves2FoamGABC/lnInclude \
     -I$(WAVES_SRC)/waves2FoamSampling1712/lnInclude \
     -I$(WAVES_GSL_INCLUDE) \
-    -DOFVERSION=2106 \
+    -DOFVERSION=2206 \
     -DEXTBRANCH=0 \
     -DOFPLUSBRANCH=1 \
     -DXVERSION=$(WAVES_XVERSION) \

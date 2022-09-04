@@ -28,6 +28,7 @@ gradSchemes
 
 divSchemes
 {
+    default Gauss linear;
     div(rhoPhi,U)  Gauss limitedLinearV 1;
     div((rhoPhi|interpolate(porosity)),U) Gauss limitedLinearV 1;
     div(phi,alpha)  Gauss vanLeer;
