@@ -301,6 +301,7 @@ autoPtr<setWaveProperties> setWaveProperties::New
     word waveTheoryTypeName;
     dict.lookup("waveType") >> waveTheoryTypeName;
 
+#if OFVERSION < 2206
     setWavePropertiesConstructorTable::iterator cstrIter =
         setWavePropertiesConstructorTablePtr_->find
         (
@@ -321,6 +322,27 @@ autoPtr<setWaveProperties> setWaveProperties::New
     }
 
     return autoPtr<setWaveProperties>(cstrIter()(rT, dict, g, write));
+#else
+    auto* cstrIter = setWavePropertiesConstructorTable
+        (
+            waveTheoryTypeName+"Properties"
+        );
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "setWaveProperties::New(const fvMesh&, const Time&, ...)"
+        )
+        << "Unknown wave property type " << waveTheoryTypeName << "Properties"
+        << endl << endl
+        << "Valid wave property types are :" << endl
+        << setWavePropertiesConstructorTablePtr_->toc()
+        << exit(FatalError);
+    }
+
+    return autoPtr<setWaveProperties>(cstrIter(rT, dict, g, write));
+#endif
 }
 
 

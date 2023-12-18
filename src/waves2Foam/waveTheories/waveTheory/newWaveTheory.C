@@ -58,6 +58,7 @@ autoPtr<waveTheory> waveTheory::New
         coeffDict_.lookup("waveType") >> waveTheoryTypeName;
     }
 
+#if OFVERSION < 2206
     dictionaryConstructorTable::iterator cstrIter =
         dictionaryConstructorTablePtr_->find(waveTheoryTypeName);
 
@@ -74,6 +75,23 @@ autoPtr<waveTheory> waveTheory::New
     }
 
     return autoPtr<waveTheory>(cstrIter()(subDictName,mesh_));
+#else
+    auto* cstrIter = dictionaryConstructorTable(waveTheoryTypeName);
+
+    if (!cstrIter)
+        {
+            FatalErrorIn
+            (
+                "waveTheory::New(const word&, const fvMesh&)"
+            )   << "Unknown wave theory type " << waveTheoryTypeName
+                << endl << endl
+                << "Valid wave theories types are :" << endl
+                << dictionaryConstructorTablePtr_->toc()
+                << exit(FatalError);
+        }
+
+        return autoPtr<waveTheory>(cstrIter(subDictName,mesh_));
+#endif
 }
 
 

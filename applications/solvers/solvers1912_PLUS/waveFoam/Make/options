@@ -12,7 +12,7 @@ EXE_INC = \
     -I$(LIB_SRC)/TurbulenceModels/incompressible/lnInclude \
     -I$(LIB_SRC)/transportModels/immiscibleIncompressibleTwoPhaseMixture/lnInclude \
     -I$(WAVES_SRC)/waves2Foam/lnInclude \
-    -I$(WAVES_SRC)/waves2FoamSamplingNew/lnInclude \
+    -I$(WAVES_SRC)/waves2FoamSampling1712/lnInclude \
     -I$(WAVES_GSL_INCLUDE) \
     -DOFVERSION=1912 \
     -DEXTBRANCH=0 \

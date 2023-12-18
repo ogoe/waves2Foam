@@ -60,6 +60,7 @@ autoPtr<relaxationScheme> relaxationScheme::New
         coeffDict_.lookup("relaxationScheme") >> relaxationSchemeTypeName;
     }
 
+#if OFVERSION < 2206
     dictionaryConstructorTable::iterator cstrIter =
         dictionaryConstructorTablePtr_->find
         (
@@ -85,6 +86,33 @@ autoPtr<relaxationScheme> relaxationScheme::New
     }
 
     return autoPtr<relaxationScheme>(cstrIter()(subDictName,mesh,U,alpha));
+#else
+    auto* cstrIter =
+        dictionaryConstructorTable
+        (
+            "relaxationScheme"+relaxationSchemeTypeName
+        );
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "relaxationScheme::New"
+            "("
+            "    const word&, "
+            "    const fvMesh&,"
+            "    vectorField& U,"
+            "    scalarField& alpha"
+            ")"
+        )   << "Unknown relaxationScheme '" << relaxationSchemeTypeName << "'"
+            << endl << endl
+            << "Valid relaxation schemes are:" << endl
+            << dictionaryConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<relaxationScheme>(cstrIter(subDictName,mesh,U,alpha));
+#endif
 }
 
 

@@ -130,6 +130,7 @@ autoPtr<gabcSettings> gabcSettings::New
     word gabcTypeName;
     dict.lookup("preProcessMethod") >> gabcTypeName;
 
+#if OFVERSION < 2206
     gabcSettingsConstructorTable::iterator cstrIter =
         gabcSettingsConstructorTablePtr_->find
         (
@@ -150,6 +151,27 @@ autoPtr<gabcSettings> gabcSettings::New
     }
 
     return autoPtr<gabcSettings>(cstrIter()(dict, depth));
+#else
+    auto* cstrIter = gabcSettingsConstructorTable
+        (
+            gabcTypeName
+        );
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "gabcSettings::New(dictionary&)"
+        )
+        << "Unknown GABC method " << gabcTypeName
+        << endl << endl
+        << "Valid GABC methods are :" << endl
+        << gabcSettingsConstructorTablePtr_->toc()
+        << exit(FatalError);
+    }
+
+    return autoPtr<gabcSettings>(cstrIter(dict, depth));
+#endif
 }
 
 

@@ -92,6 +92,7 @@ autoPtr<frequencyAxis> frequencyAxis::New
 {
     word discretisation(dict.subDict("frequencyAxis").lookup("discretisation"));
 
+#if OFVERSION < 2206
     frequencyAxisConstructorTable::iterator cstrIter =
             frequencyAxisConstructorTablePtr_->find(discretisation);
 
@@ -108,6 +109,23 @@ autoPtr<frequencyAxis> frequencyAxis::New
     }
 
     return autoPtr<frequencyAxis>(cstrIter()(rT, dict));
+#else
+    auto* cstrIter = frequencyAxisConstructorTable(discretisation);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "frequencyAxis::New(const Time&, dictionary&)"
+        )   << "Unknown discretisation method '" << discretisation << "'"
+            << endl << endl
+            << "Valid discretisation methods are:" << endl
+            << frequencyAxisConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<frequencyAxis>(cstrIter(rT, dict));
+#endif
 }
 
 

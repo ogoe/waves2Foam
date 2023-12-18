@@ -107,6 +107,7 @@ autoPtr<celerityShapeFunctions> celerityShapeFunctions::New
     word formulation;
     sd.lookup("shapeFunction") >> formulation;
 
+#if OFVERSION < 2206
     celerityShapeFunctionsConstructorTable::iterator cstrIter =
             celerityShapeFunctionsConstructorTablePtr_->find(formulation);
 
@@ -126,6 +127,26 @@ autoPtr<celerityShapeFunctions> celerityShapeFunctions::New
         (
             cstrIter()(mesh, patchName, dict, vert, seaLevel)
         );
+#else
+    auto* cstrIter = celerityShapeFunctionsConstructorTable(formulation);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "celerityShapeFunctions::New(const fvMesh &, ...)"
+        )   << "Unknown formulation for celerity shape function: " << formulation
+            << endl << endl
+            << "Valid methods are :" << endl
+            << celerityShapeFunctionsConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<celerityShapeFunctions>
+        (
+            cstrIter(mesh, patchName, dict, vert, seaLevel)
+        );
+#endif
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //

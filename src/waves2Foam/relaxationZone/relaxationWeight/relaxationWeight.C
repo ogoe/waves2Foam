@@ -97,6 +97,7 @@ autoPtr<relaxationWeight> relaxationWeight::New
 
     }
 
+#if OFVERSION < 2206
     dictionaryConstructorTable::iterator cstrIter =
         dictionaryConstructorTablePtr_->find
         (
@@ -116,6 +117,26 @@ autoPtr<relaxationWeight> relaxationWeight::New
     }
 
     return autoPtr<relaxationWeight>(cstrIter()(subDictName,mesh_));
+#else
+    auto* cstrIter = dictionaryConstructorTable
+        (
+            "relaxationWeight"+relaxationWeightTypeName
+        );
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+            "relaxationWeight::New(const word&, const fvMesh&)"
+        )   << "Unknown relaxation weight type 'relaxationWeight"
+            << relaxationWeightTypeName << "'"<< endl << endl
+            << "Valid relaxation weight types are :" << endl
+            << dictionaryConstructorTablePtr_->toc()
+            << exit(FatalError);
+    }
+
+    return autoPtr<relaxationWeight>(cstrIter(subDictName,mesh_));
+#endif
 }
 
 

@@ -75,6 +75,7 @@ autoPtr<externalWaveForcing> externalWaveForcing::New
         .lookupOrDefault<word>("externalForcing", "emptyExternal")
     );
 
+#if OFVERSION < 2206
     externalWaveForcingConstructorTable::iterator cstrIter =
         externalWaveForcingConstructorTablePtr_->find(externalType);
 
@@ -91,6 +92,23 @@ autoPtr<externalWaveForcing> externalWaveForcing::New
     }
 
     return autoPtr<externalWaveForcing>(cstrIter()(io, rT, mesh));
+#else
+   auto* cstrIter = externalWaveForcingConstructorTable(externalType);
+
+    if (!cstrIter)
+    {
+        FatalErrorIn
+        (
+                "externalWaveForcing::New(IOobject, const Time&)"
+        )   << "Unknown type of external wave forcing: " << externalType
+        << endl << endl
+        << "Valid external forcings are :" << endl
+        << externalWaveForcingConstructorTablePtr_->toc()
+        << exit(FatalError);
+    }
+
+    return autoPtr<externalWaveForcing>(cstrIter(io, rT, mesh));
+#endif
 }
 
 // * * * * * * * * * * * * * * * Member Functions  * * * * * * * * * * * * * //
